@@ -965,12 +965,22 @@ function contadores(){
   document.querySelectorAll('#expList .bloque').forEach(b=>{
     const ta = b.querySelector('.e-bullets');
     const fb = b.querySelector('.b-fb');
+    // Si por cualquier razón falta el nodo, no tumbes toda la actualización:
+    // el resto del formulario (vista previa, checklist, guardado) debe seguir vivo.
+    if(!ta || !fb) return;
     const bs = ta.value.split('\n').map(s=>s.trim()).filter(Boolean);
-    if(!bs.length){ fb.textContent = 'Agrega de 3 a 5 logros, uno por línea.'; fb.className='counter'; return; }
+    // OJO: hay que conservar SIEMPRE la clase 'b-fb', porque es la que usa este
+    // mismo selector en la siguiente pasada. Sobrescribir className a secas la
+    // borraba y rompía el formulario a partir de la segunda actualización.
+    if(!bs.length){
+      fb.textContent = 'Agrega de 3 a 5 logros, uno por línea.';
+      fb.className = 'counter b-fb';
+      return;
+    }
     const num = bs.filter(tieneNumero).length, vb = bs.filter(empiezaConVerbo).length;
     const ok = num >= Math.ceil(bs.length/2) && vb === bs.length && bs.length >= 3;
     fb.textContent = bs.length + ' logros · ' + num + ' con dato medible · ' + vb + ' empiezan con verbo de acción';
-    fb.className = 'counter ' + (ok ? 'good' : 'bad');
+    fb.className = 'counter b-fb ' + (ok ? 'good' : 'bad');
   });
 }
 
