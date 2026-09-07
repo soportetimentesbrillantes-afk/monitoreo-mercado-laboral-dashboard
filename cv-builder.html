@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Constructor de CV — Club de Mentes Brillantes</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mammoth@1.6.0/mammoth.browser.min.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
@@ -166,9 +168,44 @@ button.danger{background:#fff;color:var(--rojo);border:1px solid #e7cdc9;}
   </div>
 </section>
 
-<!-- ============ PASO 2: DATOS ============ -->
+<!-- ============ PASO 2: CARGAR CV EXISTENTE ============ -->
 <section class="step">
-  <div class="step-badge">Paso 2</div>
+  <div class="step-badge">Paso 2 · Opcional</div>
+  <h2>¿Ya tienes un CV? Súbelo y llenamos los campos por ti</h2>
+  <p class="note">Leemos tu CV, identificamos qué información va en cada apartado y llenamos el formulario.
+  Tú solo revisas y corriges. Si prefieres empezar de cero, sáltate este paso.</p>
+
+  <div class="card">
+    <label for="cvFile">Archivo de tu CV <span class="opt">(PDF, DOCX o TXT)</span></label>
+    <input type="file" id="cvFile" accept=".pdf,.docx,.txt,application/pdf,text/plain">
+    <div id="cvFileMsg"></div>
+
+    <label for="cvTexto" style="margin-top:16px;">Texto extraído <span class="opt">(puedes pegarlo aquí directamente si prefieres)</span></label>
+    <textarea id="cvTexto" style="min-height:120px;" placeholder="Aquí aparece el texto de tu CV una vez que subas el archivo. También puedes pegarlo tú mismo."></textarea>
+
+    <div class="btnrow">
+      <button id="btnAutollenar" onclick="autollenar()">Llenar el formulario con este CV →</button>
+    </div>
+    <div id="autoOut"></div>
+
+    <div class="hint">
+      <strong>Qué hacemos y qué no:</strong> transcribimos a los campos únicamente lo que ya está escrito
+      en tu CV. No agregamos experiencia, no inventamos cifras y no rellenamos huecos. Si tu CV no trae
+      un dato, el campo se queda vacío para que tú lo completes.
+    </div>
+    <div class="warn">
+      <strong>Revisa siempre lo que se llenó.</strong> La lectura automática se equivoca con CVs de dos columnas,
+      tablas o cuadros de texto — que son justamente los formatos que los ATS tampoco leen bien.
+      Si algo quedó en el campo equivocado, corrígelo antes de continuar.
+    </div>
+    <div class="note">El archivo se procesa en tu navegador; solo el texto se envía al servicio de análisis
+    para identificar a qué apartado corresponde cada parte. No se guarda.</div>
+  </div>
+</section>
+
+<!-- ============ PASO 3: DATOS ============ -->
+<section class="step">
+  <div class="step-badge">Paso 3</div>
   <h2>Datos de contacto</h2>
   <p class="note">Van hasta arriba, en texto normal. Nunca dentro de un encabezado, imagen o cuadro de texto:
   ahí es donde más ATS pierden la información.</p>
@@ -193,7 +230,7 @@ button.danger{background:#fff;color:var(--rojo);border:1px solid #e7cdc9;}
 
 <!-- ============ PASO 3: PERFIL ============ -->
 <section class="step">
-  <div class="step-badge">Paso 3</div>
+  <div class="step-badge">Paso 4</div>
   <h2>Perfil profesional</h2>
   <p class="note">De 2 a 4 líneas, hasta arriba del CV. Es la parte que más peso tiene: los ATS y los reclutadores
   le dan prioridad a lo que aparece en las primeras líneas.</p>
@@ -221,7 +258,7 @@ button.danger{background:#fff;color:var(--rojo);border:1px solid #e7cdc9;}
 
 <!-- ============ PASO 4: EXPERIENCIA ============ -->
 <section class="step">
-  <div class="step-badge">Paso 4</div>
+  <div class="step-badge">Paso 5</div>
   <h2>Experiencia</h2>
   <p class="note">De lo más reciente a lo más antiguo. Si aún no has tenido un empleo formal, aquí van tus
   prácticas profesionales, servicio social, proyectos escolares aplicados, voluntariado o negocio propio:
@@ -249,7 +286,7 @@ button.danger{background:#fff;color:var(--rojo);border:1px solid #e7cdc9;}
 
 <!-- ============ PASO 5: EDUCACIÓN ============ -->
 <section class="step">
-  <div class="step-badge">Paso 5</div>
+  <div class="step-badge">Paso 6</div>
   <h2>Educación</h2>
   <p class="note">Si eres recién egresado o tienes menos de 2 años de experiencia, esta sección va
   <strong>antes</strong> que la de experiencia — el sistema lo acomoda solo según lo que captures.</p>
@@ -264,7 +301,7 @@ button.danger{background:#fff;color:var(--rojo);border:1px solid #e7cdc9;}
 
 <!-- ============ PASO 6: HABILIDADES ============ -->
 <section class="step">
-  <div class="step-badge">Paso 6</div>
+  <div class="step-badge">Paso 7</div>
   <h2>Habilidades</h2>
   <p class="note">Abajo están las habilidades que más aparecen en las vacantes verificadas del sector que elegiste,
   ordenadas por número de menciones reales.</p>
@@ -301,15 +338,40 @@ button.danger{background:#fff;color:var(--rojo);border:1px solid #e7cdc9;}
   </div>
 
   <div class="card">
-    <h3>Certificaciones y cursos <span class="opt" style="font-weight:400;">(opcional)</span></h3>
+    <h3>Cursos y capacitaciones <span class="opt" style="font-weight:400;">(opcional)</span></h3>
+    <p class="note" style="margin-top:0;">Formación que tomaste pero que no otorga una credencial verificable:
+    diplomados, talleres, cursos en línea, capacitaciones de la empresa.</p>
+    <div id="cursoList"></div>
+    <button class="secondary small" onclick="addCurso()">+ Agregar curso</button>
+    <div class="hint">
+      Incluye solo los que aporten al puesto que buscas. Un curso de 4 horas sin relación con la vacante
+      resta más de lo que suma, porque ocupa espacio que el reclutador podría estar leyendo de tu experiencia.
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Certificaciones <span class="opt" style="font-weight:400;">(opcional)</span></h3>
+    <p class="note" style="margin-top:0;">Credenciales oficiales con folio, número de licencia o
+    verificación en línea: PMP, Scrum Master, TOEFL, certificaciones de Microsoft, AWS, Cisco,
+    cédula profesional.</p>
     <div id="certList"></div>
     <button class="secondary small" onclick="addCert()">+ Agregar certificación</button>
+    <div class="hint">
+      <strong>Por qué van separadas de los cursos:</strong> una certificación es verificable por un tercero
+      y varias vacantes la piden como requisito duro. Los ATS suelen buscarlas por su nombre exacto,
+      así que escríbelo tal cual aparece en la credencial — "Project Management Professional (PMP)",
+      no "certificado de gestión de proyectos".
+    </div>
+    <div class="warn">
+      Si una certificación tiene vigencia y ya venció, anótalo o quítala. Declarar como vigente
+      algo que expiró es de las cosas que sí se verifican en un proceso formal.
+    </div>
   </div>
 </section>
 
 <!-- ============ PASO 7: REVISIÓN ============ -->
 <section class="step">
-  <div class="step-badge">Paso 7</div>
+  <div class="step-badge">Paso 8</div>
   <h2>Revisión antes de descargar</h2>
 
   <div class="card">
@@ -344,7 +406,7 @@ button.danger{background:#fff;color:var(--rojo);border:1px solid #e7cdc9;}
 
 <!-- ============ PASO 8: RESULTADO ============ -->
 <section class="step noprint">
-  <div class="step-badge">Paso 8</div>
+  <div class="step-badge">Paso 9</div>
   <h2>Tu CV</h2>
   <p class="note">Formato de una sola columna, tipografía estándar, sin tablas ni gráficos — que es
   exactamente lo que mejor leen los filtros automáticos.</p>
@@ -375,6 +437,7 @@ button.danger{background:#fff;color:var(--rojo);border:1px solid #e7cdc9;}
 
 const CV_ANALYSIS_ENDPOINT = 'https://cv-analisis.gael-ramav.workers.dev';
 const REVISAR_CV_ENDPOINT  = CV_ANALYSIS_ENDPOINT + '/revisar-cv';
+const EXTRAER_CV_ENDPOINT  = CV_ANALYSIS_ENDPOINT + '/extraer-cv';
 const LS_KEY = 'cmb_cv_builder_v1';
 
 let SECTORES = [];
@@ -525,18 +588,38 @@ function addIdioma(data){
   actualizar();
 }
 
+function addCurso(data){
+  data = data || {};
+  const div = document.createElement('div');
+  div.className = 'bloque curso';
+  div.style.padding = '12px';
+  div.innerHTML = '<div class="grid2">'
+    + '<div><label>Nombre del curso</label><input type="text" class="cu-nombre" placeholder="Ej. Excel Avanzado para Análisis de Datos" value="'+esc(data.nombre)+'"></div>'
+    + '<div><label>Institución o plataforma</label><input type="text" class="cu-inst" placeholder="Ej. Coursera / Universidad de Guanajuato" value="'+esc(data.inst)+'"></div>'
+    + '</div><div class="grid3" style="align-items:end;">'
+    + '<div><label>Duración <span class="opt">(opcional)</span></label><input type="text" class="cu-duracion" placeholder="Ej. 40 horas" value="'+esc(data.duracion)+'"></div>'
+    + '<div><label>Año</label><input type="text" class="cu-anio" placeholder="2025" value="'+esc(data.anio)+'"></div>'
+    + '<div><button class="danger small" onclick="this.closest(\'.bloque\').remove();actualizar()">Quitar</button></div>'
+    + '</div>';
+  $('cursoList').appendChild(div);
+  div.querySelectorAll('input').forEach(el=>el.addEventListener('input', actualizar));
+  actualizar();
+}
+
 function addCert(data){
   data = data || {};
   const div = document.createElement('div');
   div.className = 'bloque cert';
   div.style.padding = '12px';
-  div.innerHTML = '<div class="grid3" style="align-items:end;">'
-    + '<div><label>Nombre</label><input type="text" class="ce-nombre" placeholder="Ej. Excel Avanzado" value="'+esc(data.nombre)+'"></div>'
-    + '<div><label>Institución</label><input type="text" class="ce-inst" placeholder="Ej. Coursera" value="'+esc(data.inst)+'"></div>'
-    + '<div style="display:flex;gap:8px;align-items:end;">'
-    + '<div style="flex:1;"><label>Año</label><input type="text" class="ce-anio" placeholder="2025" value="'+esc(data.anio)+'"></div>'
-    + '<button class="danger small" onclick="this.closest(\'.bloque\').remove();actualizar()">Quitar</button></div>'
-    + '</div>';
+  div.innerHTML = '<div class="grid2">'
+    + '<div><label>Nombre oficial de la certificación</label><input type="text" class="ce-nombre" placeholder="Ej. Project Management Professional (PMP)" value="'+esc(data.nombre)+'"></div>'
+    + '<div><label>Organismo que la emite</label><input type="text" class="ce-inst" placeholder="Ej. Project Management Institute" value="'+esc(data.inst)+'"></div>'
+    + '</div><div class="grid3" style="align-items:end;">'
+    + '<div><label>Folio o credencial <span class="opt">(opcional)</span></label><input type="text" class="ce-folio" placeholder="Ej. 1234567" value="'+esc(data.folio)+'"></div>'
+    + '<div><label>Año</label><input type="text" class="ce-anio" placeholder="2025" value="'+esc(data.anio)+'"></div>'
+    + '<div><label>Vigencia <span class="opt">(si aplica)</span></label><input type="text" class="ce-vigencia" placeholder="Ej. Hasta 2028 / Permanente" value="'+esc(data.vigencia)+'"></div>'
+    + '</div>'
+    + '<div style="text-align:right;margin-top:8px;"><button class="danger small" onclick="this.closest(\'.bloque\').remove();actualizar()">Quitar</button></div>';
   $('certList').appendChild(div);
   div.querySelectorAll('input').forEach(el=>el.addEventListener('input', actualizar));
   actualizar();
@@ -555,7 +638,7 @@ function recolectar(){
     portafolio: $('portafolio').value.trim(),
     perfil: $('perfil').value.trim(),
     habExtra: $('habExtra').value.trim(),
-    exp: [], edu: [], idiomas: [], certs: [], habTec: [], habBlandas: []
+    exp: [], edu: [], idiomas: [], cursos: [], certs: [], habTec: [], habBlandas: []
   };
   document.querySelectorAll('#expList .bloque').forEach(b=>{
     st.exp.push({
@@ -580,8 +663,22 @@ function recolectar(){
   document.querySelectorAll('#idiomaList .bloque').forEach(b=>{
     st.idiomas.push({nombre:b.querySelector('.i-nombre').value.trim(), nivel:b.querySelector('.i-nivel').value});
   });
+  document.querySelectorAll('#cursoList .bloque').forEach(b=>{
+    st.cursos.push({
+      nombre:b.querySelector('.cu-nombre').value.trim(),
+      inst:b.querySelector('.cu-inst').value.trim(),
+      duracion:b.querySelector('.cu-duracion').value.trim(),
+      anio:b.querySelector('.cu-anio').value.trim()
+    });
+  });
   document.querySelectorAll('#certList .bloque').forEach(b=>{
-    st.certs.push({nombre:b.querySelector('.ce-nombre').value.trim(), inst:b.querySelector('.ce-inst').value.trim(), anio:b.querySelector('.ce-anio').value.trim()});
+    st.certs.push({
+      nombre:b.querySelector('.ce-nombre').value.trim(),
+      inst:b.querySelector('.ce-inst').value.trim(),
+      folio:b.querySelector('.ce-folio').value.trim(),
+      anio:b.querySelector('.ce-anio').value.trim(),
+      vigencia:b.querySelector('.ce-vigencia').value.trim()
+    });
   });
   document.querySelectorAll('#chipsTec input:checked').forEach(i=>st.habTec.push(i.value));
   document.querySelectorAll('#chipsBlandas input:checked').forEach(i=>st.habBlandas.push(i.value));
@@ -611,6 +708,7 @@ function restaurar(){
   (st.exp && st.exp.length ? st.exp : [{}]).forEach(addExp);
   (st.edu && st.edu.length ? st.edu : [{}]).forEach(addEdu);
   (st.idiomas && st.idiomas.length ? st.idiomas : [{}]).forEach(addIdioma);
+  (st.cursos||[]).forEach(addCurso);
   (st.certs||[]).forEach(addCert);
 }
 
@@ -772,7 +870,21 @@ function renderCV(st){
   const ce = st.certs.filter(c=>c.nombre);
   if(ce.length){
     p.push('<div class="cvblock"><h2 class="cvsec">Certificaciones</h2><ul class="cvb">'
-      + ce.map(c=>'<li>'+esc([c.nombre, c.inst, c.anio].filter(Boolean).join(' — '))+'</li>').join('')
+      + ce.map(c=>{
+          const folio = c.folio ? ' — Folio ' + c.folio : '';
+          const vig = c.vigencia ? ' — Vigencia: ' + c.vigencia : '';
+          return '<li>'+esc([c.nombre, c.inst, c.anio].filter(Boolean).join(' — ') + folio + vig)+'</li>';
+        }).join('')
+      + '</ul></div>');
+  }
+
+  const cu = st.cursos.filter(c=>c.nombre);
+  if(cu.length){
+    p.push('<div class="cvblock"><h2 class="cvsec">Cursos y capacitaciones</h2><ul class="cvb">'
+      + cu.map(c=>{
+          const dur = c.duracion ? ' (' + c.duracion + ')' : '';
+          return '<li>'+esc([c.nombre, c.inst, c.anio].filter(Boolean).join(' — ') + dur)+'</li>';
+        }).join('')
       + '</ul></div>');
   }
 
@@ -817,7 +929,18 @@ function textoPlano(st){
   const idi = st.idiomas.filter(i=>i.nombre);
   if(idi.length){ L.push('','IDIOMAS', idi.map(i=>i.nombre+(i.nivel?' - '+i.nivel:'')).join(', ')); }
   const ce = st.certs.filter(c=>c.nombre);
-  if(ce.length){ L.push('','CERTIFICACIONES'); ce.forEach(c=>L.push('- '+[c.nombre,c.inst,c.anio].filter(Boolean).join(' - '))); }
+  if(ce.length){
+    L.push('','CERTIFICACIONES');
+    ce.forEach(c=>{
+      const extra = [c.folio ? 'Folio ' + c.folio : '', c.vigencia ? 'Vigencia: ' + c.vigencia : ''].filter(Boolean).join(' - ');
+      L.push('- ' + [c.nombre,c.inst,c.anio].filter(Boolean).join(' - ') + (extra ? ' - ' + extra : ''));
+    });
+  }
+  const cu = st.cursos.filter(c=>c.nombre);
+  if(cu.length){
+    L.push('','CURSOS Y CAPACITACIONES');
+    cu.forEach(c=>L.push('- ' + [c.nombre,c.inst,c.anio].filter(Boolean).join(' - ') + (c.duracion ? ' ('+c.duracion+')' : '')));
+  }
   return L.join('\n');
 }
 
@@ -860,6 +983,180 @@ function actualizar(){
   pintarChecklist(revisionLocal(st));
   clearTimeout(tGuardar);
   tGuardar = setTimeout(()=>guardar(false), 600);
+}
+
+/* =======================================================================
+   CARGA DE CV EXISTENTE Y AUTOLLENADO
+   El archivo se procesa en el navegador; solo el texto viaja al servicio.
+   La extracción NUNCA inventa: si el CV no trae un dato, el campo queda vacío.
+   ======================================================================= */
+
+if (window['pdfjsLib']) {
+  pdfjsLib.GlobalWorkerOptions.workerSrc =
+    'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+}
+
+function leerArchivo(file, como){
+  return new Promise((res, rej)=>{
+    const r = new FileReader();
+    r.onload = () => res(r.result);
+    r.onerror = () => rej(new Error('no se pudo leer el archivo'));
+    if(como === 'buffer') r.readAsArrayBuffer(file); else r.readAsText(file);
+  });
+}
+
+async function extraerPDF(file){
+  const buf = await leerArchivo(file, 'buffer');
+  const pdf = await pdfjsLib.getDocument({data: new Uint8Array(buf)}).promise;
+  let t = '';
+  for(let i=1; i<=pdf.numPages; i++){
+    const page = await pdf.getPage(i);
+    const c = await page.getTextContent();
+    t += c.items.map(it=>it.str).join(' ') + '\n';
+  }
+  return t;
+}
+
+async function extraerDOCX(file){
+  const buf = await leerArchivo(file, 'buffer');
+  const r = await mammoth.extractRawText({arrayBuffer: buf});
+  return r.value;
+}
+
+$('cvFile').addEventListener('change', async e => {
+  const file = e.target.files[0];
+  const msg = $('cvFileMsg');
+  if(!file) return;
+  msg.innerHTML = '<p class="note">Leyendo el archivo…</p>';
+  try{
+    let texto = '';
+    const n = file.name.toLowerCase();
+    if(n.endsWith('.pdf')) texto = await extraerPDF(file);
+    else if(n.endsWith('.docx')) texto = await extraerDOCX(file);
+    else texto = await leerArchivo(file, 'texto');
+
+    texto = String(texto || '').replace(/ /g,' ').replace(/[ \t]{2,}/g,' ').trim();
+    $('cvTexto').value = texto;
+
+    if(texto.length < 80){
+      msg.innerHTML = '<div class="warn" style="margin-top:10px;">Se extrajo muy poco texto ('
+        + texto.length + ' caracteres). Si tu CV es un PDF escaneado o una imagen, no tiene texto '
+        + 'seleccionable y no se puede leer automáticamente — pega el contenido a mano en el recuadro de abajo.</div>';
+    }else{
+      msg.innerHTML = '<div class="ok" style="margin-top:10px;">Texto extraído: '
+        + texto.length + ' caracteres. Revísalo abajo y presiona "Llenar el formulario".</div>';
+    }
+  }catch(err){
+    msg.innerHTML = '<div class="warn" style="margin-top:10px;">No se pudo leer el archivo ('
+      + esc(err.message) + '). Puedes pegar el texto de tu CV a mano en el recuadro de abajo.</div>';
+  }
+});
+
+/* --- Respaldo local: datos de contacto por patrón, sin IA --- */
+function extraerContactoLocal(texto){
+  const out = {};
+  const email = texto.match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/);
+  if(email) out.email = email[0];
+  const tel = texto.match(/(?:\+?52[\s-]?)?(?:\(?\d{2,3}\)?[\s-]?)?\d{3,4}[\s-]?\d{4}/);
+  if(tel && tel[0].replace(/\D/g,'').length >= 10) out.tel = tel[0].trim();
+  const li = texto.match(/(?:https?:\/\/)?(?:www\.)?linkedin\.com\/in\/[A-Za-z0-9._%-]+/i);
+  if(li) out.linkedin = li[0];
+  const gh = texto.match(/(?:https?:\/\/)?(?:www\.)?github\.com\/[A-Za-z0-9._-]+/i);
+  if(gh) out.portafolio = gh[0];
+  return out;
+}
+
+/* --- Aplica al formulario solo los campos que vengan con contenido --- */
+function aplicarExtraccion(d){
+  const puestos = [];
+  const set = (id, v) => { if(v && !$(id).value.trim()){ $(id).value = String(v).trim(); puestos.push(id); } };
+
+  set('nombre', d.nombre); set('tel', d.tel); set('email', d.email);
+  set('ciudad', d.ciudad); set('linkedin', d.linkedin); set('portafolio', d.portafolio);
+  set('puestoObjetivo', d.puestoObjetivo); set('perfil', d.perfil);
+
+  const reemplazar = (contenedor, lista, agregar) => {
+    if(!Array.isArray(lista) || !lista.length) return 0;
+    $(contenedor).innerHTML = '';
+    lista.forEach(agregar);
+    return lista.length;
+  };
+  const nExp = reemplazar('expList', d.exp, addExp);
+  const nEdu = reemplazar('eduList', d.edu, addEdu);
+  const nIdi = reemplazar('idiomaList', d.idiomas, addIdioma);
+  const nCur = reemplazar('cursoList', d.cursos, addCurso);
+  const nCer = reemplazar('certList', d.certs, addCert);
+
+  // Las habilidades detectadas se marcan solo si coinciden con el catálogo del
+  // sector; nunca se inventan chips nuevos. El resto va al campo de "otras".
+  let marcadas = 0;
+  if(Array.isArray(d.habilidades) && d.habilidades.length){
+    const norms = d.habilidades.map(norm);
+    document.querySelectorAll('#chipsTec input, #chipsBlandas input').forEach(inp=>{
+      const v = norm(inp.value);
+      if(norms.some(h => h === v || v.includes(h) || h.includes(v))){
+        inp.checked = true; inp.closest('.chip').classList.add('on'); marcadas++;
+      }
+    });
+    const enCatalogo = new Set();
+    document.querySelectorAll('#chipsTec input, #chipsBlandas input').forEach(i=>enCatalogo.add(norm(i.value)));
+    const sobrantes = d.habilidades.filter(h => !enCatalogo.has(norm(h))).slice(0, 12);
+    if(sobrantes.length && !$('habExtra').value.trim()) $('habExtra').value = sobrantes.join(', ');
+  }
+
+  actualizar();
+  return {campos: puestos.length, nExp, nEdu, nIdi, nCur, nCer, marcadas};
+}
+
+async function autollenar(){
+  const texto = $('cvTexto').value.trim();
+  const btn = $('btnAutollenar'), out = $('autoOut');
+  if(texto.length < 80){
+    out.innerHTML = '<div class="warn" style="margin-top:12px;">Sube tu CV o pega su texto antes de continuar.</div>';
+    return;
+  }
+  btn.disabled = true; btn.textContent = 'Leyendo tu CV…';
+  out.innerHTML = '<p class="note">Identificando qué información corresponde a cada apartado…</p>';
+
+  // El respaldo local corre siempre: aunque la IA falle, el contacto se llena.
+  const local = extraerContactoLocal(texto);
+  let datos = null, viaIA = false;
+
+  try{
+    const resp = await fetch(EXTRAER_CV_ENDPOINT, {
+      method:'POST', headers:{'content-type':'application/json'},
+      body: JSON.stringify({ cvTexto: texto })
+    });
+    if(resp.ok){
+      const d = await resp.json();
+      if(d && typeof d === 'object' && !d.error){ datos = d; viaIA = true; }
+    }
+  }catch(e){ /* se maneja abajo con el respaldo local */ }
+
+  const r = aplicarExtraccion(Object.assign({}, local, datos || {}));
+
+  const detalle = [];
+  if(r.campos) detalle.push(r.campos + ' campos de datos');
+  if(r.nExp)   detalle.push(r.nExp + ' experiencia(s)');
+  if(r.nEdu)   detalle.push(r.nEdu + ' formación(es)');
+  if(r.nIdi)   detalle.push(r.nIdi + ' idioma(s)');
+  if(r.nCur)   detalle.push(r.nCur + ' curso(s)');
+  if(r.nCer)   detalle.push(r.nCer + ' certificación(es)');
+  if(r.marcadas) detalle.push(r.marcadas + ' habilidad(es) del sector marcadas');
+
+  if(viaIA){
+    out.innerHTML = '<div class="ok" style="margin-top:12px;"><strong>Listo.</strong> Se llenó: '
+      + (detalle.length ? esc(detalle.join(' · ')) : 'nada — tu CV no traía datos reconocibles')
+      + '.<br><strong>Ahora revisa cada apartado y corrige lo que haga falta.</strong> '
+      + 'Lo que tu CV no traía quedó vacío a propósito: no inventamos nada.</div>';
+  }else{
+    out.innerHTML = '<div class="warn" style="margin-top:12px;">El servicio de lectura por IA no está '
+      + 'disponible en este momento, así que solo se llenaron los datos de contacto que se pueden '
+      + 'detectar por patrón (' + (detalle.length ? esc(detalle.join(' · ')) : 'ninguno encontrado')
+      + '). El resto de los apartados tendrás que capturarlos a mano — el texto de tu CV sigue '
+      + 'abajo para que lo copies.</div>';
+  }
+  btn.disabled = false; btn.textContent = 'Llenar el formulario con este CV →';
 }
 
 /* ---------------- revisión con IA ---------------- */
