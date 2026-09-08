@@ -222,7 +222,7 @@ button.secondary:hover, a.secondary:hover{background:var(--hero-bg2);}
 
     <div class="card" id="cursosCard" style="display:none;">
       <div class="step-header"><div class="step-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.4 10.9a1 1 0 0 0 0-1.84L12.8 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.83l8.57 3.9a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></svg></div><div><span class="step-tag">Paso 4 · Recomendado por IA</span><h2>Cursos recomendados</h2></div></div>
-      <div class="note">A partir de las habilidades que te faltaron arriba, Claude (IA) elige los 5 cursos reales que más te convienen para cerrarlas — priorizando las habilidades más pedidas en las vacantes del sector. Si el servicio de IA no está disponible en este momento, se usa como respaldo el catálogo interno del equipo (hoy solo cubre Automotriz y Turismo).</div>
+      <div class="note">Todos los cursos que ves aquí son <strong>del catálogo del Club de Mentes Brillantes</strong>: no recomendamos cursos de otras plataformas. A partir de las habilidades que te faltaron arriba, elegimos hasta 5 de nuestra oferta del sector, priorizando las habilidades más pedidas en las vacantes. Si todavía no tenemos cursos para tu sector, te lo decimos y no aparece nada.</div>
       <div id="cursosContenido"></div>
     </div>
 
@@ -726,15 +726,21 @@ function descargarReporte(){
   const cursos = ultimoReporte.cursosRecomendados || cursosRecomendadosLocal(sectorKey, missing);
   md += `\n\n## Cursos recomendados (mejores 5, por IA — con respaldo local si la IA no está disponible)\n\n`;
   md += cursos.length
-    ? cursos.map(c=>`- **${c.nombre}** — ${c.fuente || c.institucion || 'fuente no especificada'}, ${c.modalidad}, ${c.duracion} (${c.nivel}). Cubre: ${c.cubre.join(', ')}`).join('\n')
-    : '_No se identificaron cursos adicionales necesarios._';
+    // Se omiten los campos vacíos: el catálogo real no siempre trae duración o
+    // nivel, y escribir "undefined" en el reporte que la persona descarga es feo.
+    ? cursos.map(c=>{
+        const datos = [c.fuente || c.institucion, c.modalidad, c.duracion, c.nivel ? ('nivel ' + c.nivel) : null]
+                        .filter(Boolean).join(', ');
+        return `- **${c.nombre}**${datos ? ' — ' + datos : ''}. Cubre: ${c.cubre.join(', ')}`;
+      }).join('\n')
+    : '_Por ahora no tenemos cursos propios que cubran estas habilidades._';
 
   md += `\n\n## Empleos recomendados para ti\n\n`;
   md += empleosMostrados.length
     ? empleosMostrados.map(v=>`- **${v.titulo}**${v._sectorNombre ? ' (' + v._sectorNombre + ')' : ''} — ${v.empresa}, ${v.ubicacion}${formatSalarioRango(v.salario_min,v.salario_max) ? ' · ' + formatSalarioRango(v.salario_min,v.salario_max) : ''} (publicada ${v.fecha_publicacion}, vía ${v.fuente}).${v.matchedSkills && v.matchedSkills.length ? ' Coincide en: ' + v.matchedSkills.join(', ') + '.' : ''} Ver vacante: ${v.url}`).join('\n')
     : '_No hay vacantes que cumplan los filtros seleccionados en este momento._';
 
-  md += `\n\n---\n_Este reporte se generó localmente en tu navegador a partir del texto que proporcionaste y de las habilidades más mencionadas en las vacantes verificadas del sector (corrida ${DATA.meta.corrida}). Los cursos vienen del catálogo real de cursos del equipo, filtrados por coincidencia con las habilidades detectadas. Los empleos recomendados son vacantes reales verificadas por el pipeline, con link a la publicación original. No sustituye asesoría profesional._\n`;
+  md += `\n\n---\n_Este reporte se generó localmente en tu navegador a partir del texto que proporcionaste y de las habilidades más mencionadas en las vacantes verificadas del sector (corrida ${DATA.meta.corrida}). Los cursos son exclusivamente del catálogo del Club de Mentes Brillantes — no se recomiendan cursos de otras plataformas —, filtrados por coincidencia con las habilidades detectadas. Los empleos recomendados son vacantes reales verificadas por el pipeline, con link a la publicación original. No sustituye asesoría profesional._\n`;
 
   const blob = new Blob([md], {type:'text/markdown'});
   const a = document.createElement('a');
@@ -745,47 +751,92 @@ function descargarReporte(){
 
 /* ===================== CURSOS RECOMENDADOS (por IA, top 5, con respaldo local) ===================== */
 
-// Respaldo local: catálogo interno real del equipo (hoy solo cubre Automotriz y Turismo).
-// Se usa únicamente si el servicio de IA no responde. Limitado a los 5 mejores.
-function cursosRecomendadosLocal(sectorKey, missing){
-  const missingNames = new Set(missing.map(h=>h.skill));
-  const catalogo = (COURSES.cursos[sectorKey] || []);
-  const recomendados = catalogo
-    .map(c=>{
-      const cubre = c.habilidades.filter(h=>missingNames.has(h));
-      return {...c, fuente: c.institucion, cubre, razon: null};
-    })
-    .filter(c=>c.cubre.length>0)
-    .sort((a,b)=>b.cubre.length-a.cubre.length);
-  return recomendados.slice(0,5);
+/* REGLA DE ORO DE ESTA SECCIÓN
+   Solo se recomiendan cursos del catálogo propio del Club. Nunca de Coursera,
+   Udemy, Platzi ni ninguna otra plataforma. Si un sector todavía no tiene oferta
+   propia, no se recomienda nada: es preferible no ofrecer nada a mandar a la
+   gente con la competencia. */
+
+// El catálogo del sector, o lista vacía si todavía no tenemos oferta ahí.
+function catalogoDelSector(sectorKey){
+  if(!COURSES || !COURSES.cursos) return [];
+  return COURSES.cursos[sectorKey] || [];
 }
 
-async function cursosRecomendadosIA(sectorNombre, missing){
+// Para emparejar habilidades escritas distinto: el catálogo dice "calidad" y el
+// sector puede decir "Control de calidad". Se compara sin acentos ni mayúsculas,
+// y se acepta que una contenga a la otra.
+function mismaHabilidad(a, b){
+  const x = normalizar(String(a)).trim(), y = normalizar(String(b)).trim();
+  if(!x || !y) return false;
+  if(x === y) return true;
+  // Solo se permite contención con palabras de peso, para que "análisis" no
+  // haga match con cualquier cosa que traiga esa palabra suelta.
+  if(x.length >= 5 && y.includes(x)) return true;
+  if(y.length >= 5 && x.includes(y)) return true;
+  return false;
+}
+
+// Respaldo local, del MISMO catálogo. Se usa si el servicio de IA no responde.
+function cursosRecomendadosLocal(sectorKey, missing){
+  const catalogo = catalogoDelSector(sectorKey);
+  if(!catalogo.length) return [];
+  return catalogo
+    .map(c=>{
+      const cubre = missing
+        .filter(h => (c.habilidades||[]).some(t => mismaHabilidad(t, h.skill)))
+        .map(h => h.skill);
+      return {
+        id: c.id, nombre: c.nombre, fuente: c.institucion,
+        modalidad: c.modalidad, duracion: c.duracion, nivel: c.nivel,
+        cubre, razon: null
+      };
+    })
+    .filter(c=>c.cubre.length>0)
+    .sort((a,b)=>b.cubre.length-a.cubre.length)
+    .slice(0,5);
+}
+
+async function cursosRecomendadosIA(sectorNombre, sectorKey, missing){
+  const catalogo = catalogoDelSector(sectorKey);
+  if(!catalogo.length) return [];   // sin oferta propia no se llama al servicio
+
   const habilidades = missing.map(h => ({skill: h.skill, tipo: h.tipo, menciones: h.menciones}));
   const resp = await fetch(CURSOS_RECOMENDADOS_ENDPOINT, {
     method: 'POST',
     headers: {'content-type': 'application/json'},
-    body: JSON.stringify({ sectorNombre, missing: habilidades })
+    body: JSON.stringify({ sectorNombre, missing: habilidades, catalogo })
   });
   if(!resp.ok) throw new Error('El servicio de recomendación de cursos respondió con error ' + resp.status);
   const data = await resp.json();
   if(!data || !Array.isArray(data.cursos)) throw new Error('Formato de respuesta inesperado');
-  return data.cursos.slice(0,5).map(c => ({
-    nombre: c.nombre,
-    fuente: c.plataforma,
-    modalidad: c.modalidad,
-    duracion: c.duracion,
-    nivel: c.nivel,
-    cubre: Array.isArray(c.cubre) ? c.cubre : [],
-    razon: c.razon || null,
-  }));
+
+  // Segundo cerrojo, del lado del navegador: aunque el Worker viejo siguiera
+  // desplegado y devolviera cursos externos, aquí se descartan igual. Los datos
+  // se releen del catálogo local por id, nunca de la respuesta.
+  const porId = new Map(catalogo.map(c => [String(c.id), c]));
+  return data.cursos
+    .map(c => {
+      const real = porId.get(String(c.id));
+      if(!real) return null;
+      return {
+        id: real.id, nombre: real.nombre, fuente: real.institucion,
+        modalidad: real.modalidad, duracion: real.duracion, nivel: real.nivel,
+        cubre: Array.isArray(c.cubre) ? c.cubre : [],
+        razon: c.razon || null,
+      };
+    })
+    .filter(Boolean)
+    .slice(0,5);
 }
 
 function renderCursoCard(c, i){
   return `
       <div class="curso-card">
         <div style="font-weight:600;color:var(--azul-osc);"><span class="curso-rank">${i+1}</span>${c.nombre}</div>
-        <div class="hint">${[c.fuente, c.modalidad, c.duracion, c.nivel ? ('Nivel ' + c.nivel) : null].filter(Boolean).join(' · ')}</div>
+        <div class="hint">${[c.fuente, c.modalidad, c.duracion, c.nivel ? ('Nivel ' + c.nivel) : null]
+            .filter(v => v && String(v).trim() && !/^no especificado$/i.test(String(v).trim()))
+            .join(' · ')}</div>
         ${c.razon ? `<div class="job-razon" style="margin-top:8px;"><span class="lbl">Por qué te lo recomendamos</span>${c.razon}</div>` : ''}
         <div style="margin-top:8px;">${c.cubre.map(s=>`<span class="badge missing">${s}</span>`).join('')}</div>
       </div>
@@ -807,15 +858,25 @@ async function renderCursos(){
     return;
   }
 
-  cont.innerHTML = '<p class="note">Buscando los mejores 5 cursos para cerrar tus brechas con IA…</p>';
+  // Si todavía no tenemos oferta propia para este sector, se dice y se acaba.
+  // No se llama al servicio de IA ni se recomienda nada de terceros.
+  if(!catalogoDelSector(sectorKey).length){
+    ultimoReporte.cursosRecomendados = [];
+    cont.innerHTML = `<p class="note">Todavía no tenemos cursos propios para <strong>${sector.nombre}</strong>.
+      Preferimos no recomendarte nada antes que mandarte con otra escuela: en cuanto abramos oferta
+      para este sector, aparecerá aquí.</p>`;
+    return;
+  }
+
+  cont.innerHTML = '<p class="note">Buscando en nuestro catálogo los cursos que mejor cierran tus brechas…</p>';
 
   let recomendados = [];
   let modoIA = false;
   try{
-    recomendados = await cursosRecomendadosIA(sector.nombre, missing);
+    recomendados = await cursosRecomendadosIA(sector.nombre, sectorKey, missing);
     if(recomendados.length) modoIA = true;
   }catch(err){
-    console.warn('Recomendación de cursos por IA no disponible, usando respaldo local:', err);
+    console.warn('Selección de cursos por IA no disponible, usando emparejamiento local:', err);
   }
 
   if(!modoIA){
@@ -825,15 +886,17 @@ async function renderCursos(){
   ultimoReporte.cursosRecomendados = recomendados;
 
   if(!recomendados.length){
-    cont.innerHTML = modoIA === false && recomendados.length === 0
-      ? `<p class="note">No encontramos cursos que cubran tus habilidades faltantes de ${sector.nombre} en este momento. Intenta de nuevo en unos minutos.</p>`
-      : `<p class="note">No encontramos cursos que cubran tus habilidades faltantes de ${sector.nombre} todavía.</p>`;
+    cont.innerHTML = `<p class="note">Ninguno de nuestros cursos de ${sector.nombre} cubre las habilidades
+      que te faltaron en este análisis. Preferimos decírtelo a recomendarte algo que no te sirve.</p>`;
     return;
   }
 
   const introTexto = modoIA
-    ? `<p class="note">Los 5 cursos elegidos por IA (Claude) como los más útiles para cerrar tus ${missing.length} habilidades faltantes en ${sector.nombre}, priorizando las más pedidas en las vacantes del sector.</p>`
-    : `<p class="note">El servicio de IA no está disponible en este momento — te mostramos, como respaldo, los cursos del catálogo interno del equipo (Basado en tu último análisis: ${sector.nombre}, ${missing.length} habilidades faltantes).</p>`;
+    ? `<p class="note">De nuestro catálogo de ${sector.nombre}, estos son los que mejor cierran tus
+       ${missing.length} habilidades faltantes, priorizando las más pedidas en las vacantes del sector.</p>`
+    : `<p class="note">Cursos de nuestro catálogo de ${sector.nombre} que coinciden con tus
+       ${missing.length} habilidades faltantes. (La selección asistida por IA no respondió, así que
+       el orden es por cuántas brechas cubre cada uno.)</p>`;
 
   cont.innerHTML = introTexto + recomendados.map((c,i) => renderCursoCard(c,i)).join('');
 }
