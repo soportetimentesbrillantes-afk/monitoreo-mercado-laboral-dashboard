@@ -72,6 +72,24 @@
   .pill-toggle button{padding:7px 16px;border-radius:999px;border:1.5px solid var(--azul);background:#fff;color:var(--azul-osc);font-size:0.86rem;font-weight:600;cursor:pointer;font-family:var(--font-sans);}
   .pill-toggle button.active{background:linear-gradient(135deg,var(--azul),var(--gold-light));color:#fff;border-color:transparent;}
   #resultado{display:none;}
+  /* --- diagnóstico del CV --- */
+  .diag-top{display:flex;align-items:center;gap:22px;flex-wrap:wrap;margin-bottom:6px;}
+  .diag-num{font-family:var(--font-serif);font-size:3.4rem;font-weight:700;line-height:1;}
+  .diag-eti{font-size:.95rem;font-weight:700;margin-bottom:3px;}
+  .diag-sub{font-size:.85rem;color:var(--texto-suave);max-width:420px;line-height:1.5;}
+  .diag-bar{height:12px;border-radius:999px;background:var(--gris-borde);overflow:hidden;margin:14px 0 4px;}
+  .diag-bar span{display:block;height:100%;border-radius:999px;transition:width .5s ease;}
+  .check-list{list-style:none;margin:16px 0 0;padding:0;}
+  .check-list li{padding:9px 0 9px 28px;position:relative;font-size:.88rem;border-bottom:1px dashed var(--gris-borde);line-height:1.5;}
+  .check-list li:last-child{border-bottom:none;}
+  .check-list li::before{position:absolute;left:0;top:9px;font-weight:700;font-size:1rem;}
+  .check-list li.bien::before{content:"✓";color:var(--verde);}
+  .check-list li.medio::before{content:"!";color:var(--naranja);}
+  .check-list li.mal::before{content:"×";color:#b5483f;}
+  .diag-cta{margin-top:20px;padding:18px 20px;border-radius:12px;background:#fdfaf1;border:1px solid var(--gold-light);}
+  .diag-cta.ok{background:#f2f8f3;border-color:#c9e2cd;}
+  .diag-cta h3{margin:0 0 6px;font-size:1rem;color:var(--azul-osc);}
+  .diag-cta p{margin:0;font-size:.88rem;color:var(--hero-sub);line-height:1.55;}
   #loadingOverlay{position:fixed;inset:0;background:var(--hero-bg);color:var(--texto);display:flex;align-items:center;justify-content:center;font-size:.95rem;letter-spacing:.03em;z-index:999;font-family:var(--font-sans);}
   #loadingOverlay.hidden{display:none;}
   #loadError{display:none;background:#fdecea;color:#a12a2a;border:1px solid #f3bcb9;padding:14px 18px;border-radius:8px;font-size:0.88rem;margin:20px auto;max-width:640px;}
@@ -178,8 +196,19 @@ button.secondary:hover, a.secondary:hover{background:var(--hero-bg2);}
       <button class="primary" id="btnAnalizarCV" onclick="analizarCV()">Analizar CV →</button>
     </div>
 
+    <div class="card" id="diagnostico" style="display:none;">
+      <div class="step-header"><div class="step-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="m9 15 2 2 4-4"/></svg></div><div><span class="step-tag">Paso 2</span><h2>Qué tan bien armado está tu CV</h2></div></div>
+      <div class="note" style="margin-bottom:16px;">Muchas empresas pasan los CV por un programa que los lee automáticamente antes de que
+      una persona los vea. Si ese programa no entiende tu CV, tu solicitud se queda fuera aunque tengas la experiencia.
+      Aquí revisamos si el tuyo se entiende bien — el formato, no si eres buen candidato.</div>
+
+      <div id="diagBarra"></div>
+      <ul class="check-list" id="diagLista"></ul>
+      <div id="diagCTA"></div>
+    </div>
+
     <div class="card" id="resultado">
-      <div class="step-header"><div class="step-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/></svg></div><div><span class="step-tag">Paso 2</span><h2>Reporte de brecha de habilidades</h2></div></div>
+      <div class="step-header"><div class="step-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/></svg></div><div><span class="step-tag">Paso 3</span><h2>Reporte de brecha de habilidades</h2></div></div>
       <div id="resumenTexto"></div>
 
       <label>Habilidades que ya tienes (detectadas en tu CV)</label>
@@ -192,13 +221,13 @@ button.secondary:hover, a.secondary:hover{background:var(--hero-bg2);}
     </div>
 
     <div class="card" id="cursosCard" style="display:none;">
-      <div class="step-header"><div class="step-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.4 10.9a1 1 0 0 0 0-1.84L12.8 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.83l8.57 3.9a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></svg></div><div><span class="step-tag">Paso 3 · Recomendado por IA</span><h2>Cursos recomendados</h2></div></div>
+      <div class="step-header"><div class="step-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.4 10.9a1 1 0 0 0 0-1.84L12.8 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.83l8.57 3.9a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></svg></div><div><span class="step-tag">Paso 4 · Recomendado por IA</span><h2>Cursos recomendados</h2></div></div>
       <div class="note">A partir de las habilidades que te faltaron arriba, Claude (IA) elige los 5 cursos reales que más te convienen para cerrarlas — priorizando las habilidades más pedidas en las vacantes del sector. Si el servicio de IA no está disponible en este momento, se usa como respaldo el catálogo interno del equipo (hoy solo cubre Automotriz y Turismo).</div>
       <div id="cursosContenido"></div>
     </div>
 
     <div class="card" id="empleosCard" style="display:none;">
-      <div class="step-header"><div class="step-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/><rect width="20" height="14" x="2" y="6" rx="2"/></svg></div><div><span class="step-tag">Paso 4</span><h2>Empleos recomendados para ti</h2></div></div>
+      <div class="step-header"><div class="step-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/><rect width="20" height="14" x="2" y="6" rx="2"/></svg></div><div><span class="step-tag">Paso 5</span><h2>Empleos recomendados para ti</h2></div></div>
       <div class="note">Vacantes reales de la corrida más reciente del pipeline, verificadas manualmente como vigentes al momento de publicar esta actualización — con link directo a la publicación original. Como son avisos de portales de empleo en tiempo real (Adzuna, OCC, Indeed), es posible que alguna se cierre entre una actualización y otra si la empresa cubre la posición; no es un error del sitio. El sitio se actualiza automáticamente con cada nueva corrida para mantener esta lista lo más vigente posible.</div>
       <div class="filtros-card">
 <h3>Filtros de búsqueda</h3>
@@ -353,6 +382,214 @@ function extraerDOCX(file){
   });
 }
 
+/* ===================== DIAGNÓSTICO DE FORMATO DEL CV =====================
+   Revisa si el CV está bien armado para que un programa de lectura automática
+   lo entienda. Es una revisión de FORMA, no de si la persona es buen candidato.
+   Corre localmente: es instantáneo, gratis, y funciona aunque el servicio de IA
+   esté caído. Da un porcentaje para que la persona sepa dónde está parada. */
+
+function diagnosticarCV(texto){
+  const t = String(texto || '');
+  const tn = normalizar(t);
+  const lineas = t.split('\n').map(s=>s.trim()).filter(Boolean);
+  const palabras = t.split(/\s+/).filter(Boolean).length;
+  const r = [];
+  // cada revisión: peso (cuánto vale) y logro (0 a 1)
+  const add = (peso, logro, nivel, txt) => r.push({peso, logro, nivel, txt});
+
+  // 1. Correo — sin esto no te pueden contactar
+  const email = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/.test(t);
+  add(2, email?1:0, email?'bien':'mal',
+    email ? 'Tu correo se detecta correctamente.'
+          : 'No encontramos un correo electrónico. Sin él no te pueden contactar, y es el error más caro de todos.');
+
+  // 2. Teléfono
+  const tel = /(?:\+?52[\s-]?)?(?:\(?\d{2,3}\)?[\s-]?)?\d{3,4}[\s-]?\d{4}/.test(t);
+  add(1, tel?1:0, tel?'bien':'mal',
+    tel ? 'Tu teléfono se detecta correctamente.'
+        : 'No encontramos un teléfono. Agrégalo en la primera línea, en texto normal.');
+
+  // 3. Secciones reconocibles
+  const secciones = [
+    {re:/experiencia|trayectoria|historial laboral/, n:'experiencia'},
+    {re:/educacion|formacion|estudios|escolaridad/, n:'educación'},
+    {re:/habilidades|competencias|conocimientos|aptitudes/, n:'habilidades'}
+  ];
+  const halladas = secciones.filter(s=>s.re.test(tn)).map(s=>s.n);
+  const faltan = secciones.filter(s=>!s.re.test(tn)).map(s=>s.n);
+  add(2, halladas.length/3, halladas.length===3?'bien':(halladas.length>=2?'medio':'mal'),
+    halladas.length===3
+      ? 'Tu CV tiene títulos claros de experiencia, educación y habilidades.'
+      : 'Falta un título claro de: ' + faltan.join(', ') + '. Los programas de lectura buscan esas palabras para saber dónde empieza cada parte.');
+
+  // 4. Logros con cifras
+  // Ojo: un año suelto (2024) NO es un logro cuantificado, es una fecha.
+  // Si se cuenta, casi cualquier CV parece tener métricas y el diagnóstico
+  // deja de servir. Se descartan los años antes de evaluar.
+  const cifraDeLogro = l => /\d/.test(String(l).replace(/\b(19|20)\d{2}\b/g, ''));
+  const conNum = lineas.filter(l => l.length > 25 && cifraDeLogro(l)).length;
+  const largas = lineas.filter(l => l.length > 25).length;
+  const pctNum = largas ? conNum/largas : 0;
+  add(3, Math.min(pctNum/0.4, 1), pctNum>=0.3?'bien':(pctNum>=0.12?'medio':'mal'),
+    pctNum>=0.3
+      ? 'Varias de tus frases incluyen cantidades — eso es lo que hace creíble un logro.'
+      : 'Casi ninguna frase incluye cantidades. En vez de "atención a clientes", algo como "atendí 40 clientes al día" dice mucho más.');
+
+  // 5. Verbos de acción al inicio
+  const VERBOS = ['logr','alcanc','coordin','lider','dirig','gestion','administr','implement','desarroll','dise','cre',
+    'atend','resolv','negoci','vend','analiz','capacit','organiz','superv','control','elabor','realic','manej','cumpl',
+    'reduj','increment','mejor','apoy','particip','registr','entreg','oper','manten','program'];
+  const empiezaVerbo = l => { const p = normalizar(l).split(/\s+/)[0]||''; return VERBOS.some(v=>p.startsWith(v)); };
+  const conVerbo = lineas.filter(l => l.length>25 && empiezaVerbo(l)).length;
+  const pctVerbo = largas ? conVerbo/largas : 0;
+  add(2, Math.min(pctVerbo/0.3, 1), pctVerbo>=0.25?'bien':(pctVerbo>=0.1?'medio':'mal'),
+    pctVerbo>=0.25
+      ? 'Describes lo que hiciste empezando con un verbo, que es como se lee mejor.'
+      : 'Tus frases casi no empiezan con un verbo. "Coordiné al equipo" se lee mejor que "Responsable del equipo".');
+
+  // 6. Extensión
+  // Un CV de una página bien apretado ronda las 130 palabras; marcarlo como
+  // "muy corto" era injusto. Solo se considera grave por debajo de 70.
+  const bien = palabras >= 130 && palabras <= 900;
+  add(1, bien?1:(palabras<130?(palabras<70?0.15:0.6):0.5), bien?'bien':(palabras<70?'mal':'medio'),
+    bien ? 'La extensión es adecuada (unas ' + palabras + ' palabras).'
+         : (palabras<130
+            ? 'Tu CV es corto (unas ' + palabras + ' palabras). Falta contar lo que hiciste en cada puesto.'
+            : 'Tu CV es largo (unas ' + palabras + ' palabras). Con menos de 10 años de experiencia, una página basta.'));
+
+  // 7. Datos personales que no van
+  const sobra = [];
+  if(/\bcurp\b/.test(tn)) sobra.push('CURP');
+  if(/\brfc\b/.test(tn)) sobra.push('RFC');
+  if(/estado civil|casad|solter/.test(tn)) sobra.push('estado civil');
+  if(/\bedad\b|anos de edad/.test(tn)) sobra.push('edad');
+  add(1, sobra.length?0:1, sobra.length?'medio':'bien',
+    sobra.length
+      ? 'Traes datos que no aportan y ocupan espacio: ' + sobra.join(', ') + '. Nadie decide una contratación con eso.'
+      : 'No incluyes datos personales innecesarios. Bien.');
+
+  // 8. Un resumen o perfil al inicio
+  const perfil = /perfil|resumen|objetivo profesional|acerca de mi/.test(tn.slice(0, 700));
+  add(1.5, perfil?1:0.3, perfil?'bien':'medio',
+    perfil ? 'Tienes un resumen al inicio, que es lo primero que se lee.'
+           : 'No se ve un resumen al inicio. Dos o tres líneas diciendo quién eres y qué buscas cambian mucho la primera impresión.');
+
+  // 9. Texto realmente legible (PDF escaneado da casi nada)
+  const legible = t.length > 400;
+  add(1.5, legible?1:0, legible?'bien':'mal',
+    legible ? 'El texto de tu CV se puede leer sin problema.'
+            : 'Casi no se pudo extraer texto. Si tu CV es una imagen o un PDF escaneado, ningún programa podrá leerlo — hay que rehacerlo como texto.');
+
+  const pesoTotal = r.reduce((a,x)=>a+x.peso, 0);
+  const puntos = r.reduce((a,x)=>a+x.peso*x.logro, 0);
+  // Tope en 96: esto es una revisión de forma, no una calificación absoluta.
+  // Un 100% le haría creer a la persona que su CV ya no se puede mejorar.
+  const score = Math.min(96, Math.round(puntos/pesoTotal*100));
+  return {score, revisiones: r};
+}
+
+function pintarDiagnostico(texto){
+  const {score, revisiones} = diagnosticarCV(texto);
+  const card = document.getElementById('diagnostico');
+  card.style.display = 'block';
+
+  const color = score >= 75 ? 'var(--verde)' : (score >= 55 ? 'var(--naranja)' : '#b5483f');
+  const etiqueta = score >= 75 ? 'Tu CV está bien armado'
+                 : score >= 55 ? 'Tu CV funciona, pero se le puede sacar más'
+                 : 'Tu CV necesita trabajo';
+  const sub = score >= 75
+      ? 'Se entiende bien y tiene lo que se espera. Abajo te decimos los detalles que aún puedes pulir.'
+      : score >= 55
+      ? 'Tiene lo básico, pero hay puntos que le están restando fuerza frente a un filtro automático.'
+      : 'Tal como está, es probable que se quede fuera antes de que alguien lo lea. Vale la pena rehacerlo.';
+
+  document.getElementById('diagBarra').innerHTML =
+    '<div class="diag-top">'
+    + '<div class="diag-num" style="color:' + color + '">' + score + '%</div>'
+    + '<div><div class="diag-eti" style="color:' + color + '">' + etiqueta + '</div>'
+    + '<div class="diag-sub">' + sub + '</div></div></div>'
+    + '<div class="diag-bar"><span style="width:' + score + '%;background:' + color + '"></span></div>';
+
+  // primero lo que hay que arreglar, luego lo que ya está bien
+  const orden = {mal:0, medio:1, bien:2};
+  document.getElementById('diagLista').innerHTML =
+    revisiones.slice().sort((a,b)=>orden[a.nivel]-orden[b.nivel])
+      .map(x=>'<li class="' + x.nivel + '">' + x.txt + '</li>').join('');
+
+  const cta = document.getElementById('diagCTA');
+  // Mismo corte que la banda verde (75): si el CV no llegó a "bien armado",
+  // se ofrece el constructor. Es una oferta, no un desvío obligatorio —
+  // el análisis de habilidades sigue disponible abajo en todos los casos.
+  if(score < 75){
+    cta.innerHTML = '<div class="diag-cta"><h3>Te conviene rehacerlo con el constructor</h3>'
+      + '<p>Es un formulario que te va diciendo qué poner en cada parte y por qué. '
+      + 'Llevamos el texto que ya subiste, así que no empiezas de cero: solo revisas y corriges.</p>'
+      + '<a class="secondary" href="cv-builder.html" onclick="llevarCVAlConstructor()">Rehacer mi CV paso a paso →</a></div>';
+  }else{
+    cta.innerHTML = '<div class="diag-cta ok"><h3>Puedes seguir al análisis de habilidades</h3>'
+      + '<p>Tu CV está en forma. Si quieres pulir los detalles marcados arriba, el '
+      + '<a href="cv-builder.html" onclick="llevarCVAlConstructor()">constructor de CV</a> te guía apartado por apartado.</p></div>';
+  }
+  return score;
+}
+
+// Pasa el texto ya extraído al constructor para no pedirlo dos veces
+function llevarCVAlConstructor(){
+  try{
+    const t = document.getElementById('cvText').value.trim();
+    if(t) localStorage.setItem('cmb_cv_texto_puente', t);
+  }catch(e){}
+  return true;
+}
+
+/* ===================== UNIFICACIÓN DE NOMBRES DE HABILIDAD =====================
+   Los sectores no siempre escriben igual la misma habilidad: aparecen
+   "liderazgo" y "Liderazgo", o "negociacion" / "negociación" / "Negociación".
+   Sin unificar, la misma habilidad se mostraba dos veces en el reporte.
+   Se agrupan por una clave sin acentos ni mayúsculas y se conserva un solo
+   nombre (el mejor escrito), sumando sus menciones.
+   NO se unen habilidades con matiz distinto: "mantenimiento" y
+   "mantenimiento industrial" siguen siendo dos habilidades diferentes. */
+
+function claveHabilidad(s){
+  return String(s || '')
+    .normalize('NFD').replace(/[̀-ͯ]/g, '')
+    .toLowerCase().replace(/\s+/g, ' ').trim();
+}
+
+/* Decide cuál de varias formas de escribir la misma habilidad se muestra.
+   Cuidado con contar mayúsculas a secas: "COMUNICACION" tiene 12 y le ganaba a
+   "Comunicación", que es justo la que queremos. Se premia el acento y se
+   castiga el texto todo en mayúsculas. */
+function puntajeEscritura(s){
+  const t = String(s || '');
+  const letras = t.replace(/[^A-Za-zÁÉÍÓÚÜÑáéíóúüñ]/g, '');
+  const acentos = (t.match(/[áéíóúüñÁÉÍÓÚÜÑ]/g) || []).length;
+  const gritado = letras.length > 3 && letras === letras.toUpperCase();
+  const capitalizada = /^[A-ZÁÉÍÓÚÜÑ]/.test(t.trim());
+  return acentos * 10 + (gritado ? -50 : 0) + (capitalizada ? 2 : 0);
+}
+
+function unificarHabilidades(lista){
+  const porClave = new Map();
+  (lista || []).forEach(h => {
+    const k = claveHabilidad(h.skill);
+    if(!k) return;
+    const prev = porClave.get(k);
+    if(!prev){
+      porClave.set(k, {...h, menciones: h.menciones || 0});
+    }else{
+      prev.menciones += (h.menciones || 0);
+      // conserva el nombre mejor escrito y marca 'mixta' si venía de ambos tipos
+      if(puntajeEscritura(h.skill) > puntajeEscritura(prev.skill)) prev.skill = h.skill;
+      if(prev.tipo && h.tipo && prev.tipo !== h.tipo) prev.tipo = 'mixta';
+    }
+  });
+  return Array.from(porClave.values())
+    .map(h => ({...h, skill: h.skill.charAt(0).toUpperCase() + h.skill.slice(1)}))
+    .sort((a,b) => (b.menciones||0) - (a.menciones||0));
+}
+
 /* ===================== ANÁLISIS DE HABILIDADES ===================== */
 function normalizar(s){
   return s.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();
@@ -407,6 +644,11 @@ async function analizarCV(){
   }
   const textoNorm = normalizar(cvTextoRaw);
   const btn = document.getElementById('btnAnalizarCV');
+
+  // Primero la revisión de formato: es local, instantánea y no depende del
+  // servicio de IA, así que la persona ve algo útil de inmediato.
+  try{ pintarDiagnostico(cvTextoRaw); }catch(e){ console.warn('No se pudo pintar el diagnóstico:', e); }
+
   let sector;
   try{
     sector = await obtenerSector(sectorKey);
@@ -415,7 +657,10 @@ async function analizarCV(){
     console.error(err);
     return;
   }
-  const todas = [...sector.habilidades_tecnicas.map(h=>({...h,tipo:'técnica'})), ...sector.habilidades_blandas.map(h=>({...h,tipo:'blanda'}))];
+  const todas = unificarHabilidades([
+    ...sector.habilidades_tecnicas.map(h=>({...h,tipo:'técnica'})),
+    ...sector.habilidades_blandas.map(h=>({...h,tipo:'blanda'}))
+  ]);
 
   let matched, missing, origen;
 
