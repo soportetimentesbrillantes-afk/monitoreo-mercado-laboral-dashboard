@@ -33,6 +33,11 @@ body{margin:0;background:#fff;color:var(--texto);font-family:var(--font-sans);li
 .eyebrow{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--azul-osc);font-weight:700;margin-bottom:10px;}
 h1{font-family:var(--font-serif);font-size:2.6rem;line-height:1.1;margin:0 0 14px;font-weight:600;}
 .hero p{color:var(--hero-sub);max-width:660px;margin:0;font-size:1.02rem;}
+/* Explicación de qué es un filtro automático (ATS). Va en el hero porque es el
+   concepto del que cuelga todo lo demás de la página. */
+.hero p.hero-ats{margin-top:16px;max-width:720px;font-size:.92rem;line-height:1.6;
+  background:rgba(255,255,255,.14);border-left:3px solid var(--hero-line);
+  border-radius:0 10px 10px 0;padding:14px 16px;}
 
 /* ---------- layout ---------- */
 h2{font-family:var(--font-serif);font-size:1.7rem;font-weight:600;margin:0 0 6px;}
@@ -136,8 +141,15 @@ button.danger{background:#fff;color:var(--rojo);border:1px solid #e7cdc9;}
   <div class="eyebrow">Constructor de CV orientado al mercado</div>
   <h1>Arma un CV que los filtros automáticos sí puedan leer</h1>
   <p>Llena cada apartado con lo que <strong>tú realmente hiciste</strong>. Cada campo te dice qué información
-  espera un reclutador y cómo escribirla para que los sistemas ATS la interpreten bien. Al final revisamos
-  tu CV y te decimos qué mejorar — nunca inventamos experiencia que no tengas.</p>
+  espera quien contrata y cómo escribirla. Al final revisamos tu CV y te decimos qué mejorar —
+  nunca inventamos experiencia que no tengas.</p>
+
+  <p class="hero-ats"><strong>¿Qué es un "filtro automático"?</strong> Cuando mandas tu CV por internet,
+  casi siempre lo recibe primero un programa, no una persona. Ese programa lee tu archivo, separa tu
+  información en casillas (nombre, puestos, escuelas, habilidades) y la compara con lo que pide la
+  vacante. Si no logra leerlo, tu CV puede quedar fuera <em>antes</em> de que alguien lo vea.
+  A esos programas se les conoce como <strong>ATS</strong>, y vas a ver esa sigla en muchos consejos de
+  CV; aquí les decimos simplemente <em>filtros automáticos</em>.</p>
 </div></div>
 
 <div class="wrap">
@@ -162,8 +174,10 @@ button.danger{background:#fff;color:var(--rojo);border:1px solid #e7cdc9;}
       </div>
     </div>
     <div class="hint">
-      <strong>Por qué importa:</strong> los ATS comparan tu CV contra el texto de la vacante. Usar el mismo título
-      de puesto que usa la empresa, y no un título interno o creativo, es de los ajustes que más sube tu coincidencia.
+      <strong>Por qué importa:</strong> el filtro automático compara tu CV palabra por palabra contra el
+      anuncio de la vacante. Si la empresa busca "Ejecutivo de ventas" y tú pusiste "Asesor comercial
+      senior", el programa no los reconoce como lo mismo. Escribe el puesto tal como aparece publicado:
+      es de los cambios más sencillos que más te acercan.
     </div>
   </div>
 </section>
@@ -194,12 +208,12 @@ button.danger{background:#fff;color:var(--rojo);border:1px solid #e7cdc9;}
       un dato, el campo se queda vacío para que tú lo completes.
     </div>
     <div class="warn">
-      <strong>Revisa siempre lo que se llenó.</strong> La lectura automática se equivoca con CVs de dos columnas,
-      tablas o cuadros de texto — que son justamente los formatos que los ATS tampoco leen bien.
-      Si algo quedó en el campo equivocado, corrígelo antes de continuar.
+      <strong>Revisa siempre lo que se llenó.</strong> La lectura automática se equivoca cuando el CV viene
+      en dos columnas, en tablas o en cuadros de texto — que son justo los formatos que los filtros
+      automáticos tampoco leen bien. Si algo quedó en el campo equivocado, corrígelo antes de seguir.
     </div>
-    <div class="note">El archivo se procesa en tu navegador; solo el texto se envía al servicio de análisis
-    para identificar a qué apartado corresponde cada parte. No se guarda.</div>
+    <div class="note">Tu archivo se abre aquí mismo, en tu computadora. Solo mandamos el texto para
+    reconocer qué parte va en cada campo, y no se guarda en ningún lado.</div>
   </div>
 </section>
 
@@ -207,8 +221,9 @@ button.danger{background:#fff;color:var(--rojo);border:1px solid #e7cdc9;}
 <section class="step">
   <div class="step-badge">Paso 3</div>
   <h2>Datos de contacto</h2>
-  <p class="note">Van hasta arriba, en texto normal. Nunca dentro de un encabezado, imagen o cuadro de texto:
-  ahí es donde más ATS pierden la información.</p>
+  <p class="note">Van hasta arriba, escritos como texto normal. Nunca dentro de una imagen, un cuadro de
+  texto, ni en el encabezado del documento (esa franja de arriba que en Word se edita aparte): los
+  programas que leen tu CV casi nunca alcanzan a leer ahí, y te quedas sin teléfono ni correo.</p>
 
   <div class="card">
     <div class="grid2">
@@ -218,12 +233,13 @@ button.danger{background:#fff;color:var(--rojo);border:1px solid #e7cdc9;}
         <div class="note">Usa un correo sobrio con tu nombre. Evita apodos o correos de la escuela que vayas a perder.</div></div>
       <div><label for="ciudad">Ciudad y estado</label><input type="text" id="ciudad" placeholder="Ej. Guadalajara, Jalisco"></div>
       <div><label for="linkedin">LinkedIn <span class="opt">(opcional)</span></label><input type="url" id="linkedin" placeholder="linkedin.com/in/tuusuario"></div>
-      <div><label for="portafolio">Portafolio o GitHub <span class="opt">(opcional)</span></label><input type="url" id="portafolio" placeholder="github.com/tuusuario"></div>
+      <div><label for="portafolio">Portafolio o página donde se vea tu trabajo <span class="opt">(opcional)</span></label><input type="url" id="portafolio" placeholder="Ej. github.com/tuusuario o behance.net/tuusuario">
+        <div class="note">Solo si tienes algo publicado que quieras que vean: diseños, código, un sitio, un blog.</div></div>
     </div>
     <div class="warn">
       <strong>No incluyas:</strong> foto, edad, fecha de nacimiento, CURP, RFC, estado civil, ni tu dirección exacta.
-      No aportan nada a la decisión, ocupan espacio y en varios países se consideran una fuente de sesgo.
-      La foto además rompe el parseo de muchos ATS.
+      No ayudan a que te contraten, ocupan espacio y pueden prestarse a que te descarten por razones que
+      no tienen que ver con tu trabajo. La foto, además, confunde a muchos programas al leer el archivo.
     </div>
   </div>
 </section>
@@ -232,19 +248,20 @@ button.danger{background:#fff;color:var(--rojo);border:1px solid #e7cdc9;}
 <section class="step">
   <div class="step-badge">Paso 4</div>
   <h2>Perfil profesional</h2>
-  <p class="note">De 2 a 4 líneas, hasta arriba del CV. Es la parte que más peso tiene: los ATS y los reclutadores
-  le dan prioridad a lo que aparece en las primeras líneas.</p>
+  <p class="note">De 2 a 4 líneas, hasta arriba del CV. Es la parte que más pesa: tanto los programas
+  como las personas le dan más importancia a lo que aparece en las primeras líneas, porque muchas veces
+  es lo único que alcanzan a leer.</p>
 
   <div class="card">
     <label for="perfil">Tu perfil en 2–4 líneas</label>
-    <textarea id="perfil" data-min="220" data-max="600" placeholder="Ej. Licenciada en Administración con 2 años de experiencia en atención a clientes B2C en el sector retail. Manejo de CRM y punto de venta, con historial de cumplimiento de metas mensuales de venta. Busco integrarme como ejecutiva de ventas junior en una empresa con plan de desarrollo comercial."></textarea>
+    <textarea id="perfil" data-min="220" data-max="600" placeholder="Ej. Licenciada en Administración con 2 años de experiencia atendiendo clientes en tienda. Manejo el sistema de punto de venta y el registro de clientes, y he cumplido mis metas mensuales de venta. Busco integrarme como ejecutiva de ventas junior en una empresa donde pueda crecer."></textarea>
     <div class="counter" id="c_perfil"></div>
     <div class="hint">
       <strong>Fórmula que funciona:</strong>
       <ul>
-        <li>Quién eres profesionalmente (carrera o rol) + años de experiencia reales.</li>
-        <li>2 o 3 cosas concretas que sabes hacer, con las palabras que usan las vacantes del sector.</li>
-        <li>Qué buscas ahora, alineado al puesto que pusiste arriba.</li>
+        <li>Quién eres en lo profesional (tu carrera o tu oficio) y cuántos años llevas — los reales.</li>
+        <li>2 o 3 cosas concretas que sabes hacer, escritas con las mismas palabras que usan las vacantes.</li>
+        <li>Qué estás buscando ahora, y que embone con el puesto que pusiste arriba.</li>
       </ul>
       <strong>Si eres recién egresado:</strong> cambia "años de experiencia" por tu formación, prácticas o proyectos.
       No escribas "sin experiencia" — describe lo que sí has hecho.
@@ -265,19 +282,21 @@ button.danger{background:#fff;color:var(--rojo);border:1px solid #e7cdc9;}
   todo eso cuenta y se describe igual.</p>
 
   <div class="hint">
-    <strong>Cómo escribir cada logro (método STAR comprimido en una línea):</strong>
+    <strong>Cómo escribir cada logro — tres cosas en una sola línea:</strong>
     <ul>
-      <li><strong>Verbo de acción</strong> en pasado: coordiné, implementé, reduje, capacité, atendí, diseñé…</li>
-      <li><strong>Qué hiciste</strong> exactamente y con qué herramienta o proceso.</li>
-      <li><strong>Resultado medible</strong>: cuánto, cuántos, en cuánto tiempo, en qué porcentaje.</li>
+      <li><strong>Empieza con un verbo</strong> que diga lo que tú hiciste, en pasado:
+          coordiné, atendí, capacité, vendí, reduje, organicé…</li>
+      <li><strong>Di qué hiciste</strong> exactamente, y con qué máquina, sistema o método lo hacías.</li>
+      <li><strong>Cierra con un número</strong>: cuántos, cada cuándo, en cuánto tiempo, de cuánto era.</li>
     </ul>
     <em>En vez de:</em> "Responsable de atención a clientes."<br>
     <em>Escribe:</em> "Atendí un promedio de 40 clientes diarios en piso de venta, sosteniendo 95% de encuestas de satisfacción positivas durante 6 meses."
   </div>
   <div class="warn">
-    <strong>Sobre los números:</strong> usa solo cifras que puedas sostener en una entrevista. Si no llevabas
-    una métrica formal, sirve una cantidad honesta y verificable: número de personas atendidas, tamaño del equipo,
-    número de reportes que entregabas, frecuencia. <strong>Nunca inventes un porcentaje.</strong>
+    <strong>Sobre los números:</strong> pon solo cifras que puedas explicar si te preguntan en la entrevista.
+    Si en tu trabajo nadie llevaba estadísticas, igual sirve una cantidad honesta que tú sí sepas:
+    cuánta gente atendías al día, de cuántos era tu equipo, cuántos reportes entregabas, cada cuándo.
+    <strong>Nunca inventes un porcentaje.</strong>
   </div>
 
   <div id="expList"></div>
@@ -288,14 +307,17 @@ button.danger{background:#fff;color:var(--rojo);border:1px solid #e7cdc9;}
 <section class="step">
   <div class="step-badge">Paso 6</div>
   <h2>Educación</h2>
-  <p class="note">Si eres recién egresado o tienes menos de 2 años de experiencia, esta sección va
-  <strong>antes</strong> que la de experiencia — el sistema lo acomoda solo según lo que captures.</p>
+  <p class="note">Si acabas de salir de la escuela o llevas menos de 2 años trabajando, esta sección va
+  <strong>antes</strong> que la de experiencia. No tienes que moverla tú: al armar el CV se acomoda sola
+  según lo que hayas capturado.</p>
   <div id="eduList"></div>
   <button class="secondary" onclick="addEdu()">+ Agregar formación</button>
 
   <div class="hint" style="margin-top:14px;">
-    <strong>Si todavía no te titulas:</strong> escribe el estatus real ("Pasante", "100% de créditos", "En curso, egreso previsto 2027").
-    Es información legítima y los reclutadores la esperan. No pongas "Titulada" si no lo estás.
+    <strong>Si todavía no te titulas:</strong> escribe en qué punto vas de verdad — "Pasante",
+    "Terminé todas las materias, falta titularme", "Voy en curso, termino en 2027". Es válido y quien
+    contrata lo entiende sin problema. Lo que sí te puede costar el puesto es poner "Titulada" sin serlo:
+    eso se revisa antes de contratarte.
   </div>
 </section>
 
@@ -307,9 +329,9 @@ button.danger{background:#fff;color:var(--rojo);border:1px solid #e7cdc9;}
   ordenadas por número de menciones reales.</p>
 
   <div class="warn">
-    <strong>Marca únicamente las que de verdad manejas.</strong> Una habilidad marcada es una habilidad que te van a
-    preguntar en la entrevista o poner a prueba. Las que no marques no se pierden: te las mostramos al final
-    como tu brecha a cerrar, con los cursos del sector.
+    <strong>Marca únicamente las que de verdad manejas.</strong> Lo que marques aquí te lo pueden preguntar
+    en la entrevista, o de plano ponerte a hacerlo. Las que no marques no se pierden: al final te las
+    mostramos como lo que te falta aprender, junto con cursos del sector para lograrlo.
   </div>
 
   <div class="card">
@@ -323,9 +345,9 @@ button.danger{background:#fff;color:var(--rojo);border:1px solid #e7cdc9;}
     <input type="text" id="habExtra" placeholder="Ej. Excel avanzado, SAP, manejo de montacargas">
 
     <div class="hint">
-      <strong>Truco de ATS:</strong> cuando una habilidad tenga sigla, escribe las dos formas —
-      "Search Engine Optimization (SEO)", "Enterprise Resource Planning (ERP)". El filtro puede estar
-      buscando cualquiera de las dos y así coincides con ambas.
+      <strong>Un truco que sí sirve:</strong> si una habilidad se conoce por sus siglas, escríbela de las
+      dos formas — "Gestión de proyectos (PMO)", "Sistema de planeación de recursos (ERP)". El programa
+      que revisa tu CV puede estar buscando cualquiera de las dos, y así le atinas a las dos.
     </div>
   </div>
 
@@ -339,28 +361,30 @@ button.danger{background:#fff;color:var(--rojo);border:1px solid #e7cdc9;}
 
   <div class="card">
     <h3>Cursos y capacitaciones <span class="opt" style="font-weight:400;">(opcional)</span></h3>
-    <p class="note" style="margin-top:0;">Formación que tomaste pero que no otorga una credencial verificable:
-    diplomados, talleres, cursos en línea, capacitaciones de la empresa.</p>
+    <p class="note" style="margin-top:0;">Todo lo que estudiaste y te dio conocimiento, pero que no te dejó
+    un documento oficial que alguien pueda ir a verificar: diplomados, talleres, cursos por internet,
+    capacitaciones que te dio la empresa donde trabajabas.</p>
     <div id="cursoList"></div>
     <button class="secondary small" onclick="addCurso()">+ Agregar curso</button>
     <div class="hint">
-      Incluye solo los que aporten al puesto que buscas. Un curso de 4 horas sin relación con la vacante
-      resta más de lo que suma, porque ocupa espacio que el reclutador podría estar leyendo de tu experiencia.
+      Pon solo los que tengan que ver con el puesto que buscas. Un curso de 4 horas de un tema que no
+      viene al caso resta en vez de sumar: ocupa un renglón que quien contrata podría estar usando para
+      leer tu experiencia.
     </div>
   </div>
 
   <div class="card">
     <h3>Certificaciones <span class="opt" style="font-weight:400;">(opcional)</span></h3>
-    <p class="note" style="margin-top:0;">Credenciales oficiales con folio, número de licencia o
-    verificación en línea: PMP, Scrum Master, TOEFL, certificaciones de Microsoft, AWS, Cisco,
-    cédula profesional.</p>
+    <p class="note" style="margin-top:0;">Documentos oficiales que traen folio, número de licencia o una
+    página donde se pueden verificar. Por ejemplo: tu cédula profesional, un TOEFL, una certificación de
+    Microsoft o Cisco, o certificaciones de manejo de proyectos como PMP o Scrum.</p>
     <div id="certList"></div>
     <button class="secondary small" onclick="addCert()">+ Agregar certificación</button>
     <div class="hint">
-      <strong>Por qué van separadas de los cursos:</strong> una certificación es verificable por un tercero
-      y varias vacantes la piden como requisito duro. Los ATS suelen buscarlas por su nombre exacto,
-      así que escríbelo tal cual aparece en la credencial — "Project Management Professional (PMP)",
-      no "certificado de gestión de proyectos".
+      <strong>Por qué van aparte de los cursos:</strong> una certificación la puede comprobar alguien más,
+      y hay vacantes donde es un requisito que no se negocia — sin ella no te consideran. Los programas
+      que revisan CVs las buscan por su nombre exacto, así que escríbelo igualito a como viene en tu
+      documento: "Project Management Professional (PMP)", no "certificado de gestión de proyectos".
     </div>
     <div class="warn">
       Si una certificación tiene vigencia y ya venció, anótalo o quítala. Declarar como vigente
@@ -381,9 +405,10 @@ button.danger{background:#fff;color:var(--rojo);border:1px solid #e7cdc9;}
         <div class="note" style="margin:0;">de 100</div>
       </div>
       <div style="flex:1;min-width:240px;">
-        <h3 style="margin-bottom:2px;">Revisión automática de formato ATS</h3>
-        <p class="note" style="margin:0;">Se actualiza sola mientras escribes. Revisa estructura, longitud y
-        uso de datos medibles — no juzga el contenido de tu experiencia.</p>
+        <h3 style="margin-bottom:2px;">Qué tan listo está tu CV</h3>
+        <p class="note" style="margin:0;">Este número sube solo conforme vas llenando. Revisa que no falten
+        apartados, que la extensión sea la adecuada y que tus logros traigan números.
+        No califica si tu experiencia es buena o mala — eso no lo juzga nadie aquí.</p>
       </div>
     </div>
     <ul class="check" id="checklist"></ul>
@@ -391,12 +416,13 @@ button.danger{background:#fff;color:var(--rojo);border:1px solid #e7cdc9;}
 
   <div class="card">
     <h3>Revisión con IA <span class="opt" style="font-weight:400;">— recomendaciones, no reescritura</span></h3>
-    <p class="note">Manda tu CV a revisión y te devolvemos observaciones concretas por sección, orientadas al sector
-    que elegiste. <strong>La IA no escribe tu CV ni agrega experiencia:</strong> solo señala qué falta precisar,
-    qué está redactado como tarea en vez de logro, y qué preguntas deberías responderte para mejorarlo tú mismo.</p>
-    <div class="note">Tu información se envía a un servicio propio del proyecto que usa el modelo de Anthropic (Claude)
-    únicamente para generar esas observaciones. No se guarda ni se comparte con terceros distintos a ese servicio.
-    Todo lo que capturas se queda además en tu navegador, no en un servidor.</div>
+    <p class="note">Manda tu CV a revisión y te regresamos comentarios concretos, apartado por apartado y
+    pensados para el sector que elegiste. <strong>La IA no escribe tu CV ni le agrega experiencia:</strong>
+    solo te dice qué está muy vago, qué escribiste como si fuera una tarea en lugar de un logro, y qué
+    preguntas te conviene contestarte para mejorarlo tú.</p>
+    <div class="note">Tu información se manda a un servicio del propio proyecto, que usa Claude (de Anthropic)
+    únicamente para escribir esos comentarios. No se guarda ni se le pasa a nadie más. Todo lo que capturas
+    se queda en tu navegador, no en un servidor.</div>
     <div class="btnrow">
       <button id="btnIA" onclick="revisarConIA()">Revisar mi CV con IA →</button>
     </div>
@@ -408,17 +434,17 @@ button.danger{background:#fff;color:var(--rojo);border:1px solid #e7cdc9;}
 <section class="step noprint">
   <div class="step-badge">Paso 9</div>
   <h2>Tu CV</h2>
-  <p class="note">Formato de una sola columna, tipografía estándar, sin tablas ni gráficos — que es
-  exactamente lo que mejor leen los filtros automáticos.</p>
+  <p class="note">Va en una sola columna, con letra normal y sin tablas, recuadros ni gráficas. Se ve sobrio
+  a propósito: así es como mejor lo leen tanto los programas como las personas.</p>
   <div class="btnrow">
     <button onclick="window.print()">Descargar como PDF</button>
-    <button class="secondary" onclick="descargarTxt()">Descargar versión de texto plano</button>
+    <button class="secondary" onclick="descargarTxt()">Descargar versión en texto simple</button>
     <button class="secondary" onclick="guardar(true)">Guardar borrador</button>
     <button class="danger" onclick="limpiarTodo()">Borrar todo</button>
   </div>
-  <div class="note">Para el PDF: en el diálogo de impresión elige <strong>"Guardar como PDF"</strong> y deja los
-  márgenes predeterminados. La versión de texto plano sirve para pegarla en formularios que piden capturar
-  el CV campo por campo.</div>
+  <div class="note"><strong>Para el PDF:</strong> se abre la ventana de imprimir de tu navegador; ahí elige
+  "Guardar como PDF" y no le muevas a los márgenes. <strong>La versión en texto simple</strong> es tu CV sin
+  ningún formato, para cuando una bolsa de trabajo te pide copiar y pegar tu información campo por campo.</div>
 </section>
 
 <div id="previewBox" style="margin-top:22px;">
@@ -720,72 +746,72 @@ function revisionLocal(st){
   // contacto
   const contactoOk = st.nombre && st.email && st.tel && st.ciudad;
   add(contactoOk?'pass':'crit', contactoOk
-    ? 'Datos de contacto completos y en texto plano, como los espera un ATS.'
-    : 'Faltan datos de contacto (nombre, correo, teléfono y ciudad son los mínimos).');
+    ? 'Tus datos de contacto están completos y escritos como texto normal, que es como se deben leer.'
+    : 'Te faltan datos de contacto. Lo mínimo es nombre, correo, teléfono y ciudad.');
 
   // sector
   add(st.sector?'pass':'fail', st.sector
-    ? 'CV orientado a un sector específico.'
-    : 'No has elegido sector: el CV queda genérico y pierde coincidencia con las vacantes.');
+    ? 'Tu CV está dirigido a un sector en concreto.'
+    : 'No has elegido sector. Sin eso tu CV sale genérico y le atina a menos vacantes.');
 
   add(st.puestoObjetivo?'pass':'fail', st.puestoObjetivo
-    ? 'Tienes un puesto objetivo declarado.'
-    : 'Falta el puesto al que aspiras. Úsalo tal como aparece en las vacantes.');
+    ? 'Ya dijiste a qué puesto le tiras.'
+    : 'Falta el puesto al que le quieres entrar. Escríbelo igual a como aparece publicado.');
 
   // perfil
   const lp = st.perfil.length;
-  if(!lp) add('crit','No has escrito el perfil profesional. Es la sección con más peso del CV.');
-  else if(lp < 180) add('fail','Tu perfil es muy corto ('+lp+' caracteres). Apunta a entre 220 y 600.');
-  else if(lp > 700) add('fail','Tu perfil es demasiado largo ('+lp+' caracteres). Recórtalo a 4 líneas máximo.');
-  else add('pass','Perfil profesional con extensión adecuada.');
+  if(!lp) add('crit','No has escrito tu perfil. Son las primeras líneas del CV y las que más se leen.');
+  else if(lp < 180) add('fail','Tu perfil está muy corto ('+lp+' letras). Lo ideal son unas 3 o 4 líneas.');
+  else if(lp > 700) add('fail','Tu perfil está muy largo ('+lp+' letras). Recórtalo a 4 líneas como máximo.');
+  else add('pass','Tu perfil tiene el largo adecuado.');
 
   const clichés = ['proactiv','responsable','ganas de aprender','trabajo bajo presion','dinamic','entusiast'];
   const perfN = norm(st.perfil);
   const halladas = clichés.filter(c=>perfN.includes(norm(c)));
-  if(halladas.length) add('fail','Tu perfil usa frases genéricas ('+halladas.join(', ')+'). Cámbialas por algo verificable.');
+  if(halladas.length) add('fail','Tu perfil trae frases que todos ponen ('+halladas.join(', ')+') y por eso ya no dicen nada. Cámbialas por algo concreto que hayas hecho.');
 
   // experiencia
   const bullets = [];
   st.exp.forEach(e => (e.bullets||'').split('\n').map(s=>s.trim()).filter(Boolean).forEach(b=>bullets.push(b)));
-  if(!bullets.length) add('crit','No has capturado ningún logro. Aunque no tengas empleo formal, agrega prácticas, servicio social o proyectos.');
+  if(!bullets.length) add('crit','No has escrito ningún logro. Aunque nunca hayas tenido un empleo formal, cuentan tus prácticas, tu servicio social, proyectos de la escuela o un negocio propio.');
   else{
     const conNum = bullets.filter(tieneNumero).length;
     const pct = Math.round(conNum/bullets.length*100);
-    if(pct >= 50) add('pass', pct+'% de tus logros incluyen un dato medible. Excelente.');
-    else if(pct > 0) add('fail','Solo '+pct+'% de tus logros tienen un dato medible ('+conNum+' de '+bullets.length+'). Agrega cantidades honestas: personas atendidas, tamaño de equipo, frecuencia.');
-    else add('crit','Ninguno de tus logros incluye una cifra. Los CV con logros cuantificados reciben notoriamente más respuestas.');
+    if(pct >= 50) add('pass', 'El '+pct+'% de tus logros trae un número. Así se ven creíbles.');
+    else if(pct > 0) add('fail','Solo '+conNum+' de tus '+bullets.length+' logros traen un número. Agrega cantidades que sí sepas: cuánta gente atendías, de cuántos era tu equipo, cada cuándo lo hacías.');
+    else add('crit','Ninguno de tus logros trae un número. "Atendí 40 clientes al día" convence mucho más que "atención a clientes".');
 
     const conVerbo = bullets.filter(empiezaConVerbo).length;
-    if(conVerbo === bullets.length) add('pass','Todos tus logros empiezan con un verbo de acción.');
-    else add('fail', (bullets.length-conVerbo)+' de tus '+bullets.length+' logros no empiezan con verbo de acción en pasado (coordiné, implementé, reduje…).');
+    if(conVerbo === bullets.length) add('pass','Todos tus logros empiezan con un verbo. Así debe ser.');
+    else add('fail', (bullets.length-conVerbo)+' de tus '+bullets.length+' logros no empiezan con un verbo en pasado. Escribe "Coordiné al equipo" en lugar de "Responsable del equipo".');
 
     const largos = bullets.filter(b=>b.length>230).length;
-    if(largos) add('fail', largos+' de tus logros son muy largos. Cada uno debe caber en 1 o 2 líneas.');
-    else add('pass','Tus logros tienen una extensión leíble.');
+    if(largos) add('fail', largos+' de tus logros están muy largos. Cada uno debe caber en 1 o 2 renglones.');
+    else add('pass','Tus logros están cortos y se leen bien.');
   }
 
   // educación
   add(st.edu.some(e=>e.carrera && e.inst) ? 'pass':'crit',
-    st.edu.some(e=>e.carrera && e.inst) ? 'Formación académica capturada.' : 'Falta tu formación académica.');
+    st.edu.some(e=>e.carrera && e.inst) ? 'Ya está tu formación académica.' : 'Falta poner qué estudiaste y dónde.');
 
   // habilidades
   const totalHab = st.habTec.length + st.habBlandas.length + (st.habExtra? st.habExtra.split(',').filter(s=>s.trim()).length : 0);
-  if(totalHab === 0) add('crit','No has marcado ninguna habilidad. Es la sección que los ATS cruzan de forma más directa.');
-  else if(totalHab < 6) add('fail','Solo tienes '+totalHab+' habilidades. Si dominas más de las que aparecen en la lista del sector, márcalas.');
-  else if(totalHab > 24) add('fail','Tienes '+totalHab+' habilidades: son demasiadas y diluyen las importantes. Deja las más relevantes al puesto.');
-  else add('pass', totalHab+' habilidades declaradas — buen balance.');
+  if(totalHab === 0) add('crit','No has marcado ninguna habilidad. Es lo primero que compara contra la vacante el programa que revisa tu CV.');
+  else if(totalHab < 6) add('fail','Solo marcaste '+totalHab+' habilidades. Si manejas más de las que están en la lista, márcalas.');
+  else if(totalHab > 24) add('fail','Marcaste '+totalHab+' habilidades. Son tantas que las importantes se pierden entre las demás; deja las que de verdad van con el puesto.');
+  else add('pass', totalHab+' habilidades marcadas. Buen número.');
 
   if(st.sector && SECTOR_DATA && st.habTec.length){
     const top5 = (SECTOR_DATA.habilidades_tecnicas||[]).slice(0,5).map(h=>h.skill);
     const coinc = top5.filter(s=>st.habTec.includes(s));
-    if(coinc.length) add('pass','Coincides con '+coinc.length+' de las 5 habilidades técnicas más pedidas del sector.');
-    else add('fail','No marcaste ninguna de las 5 habilidades técnicas más pedidas del sector. Si alguna la tienes, márcala; si no, aparecerá como tu brecha a cerrar.');
+    if(coinc.length) add('pass','Tienes '+coinc.length+' de las 5 habilidades técnicas que más piden en tu sector.');
+    else add('fail','No marcaste ninguna de las 5 habilidades técnicas que más piden en tu sector. Si alguna sí la tienes, márcala; y si no, te la mostramos al final como lo que te conviene aprender.');
   }
 
   // longitud total
   const palabras = textoPlano(st).split(/\s+/).filter(Boolean).length;
-  if(palabras > 900) add('fail','Tu CV está quedando largo (~'+palabras+' palabras). Apunta a 1 página si tienes menos de 10 años de experiencia, 2 como máximo.');
-  else if(palabras > 120) add('pass','Extensión total adecuada (~'+palabras+' palabras).');
+  if(palabras > 900) add('fail','Tu CV va quedando largo (unas '+palabras+' palabras). Con menos de 10 años de experiencia, una página basta; dos es el máximo.');
+  else if(palabras > 120) add('pass','El CV tiene un largo adecuado (unas '+palabras+' palabras).');
 
   return r;
 }
@@ -1227,7 +1253,41 @@ $('sector').addEventListener('change', e => { cargarDatosSector(e.target.value);
 ['puestoObjetivo','nombre','tel','email','ciudad','linkedin','portafolio','perfil','habExtra']
   .forEach(k => $(k).addEventListener('input', actualizar));
 
-cargarSectores().then(()=>{ restaurar(); actualizar(); });
+/* Si la persona llegó desde "CV frente al mercado laboral" después de subir su CV,
+   ese texto viene guardado y lo dejamos listo aquí para que no lo suba dos veces.
+   Se lee una sola vez y se borra: si vuelve mañana a esta página, empieza limpio. */
+function recibirCVDeLaOtraPagina(){
+  let t = '';
+  try{
+    t = localStorage.getItem('cmb_cv_texto_puente') || '';
+    localStorage.removeItem('cmb_cv_texto_puente');
+  }catch(e){ return; }
+  if(!t.trim()) return;
+
+  const ta = $('cvTexto');
+  // Si ya venía un borrador con texto, no lo pisamos.
+  if(!ta || ta.value.trim()) return;
+  ta.value = t;
+
+  const aviso = document.getElementById('autoOut');
+  if(aviso){
+    aviso.innerHTML = '<div class="ok">Ya trajimos el CV que subiste en la página anterior. '
+      + 'Dale al botón de arriba para que llenemos los campos, y de ahí solo corriges lo que haga falta.</div>';
+  }
+  // Que se note a dónde tiene que mirar.
+  setTimeout(()=>{ try{ ta.scrollIntoView({behavior:'smooth', block:'center'}); }catch(e){} }, 400);
+}
+
+/* El .catch es a propósito: si algo falla al cargar los sectores, el formulario
+   debe abrir de todos modos. Sin esto, un tropiezo de red dejaría la página
+   muerta y sin explicación para quien la abre. */
+cargarSectores()
+  .catch(e => console.warn('No se pudieron cargar los sectores:', e))
+  .then(()=>{
+    try{ restaurar(); }catch(e){ console.warn('No se pudo restaurar el borrador:', e); }
+    try{ recibirCVDeLaOtraPagina(); }catch(e){ console.warn('No se pudo recibir el CV previo:', e); }
+    try{ actualizar(); }catch(e){ console.warn('No se pudo actualizar la vista:', e); }
+  });
 </script>
 </body>
 </html>
