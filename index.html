@@ -518,22 +518,23 @@ function pintarDiagnostico(texto){
 
   const cta = document.getElementById('diagCTA');
   // Mismo corte que la banda verde (75): si el CV no llegó a "bien armado",
-  // se ofrece el constructor. Es una oferta, no un desvío obligatorio —
+  // se ofrece Arma tu CV. Es una oferta, no un desvío obligatorio —
   // el análisis de habilidades sigue disponible abajo en todos los casos.
   if(score < 75){
-    cta.innerHTML = '<div class="diag-cta"><h3>Te conviene rehacerlo con el constructor</h3>'
+    cta.innerHTML = '<div class="diag-cta"><h3>Te conviene rehacerlo en Arma tu CV</h3>'
       + '<p>Es un formulario que te va diciendo qué poner en cada parte y por qué. '
       + 'Llevamos el texto que ya subiste, así que no empiezas de cero: solo revisas y corriges.</p>'
-      + '<a class="secondary" href="cv-builder.html" onclick="llevarCVAlConstructor()">Rehacer mi CV paso a paso →</a></div>';
+      + '<a class="secondary" href="cv-builder.html" onclick="llevarCVAlConstructor()">Arma tu CV paso a paso →</a></div>';
   }else{
     cta.innerHTML = '<div class="diag-cta ok"><h3>Puedes seguir al análisis de habilidades</h3>'
-      + '<p>Tu CV está en forma. Si quieres pulir los detalles marcados arriba, el '
-      + '<a href="cv-builder.html" onclick="llevarCVAlConstructor()">constructor de CV</a> te guía apartado por apartado.</p></div>';
+      + '<p>Tu CV está en forma. Si quieres pulir los detalles marcados arriba, '
+      + '<a href="cv-builder.html" onclick="llevarCVAlConstructor()">Arma tu CV</a> te guía apartado por apartado.</p></div>';
   }
   return score;
 }
 
-// Pasa el texto ya extraído al constructor para no pedirlo dos veces
+// Pasa el texto ya extraído a "Arma tu CV" para no pedirlo dos veces.
+// (El nombre de la función se queda como está para no tocar más de lo necesario.)
 function llevarCVAlConstructor(){
   try{
     const t = document.getElementById('cvText').value.trim();
