@@ -372,13 +372,71 @@ function renderChartKpiSalario(){
 
 // ---------- Habilidades por sector ----------
 
+/* Unificación de nombres de habilidad
+   Los sectores no siempre escriben la misma habilidad igual: aparecen
+   "liderazgo" / "Liderazgo", o "negociacion" / "negociación" / "Negociación".
+   Antes se contaban como habilidades distintas, así que el selector las
+   repetía y la comparación entre sectores salía incompleta (solo encontraba
+   los sectores que la escribían idéntico).
+   Aquí se agrupan por una clave sin acentos ni mayúsculas, y se elige un
+   único nombre para mostrar. NO se unen habilidades con matiz distinto
+   ("mantenimiento" y "mantenimiento industrial" siguen separadas): eso es
+   información real del mercado. */
+
+function claveHab(s){
+  return String(s || '')
+    .normalize('NFD').replace(/[̀-ͯ]/g, '')
+    .toLowerCase().replace(/\s+/g, ' ').trim();
+}
+
+// Entre las variantes de una misma habilidad, prefiere la mejor escrita:
+// la que conserva acentos y mayúsculas propias (CRM, SAP, Excel).
+/* Decide cuál de varias formas de escribir la misma habilidad se muestra.
+   Cuidado con contar mayúsculas a secas: "COMUNICACION" tiene 12 y le ganaba a
+   "Comunicación", que es justo la que queremos. Se premia el acento y se
+   castiga el texto todo en mayúsculas. */
+function puntajeVariante(s){
+  const t = String(s || '');
+  const letras = t.replace(/[^A-Za-zÁÉÍÓÚÜÑáéíóúüñ]/g, '');
+  const acentos = (t.match(/[áéíóúüñÁÉÍÓÚÜÑ]/g) || []).length;
+  const gritado = letras.length > 3 && letras === letras.toUpperCase();
+  const capitalizada = /^[A-ZÁÉÍÓÚÜÑ]/.test(t.trim());
+  return acentos * 10 + (gritado ? -50 : 0) + (capitalizada ? 2 : 0);
+}
+
+const NOMBRE_HAB = new Map(); // clave -> nombre a mostrar
+
+function registrarNombresHabilidad(){
+  const mejor = new Map();
+  SECTOR_LIST.forEach(s => {
+    const d = SECTORES[s.key];
+    if(!d) return;
+    [...(d.habilidades_tecnicas || []), ...(d.habilidades_blandas || [])].forEach(h => {
+      const k = claveHab(h.skill);
+      if(!k) return;
+      const prev = mejor.get(k);
+      if(!prev || puntajeVariante(h.skill) > puntajeVariante(prev)) mejor.set(k, h.skill);
+    });
+  });
+  NOMBRE_HAB.clear();
+  mejor.forEach((nombre, k) => {
+    NOMBRE_HAB.set(k, nombre.charAt(0).toUpperCase() + nombre.slice(1));
+  });
+}
+
+function nombreHab(s){
+  const k = claveHab(s);
+  return NOMBRE_HAB.get(k) || (String(s||'').charAt(0).toUpperCase() + String(s||'').slice(1));
+}
+
 function habilidadesDeSector(d, tipo){
   const listas = [];
   if(tipo === 'tecnicas' || tipo === 'todas') listas.push(d.habilidades_tecnicas || []);
   if(tipo === 'blandas' || tipo === 'todas') listas.push(d.habilidades_blandas || []);
-  const map = new Map(); // skill -> menciones
+  const map = new Map(); // nombre unificado -> menciones sumadas
   listas.forEach(lista => lista.forEach(h => {
-    map.set(h.skill, (map.get(h.skill) || 0) + h.menciones);
+    const n = nombreHab(h.skill);
+    map.set(n, (map.get(n) || 0) + h.menciones);
   }));
   return map;
 }
@@ -426,16 +484,20 @@ function renderSkillsTop(){
 }
 
 function todasLasHabilidades(){
-  const map = new Map(); // nombre -> tipo ('técnica'/'blanda', si aparece en ambas se marca 'mixta')
+  registrarNombresHabilidad();
+  const map = new Map(); // nombre unificado -> tipo ('técnica'/'blanda'; si aparece en ambas, 'mixta')
   SECTOR_LIST.forEach(s => {
     const d = SECTORES[s.key];
+    if(!d) return;
     (d.habilidades_tecnicas || []).forEach(h => {
-      const actual = map.get(h.skill);
-      map.set(h.skill, actual && actual !== 'técnica' ? 'mixta' : 'técnica');
+      const n = nombreHab(h.skill);
+      const actual = map.get(n);
+      map.set(n, actual && actual !== 'técnica' ? 'mixta' : 'técnica');
     });
     (d.habilidades_blandas || []).forEach(h => {
-      const actual = map.get(h.skill);
-      map.set(h.skill, actual && actual !== 'blanda' ? 'mixta' : 'blanda');
+      const n = nombreHab(h.skill);
+      const actual = map.get(n);
+      map.set(n, actual && actual !== 'blanda' ? 'mixta' : 'blanda');
     });
   });
   return map;
@@ -463,11 +525,15 @@ function renderSkillDetalle(){
   const colores = [];
   activos.forEach(s => {
     const d = SECTORES[s.key];
-    const enTecnicas = (d.habilidades_tecnicas || []).find(h => h.skill === skill);
-    const enBlandas = (d.habilidades_blandas || []).find(h => h.skill === skill);
-    const item = enTecnicas || enBlandas;
-    if(!item) return;
-    const valor = normalizar && d.vacantes_verificadas ? Math.round((item.menciones / d.vacantes_verificadas * 100) * 10) / 10 : item.menciones;
+    // Compara por la clave unificada: así un sector que escribe "liderazgo"
+    // y otro que escribe "Liderazgo" aparecen ambos en la misma gráfica.
+    const k = claveHab(skill);
+    const coincide = h => claveHab(h.skill) === k;
+    const enTecnicas = (d.habilidades_tecnicas || []).filter(coincide);
+    const enBlandas  = (d.habilidades_blandas  || []).filter(coincide);
+    const menciones = [...enTecnicas, ...enBlandas].reduce((a, h) => a + (h.menciones || 0), 0);
+    if(!menciones) return;
+    const valor = normalizar && d.vacantes_verificadas ? Math.round((menciones / d.vacantes_verificadas * 100) * 10) / 10 : menciones;
     labels.push(s.nombre);
     valores.push(valor);
     colores.push(SECTOR_COLOR[s.key]);
