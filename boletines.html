@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Boletines — Club de Mentes Brillantes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  /* Mismas variables que index.html y comparativo.html: si algún día cambia la
+     paleta del sitio, esta página tiene que cambiar con ella, no aparte. */
+  :root{
+    --azul:#b89a57; --azul-osc:#8b7440; --naranja:#c2703d;
+    --hero-bg:#faf8f2; --hero-bg2:#f3efe5; --hero-sub:#5a5346; --hero-line:rgba(31,31,28,.1);
+    --gold-light:#d0b06a;
+    --gris-borde:#e7ddc9; --texto:#1f1f1c; --texto-suave:#6b6459;
+    --font-serif:'Cormorant Garamond',Georgia,'Times New Roman',serif;
+    --font-sans:'Source Sans 3',ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;
+    --sombra:rgba(53,42,21,.1) 0px 10px 25px 0px;
+  }
+  *{box-sizing:border-box;}
+  body{font-family:var(--font-sans);margin:0;color:var(--texto);
+       background:linear-gradient(180deg,var(--hero-bg) 0%,var(--hero-bg2) 100%) fixed;}
+
+  .topbar{max-width:1120px;margin:0 auto;padding:16px 32px 0;display:flex;align-items:center;
+          justify-content:space-between;gap:16px;flex-wrap:wrap;}
+  .topbar .logo-link{display:inline-flex;align-items:center;}
+  .topbar .logo-link img{height:34px;width:auto;display:block;}
+  .topbar a.volver-link{display:inline-flex;align-items:center;gap:6px;color:var(--texto-suave);
+          font-size:0.82rem;font-weight:700;text-decoration:none;}
+  .topbar a.volver-link:hover{color:var(--azul-osc);}
+  @media(max-width:600px){.topbar{padding:14px 20px 0;} .topbar .logo-link img{height:28px;}}
+
+  header{padding:40px 32px 0;border-bottom:1px solid var(--hero-line);}
+  .hero-inner{max-width:1120px;margin:0 auto;padding-bottom:34px;}
+  .eyebrow{display:inline-block;font-size:.76rem;letter-spacing:.05em;color:#fff;
+           background:linear-gradient(135deg,var(--azul),var(--gold-light));padding:6px 16px;
+           border-radius:999px;margin:0 0 16px;font-weight:700;box-shadow:var(--sombra);}
+  header h1{font-family:var(--font-serif);margin:0 0 12px;font-size:2.5rem;line-height:1.14;
+            font-weight:700;max-width:660px;}
+  header p{margin:0;font-size:0.98rem;color:var(--hero-sub);max-width:640px;line-height:1.6;}
+
+  main{max-width:1120px;margin:0 auto;padding:34px 32px 70px;}
+  @media(max-width:600px){main{padding:26px 20px 50px;} header{padding:30px 20px 0;}
+                          header h1{font-size:1.9rem;}}
+
+  /* La edición más reciente va destacada: es la que casi todo el mundo viene a ver. */
+  .destacado{background:#fff;border:1px solid var(--gris-borde);border-radius:18px;
+             padding:26px 28px;box-shadow:var(--sombra);margin-bottom:34px;
+             display:flex;gap:26px;align-items:center;flex-wrap:wrap;}
+  .destacado .marca{font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+                    color:var(--naranja);}
+  .destacado h2{font-family:var(--font-serif);font-size:1.75rem;margin:6px 0 6px;font-weight:700;}
+  .destacado p{margin:0;color:var(--texto-suave);font-size:.92rem;line-height:1.55;max-width:520px;}
+  .destacado .col{flex:1 1 380px;}
+  .acciones{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;}
+  .btn{display:inline-block;padding:10px 20px;border-radius:999px;font-size:.86rem;font-weight:700;
+       text-decoration:none;border:1px solid transparent;}
+  .btn-primario{background:linear-gradient(135deg,var(--azul),var(--gold-light));color:#fff;
+                box-shadow:var(--sombra);}
+  .btn-primario:hover{filter:brightness(1.05);}
+  .btn-secundario{border-color:var(--gris-borde);color:var(--azul-osc);background:#fff;}
+  .btn-secundario:hover{border-color:var(--azul);}
+
+  h3.seccion{font-family:var(--font-serif);font-size:1.4rem;margin:0 0 4px;font-weight:700;}
+  .seccion-sub{margin:0 0 18px;color:var(--texto-suave);font-size:.88rem;}
+
+  .rejilla{display:grid;grid-template-columns:repeat(auto-fill,minmax(268px,1fr));gap:16px;}
+  .tarjeta{background:#fff;border:1px solid var(--gris-borde);border-radius:14px;padding:18px 20px;
+           display:flex;flex-direction:column;gap:8px;}
+  .tarjeta .fecha{font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+                  color:var(--azul-osc);}
+  .tarjeta .titulo{font-family:var(--font-serif);font-size:1.15rem;font-weight:700;line-height:1.25;}
+  .tarjeta .resumen{font-size:.85rem;color:var(--texto-suave);line-height:1.5;flex:1;}
+  .tarjeta .links{display:flex;gap:14px;font-size:.83rem;font-weight:700;}
+  .tarjeta .links a{color:var(--azul-osc);text-decoration:none;}
+  .tarjeta .links a:hover{text-decoration:underline;}
+
+  .aviso{background:#fff;border:1px dashed var(--gris-borde);border-radius:14px;padding:26px;
+         color:var(--texto-suave);font-size:.92rem;line-height:1.6;}
+
+  footer{border-top:1px solid var(--hero-line);}
+  .pie{max-width:1120px;margin:0 auto;padding:22px 32px 34px;font-size:.8rem;
+       color:var(--texto-suave);line-height:1.55;}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a class="logo-link" href="https://www.clubmentesbrillantes.com.mx/index.html" aria-label="Club de Mentes Brillantes"><img src="logo-cmb.svg" alt="Club de Mentes Brillantes"></a>
+  <a class="volver-link" href="index.html">← Volver a Tu CV frente al mercado</a>
+</div>
+
+<header>
+  <div class="hero-inner">
+    <span class="eyebrow">Club de Mentes Brillantes</span>
+    <h1>Boletines del mercado laboral</h1>
+    <p>Cada semana revisamos las vacantes publicadas en los sectores que seguimos y
+       resumimos en dos páginas qué se está pidiendo y dónde. Aquí quedan guardadas
+       todas las ediciones.</p>
+  </div>
+</header>
+
+<main>
+  <div id="destacado"></div>
+  <h3 class="seccion">Ediciones anteriores</h3>
+  <p class="seccion-sub" id="subAnteriores">Cargando…</p>
+  <div class="rejilla" id="lista"></div>
+</main>
+
+<footer>
+  <p class="pie">
+    Los boletines se arman con vacantes publicadas por empresas verificadas y con
+    estadísticas públicas de INEGI y STPS. Cuando un dato no está confirmado, la
+    edición lo dice en vez de estimarlo.
+  </p>
+</footer>
+
+<script>
+/* Las ediciones viven en boletines.json, que el generador actualiza cada semana.
+   Esta página no sabe nada de los datos: solo los muestra. Así publicar una
+   edición nueva no obliga a tocar el HTML. */
+const ESPERADO = 'boletines.json';
+
+function esc(s){
+  return String(s == null ? '' : s).replace(/[&<>"']/g, c =>
+    ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function fechaLarga(iso){
+  // Se arma en UTC a propósito: con new Date('2026-09-07') el navegador aplica
+  // la zona local y en México la fecha se recorre un día hacia atrás.
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(iso || ''));
+  if (!m) return '';
+  const d = new Date(Date.UTC(+m[1], +m[2] - 1, +m[3]));
+  return d.toLocaleDateString('es-MX', { day:'numeric', month:'long', year:'numeric', timeZone:'UTC' });
+}
+
+function enlaces(ed){
+  const partes = [];
+  if (ed.pdf)  partes.push(`<a href="${esc(ed.pdf)}" target="_blank" rel="noopener">Descargar PDF</a>`);
+  if (ed.html) partes.push(`<a href="${esc(ed.html)}" target="_blank" rel="noopener">Ver en línea</a>`);
+  return partes.join('');
+}
+
+function pintarDestacado(ed){
+  const caja = document.getElementById('destacado');
+  if (!ed) { caja.innerHTML = ''; return; }
+  caja.innerHTML = `
+    <div class="destacado">
+      <div class="col">
+        <div class="marca">Edición más reciente</div>
+        <h2>${esc(ed.titulo || ed.periodo || 'Boletín')}</h2>
+        <p>${esc(ed.resumen || '')}</p>
+        <div class="acciones">
+          ${ed.pdf  ? `<a class="btn btn-primario" href="${esc(ed.pdf)}" target="_blank" rel="noopener">Descargar PDF</a>` : ''}
+          ${ed.html ? `<a class="btn ${ed.pdf ? 'btn-secundario' : 'btn-primario'}" href="${esc(ed.html)}" target="_blank" rel="noopener">Ver en línea</a>` : ''}
+        </div>
+      </div>
+    </div>`;
+}
+
+function pintarLista(ediciones){
+  const lista = document.getElementById('lista');
+  const sub = document.getElementById('subAnteriores');
+  if (!ediciones.length){
+    sub.textContent = '';
+    lista.innerHTML = '<div class="aviso">Todavía no hay ediciones anteriores. ' +
+                      'Publicamos una nueva cada semana.</div>';
+    return;
+  }
+  sub.textContent = ediciones.length === 1
+    ? '1 edición publicada antes de la más reciente.'
+    : `${ediciones.length} ediciones publicadas antes de la más reciente.`;
+  lista.innerHTML = ediciones.map(ed => `
+    <article class="tarjeta">
+      <div class="fecha">${esc(fechaLarga(ed.fecha) || ed.periodo || '')}</div>
+      <div class="titulo">${esc(ed.titulo || ed.periodo || 'Boletín')}</div>
+      <div class="resumen">${esc(ed.resumen || '')}</div>
+      <div class="links">${enlaces(ed)}</div>
+    </article>`).join('');
+}
+
+async function cargar(){
+  let datos;
+  try {
+    const r = await fetch(ESPERADO, { cache: 'no-store' });
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    datos = await r.json();
+  } catch (e) {
+    document.getElementById('subAnteriores').textContent = '';
+    document.getElementById('lista').innerHTML =
+      '<div class="aviso">No se pudieron cargar los boletines en este momento. ' +
+      'Vuelve a intentarlo en un rato.</div>';
+    return;
+  }
+
+  const ediciones = (Array.isArray(datos) ? datos : (datos.ediciones || []))
+    .filter(ed => ed && (ed.pdf || ed.html))
+    .sort((a, b) => String(b.fecha || '').localeCompare(String(a.fecha || '')));
+
+  if (!ediciones.length){
+    document.getElementById('subAnteriores').textContent = '';
+    document.getElementById('lista').innerHTML =
+      '<div class="aviso">Todavía no hay boletines publicados. El primero sale pronto.</div>';
+    return;
+  }
+
+  pintarDestacado(ediciones[0]);
+  pintarLista(ediciones.slice(1));
+}
+
+cargar();
+</script>
+</body>
+</html>
