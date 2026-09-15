@@ -80,6 +80,23 @@
   .aviso{background:#fff;border:1px dashed var(--gris-borde);border-radius:14px;padding:26px;
          color:var(--texto-suave);font-size:.92rem;line-height:1.6;}
 
+  /* ---- buscador. Arranca oculto: con una sola edición no hay nada que filtrar
+     y unos controles muertos solo estorban. El script lo muestra cuando toca. -- */
+  .buscador{display:none;gap:12px;flex-wrap:wrap;align-items:flex-end;margin:0 0 20px;}
+  .buscador.activo{display:flex;}
+  .campo{display:flex;flex-direction:column;gap:5px;}
+  .campo label{font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+               color:var(--texto-suave);}
+  .campo input,.campo select{font-family:inherit;font-size:.9rem;color:var(--texto);background:#fff;
+    border:1px solid var(--gris-borde);border-radius:10px;padding:9px 12px;min-width:220px;}
+  .campo input:focus,.campo select:focus{outline:2px solid var(--azul);outline-offset:1px;
+    border-color:var(--azul);}
+  .buscador button{font-family:inherit;font-size:.83rem;font-weight:700;color:var(--azul-osc);
+    background:#fff;border:1px solid var(--gris-borde);border-radius:999px;padding:9px 16px;
+    cursor:pointer;}
+  .buscador button:hover{border-color:var(--azul);}
+  @media(max-width:600px){.campo input,.campo select{min-width:0;width:100%;} .campo{flex:1 1 100%;}}
+
   footer{border-top:1px solid var(--hero-line);}
   .pie{max-width:1120px;margin:0 auto;padding:22px 32px 34px;font-size:.8rem;
        color:var(--texto-suave);line-height:1.55;}
@@ -104,8 +121,23 @@
 
 <main>
   <div id="destacado"></div>
-  <h3 class="seccion">Ediciones anteriores</h3>
+
+  <h3 class="seccion" id="tituloLista">Ediciones anteriores</h3>
   <p class="seccion-sub" id="subAnteriores">Cargando…</p>
+
+  <form class="buscador" id="buscador" role="search" onsubmit="return false;">
+    <div class="campo">
+      <label for="qFecha">Fecha de publicación</label>
+      <select id="qFecha"><option value="">Todas las fechas</option></select>
+    </div>
+    <div class="campo">
+      <label for="qTexto">Buscar en el contenido</label>
+      <input type="search" id="qTexto" placeholder="Sector, periodo, palabra clave…"
+             autocomplete="off">
+    </div>
+    <button type="button" id="btnLimpiar">Limpiar</button>
+  </form>
+
   <div class="rejilla" id="lista"></div>
 </main>
 
@@ -161,6 +193,16 @@ function pintarDestacado(ed){
     </div>`;
 }
 
+function tarjetas(ediciones){
+  return ediciones.map(ed => `
+    <article class="tarjeta">
+      <div class="fecha">${esc(fechaLarga(ed.fecha) || ed.periodo || '')}</div>
+      <div class="titulo">${esc(ed.titulo || ed.periodo || 'Boletín')}</div>
+      <div class="resumen">${esc(ed.resumen || '')}</div>
+      <div class="links">${enlaces(ed)}</div>
+    </article>`).join('');
+}
+
 function pintarLista(ediciones){
   const lista = document.getElementById('lista');
   const sub = document.getElementById('subAnteriores');
@@ -173,13 +215,95 @@ function pintarLista(ediciones){
   sub.textContent = ediciones.length === 1
     ? '1 edición publicada antes de la más reciente.'
     : `${ediciones.length} ediciones publicadas antes de la más reciente.`;
-  lista.innerHTML = ediciones.map(ed => `
-    <article class="tarjeta">
-      <div class="fecha">${esc(fechaLarga(ed.fecha) || ed.periodo || '')}</div>
-      <div class="titulo">${esc(ed.titulo || ed.periodo || 'Boletín')}</div>
-      <div class="resumen">${esc(ed.resumen || '')}</div>
-      <div class="links">${enlaces(ed)}</div>
-    </article>`).join('');
+  lista.innerHTML = tarjetas(ediciones);
+}
+
+/* ------------------------------ buscador ---------------------------------- */
+
+// Se comparan textos sin acentos ni mayúsculas: quien busca "logistica" debe
+// encontrar "Logística", que es como está escrito en los boletines.
+function normalizar(s){
+  return String(s == null ? '' : s)
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
+}
+
+function llenarFechas(ediciones){
+  const sel = document.getElementById('qFecha');
+  // Las ediciones ya vienen de más nueva a más vieja; se agrupan por año para
+  // que la lista siga siendo navegable cuando haya varios años acumulados.
+  const porAnio = new Map();
+  ediciones.forEach(ed => {
+    const anio = String(ed.fecha || '').slice(0, 4) || 'Sin fecha';
+    if (!porAnio.has(anio)) porAnio.set(anio, []);
+    porAnio.get(anio).push(ed);
+  });
+  const partes = ['<option value="">Todas las fechas</option>'];
+  porAnio.forEach((lista, anio) => {
+    partes.push(`<optgroup label="${esc(anio)}">`);
+    lista.forEach(ed => {
+      partes.push(`<option value="${esc(ed.fecha || '')}">` +
+                  `${esc(fechaLarga(ed.fecha) || ed.periodo || 'Sin fecha')}</option>`);
+    });
+    partes.push('</optgroup>');
+  });
+  sel.innerHTML = partes.join('');
+}
+
+function aplicarFiltro(todas){
+  const fecha = document.getElementById('qFecha').value;
+  const texto = normalizar(document.getElementById('qTexto').value);
+  const lista = document.getElementById('lista');
+  const sub   = document.getElementById('subAnteriores');
+  const titulo = document.getElementById('tituloLista');
+  const destacado = document.getElementById('destacado');
+
+  // Sin filtros se vuelve a la vista normal: destacado arriba y el resto abajo.
+  if (!fecha && !texto){
+    pintarDestacado(todas[0]);
+    titulo.textContent = 'Ediciones anteriores';
+    pintarLista(todas.slice(1));
+    return;
+  }
+
+  // Con filtro activo, el destacado estorba: se busca entre TODAS las ediciones,
+  // incluida la más reciente, y todas los resultados se muestran igual.
+  destacado.innerHTML = '';
+  titulo.textContent = 'Resultados';
+
+  const hallados = todas.filter(ed => {
+    if (fecha && String(ed.fecha || '') !== fecha) return false;
+    if (!texto) return true;
+    const enTexto = normalizar([ed.titulo, ed.periodo, ed.resumen,
+                                fechaLarga(ed.fecha), ed.fecha].join(' '));
+    return enTexto.includes(texto);
+  });
+
+  if (!hallados.length){
+    sub.textContent = '';
+    lista.innerHTML = '<div class="aviso">Ninguna edición coincide con esa búsqueda. ' +
+                      'Prueba con otra fecha o quita el texto para ver todas.</div>';
+    return;
+  }
+  sub.textContent = hallados.length === 1
+    ? '1 edición coincide con la búsqueda.'
+    : `${hallados.length} ediciones coinciden con la búsqueda.`;
+  lista.innerHTML = tarjetas(hallados);
+}
+
+function montarBuscador(todas){
+  // Con una sola edición no hay nada que filtrar: los controles se quedan
+  // ocultos en lugar de ofrecer una búsqueda que no puede dar otro resultado.
+  if (todas.length < 2) return;
+  llenarFechas(todas);
+  document.getElementById('buscador').classList.add('activo');
+  const correr = () => aplicarFiltro(todas);
+  document.getElementById('qFecha').addEventListener('change', correr);
+  document.getElementById('qTexto').addEventListener('input', correr);
+  document.getElementById('btnLimpiar').addEventListener('click', () => {
+    document.getElementById('qFecha').value = '';
+    document.getElementById('qTexto').value = '';
+    correr();
+  });
 }
 
 async function cargar(){
@@ -209,6 +333,7 @@ async function cargar(){
 
   pintarDestacado(ediciones[0]);
   pintarLista(ediciones.slice(1));
+  montarBuscador(ediciones);
 }
 
 cargar();
