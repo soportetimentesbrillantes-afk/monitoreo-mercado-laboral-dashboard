@@ -6,7 +6,7 @@ Este archivo existe para que cualquiera (persona o asistente) entienda el estado
 del proyecto sin rebuscar en conversaciones pasadas. Si algo aquí ya no es
 cierto, corrígelo: un contexto desactualizado es peor que no tenerlo.
 
-**Última revisión:** 15 de septiembre de 2026
+**Última revisión:** 18 de septiembre de 2026
 
 ---
 
@@ -51,7 +51,7 @@ Agregar un sector al manifiesto lo hace aparecer solo en todas las páginas.
 
 ## 4. El backend
 
-Un Cloudflare Worker en `https://cv-analisis.gael-ramav.workers.dev` con cinco
+Un Cloudflare Worker **en la cuenta del Club de Mentes Brillantes**, en `https://cv-analisis.soportetimentesbrillantes.workers.dev` con cinco
 endpoints: `/recomendar-empleos`, `/recomendar-cursos`, `/mejorar-cv`,
 `/revisar-cv` y `/extraer-cv`. Usa un modelo de Claude. La clave de API vive
 como secreto en Cloudflare, nunca en este repo.
@@ -130,9 +130,9 @@ publicado, así que el catálogo real sobrevive a cada corrida.
 
 ## 9. Pendientes conocidos
 
-- **Redesplegar el Worker** con la versión de `/recomendar-cursos` que solo elige
-  del catálogo propio. El sitio ya está protegido por su propio candado, pero el
-  Worker sigue corriendo la versión anterior.
+- **La cuenta de Anthropic sigue siendo personal.** El Worker ya vive en Cloudflare
+  del Club, pero el consumo de IA se cobra a la cuenta personal de Gael porque se
+  conservó la API key actual. Ver `migrar_worker_a_cloudflare_del_club.md`.
 - El código del Worker no está versionado en este repo.
 - El catálogo de cursos casi no trae duración ni nivel.
 - El vocabulario de habilidades de turismo ya no coincide bien con el catálogo.
