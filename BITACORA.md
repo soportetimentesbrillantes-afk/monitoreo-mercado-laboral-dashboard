@@ -12,6 +12,35 @@ repetirlo.
 
 ---
 
+## 2026-09-18 — El Worker se mudó a la cuenta de Cloudflare del Club
+
+El backend de IA dejó de vivir en la cuenta personal. Nueva URL:
+`https://cv-analisis.soportetimentesbrillantes.workers.dev` (antes
+`cv-analisis.gael-ramav.workers.dev`). Se actualizó el endpoint en `index.html`
+y `cv-builder.html`.
+
+Con esta migración se cerraron dos pendientes que venían arrastrándose:
+
+- **El arreglo de cursos quedó desplegado.** Hasta hoy el Worker en producción
+  todavía podía sugerir plataformas externas; la versión que se subió a la cuenta
+  nueva solo elige del catálogo del Club. Verificado en vivo: con un sector sin
+  catálogo responde `sin_catalogo` sin llamar a la IA, y con uno que sí tiene
+  devuelve únicamente ids del catálogo.
+- **El origen CORS por defecto apuntaba al dominio viejo.** `ALLOWED_ORIGINS[0]`
+  se usa cuando una petición llega sin origen reconocido, y encabezaba
+  `gaelr777.github.io`. Ahora encabeza el dominio actual del sitio.
+
+**Orden que se siguió, por si hay que repetirlo:** desplegar el Worker nuevo,
+probarlo aislado mientras el sitio seguía apuntando al viejo, recién entonces
+cambiar la URL en el sitio, verificar en vivo, y dejar el viejo encendido como
+vuelta atrás. Los pasos completos están en
+`migrar_worker_a_cloudflare_del_club.md`.
+
+**Queda pendiente:** la cuenta de Anthropic sigue siendo la personal — se conservó
+la API key actual, así que el consumo de IA se cobra a Gael aunque el hospedaje ya
+sea del Club. También falta apagar el Worker viejo, que se dejó vivo a propósito
+una semana por si algo se rompe sin que nadie lo note de inmediato.
+
 ## 2026-09-15 — Buscador en la página de boletines
 
 Se agregó a `boletines.html` un buscador con dos controles: una lista desplegable
