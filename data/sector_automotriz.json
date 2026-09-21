@@ -3,6 +3,363 @@
  "vacantes_verificadas": 873,
  "vacantes_descartadas": 657,
  "vacantes_con_habilidades": 105,
+ "pct_con_habilidades": 12,
+ "fuentes": {
+  "Adzuna": 696,
+  "OCC": 130,
+  "Indeed": 47
+ },
+ "categorias_puesto": [
+  {
+   "categoria": "Otro",
+   "vacantes": 216,
+   "pct": 24.7
+  },
+  {
+   "categoria": "Ventas / Comercial",
+   "vacantes": 194,
+   "pct": 22.2
+  },
+  {
+   "categoria": "Mecánica / Técnico automotriz (taller, mantenimiento)",
+   "vacantes": 150,
+   "pct": 17.2
+  },
+  {
+   "categoria": "Ingeniería (calidad, procesos, diseño, manufactura)",
+   "vacantes": 89,
+   "pct": 10.2
+  },
+  {
+   "categoria": "Gerencia / Dirección",
+   "vacantes": 87,
+   "pct": 10
+  },
+  {
+   "categoria": "Financiamiento / Crédito automotriz",
+   "vacantes": 45,
+   "pct": 5.2
+  },
+  {
+   "categoria": "Administración",
+   "vacantes": 33,
+   "pct": 3.8
+  },
+  {
+   "categoria": "Compras / Logística / Almacén",
+   "vacantes": 26,
+   "pct": 3
+  },
+  {
+   "categoria": "Becarios / Prácticas",
+   "vacantes": 13,
+   "pct": 1.5
+  },
+  {
+   "categoria": "Atención a clientes",
+   "vacantes": 12,
+   "pct": 1.4
+  },
+  {
+   "categoria": "Recursos Humanos",
+   "vacantes": 5,
+   "pct": 0.6
+  },
+  {
+   "categoria": "Marketing",
+   "vacantes": 3,
+   "pct": 0.3
+  }
+ ],
+ "habilidades_tecnicas": [
+  {
+   "skill": "ventas",
+   "menciones": 237
+  },
+  {
+   "skill": "mecánica",
+   "menciones": 142
+  },
+  {
+   "skill": "calidad",
+   "menciones": 49
+  },
+  {
+   "skill": "mantenimiento",
+   "menciones": 43
+  },
+  {
+   "skill": "refacciones",
+   "menciones": 31
+  },
+  {
+   "skill": "producción",
+   "menciones": 22
+  },
+  {
+   "skill": "manufactura",
+   "menciones": 21
+  },
+  {
+   "skill": "excel",
+   "menciones": 13
+  },
+  {
+   "skill": "inglés",
+   "menciones": 5
+  },
+  {
+   "skill": "erp",
+   "menciones": 4
+  },
+  {
+   "skill": "inventarios",
+   "menciones": 3
+  },
+  {
+   "skill": "nom",
+   "menciones": 2
+  },
+  {
+   "skill": "python",
+   "menciones": 2
+  },
+  {
+   "skill": "sap",
+   "menciones": 1
+  }
+ ],
+ "habilidades_blandas": [
+  {
+   "skill": "resolución de problemas",
+   "menciones": 107
+  },
+  {
+   "skill": "liderazgo",
+   "menciones": 100
+  },
+  {
+   "skill": "atención al cliente",
+   "menciones": 82
+  },
+  {
+   "skill": "negociación",
+   "menciones": 64
+  },
+  {
+   "skill": "organización",
+   "menciones": 60
+  },
+  {
+   "skill": "responsabilidad",
+   "menciones": 54
+  },
+  {
+   "skill": "trabajo en equipo",
+   "menciones": 49
+  },
+  {
+   "skill": "toma de decisiones",
+   "menciones": 48
+  },
+  {
+   "skill": "comunicación",
+   "menciones": 16
+  },
+  {
+   "skill": "atención al detalle",
+   "menciones": 11
+  }
+ ],
+ "top_empresas": [
+  {
+   "empresa": "Grupo Kasa Automotriz",
+   "vacantes": 64
+  },
+  {
+   "empresa": "Magna International, Inc",
+   "vacantes": 40
+  },
+  {
+   "empresa": "Automotriz Bonn S.A",
+   "vacantes": 21
+  },
+  {
+   "empresa": "Autozone",
+   "vacantes": 18
+  },
+  {
+   "empresa": "AutoZone México",
+   "vacantes": 15
+  },
+  {
+   "empresa": "Grupo Solana",
+   "vacantes": 15
+  },
+  {
+   "empresa": "ALTEN Mexico",
+   "vacantes": 15
+  },
+  {
+   "empresa": "Grupo Fame",
+   "vacantes": 14
+  },
+  {
+   "empresa": "Flosol",
+   "vacantes": 12
+  },
+  {
+   "empresa": "Grupo Autofin",
+   "vacantes": 10
+  },
+  {
+   "empresa": "Alden Tacubaya",
+   "vacantes": 10
+  },
+  {
+   "empresa": "MERCADERES SERVICIOS LABORALES Y ADMINISTRATIVOS",
+   "vacantes": 9
+  },
+  {
+   "empresa": "Corporación-Zapata",
+   "vacantes": 9
+  },
+  {
+   "empresa": "BANCA AFIRME",
+   "vacantes": 9
+  }
+ ],
+ "cobertura_geografica": {
+  "top_estados": [
+   {
+    "estado": "Ciudad de México",
+    "vacantes": 130
+   },
+   {
+    "estado": "Estado de México",
+    "vacantes": 91
+   },
+   {
+    "estado": "Jalisco",
+    "vacantes": 66
+   },
+   {
+    "estado": "Nuevo León",
+    "vacantes": 38
+   },
+   {
+    "estado": "Querétaro",
+    "vacantes": 37
+   },
+   {
+    "estado": "Puebla",
+    "vacantes": 35
+   },
+   {
+    "estado": "Coahuila",
+    "vacantes": 29
+   },
+   {
+    "estado": "Guanajuato",
+    "vacantes": 27
+   },
+   {
+    "estado": "San Luis Potosí",
+    "vacantes": 23
+   },
+   {
+    "estado": "Veracruz",
+    "vacantes": 16
+   }
+  ],
+  "estados_unicos": 31
+ },
+ "salario": {
+  "vacantes_con_dato": 431,
+  "pct_con_dato": 49.4,
+  "mediana_mensual_mxn": 14000,
+  "p25_mensual_mxn": 10714,
+  "p75_mensual_mxn": 19362
+ },
+ "evolucion_semanal": [
+  {
+   "semana": "04 May",
+   "vacantes": 3
+  },
+  {
+   "semana": "11 May",
+   "vacantes": 1
+  },
+  {
+   "semana": "18 May",
+   "vacantes": 5
+  },
+  {
+   "semana": "25 May",
+   "vacantes": 5
+  },
+  {
+   "semana": "01 Jun",
+   "vacantes": 3
+  },
+  {
+   "semana": "15 Jun",
+   "vacantes": 3
+  },
+  {
+   "semana": "22 Jun",
+   "vacantes": 4
+  },
+  {
+   "semana": "29 Jun",
+   "vacantes": 59
+  },
+  {
+   "semana": "06 Jul",
+   "vacantes": 31
+  },
+  {
+   "semana": "13 Jul",
+   "vacantes": 45
+  },
+  {
+   "semana": "20 Jul",
+   "vacantes": 8
+  },
+  {
+   "semana": "27 Jul",
+   "vacantes": 4
+  },
+  {
+   "semana": "03 Ago",
+   "vacantes": 24
+  },
+  {
+   "semana": "10 Ago",
+   "vacantes": 120
+  },
+  {
+   "semana": "17 Ago",
+   "vacantes": 13
+  },
+  {
+   "semana": "24 Ago",
+   "vacantes": 489
+  },
+  {
+   "semana": "31 Ago",
+   "vacantes": 43
+  }
+ ],
+ "total_empresas_unicas": 366,
+ "ultima_semana_vacantes": 43,
+ "vacantes_detalle": [],
+ "vacantes_detalle_nota": "Sin vacantes verificadas vigentes al 2026-09-21. Las 60 vacantes de la corrida 2026-08-31 fueron retiradas por exceder el umbral de recencia por fuente (Adzuna 10 dias, Indeed 15 dias, OCC 20 dias) aplicado en el mantenimiento semanal; a esta fecha tienen entre 21 y 30 dias de publicadas. No se publican links caducados. Esperando la proxima corrida completa (Etapas 1-4)."
+}{
+ "nombre": "Automotriz",
+ "vacantes_verificadas": 873,
+ "vacantes_descartadas": 657,
+ "vacantes_con_habilidades": 105,
  "pct_con_habilidades": 12.0,
  "fuentes": {
   "Adzuna": 696,
