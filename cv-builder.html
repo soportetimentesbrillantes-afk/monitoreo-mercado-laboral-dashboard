@@ -74,6 +74,14 @@ button.secondary:hover{background:var(--gris-bg);}
 button.small{padding:6px 12px;font-size:.82rem;}
 button.danger{background:#fff;color:var(--rojo);border:1px solid #e7cdc9;}
 .btnrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;}
+/* Consentimiento: sin marcar la casilla no se puede autollenar ni resguardar nada. */
+.consent{background:#fdfaf1;border:1px solid var(--gris-borde);border-radius:10px;padding:14px 16px;margin:16px 0 4px;}
+.consent-linea{display:flex;gap:10px;align-items:flex-start;font-size:.88rem;line-height:1.5;color:var(--texto);margin-bottom:10px;cursor:pointer;}
+.consent-linea:last-child{margin-bottom:0;}
+.consent-linea input{margin:3px 0 0;flex:0 0 auto;width:16px;height:16px;accent-color:var(--azul);cursor:pointer;}
+.consent-linea a{color:var(--azul-osc);font-weight:700;}
+.consent-linea em{font-style:normal;color:var(--texto-suave);}
+button:disabled{opacity:.45;cursor:not-allowed;filter:grayscale(.3);}
 
 .bloque{border:1px solid var(--gris-borde);border-radius:10px;padding:16px;margin-bottom:14px;background:#fff;}
 .bloque-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:4px;}
@@ -198,8 +206,19 @@ button.danger{background:#fff;color:var(--rojo);border:1px solid #e7cdc9;}
     <label for="cvTexto" style="margin-top:16px;">Texto extraído <span class="opt">(puedes pegarlo aquí directamente si prefieres)</span></label>
     <textarea id="cvTexto" style="min-height:120px;" placeholder="Aquí aparece el texto de tu CV una vez que subas el archivo. También puedes pegarlo tú mismo."></textarea>
 
+    <div class="consent">
+      <label class="consent-linea">
+        <input type="checkbox" id="aceptaLegales">
+        <span>He leído y acepto el <a href="aviso-privacidad.html" target="_blank" rel="noopener">Aviso de Privacidad</a> y los <a href="terminos.html" target="_blank" rel="noopener">Términos y Condiciones</a>, y autorizo que mi CV y mis datos de contacto queden resguardados en la base del Club de Mentes Brillantes para darme orientación laboral.</span>
+      </label>
+      <label class="consent-linea">
+        <input type="checkbox" id="aceptaAvisos">
+        <span>Además quiero recibir el boletín del mercado laboral y avisos de los programas del Club. <em>(opcional)</em></span>
+      </label>
+    </div>
+
     <div class="btnrow">
-      <button id="btnAutollenar" onclick="autollenar()">Llenar el formulario con este CV →</button>
+      <button id="btnAutollenar" onclick="autollenar()" disabled>Llenar el formulario con este CV →</button>
     </div>
     <div id="autoOut"></div>
 
@@ -214,7 +233,7 @@ button.danger{background:#fff;color:var(--rojo);border:1px solid #e7cdc9;}
       automáticos tampoco leen bien. Si algo quedó en el campo equivocado, corrígelo antes de seguir.
     </div>
     <div class="note">Tu archivo se abre aquí mismo, en tu computadora. Solo mandamos el texto para
-    reconocer qué parte va en cada campo, y no se guarda en ningún lado.</div>
+    reconocer qué parte va en cada campo, y, si marcas la casilla de aquí abajo, tu CV y tus datos de contacto quedan resguardados en la base del Club conforme al Aviso de Privacidad.</div>
   </div>
 </section>
 
@@ -1064,6 +1083,7 @@ $('cvFile').addEventListener('change', async e => {
   const file = e.target.files[0];
   const msg = $('cvFileMsg');
   if(!file) return;
+  recordarArchivoCV(file);
   msg.innerHTML = '<p class="note">Leyendo el archivo…</p>';
   try{
     let texto = '';
@@ -1145,11 +1165,123 @@ function aplicarExtraccion(d){
   return {campos: puestos.length, nExp, nEdu, nIdi, nCur, nCer, marcadas};
 }
 
+/* ===================== CONSENTIMIENTO Y RESGUARDO DEL CV =====================
+   No deja autollenar hasta que la persona marca la casilla del aviso de
+   privacidad y los términos. Si hay consentimiento, manda los datos y el archivo
+   a una hoja del Drive del Club.
+
+   El sitio es una página estática y no puede escribir archivos: quien guarda es
+   un Apps Script publicado desde la cuenta de Google del Club. Mientras
+   HOJA_CV_ENDPOINT esté vacío, nada de esto se activa y la página funciona
+   exactamente igual que antes. Los pasos para llenarlo están en el documento
+   "conectar-cvs-a-la-hoja.md". */
+
+const HOJA_CV_ENDPOINT = '';
+const HOJA_CV_CLAVE    = 'cmb-cv-2026';
+const MAX_ARCHIVO_MB   = 8;
+
+let archivoCV = null;
+
+function recordarArchivoCV(file){
+  archivoCV = null;
+  if(!file) return;
+  if(file.size > MAX_ARCHIVO_MB * 1024 * 1024) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    const dataUrl = String(reader.result || '');
+    const coma = dataUrl.indexOf(',');
+    if(coma < 0) return;
+    archivoCV = { nombre: file.name, tipo: file.type || '', contenido: dataUrl.slice(coma + 1) };
+  };
+  reader.onerror = () => { archivoCV = null; };
+  reader.readAsDataURL(file);
+}
+
+function consentimientoDado(){
+  const c = document.getElementById('aceptaLegales');
+  return !!(c && c.checked);
+}
+
+function quiereAvisos(){
+  const c = document.getElementById('aceptaAvisos');
+  return !!(c && c.checked);
+}
+
+async function guardarCVEnHoja(datos){
+  if(!HOJA_CV_ENDPOINT) return;
+  if(!consentimientoDado()) return;
+  const cuerpo = Object.assign({
+    clave: HOJA_CV_CLAVE, acepta: true, avisos: quiereAvisos(), archivo: archivoCV
+  }, datos);
+  try{
+    // Texto plano a propósito: así el navegador no hace la petición previa de
+    // permiso (preflight), que Apps Script no sabe contestar.
+    const r = await fetch(HOJA_CV_ENDPOINT, {
+      method: 'POST',
+      headers: {'content-type': 'text/plain;charset=utf-8'},
+      body: JSON.stringify(cuerpo)
+    });
+    const d = await r.json();
+    if(!d || !d.ok) console.warn('No se pudo guardar el CV:', (d && d.error) || 'respuesta inesperada');
+  }catch(err){
+    // Que falle el resguardo no debe estropearle el autollenado a la persona.
+    console.warn('No se pudo guardar el CV:', err);
+  }
+}
+
+function datosDeContacto(texto){
+  const out = {nombre:'', correo:'', telefono:''};
+  const t = String(texto || '');
+  const correo = t.match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/);
+  if(correo) out.correo = correo[0];
+  const tel = t.match(/(?:\+?52[\s-]?)?(?:\(?\d{2,3}\)?[\s-]?)?\d{3,4}[\s-]?\d{4}/);
+  if(tel && tel[0].replace(/\D/g,'').length >= 10) out.telefono = tel[0].trim();
+  const linea = t.split('\n').map(l=>l.trim()).find(l =>
+    l.length >= 5 && l.length <= 60 &&
+    /[A-Za-zÁÉÍÓÚÑáéíóúñ]/.test(l) && !/[@\d]/.test(l) &&
+    l.split(/\s+/).length <= 6);
+  if(linea) out.nombre = linea;
+  return out;
+}
+
+function registroDesdeFormulario(){
+  const v = id => { const el = $(id); return el ? String(el.value || '').trim() : ''; };
+  const texto = v('cvTexto');
+  const contacto = datosDeContacto(texto);
+  const sel = $('sector');
+  const sector = (sel && sel.selectedIndex >= 0 && sel.options[sel.selectedIndex])
+    ? sel.options[sel.selectedIndex].text : '';
+  return {
+    pagina: 'Arma tu CV',
+    nombre: v('nombre') || contacto.nombre,
+    correo: v('email') || contacto.correo,
+    telefono: v('tel') || contacto.telefono,
+    ciudad: v('ciudad'),
+    sector: sector,
+    puestoObjetivo: v('puestoObjetivo'),
+    origenAnalisis: 'autollenado',
+    caracteres: texto.length
+  };
+}
+
+(function amarrarConsentimiento(){
+  const casilla = document.getElementById('aceptaLegales');
+  const boton = document.getElementById('btnAutollenar');
+  if(!casilla || !boton) return;
+  const sincronizar = () => { boton.disabled = !casilla.checked; };
+  casilla.addEventListener('change', sincronizar);
+  sincronizar();
+})();
+
 async function autollenar(){
   const texto = $('cvTexto').value.trim();
   const btn = $('btnAutollenar'), out = $('autoOut');
   if(texto.length < 80){
     out.innerHTML = '<div class="warn" style="margin-top:12px;">Sube tu CV o pega su texto antes de continuar.</div>';
+    return;
+  }
+  if(!consentimientoDado()){
+    out.innerHTML = '<div class="warn" style="margin-top:12px;">Antes de continuar, marca la casilla del aviso de privacidad y los términos.</div>';
     return;
   }
   btn.disabled = true; btn.textContent = 'Leyendo tu CV…';
@@ -1194,6 +1326,7 @@ async function autollenar(){
       + 'abajo para que lo copies.</div>';
   }
   btn.disabled = false; btn.textContent = 'Llenar el formulario con este CV →';
+  guardarCVEnHoja(registroDesdeFormulario());
 }
 
 /* ---------------- revisión con IA ---------------- */
