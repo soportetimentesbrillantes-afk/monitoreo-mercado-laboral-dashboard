@@ -72,6 +72,14 @@
   .pill-toggle button{padding:7px 16px;border-radius:999px;border:1.5px solid var(--azul);background:#fff;color:var(--azul-osc);font-size:0.86rem;font-weight:600;cursor:pointer;font-family:var(--font-sans);}
   .pill-toggle button.active{background:linear-gradient(135deg,var(--azul),var(--gold-light));color:#fff;border-color:transparent;}
   #resultado{display:none;}
+  /* Consentimiento: sin marcar la casilla no se puede analizar ni resguardar nada. */
+  .consent{background:#fdfaf1;border:1px solid var(--gris-borde);border-radius:10px;padding:14px 16px;margin:16px 0 4px;}
+  .consent-linea{display:flex;gap:10px;align-items:flex-start;font-size:.88rem;line-height:1.5;color:var(--texto);margin-bottom:10px;cursor:pointer;}
+  .consent-linea:last-child{margin-bottom:0;}
+  .consent-linea input{margin:3px 0 0;flex:0 0 auto;width:16px;height:16px;accent-color:var(--azul);cursor:pointer;}
+  .consent-linea a{color:var(--azul-osc);font-weight:700;}
+  .consent-linea em{font-style:normal;color:var(--texto-suave);}
+  button.primary:disabled{opacity:.45;cursor:not-allowed;filter:grayscale(.3);}
   /* --- diagnóstico del CV --- */
   .diag-top{display:flex;align-items:center;gap:22px;flex-wrap:wrap;margin-bottom:6px;}
   .diag-num{font-family:var(--font-serif);font-size:3.4rem;font-weight:700;line-height:1;}
@@ -191,9 +199,20 @@ button.secondary:hover, a.secondary:hover{background:var(--hero-bg2);}
       <label>Texto del CV</label>
       <textarea id="cvText" placeholder="El texto extraído de tu archivo aparecerá aquí — o pégalo tú directamente."></textarea>
 
-      <div class="note">El texto de tu CV se extrae en tu navegador. Para identificar tus habilidades, ese texto se envía a un servicio propio que a su vez usa el modelo de IA de Anthropic (Claude) para el análisis semántico — no se guarda en ningún lado ni se comparte con terceros distintos a ese servicio. Si el análisis por IA no está disponible, se usa una comparación local por palabras clave como respaldo. Al analizarlo confirmas que das tu consentimiento para que este prototipo compare su contenido contra las habilidades en demanda del sector elegido.</div>
+      <div class="note">El texto de tu CV se extrae en tu navegador. Para identificar tus habilidades, ese texto se envía a un servicio propio que a su vez usa el modelo de IA de Anthropic (Claude) para el análisis semántico — no se comparte con terceros distintos a ese servicio. Si el análisis por IA no está disponible, se usa una comparación local por palabras clave como respaldo. Si marcas la casilla de abajo, tu CV y tus datos de contacto también quedan resguardados en la base del Club de Mentes Brillantes, conforme al Aviso de Privacidad.</div>
 
-      <button class="primary" id="btnAnalizarCV" onclick="analizarCV()">Analizar CV →</button>
+      <div class="consent">
+        <label class="consent-linea">
+          <input type="checkbox" id="aceptaLegales">
+          <span>He leído y acepto el <a href="aviso-privacidad.html" target="_blank" rel="noopener">Aviso de Privacidad</a> y los <a href="terminos.html" target="_blank" rel="noopener">Términos y Condiciones</a>, y autorizo que mi CV y mis datos de contacto queden resguardados en la base del Club de Mentes Brillantes para darme orientación laboral.</span>
+        </label>
+        <label class="consent-linea">
+          <input type="checkbox" id="aceptaAvisos">
+          <span>Además quiero recibir el boletín del mercado laboral y avisos de los programas del Club. <em>(opcional)</em></span>
+        </label>
+      </div>
+
+      <button class="primary" id="btnAnalizarCV" onclick="analizarCV()" disabled>Analizar CV →</button>
     </div>
 
     <div class="card" id="diagnostico" style="display:none;">
@@ -328,6 +347,7 @@ document.getElementById('fileInput').addEventListener('change', async (e)=>{
   const errBox = document.getElementById('extractError');
   errBox.innerHTML = '';
   if(!file) return;
+  recordarArchivoCV(file);
   const nombre = file.name.toLowerCase();
   try{
     let texto = '';
@@ -488,8 +508,10 @@ function diagnosticarCV(texto){
   return {score, revisiones: r};
 }
 
+let ultimoDiagScore = null;
 function pintarDiagnostico(texto){
   const {score, revisiones} = diagnosticarCV(texto);
+  ultimoDiagScore = score;
   const card = document.getElementById('diagnostico');
   card.style.display = 'block';
 
@@ -636,11 +658,121 @@ function detectarHabilidadesLocal(cvTextoRaw, todas){
   };
 }
 
+/* ===================== CONSENTIMIENTO Y RESGUARDO DEL CV =====================
+   No deja procesar el CV hasta que la persona marca la casilla del aviso de
+   privacidad y los términos. Si hay consentimiento, manda los datos y el archivo
+   a una hoja del Drive del Club.
+
+   El sitio es una página estática y no puede escribir archivos: quien guarda es
+   un Apps Script publicado desde la cuenta de Google del Club. Mientras
+   HOJA_CV_ENDPOINT esté vacío, nada de esto se activa y la página funciona
+   exactamente igual que antes. Los pasos para llenarlo están en el documento
+   "conectar-cvs-a-la-hoja.md". */
+
+const HOJA_CV_ENDPOINT = '';
+const HOJA_CV_CLAVE    = 'cmb-cv-2026';
+const MAX_ARCHIVO_MB   = 8;
+
+let archivoCV = null;
+
+function recordarArchivoCV(file){
+  archivoCV = null;
+  if(!file) return;
+  if(file.size > MAX_ARCHIVO_MB * 1024 * 1024) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    const dataUrl = String(reader.result || '');
+    const coma = dataUrl.indexOf(',');
+    if(coma < 0) return;
+    archivoCV = { nombre: file.name, tipo: file.type || '', contenido: dataUrl.slice(coma + 1) };
+  };
+  reader.onerror = () => { archivoCV = null; };
+  reader.readAsDataURL(file);
+}
+
+function consentimientoDado(){
+  const c = document.getElementById('aceptaLegales');
+  return !!(c && c.checked);
+}
+
+function quiereAvisos(){
+  const c = document.getElementById('aceptaAvisos');
+  return !!(c && c.checked);
+}
+
+async function guardarCVEnHoja(datos){
+  if(!HOJA_CV_ENDPOINT) return;
+  if(!consentimientoDado()) return;
+  const cuerpo = Object.assign({
+    clave: HOJA_CV_CLAVE, acepta: true, avisos: quiereAvisos(), archivo: archivoCV
+  }, datos);
+  try{
+    // Texto plano a propósito: así el navegador no hace la petición previa de
+    // permiso (preflight), que Apps Script no sabe contestar.
+    const r = await fetch(HOJA_CV_ENDPOINT, {
+      method: 'POST',
+      headers: {'content-type': 'text/plain;charset=utf-8'},
+      body: JSON.stringify(cuerpo)
+    });
+    const d = await r.json();
+    if(!d || !d.ok) console.warn('No se pudo guardar el CV:', (d && d.error) || 'respuesta inesperada');
+  }catch(err){
+    // Que falle el resguardo no debe estropearle el análisis a la persona.
+    console.warn('No se pudo guardar el CV:', err);
+  }
+}
+
+function datosDeContacto(texto){
+  const out = {nombre:'', correo:'', telefono:''};
+  const t = String(texto || '');
+  const correo = t.match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/);
+  if(correo) out.correo = correo[0];
+  const tel = t.match(/(?:\+?52[\s-]?)?(?:\(?\d{2,3}\)?[\s-]?)?\d{3,4}[\s-]?\d{4}/);
+  if(tel && tel[0].replace(/\D/g,'').length >= 10) out.telefono = tel[0].trim();
+  const linea = t.split('\n').map(l=>l.trim()).find(l =>
+    l.length >= 5 && l.length <= 60 &&
+    /[A-Za-zÁÉÍÓÚÑáéíóúñ]/.test(l) && !/[@\d]/.test(l) &&
+    l.split(/\s+/).length <= 6);
+  if(linea) out.nombre = linea;
+  return out;
+}
+
+function registroDesdeAnalisis(){
+  const r = ultimoReporte || {};
+  const contacto = datosDeContacto(r.cvTextoRaw || '');
+  return {
+    pagina: 'Tu CV frente al mercado',
+    nombre: contacto.nombre,
+    correo: contacto.correo,
+    telefono: contacto.telefono,
+    sector: (r.sector && r.sector.nombre) || r.sectorKey || '',
+    habilidadesDetectadas: (r.matched || []).map(h => h.skill),
+    habilidadesFaltantes: (r.missingTop || []).map(h => h.skill),
+    cobertura: r.pct,
+    diagnostico: ultimoDiagScore,
+    origenAnalisis: r.origen || '',
+    caracteres: (r.cvTextoRaw || '').length
+  };
+}
+
+(function amarrarConsentimiento(){
+  const casilla = document.getElementById('aceptaLegales');
+  const boton = document.getElementById('btnAnalizarCV');
+  if(!casilla || !boton) return;
+  const sincronizar = () => { boton.disabled = !casilla.checked; };
+  casilla.addEventListener('change', sincronizar);
+  sincronizar();
+})();
+
 async function analizarCV(){
   const sectorKey = document.getElementById('sectorSelect').value;
   const cvTextoRaw = document.getElementById('cvText').value;
   if(!cvTextoRaw || !cvTextoRaw.trim()){
     alert('Sube un archivo o pega el texto de tu CV antes de analizar.');
+    return;
+  }
+  if(!consentimientoDado()){
+    alert('Antes de analizar, marca la casilla del aviso de privacidad y los términos.');
     return;
   }
   const textoNorm = normalizar(cvTextoRaw);
@@ -710,6 +842,7 @@ async function analizarCV(){
   document.getElementById('resultado').scrollIntoView({behavior:'smooth'});
   renderCursos();
   renderEmpleos();
+  guardarCVEnHoja(registroDesdeAnalisis());
 }
 
 function descargarReporte(){
