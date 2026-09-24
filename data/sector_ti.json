@@ -1,326 +1,1222 @@
 {
  "nombre": "TI",
- "vacantes_verificadas": 157,
- "vacantes_descartadas": 76,
- "vacantes_con_habilidades": 91,
- "pct_con_habilidades": 58,
+ "vacantes_verificadas": 72,
+ "vacantes_descartadas": 101,
+ "vacantes_con_habilidades": 0,
+ "pct_con_habilidades": 0.0,
  "fuentes": {
-  "Indeed": 92,
-  "OCC": 64,
-  "Adzuna": 1
+  "Adzuna": 51,
+  "OCC": 21
  },
  "categorias_puesto": [
   {
-   "categoria": "Desarrollo de software",
-   "vacantes": 45,
-   "pct": 28.7
-  },
-  {
-   "categoria": "Infraestructura y soporte técnico",
-   "vacantes": 43,
-   "pct": 27.4
-  },
-  {
    "categoria": "Otro",
-   "vacantes": 23,
-   "pct": 14.6
+   "vacantes": 35,
+   "pct": 48.6
   },
   {
    "categoria": "Inteligencia artificial y automatización",
-   "vacantes": 15,
-   "pct": 9.6
+   "vacantes": 11,
+   "pct": 15.3
   },
   {
-   "categoria": "Gestión de proyectos TI",
-   "vacantes": 6,
-   "pct": 3.8
-  },
-  {
-   "categoria": "Consultoría y ERP",
-   "vacantes": 6,
-   "pct": 3.8
-  },
-  {
-   "categoria": "Becarios y practicantes",
-   "vacantes": 5,
-   "pct": 3.2
+   "categoria": "Desarrollo de software",
+   "vacantes": 9,
+   "pct": 12.5
   },
   {
    "categoria": "Datos y business intelligence",
-   "vacantes": 5,
-   "pct": 3.2
+   "vacantes": 4,
+   "pct": 5.6
   },
   {
-   "categoria": "Gerencia y dirección TI",
-   "vacantes": 5,
-   "pct": 3.2
-  },
-  {
-   "categoria": "Ciberseguridad",
-   "vacantes": 2,
-   "pct": 1.3
+   "categoria": "Infraestructura y soporte técnico",
+   "vacantes": 4,
+   "pct": 5.6
   },
   {
    "categoria": "QA y testing",
+   "vacantes": 2,
+   "pct": 2.8
+  },
+  {
+   "categoria": "Consultoría y ERP",
+   "vacantes": 2,
+   "pct": 2.8
+  },
+  {
+   "categoria": "Gerencia y dirección TI",
    "vacantes": 1,
-   "pct": 0.6
+   "pct": 1.4
+  },
+  {
+   "categoria": "Becarios y practicantes",
+   "vacantes": 1,
+   "pct": 1.4
   },
   {
    "categoria": "Redes y telecomunicaciones",
    "vacantes": 1,
-   "pct": 0.6
+   "pct": 1.4
+  },
+  {
+   "categoria": "Gestión de proyectos TI",
+   "vacantes": 1,
+   "pct": 1.4
+  },
+  {
+   "categoria": "Ciberseguridad",
+   "vacantes": 1,
+   "pct": 1.4
   }
  ],
  "habilidades_tecnicas": [
   {
-   "skill": "desarrollo de software",
-   "menciones": 50
-  },
-  {
    "skill": "inteligencia artificial",
-   "menciones": 49
+   "menciones": 16
   },
   {
-   "skill": "soporte tecnico",
-   "menciones": 40
+   "skill": "desarrollo de software",
+   "menciones": 10
   },
   {
    "skill": "business intelligence",
-   "menciones": 8
+   "menciones": 5
   },
   {
-   "skill": "erp / sap",
-   "menciones": 7
-  },
-  {
-   "skill": "bases de datos",
-   "menciones": 6
-  },
-  {
-   "skill": "ciberseguridad",
+   "skill": "soporte tecnico",
    "menciones": 4
   },
   {
-   "skill": "cloud",
-   "menciones": 3
+   "skill": "bases de datos",
+   "menciones": 1
   },
   {
    "skill": "redes",
-   "menciones": 3
+   "menciones": 1
+  },
+  {
+   "skill": "ciberseguridad",
+   "menciones": 1
   },
   {
    "skill": "gestion de proyectos",
-   "menciones": 2
-  },
-  {
-   "skill": "ingles",
-   "menciones": 2
+   "menciones": 1
   }
  ],
  "habilidades_blandas": [
   {
-   "skill": "resolucion de problemas",
-   "menciones": 101
-  },
-  {
-   "skill": "trabajo en equipo",
-   "menciones": 86
-  },
-  {
-   "skill": "comunicacion",
-   "menciones": 85
-  },
-  {
    "skill": "pensamiento analitico",
-   "menciones": 26
+   "menciones": 6
   },
   {
-   "skill": "aprendizaje continuo",
-   "menciones": 12
+   "skill": "resolucion de problemas",
+   "menciones": 5
   },
   {
    "skill": "liderazgo",
-   "menciones": 11
+   "menciones": 3
   },
   {
    "skill": "organizacion",
-   "menciones": 4
+   "menciones": 3
   },
   {
    "skill": "adaptabilidad",
-   "menciones": 2
+   "menciones": 1
   },
   {
    "skill": "atencion al detalle",
-   "menciones": 2
+   "menciones": 1
+  },
+  {
+   "skill": "aprendizaje continuo",
+   "menciones": 1
   }
  ],
  "top_empresas": [
   {
-   "empresa": "IRIUM MEXICO S.DR.L.DE C.V.",
-   "vacantes": 8
+   "empresa": "Magna International, Inc",
+   "vacantes": 27
   },
   {
-   "empresa": "MacStore",
-   "vacantes": 3
+   "empresa": "IDS Comercial",
+   "vacantes": 7
+  },
+  {
+   "empresa": "MAVI DE OCCIDENTE SA DE CV",
+   "vacantes": 5
   },
   {
    "empresa": "Branchbit",
    "vacantes": 3
   },
   {
-   "empresa": "Opilio Software",
+   "empresa": "Eaton Corporation",
    "vacantes": 2
   },
   {
-   "empresa": "INDETEC",
+   "empresa": "Autozone",
    "vacantes": 2
   },
   {
-   "empresa": "IT People Talent",
+   "empresa": "ManpowerGroup",
    "vacantes": 2
   },
   {
-   "empresa": "Lumina Software",
+   "empresa": "Mitsui & Co. Infrastructure Solutions",
    "vacantes": 2
   },
   {
-   "empresa": "Talento Hábil",
+   "empresa": "Grupo Salinas",
    "vacantes": 2
   },
   {
-   "empresa": "Grupac Corporation",
+   "empresa": "BBVA",
    "vacantes": 2
   },
   {
-   "empresa": "Agencia de Reclutamiento",
-   "vacantes": 2
-  },
-  {
-   "empresa": "ADARA RECURSOS HUMANOS SA DE CV",
-   "vacantes": 2
-  },
-  {
-   "empresa": "GACSOL Mex S. de R.L.",
+   "empresa": "Softtek",
    "vacantes": 1
   },
   {
-   "empresa": "Previta, S.A de C.V.",
+   "empresa": "CORPORATE TRAVEL SERVICES WORLDWIDE",
    "vacantes": 1
   },
   {
-   "empresa": "Consultora web",
+   "empresa": "Monterrey IT Cluster",
+   "vacantes": 1
+  },
+  {
+   "empresa": "LUMINA SOFTWARE",
    "vacantes": 1
   }
  ],
  "cobertura_geografica": {
   "top_estados": [
    {
+    "estado": "Coahuila",
+    "vacantes": 21
+   },
+   {
     "estado": "Ciudad de México",
-    "vacantes": 64
+    "vacantes": 17
    },
    {
     "estado": "Jalisco",
-    "vacantes": 32
-   },
-   {
-    "estado": "Nuevo León",
-    "vacantes": 13
-   },
-   {
-    "estado": "Estado de México",
     "vacantes": 7
    },
    {
-    "estado": "Guanajuato",
-    "vacantes": 4
-   },
-   {
-    "estado": "Querétaro",
+    "estado": "Nuevo León",
     "vacantes": 3
    },
    {
-    "estado": "Puebla",
+    "estado": "Querétaro",
     "vacantes": 2
    },
    {
-    "estado": "Oaxaca",
+    "estado": "Estado de México",
+    "vacantes": 2
+   },
+   {
+    "estado": "Yucatán",
+    "vacantes": 1
+   },
+   {
+    "estado": "San Luis Potosí",
+    "vacantes": 1
+   },
+   {
+    "estado": "Guanajuato",
+    "vacantes": 1
+   },
+   {
+    "estado": "Chihuahua",
     "vacantes": 1
    }
   ],
-  "estados_unicos": 8
+  "estados_unicos": 11
  },
  "salario": {
-  "vacantes_con_dato": 53,
-  "pct_con_dato": 33.8,
-  "mediana_mensual_mxn": 22500,
-  "p25_mensual_mxn": 12250,
-  "p75_mensual_mxn": 37500
+  "vacantes_con_dato": 22,
+  "pct_con_dato": 30.6,
+  "mediana_mensual_mxn": 141000,
+  "p25_mensual_mxn": 28125,
+  "p75_mensual_mxn": 442491
  },
  "evolucion_semanal": [
   {
-   "semana": "04 May",
-   "vacantes": 2
+   "semana": "07 Sep",
+   "vacantes": 42
   },
   {
-   "semana": "11 May",
-   "vacantes": 3
-  },
-  {
-   "semana": "18 May",
-   "vacantes": 2
-  },
-  {
-   "semana": "25 May",
-   "vacantes": 2
-  },
-  {
-   "semana": "08 Jun",
-   "vacantes": 1
-  },
-  {
-   "semana": "15 Jun",
-   "vacantes": 1
-  },
-  {
-   "semana": "29 Jun",
-   "vacantes": 4
-  },
-  {
-   "semana": "06 Jul",
-   "vacantes": 1
-  },
-  {
-   "semana": "20 Jul",
-   "vacantes": 4
-  },
-  {
-   "semana": "27 Jul",
-   "vacantes": 3
-  },
-  {
-   "semana": "03 Ago",
-   "vacantes": 7
-  },
-  {
-   "semana": "10 Ago",
-   "vacantes": 10
-  },
-  {
-   "semana": "17 Ago",
-   "vacantes": 49
-  },
-  {
-   "semana": "24 Ago",
-   "vacantes": 56
-  },
-  {
-   "semana": "31 Ago",
-   "vacantes": 5
+   "semana": "14 Sep",
+   "vacantes": 21
   }
  ],
- "total_empresas_unicas": 138,
- "ultima_semana_vacantes": 5,
- "vacantes_detalle": [],
- "vacantes_detalle_nota": "Sin vacantes verificadas vigentes al 2026-09-21. Las 60 vacantes de la corrida 2026-08-31 fueron retiradas por exceder el umbral de recencia por fuente (Adzuna 10 dias, Indeed 15 dias, OCC 20 dias) aplicado en el mantenimiento semanal; a esta fecha tienen entre 21 y 30 dias de publicadas. No se publican links caducados. Esperando la proxima corrida completa (Etapas 1-4)."
+ "total_empresas_unicas": 28,
+ "ultima_semana_vacantes": 21,
+ "vacantes_detalle": [
+  {
+   "titulo": "Warranty Engineer - Black Belt",
+   "empresa": "Magna International, Inc",
+   "ubicacion": "Ramos Arizpe, Coahuila de Zaragoza",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5884151550"
+  },
+  {
+   "titulo": "Small Project Take-Off Specialist",
+   "empresa": "Eaton Corporation",
+   "ubicacion": "Querétaro",
+   "habilidades_tecnicas": [
+    "IA / Automatización"
+   ],
+   "habilidades_blandas": [
+    "Pensamiento analítico"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5884382417"
+  },
+  {
+   "titulo": "Buyer",
+   "empresa": "Magna International, Inc",
+   "ubicacion": "Ramos Arizpe, Coahuila de Zaragoza",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5884151630"
+  },
+  {
+   "titulo": "Accountant, Tax",
+   "empresa": "Magna International, Inc",
+   "ubicacion": "Ramos Arizpe, Coahuila de Zaragoza",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5884151612"
+  },
+  {
+   "titulo": "Data Enginner",
+   "empresa": "Magna International, Inc",
+   "ubicacion": "Ramos Arizpe, Coahuila de Zaragoza",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5884151599"
+  },
+  {
+   "titulo": "Ingeniero en Automatización",
+   "empresa": "Magna International, Inc",
+   "ubicacion": "Ramos Arizpe, Coahuila de Zaragoza",
+   "habilidades_tecnicas": [
+    "IA / Automatización"
+   ],
+   "habilidades_blandas": [
+    "Pensamiento analítico"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5884151540"
+  },
+  {
+   "titulo": "Commercial Controlling Specialist",
+   "empresa": "Magna International, Inc",
+   "ubicacion": "Ramos Arizpe, Coahuila de Zaragoza",
+   "habilidades_tecnicas": [
+    "IA / Automatización"
+   ],
+   "habilidades_blandas": [
+    "Pensamiento analítico"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5884151569"
+  },
+  {
+   "titulo": "Lead, Production",
+   "empresa": "Magna International, Inc",
+   "ubicacion": "Ramos Arizpe, Coahuila de Zaragoza",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5884151607"
+  },
+  {
+   "titulo": "Controls Engineer",
+   "empresa": "Magna International, Inc",
+   "ubicacion": "Ramos Arizpe, Coahuila de Zaragoza",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5884151637"
+  },
+  {
+   "titulo": "Técnico de Mantenimiento Tratamiento Térmico",
+   "empresa": "Magna International, Inc",
+   "ubicacion": "Ramos Arizpe, Coahuila de Zaragoza",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5884151533"
+  },
+  {
+   "titulo": "Warranty Engineer - Liaison",
+   "empresa": "Magna International, Inc",
+   "ubicacion": "Ramos Arizpe, Coahuila de Zaragoza",
+   "habilidades_tecnicas": [
+    "IA / Automatización"
+   ],
+   "habilidades_blandas": [
+    "Pensamiento analítico"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5884151548"
+  },
+  {
+   "titulo": "Eng, Quality",
+   "empresa": "Magna International, Inc",
+   "ubicacion": "Ramos Arizpe, Coahuila de Zaragoza",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5884151656"
+  },
+  {
+   "titulo": "1000 Mechanical Engineer JR / MID / ADV - Batteries",
+   "empresa": "ALTEN MÉXICO",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5883986631"
+  },
+  {
+   "titulo": "Arquitecto/a de Soluciones Sr. (Ciudad de México, Miguel Hidalgo)",
+   "empresa": "BBVA",
+   "ubicacion": "Miguel Hidalgo, Ciudad de México",
+   "habilidades_tecnicas": [
+    "Gestión de TI"
+   ],
+   "habilidades_blandas": [
+    "Liderazgo"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5883748985"
+  },
+  {
+   "titulo": "Tester Jr - hibrido",
+   "empresa": "IDS Comercial",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "QA / Testing"
+   ],
+   "habilidades_blandas": [
+    "Atención al detalle"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882771442"
+  },
+  {
+   "titulo": "Simulation Engineer",
+   "empresa": "Magna International, Inc",
+   "ubicacion": "Ramos Arizpe, Coahuila de Zaragoza",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5883092147"
+  },
+  {
+   "titulo": "Heat Treatment Process Engineer",
+   "empresa": "Magna International, Inc",
+   "ubicacion": "Ramos Arizpe, Coahuila de Zaragoza",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5883092150"
+  },
+  {
+   "titulo": "Coordinador de Mercadotecnia Mitsubishi Queretaro Por Apertura",
+   "empresa": "Grupo Kasa Automotriz",
+   "ubicacion": "Querétaro",
+   "habilidades_tecnicas": [
+    "IA / Automatización"
+   ],
+   "habilidades_blandas": [
+    "Pensamiento analítico"
+   ],
+   "salario_min": 14000,
+   "salario_max": 14000,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882807579"
+  },
+  {
+   "titulo": "Desarrollador",
+   "empresa": "Grupo Salinas",
+   "ubicacion": "Tlalpan, Ciudad de México",
+   "habilidades_tecnicas": [
+    "Desarrollo de software"
+   ],
+   "habilidades_blandas": [
+    "Resolución de problemas"
+   ],
+   "salario_min": 27299,
+   "salario_max": 27299,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882804609"
+  },
+  {
+   "titulo": "Recruiter (US Market) – Onsite",
+   "empresa": "Solvo Global",
+   "ubicacion": "Mérida, Yucatán",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882451147"
+  },
+  {
+   "titulo": "QA Tester",
+   "empresa": "IDS Comercial",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "QA / Testing"
+   ],
+   "habilidades_blandas": [
+    "Atención al detalle"
+   ],
+   "salario_min": 25000,
+   "salario_max": 25000,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882726947"
+  },
+  {
+   "titulo": "Especialista Senior Linux  Middleware",
+   "empresa": "IDS Comercial",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "IA / Automatización"
+   ],
+   "habilidades_blandas": [
+    "Pensamiento analítico"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882729673"
+  },
+  {
+   "titulo": "Ingeniero de Proceso - Construcción",
+   "empresa": "Mitsui & Co. Infrastructure Solutions",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882730103"
+  },
+  {
+   "titulo": "Desarrollador Móvil Nativo Android Sr",
+   "empresa": "IDS Comercial",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "Desarrollo de software"
+   ],
+   "habilidades_blandas": [
+    "Resolución de problemas"
+   ],
+   "salario_min": 1200,
+   "salario_max": 1200,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882730338"
+  },
+  {
+   "titulo": "Student Trainee - Business Analysis",
+   "empresa": "Autozone",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "Apoyo técnico"
+   ],
+   "habilidades_blandas": [
+    "Aprendizaje continuo"
+   ],
+   "salario_min": 80400,
+   "salario_max": 80400,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882766923"
+  },
+  {
+   "titulo": "Desarrollador Android",
+   "empresa": "IDS Comercial",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "Desarrollo de software"
+   ],
+   "habilidades_blandas": [
+    "Resolución de problemas"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882768190"
+  },
+  {
+   "titulo": "Data Scientist Associate (Ciudad de México, Cuauhtémoc)",
+   "empresa": "BBVA",
+   "ubicacion": "Cuauhtémoc, Ciudad de México",
+   "habilidades_tecnicas": [
+    "Análisis de datos"
+   ],
+   "habilidades_blandas": [
+    "Pensamiento analítico"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882771374"
+  },
+  {
+   "titulo": "Metrologist",
+   "empresa": "Magna International, Inc",
+   "ubicacion": "Ramos Arizpe, Coahuila de Zaragoza",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5883092131"
+  },
+  {
+   "titulo": "Consultor SAS",
+   "empresa": "IDS Comercial",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "Consultoría ERP"
+   ],
+   "habilidades_blandas": [
+    "Comunicación"
+   ],
+   "salario_min": 25000,
+   "salario_max": 30000,
+   "fecha_publicacion": "2026-09-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5881149093"
+  },
+  {
+   "titulo": "Editor de contenido",
+   "empresa": "Megacable",
+   "ubicacion": "Guadalajara, Jalisco",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5881200827"
+  },
+  {
+   "titulo": "Freelance de Soporte Técnico de TI Proyecto 2 meses",
+   "empresa": "icorp",
+   "ubicacion": "Nezahualcóyotl, Estado de México",
+   "habilidades_tecnicas": [
+    "Soporte técnico"
+   ],
+   "habilidades_blandas": [
+    "Resolución de problemas"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5881199398"
+  },
+  {
+   "titulo": "AME Machining Engineer",
+   "empresa": "Magna International, Inc",
+   "ubicacion": "Ramos Arizpe, Coahuila de Zaragoza",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882084440"
+  },
+  {
+   "titulo": "Maintenance Technician",
+   "empresa": "Eaton Corporation",
+   "ubicacion": "San Luis Potosí",
+   "habilidades_tecnicas": [
+    "IA / Automatización"
+   ],
+   "habilidades_blandas": [
+    "Pensamiento analítico"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882283335"
+  },
+  {
+   "titulo": "Especialista Recursos Humanos (Comunicacin Interna, Employer Branding, Eventos y Cultura Organizacional)",
+   "empresa": "AUMOVIO",
+   "ubicacion": "Silao, Guanajuato",
+   "habilidades_tecnicas": [
+    "IA / Automatización"
+   ],
+   "habilidades_blandas": [
+    "Pensamiento analítico"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882282875"
+  },
+  {
+   "titulo": "Lead Developer-Commercial",
+   "empresa": "AutoZone, Inc.",
+   "ubicacion": "Chihuahua",
+   "habilidades_tecnicas": [
+    "Desarrollo de software"
+   ],
+   "habilidades_blandas": [
+    "Resolución de problemas"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882282169"
+  },
+  {
+   "titulo": "Group Leader Control Interno",
+   "empresa": "Magna International, Inc",
+   "ubicacion": "Ramos Arizpe, Coahuila de Zaragoza",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882084472"
+  },
+  {
+   "titulo": "Planeador de Materiales",
+   "empresa": "Magna International, Inc",
+   "ubicacion": "Ramos Arizpe, Coahuila de Zaragoza",
+   "habilidades_tecnicas": [
+    "IA / Automatización"
+   ],
+   "habilidades_blandas": [
+    "Pensamiento analítico"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882084423"
+  },
+  {
+   "titulo": "Group Leader de Relaciones Laborales",
+   "empresa": "Magna International, Inc",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882084458"
+  },
+  {
+   "titulo": "Specialist Controlling NA",
+   "empresa": "Magna International, Inc",
+   "ubicacion": "Ramos Arizpe, Coahuila de Zaragoza",
+   "habilidades_tecnicas": [
+    "IA / Automatización"
+   ],
+   "habilidades_blandas": [
+    "Pensamiento analítico"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882084453"
+  },
+  {
+   "titulo": "Quality System Engineer",
+   "empresa": "Magna International, Inc",
+   "ubicacion": "Ramos Arizpe, Coahuila de Zaragoza",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882084421"
+  },
+  {
+   "titulo": "Ingeniero de procesos",
+   "empresa": "Magna International, Inc",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882084445"
+  },
+  {
+   "titulo": "Ingeniero de Proceso Construcción",
+   "empresa": "MITSUI CO. INFRASTRUCTURE SOLUTIONS",
+   "ubicacion": "San Pedro Garza García, Nuevo León",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5881199487"
+  },
+  {
+   "titulo": "SOPORTE TECNICO EN CAMPO",
+   "empresa": "Sellcom Solutions México, S.A. DE C.V.",
+   "ubicacion": "Hermosillo, Sonora",
+   "habilidades_tecnicas": [
+    "Soporte técnico"
+   ],
+   "habilidades_blandas": [
+    "Resolución de problemas"
+   ],
+   "salario_min": 144000,
+   "salario_max": 144000,
+   "fecha_publicacion": "2026-09-17",
+   "fuente": "OCC",
+   "url": "https://www.occ.com.mx/empleo/oferta/21332798/"
+  },
+  {
+   "titulo": "Especialista en Sourcing de Software y Servicios de TI (SAM / FinOps)",
+   "empresa": "LUMINA SOFTWARE",
+   "ubicacion": "Monterrey, Nuevo León",
+   "habilidades_tecnicas": [
+    "IA / Automatización"
+   ],
+   "habilidades_blandas": [
+    "Pensamiento analítico"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-17",
+   "fuente": "OCC",
+   "url": "https://www.occ.com.mx/empleo/oferta/21331914/"
+  },
+  {
+   "titulo": "Scrum master",
+   "empresa": "Branchbit",
+   "ubicacion": "Coyoacán, Ciudad de México",
+   "habilidades_tecnicas": [
+    "Gestión de proyectos"
+   ],
+   "habilidades_blandas": [
+    "Liderazgo"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-17",
+   "fuente": "OCC",
+   "url": "https://www.occ.com.mx/empleo/oferta/21333122/"
+  },
+  {
+   "titulo": "Agente de Service Desk N1 (Nocturno)",
+   "empresa": "Monterrey IT Cluster",
+   "ubicacion": "Apodaca, Nuevo León",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": 120000,
+   "salario_max": 132000,
+   "fecha_publicacion": "2026-09-16",
+   "fuente": "OCC",
+   "url": "https://www.occ.com.mx/empleo/oferta/21335722/"
+  },
+  {
+   "titulo": "Data analyst",
+   "empresa": "AXITY MEXICO",
+   "ubicacion": "Ciudad de México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": 540000,
+   "salario_max": 600000,
+   "fecha_publicacion": "2026-09-16",
+   "fuente": "OCC",
+   "url": "https://www.occ.com.mx/empleo/oferta/21331220/"
+  },
+  {
+   "titulo": "Soporte técnico L1-Windows -Presencial CDMX",
+   "empresa": "GTIM SOFTWARE PROJECTS, S. DE R.L. DE C.V.",
+   "ubicacion": "Benito Juárez, Ciudad de México",
+   "habilidades_tecnicas": [
+    "Soporte técnico"
+   ],
+   "habilidades_blandas": [
+    "Resolución de problemas"
+   ],
+   "salario_min": 336000,
+   "salario_max": 360000,
+   "fecha_publicacion": "2026-09-15",
+   "fuente": "OCC",
+   "url": "https://www.occ.com.mx/empleo/oferta/21338237/"
+  },
+  {
+   "titulo": "Soporte técnico N2, Técnico Puntos de Venta (POS) - Zapopan",
+   "empresa": "IRIUM MEXICO S.DR.L.DE C.V.",
+   "ubicacion": "Zapopan, Jalisco",
+   "habilidades_tecnicas": [
+    "Soporte técnico"
+   ],
+   "habilidades_blandas": [
+    "Resolución de problemas"
+   ],
+   "salario_min": 132000,
+   "salario_max": 144000,
+   "fecha_publicacion": "2026-09-15",
+   "fuente": "OCC",
+   "url": "https://www.occ.com.mx/empleo/oferta/21338386/"
+  },
+  {
+   "titulo": "PROGRAMADOR POWER BI",
+   "empresa": "MAVI DE OCCIDENTE SA DE CV",
+   "ubicacion": "Guadalajara, Jalisco",
+   "habilidades_tecnicas": [
+    "Desarrollo de software"
+   ],
+   "habilidades_blandas": [
+    "Resolución de problemas"
+   ],
+   "salario_min": 444000,
+   "salario_max": 455976,
+   "fecha_publicacion": "2026-09-15",
+   "fuente": "OCC",
+   "url": "https://www.occ.com.mx/empleo/oferta/21329754/"
+  },
+  {
+   "titulo": "Consultor preventa",
+   "empresa": "Grupo Salinas",
+   "ubicacion": "Ciudad de México",
+   "habilidades_tecnicas": [
+    "Consultoría ERP"
+   ],
+   "habilidades_blandas": [
+    "Comunicación"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-15",
+   "fuente": "OCC",
+   "url": "https://www.occ.com.mx/empleo/oferta/21338114/"
+  },
+  {
+   "titulo": "Analista de datos",
+   "empresa": "CORPORATE TRAVEL SERVICES WORLDWIDE",
+   "ubicacion": "Miguel Hidalgo, Ciudad de México",
+   "habilidades_tecnicas": [
+    "Análisis de datos"
+   ],
+   "habilidades_blandas": [
+    "Pensamiento analítico"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-14",
+   "fuente": "OCC",
+   "url": "https://www.occ.com.mx/empleo/oferta/21335629/"
+  },
+  {
+   "titulo": "Líder Auditor",
+   "empresa": "IDS Comercial",
+   "ubicacion": "Ciudad de México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-14",
+   "fuente": "OCC",
+   "url": "https://www.occ.com.mx/empleo/oferta/21336053/"
+  },
+  {
+   "titulo": "ARQUITECTO REDES DE ACCESO FIJO",
+   "empresa": "INTEGRAVISION DE OCCIDENTE",
+   "ubicacion": "Ciudad de México",
+   "habilidades_tecnicas": [
+    "Administración de redes"
+   ],
+   "habilidades_blandas": [
+    "Resolución de problemas"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-14",
+   "fuente": "OCC",
+   "url": "https://www.occ.com.mx/empleo/oferta/21327322/"
+  },
+  {
+   "titulo": "Coordinador administrativo",
+   "empresa": "Branchbit",
+   "ubicacion": "Gustavo A. Madero, Ciudad de México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": 240000,
+   "salario_max": 300000,
+   "fecha_publicacion": "2026-09-14",
+   "fuente": "OCC",
+   "url": "https://www.occ.com.mx/empleo/oferta/21336971/"
+  },
+  {
+   "titulo": "Soporte aplicativo - PostgreSQL y Java",
+   "empresa": "INDRA SISTEMAS MEXICO",
+   "ubicacion": "Ciudad de México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-14",
+   "fuente": "OCC",
+   "url": "https://www.occ.com.mx/empleo/oferta/21337132/"
+  },
+  {
+   "titulo": "Líder técnico",
+   "empresa": "NETA SYSTEMS S.A. DE C.V.",
+   "ubicacion": "Ciudad de México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": 360000,
+   "salario_max": 384000,
+   "fecha_publicacion": "2026-09-14",
+   "fuente": "OCC",
+   "url": "https://www.occ.com.mx/empleo/oferta/21335198/"
+  },
+  {
+   "titulo": "Especialista en Ciberseguridad",
+   "empresa": "Branchbit",
+   "ubicacion": "Toluca, Estado de México",
+   "habilidades_tecnicas": [
+    "Ciberseguridad"
+   ],
+   "habilidades_blandas": [
+    "Atención al detalle"
+   ],
+   "salario_min": 360000,
+   "salario_max": 480000,
+   "fecha_publicacion": "2026-09-14",
+   "fuente": "OCC",
+   "url": "https://www.occ.com.mx/empleo/oferta/21327286/"
+  },
+  {
+   "titulo": "POWER BI",
+   "empresa": "MAVI DE OCCIDENTE SA DE CV",
+   "ubicacion": "Guadalajara, Jalisco",
+   "habilidades_tecnicas": [
+    "Análisis de datos"
+   ],
+   "habilidades_blandas": [
+    "Pensamiento analítico"
+   ],
+   "salario_min": 444000,
+   "salario_max": 455976,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "OCC",
+   "url": "https://www.occ.com.mx/empleo/oferta/21330912/"
+  },
+  {
+   "titulo": "Agente de Monitoreo de Incidentes",
+   "empresa": "Softtek",
+   "ubicacion": "Ciudad de México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "OCC",
+   "url": "https://www.occ.com.mx/empleo/oferta/21334493/"
+  }
+ ],
+ "vacantes_detalle_nota": "Generado programáticamente (2026-09-14) por etapa4_sector_json.py sobre 72 vacantes verificadas (vacantes_ti_verificadas_auto.csv). Todos los conteos son exactos (pandas, sin estimaciones). Salario normalizado a MXN mensual (Adzuna >90,000/año se dividió entre 12). vacantes_con_habilidades cuenta solo habilidades EXPLÍCITAS en el CSV fuente. Muestra vacantes_detalle: filtro de recencia Adzuna<=10d / Indeed<=15d / OCC<=20d desde hoy, muestreo proporcional por fuente, máx. 60; habilidades faltantes inferidas por categoría de puesto."
 }

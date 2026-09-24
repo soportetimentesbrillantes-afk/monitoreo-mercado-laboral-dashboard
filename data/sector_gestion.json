@@ -1,144 +1,126 @@
 {
  "nombre": "Gestión y Administración",
- "vacantes_verificadas": 355,
- "vacantes_descartadas": 132,
+ "vacantes_verificadas": 130,
+ "vacantes_descartadas": 81,
  "vacantes_con_habilidades": 0,
- "pct_con_habilidades": 0,
+ "pct_con_habilidades": 0.0,
  "fuentes": {
-  "Adzuna": 176,
-  "OCC": 168,
-  "Indeed": 11
+  "Adzuna": 115,
+  "OCC": 15
  },
  "categorias_puesto": [
   {
+   "categoria": "Otro",
+   "vacantes": 94,
+   "pct": 72.3
+  },
+  {
    "categoria": "Administración",
-   "vacantes": 146,
-   "pct": 41.1
+   "vacantes": 28,
+   "pct": 21.5
   },
   {
    "categoria": "Gestión de Proyectos",
-   "vacantes": 142,
-   "pct": 40
-  },
-  {
-   "categoria": "Otro",
-   "vacantes": 62,
-   "pct": 17.5
+   "vacantes": 5,
+   "pct": 3.8
   },
   {
    "categoria": "Finanzas y Contabilidad",
    "vacantes": 3,
-   "pct": 0.8
-  },
-  {
-   "categoria": "Tecnologías de la Información",
-   "vacantes": 2,
-   "pct": 0.6
+   "pct": 2.3
   }
  ],
  "habilidades_tecnicas": [
   {
    "skill": "gestión administrativa",
-   "menciones": 154
+   "menciones": 28
   },
   {
    "skill": "gestión de proyectos",
-   "menciones": 76
-  },
-  {
-   "skill": "finanzas / control presupuestal",
-   "menciones": 32
-  },
-  {
-   "skill": "sistemas / erp",
    "menciones": 9
   },
   {
-   "skill": "contabilidad",
-   "menciones": 7
+   "skill": "finanzas / control presupuestal",
+   "menciones": 4
   },
   {
-   "skill": "certificaciones pmp / agile",
+   "skill": "logística y cadena de suministro",
    "menciones": 2
-  },
-  {
-   "skill": "auditoría y normatividad",
-   "menciones": 1
   }
  ],
  "habilidades_blandas": [
   {
    "skill": "liderazgo",
-   "menciones": 161
-  },
-  {
-   "skill": "coordinación de equipos",
-   "menciones": 14
-  },
-  {
-   "skill": "comunicación bilingüe",
-   "menciones": 8
+   "menciones": 6
   },
   {
    "skill": "atención al detalle / control",
-   "menciones": 5
+   "menciones": 4
+  },
+  {
+   "skill": "coordinación de equipos",
+   "menciones": 2
+  },
+  {
+   "skill": "comunicación bilingüe",
+   "menciones": 1
   }
  ],
  "top_empresas": [
   {
-   "empresa": "Aliat Universidades",
-   "vacantes": 10
-  },
-  {
-   "empresa": "Talisis",
-   "vacantes": 6
-  },
-  {
    "empresa": "Grupo Salinas",
-   "vacantes": 6
+   "vacantes": 14
   },
   {
-   "empresa": "PARKS MANTENIMIENTO",
+   "empresa": "Santander México",
+   "vacantes": 9
+  },
+  {
+   "empresa": "Magna International, Inc",
+   "vacantes": 9
+  },
+  {
+   "empresa": "BBVA",
+   "vacantes": 8
+  },
+  {
+   "empresa": "Citigroup",
+   "vacantes": 7
+  },
+  {
+   "empresa": "SERVICIOS INTEGRALES EVENPLAN SC",
    "vacantes": 4
   },
   {
-   "empresa": "CA MEXICO S DE RL",
+   "empresa": "Medica Sur",
    "vacantes": 4
   },
   {
-   "empresa": "C&A Mexico S De Rl",
+   "empresa": "Transportes Castores de Baja California S.A. de C.V.",
    "vacantes": 4
   },
   {
-   "empresa": "Grupo Fame",
+   "empresa": "Amedirh TALENTO",
    "vacantes": 4
   },
   {
-   "empresa": "MAVI DE OCCIDENTE SA DE CV",
+   "empresa": "Abarrotera Del Duero Sa De Cv",
+   "vacantes": 4
+  },
+  {
+   "empresa": "ManpowerGroup",
+   "vacantes": 4
+  },
+  {
+   "empresa": "Banco Santander",
    "vacantes": 3
   },
   {
-   "empresa": "Adecco",
+   "empresa": "Autozone",
    "vacantes": 3
   },
   {
-   "empresa": "Farmacias del Ahorro",
-   "vacantes": 3
-  },
-  {
-   "empresa": "Hospital Moscati De Queretaro",
-   "vacantes": 3
-  },
-  {
-   "empresa": "Salud Digna",
-   "vacantes": 3
-  },
-  {
-   "empresa": "CONSULTORIA EN INTERNET ERGO SUM",
-   "vacantes": 3
-  },
-  {
-   "empresa": "PRESERVE SYSTEMS SC",
+   "empresa": "EVOQUE CONSULTING GROUP",
    "vacantes": 3
   }
  ],
@@ -146,110 +128,1027 @@
   "top_estados": [
    {
     "estado": "Ciudad de México",
-    "vacantes": 107
-   },
-   {
-    "estado": "Jalisco",
-    "vacantes": 35
-   },
-   {
-    "estado": "Nuevo León",
     "vacantes": 32
    },
    {
     "estado": "Estado de México",
-    "vacantes": 22
+    "vacantes": 8
    },
    {
-    "estado": "Querétaro",
-    "vacantes": 14
-   },
-   {
-    "estado": "Guanajuato",
-    "vacantes": 11
-   },
-   {
-    "estado": "Quintana Roo",
-    "vacantes": 9
+    "estado": "Coahuila",
+    "vacantes": 7
    },
    {
     "estado": "Puebla",
     "vacantes": 5
    },
    {
+    "estado": "Nuevo León",
+    "vacantes": 4
+   },
+   {
+    "estado": "Guanajuato",
+    "vacantes": 4
+   },
+   {
     "estado": "Hidalgo",
-    "vacantes": 5
+    "vacantes": 2
    },
    {
     "estado": "Chihuahua",
-    "vacantes": 5
+    "vacantes": 2
+   },
+   {
+    "estado": "Jalisco",
+    "vacantes": 2
+   },
+   {
+    "estado": "Querétaro",
+    "vacantes": 1
    }
   ],
-  "estados_unicos": 28
+  "estados_unicos": 19
  },
  "salario": {
-  "vacantes_con_dato": 183,
-  "pct_con_dato": 51.5,
-  "mediana_mensual_mxn": 27500,
-  "p25_mensual_mxn": 16749,
-  "p75_mensual_mxn": 45000
+  "vacantes_con_dato": 62,
+  "pct_con_dato": 47.7,
+  "mediana_mensual_mxn": 18250,
+  "p25_mensual_mxn": 11025,
+  "p75_mensual_mxn": 60000
  },
  "evolucion_semanal": [
   {
-   "semana": "18 May",
-   "vacantes": 2
+   "semana": "07 Sep",
+   "vacantes": 82
   },
   {
-   "semana": "15 Jun",
-   "vacantes": 1
-  },
-  {
-   "semana": "22 Jun",
-   "vacantes": 4
-  },
-  {
-   "semana": "29 Jun",
-   "vacantes": 2
-  },
-  {
-   "semana": "06 Jul",
-   "vacantes": 2
-  },
-  {
-   "semana": "13 Jul",
-   "vacantes": 1
-  },
-  {
-   "semana": "20 Jul",
-   "vacantes": 3
-  },
-  {
-   "semana": "27 Jul",
-   "vacantes": 8
-  },
-  {
-   "semana": "03 Ago",
-   "vacantes": 64
-  },
-  {
-   "semana": "10 Ago",
-   "vacantes": 43
-  },
-  {
-   "semana": "17 Ago",
-   "vacantes": 58
-  },
-  {
-   "semana": "24 Ago",
-   "vacantes": 148
-  },
-  {
-   "semana": "31 Ago",
-   "vacantes": 17
+   "semana": "14 Sep",
+   "vacantes": 36
   }
  ],
- "total_empresas_unicas": 275,
- "ultima_semana_vacantes": 17,
- "vacantes_detalle": [],
- "vacantes_detalle_nota": "Sin vacantes verificadas vigentes al 2026-09-21. Las 60 vacantes de la corrida 2026-08-31 fueron retiradas por exceder el umbral de recencia por fuente (Adzuna 10 dias, Indeed 15 dias, OCC 20 dias) aplicado en el mantenimiento semanal; a esta fecha tienen entre 21 y 30 dias de publicadas. No se publican links caducados. Esperando la proxima corrida completa (Etapas 1-4)."
+ "total_empresas_unicas": 50,
+ "ultima_semana_vacantes": 36,
+ "vacantes_detalle": [
+  {
+   "titulo": "Agente de transformación de procesos (Ciudad de México, Cuauhtémoc)",
+   "empresa": "BBVA",
+   "ubicacion": "Cuauhtémoc, Ciudad de México",
+   "habilidades_tecnicas": [
+    "Gestión administrativa y operativa"
+   ],
+   "habilidades_blandas": [
+    "Coordinación de equipos"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5883724525"
+  },
+  {
+   "titulo": "Cajero Peñon Viejo, sueldo fijo mas comisiones semanales! - Lbhn1107",
+   "empresa": "Grupo Salinas",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": 9000,
+   "salario_max": 14000,
+   "fecha_publicacion": "2026-09-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5883746528"
+  },
+  {
+   "titulo": "Responsable Ingresos y Egresos",
+   "empresa": "Grupo viso",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": 17000,
+   "salario_max": 18000,
+   "fecha_publicacion": "2026-09-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5883738109"
+  },
+  {
+   "titulo": "Analista rh - Atlacomulco",
+   "empresa": "Abarrotera Del Duero Sa De Cv",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": 12000,
+   "salario_max": 14000,
+   "fecha_publicacion": "2026-09-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5883734790"
+  },
+  {
+   "titulo": "Vendedor Elektra - Frontera",
+   "empresa": "Grupo Salinas",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5883727525"
+  },
+  {
+   "titulo": "MEX Cajero Dual",
+   "empresa": "Santander México",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5884258479"
+  },
+  {
+   "titulo": "Responsable De Farmacia",
+   "empresa": "Farmacias del Ahorro",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5883712634"
+  },
+  {
+   "titulo": "Auxiliar administrativo de ventas",
+   "empresa": "Grupo Geisha",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "Gestión administrativa y operativa"
+   ],
+   "habilidades_blandas": [
+    "Coordinación de equipos"
+   ],
+   "salario_min": 10000,
+   "salario_max": 11000,
+   "fecha_publicacion": "2026-09-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5883712623"
+  },
+  {
+   "titulo": "Asesor a de Crédito. Suc Querétaro",
+   "empresa": "BANCA AFIRME",
+   "ubicacion": "Querétaro",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": 9454,
+   "salario_max": 9454,
+   "fecha_publicacion": "2026-09-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5883784102"
+  },
+  {
+   "titulo": "Supervisor de ventas - Tepeji del rio",
+   "empresa": "Abarrotera Del Duero Sa De Cv",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": 13000,
+   "salario_max": 20000,
+   "fecha_publicacion": "2026-09-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5883746572"
+  },
+  {
+   "titulo": "Cajero Sucursal",
+   "empresa": "Santander México",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5884258478"
+  },
+  {
+   "titulo": "Asesor Ejecutivo en Banco Azteca Crucero de Cayaco Guerrero",
+   "empresa": "Grupo Salinas",
+   "ubicacion": "Acapulco, Guerrero",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": 60000,
+   "salario_max": 60000,
+   "fecha_publicacion": "2026-09-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5883784110"
+  },
+  {
+   "titulo": "Warranty Engineer - Black Belt",
+   "empresa": "Magna International, Inc",
+   "ubicacion": "Ramos Arizpe, Coahuila de Zaragoza",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5884151550"
+  },
+  {
+   "titulo": "Asesor a de Crédito, San Luis Potosí",
+   "empresa": "BANCA AFIRME",
+   "ubicacion": "San Luis Potosí",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": 9454,
+   "salario_max": 9454,
+   "fecha_publicacion": "2026-09-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5883784099"
+  },
+  {
+   "titulo": "(2172) - Ingeniero CAE - Análisis Estructural y Fatiga - MID - PUE",
+   "empresa": "ALTEN MÉXICO",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5883986630"
+  },
+  {
+   "titulo": "(2171) - Ingeniero(a) Senior de Torque Tooling y Commissioning",
+   "empresa": "ALTEN MÉXICO",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5883986647"
+  },
+  {
+   "titulo": "Warranty Engineer - Liaison",
+   "empresa": "Magna International, Inc",
+   "ubicacion": "Ramos Arizpe, Coahuila de Zaragoza",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5884151548"
+  },
+  {
+   "titulo": "Ingeniero en Automatización",
+   "empresa": "Magna International, Inc",
+   "ubicacion": "Ramos Arizpe, Coahuila de Zaragoza",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5884151540"
+  },
+  {
+   "titulo": "Jefe de Producción",
+   "empresa": "Magna International, Inc",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5884151577"
+  },
+  {
+   "titulo": "Generalista de Recursos Humanos",
+   "empresa": "Magna International, Inc",
+   "ubicacion": "Saltillo, Coahuila de Zaragoza",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5884151501"
+  },
+  {
+   "titulo": "Controls Engineer",
+   "empresa": "Magna International, Inc",
+   "ubicacion": "Ramos Arizpe, Coahuila de Zaragoza",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5884151637"
+  },
+  {
+   "titulo": "Program Manager",
+   "empresa": "Magna International, Inc",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5884151508"
+  },
+  {
+   "titulo": "Accountant, Tax",
+   "empresa": "Magna International, Inc",
+   "ubicacion": "Ramos Arizpe, Coahuila de Zaragoza",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5884151612"
+  },
+  {
+   "titulo": "GTE ESTRATEGIAS DE RECUPERACION- BASE DE DATOS",
+   "empresa": "Santander México",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5884258477"
+  },
+  {
+   "titulo": "Team Lead Sr",
+   "empresa": "Santander México",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5883921336"
+  },
+  {
+   "titulo": "Business Process Lead/ Líder en procesos de negocio",
+   "empresa": "Santander México",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "Gestión administrativa y operativa"
+   ],
+   "habilidades_blandas": [
+    "Coordinación de equipos"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5884258476"
+  },
+  {
+   "titulo": "Valuador de Oro Madero Centro",
+   "empresa": "Grupo Salinas",
+   "ubicacion": "Ciudad Madero, Tamaulipas",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": 10000,
+   "salario_max": 10000,
+   "fecha_publicacion": "2026-09-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5883784202"
+  },
+  {
+   "titulo": "Coordinación de Compensaciones Inglés avanzado.",
+   "empresa": "ManpowerGroup",
+   "ubicacion": "Cuajimalpa de Morelos, Ciudad de México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5883784192"
+  },
+  {
+   "titulo": "Product Owner",
+   "empresa": "Santander México",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5883921333"
+  },
+  {
+   "titulo": "Asistente de Dirección General indispensable tener experiencia en el puesto Ejecutiva Senior",
+   "empresa": "Operadora de Rastreos UDA S.A DE C.V",
+   "ubicacion": "Naucalpan de Juárez, Estado de México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": 25000,
+   "salario_max": 25000,
+   "fecha_publicacion": "2026-09-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5883784157"
+  },
+  {
+   "titulo": "(2173) - Ingeniero(a) Senior de Commissioning y Lanzamiento Industrial",
+   "empresa": "ALTEN MÉXICO",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5883986629"
+  },
+  {
+   "titulo": "Auditor I Estrategia de Riesgos",
+   "empresa": "Santander México",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5883921335"
+  },
+  {
+   "titulo": "Ejecutivo Select",
+   "empresa": "Santander México",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5883921332"
+  },
+  {
+   "titulo": "MEX Ejecutivo Cta. Pyme",
+   "empresa": "Santander México",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5884258474"
+  },
+  {
+   "titulo": "Ayudante de Cocina/central - Plaza central",
+   "empresa": "Wingstop",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": 9000,
+   "salario_max": 13000,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882763715"
+  },
+  {
+   "titulo": "Asesor de Ventas GNP Veracruz - Veracruz",
+   "empresa": "Grupo Nacional Provincial",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882740022"
+  },
+  {
+   "titulo": "Analista de Incidencias",
+   "empresa": "Edenred",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882744358"
+  },
+  {
+   "titulo": "Coordinador Desarrollo Ventas",
+   "empresa": "GEPP",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": 30000,
+   "salario_max": 35000,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882746273"
+  },
+  {
+   "titulo": "Analista de Soluciones 10",
+   "empresa": "Stefanini Latam",
+   "ubicacion": "Ciudad de México, México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882762369"
+  },
+  {
+   "titulo": "Ingeniero De Planta",
+   "empresa": "Amedirh TALENTO",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882762568"
+  },
+  {
+   "titulo": "Asesor Bancario - Leyes de reforma Iztapalapa",
+   "empresa": "Grupo Salinas",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882762706"
+  },
+  {
+   "titulo": "Especialista Senior Linux  Middleware",
+   "empresa": "IDS Comercial",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882739815"
+  },
+  {
+   "titulo": "Especialista de Producto Sr. (CMM México)",
+   "empresa": "Nissan",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882763744"
+  },
+  {
+   "titulo": "JBPM Developer Semi Senior",
+   "empresa": "Babel",
+   "ubicacion": "Ciudad de México, México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882767471"
+  },
+  {
+   "titulo": "Field Trainer",
+   "empresa": "Autozone",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882766077"
+  },
+  {
+   "titulo": "Administrative Assistant, Regional",
+   "empresa": "Autozone",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "Gestión administrativa y operativa"
+   ],
+   "habilidades_blandas": [
+    "Coordinación de equipos"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882766643"
+  },
+  {
+   "titulo": "Auxiliar de Cuentas por Pagar",
+   "empresa": "Orla Mining",
+   "ubicacion": "Concepción del Oro, Zacatecas",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882766993"
+  },
+  {
+   "titulo": "MEX Cajero Sucursal (Maternidad)",
+   "empresa": "Banco Santander",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882767179"
+  },
+  {
+   "titulo": "Analista Financiero, Atizapan De Zaragoza Estado De Mexico",
+   "empresa": "BBVA",
+   "ubicacion": "Miguel Hidalgo, Ciudad de México",
+   "habilidades_tecnicas": [
+    "Finanzas / control presupuestal"
+   ],
+   "habilidades_blandas": [
+    "Atención al detalle"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882764972"
+  },
+  {
+   "titulo": "Especialista De Control Presupuestal Y Proyectos De Infraestructura",
+   "empresa": "Banco Santander",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "Finanzas / control presupuestal"
+   ],
+   "habilidades_blandas": [
+    "Atención al detalle"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882728587"
+  },
+  {
+   "titulo": "Supervisor(a) de Administración de Flotilla GNP Seguros",
+   "empresa": "Grupo Nacional Provincial",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "Gestión administrativa y operativa"
+   ],
+   "habilidades_blandas": [
+    "Coordinación de equipos"
+   ],
+   "salario_min": 29000,
+   "salario_max": 29600,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882739784"
+  },
+  {
+   "titulo": "Sr Associate KYC/EDD (Ciudad de México, Cuauhtémoc)",
+   "empresa": "BBVA",
+   "ubicacion": "Cuauhtémoc, Ciudad de México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882739691"
+  },
+  {
+   "titulo": "Analista Jubilaciones",
+   "empresa": "Sigma",
+   "ubicacion": "Monterrey, Nuevo León",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882452042"
+  },
+  {
+   "titulo": "Practicante de administración",
+   "empresa": "AUTOMATIZACION Y SERVICIOS ESPECIALIZADOS DE CHIHUAHUA",
+   "ubicacion": "Chihuahua, Chihuahua",
+   "habilidades_tecnicas": [
+    "Gestión administrativa y operativa"
+   ],
+   "habilidades_blandas": [
+    "Coordinación de equipos"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-17",
+   "fuente": "OCC",
+   "url": "https://www.occ.com.mx/empleo/oferta/21332754/"
+  },
+  {
+   "titulo": "Becario finanzas, economía actuaría, administración de bases de datos, Polanco",
+   "empresa": "SERVICIOS INTEGRALES EVENPLAN SC",
+   "ubicacion": "Miguel Hidalgo, Ciudad de México",
+   "habilidades_tecnicas": [
+    "Gestión administrativa y operativa"
+   ],
+   "habilidades_blandas": [
+    "Coordinación de equipos"
+   ],
+   "salario_min": 96000,
+   "salario_max": 96000,
+   "fecha_publicacion": "2026-09-16",
+   "fuente": "OCC",
+   "url": "https://www.occ.com.mx/empleo/oferta/21328257/"
+  },
+  {
+   "titulo": "Becario/a Administración en Polanco",
+   "empresa": "SERVICIOS INTEGRALES EVENPLAN SC",
+   "ubicacion": "Miguel Hidalgo, Ciudad de México",
+   "habilidades_tecnicas": [
+    "Gestión administrativa y operativa"
+   ],
+   "habilidades_blandas": [
+    "Coordinación de equipos"
+   ],
+   "salario_min": 78000,
+   "salario_max": 78000,
+   "fecha_publicacion": "2026-09-16",
+   "fuente": "OCC",
+   "url": "https://www.occ.com.mx/empleo/oferta/21330813/"
+  },
+  {
+   "titulo": "ADMINISTRATIVO FACTURISTA",
+   "empresa": "MERCADERES SERVICIOS LABORALES Y ADMINISTRATIVOS",
+   "ubicacion": "Venustiano Carranza, Ciudad de México",
+   "habilidades_tecnicas": [
+    "Gestión administrativa y operativa"
+   ],
+   "habilidades_blandas": [
+    "Coordinación de equipos"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-16",
+   "fuente": "OCC",
+   "url": "https://www.occ.com.mx/empleo/oferta/21336725/"
+  },
+  {
+   "titulo": "Practicante Administrativo",
+   "empresa": "CAMARA NACIONAL DE COMERCIO SERVICIO Y TURISMO DE MONTERREY",
+   "ubicacion": "Salinas Victoria, Nuevo León",
+   "habilidades_tecnicas": [
+    "Gestión administrativa y operativa"
+   ],
+   "habilidades_blandas": [
+    "Coordinación de equipos"
+   ],
+   "salario_min": 96000,
+   "salario_max": 100368,
+   "fecha_publicacion": "2026-09-15",
+   "fuente": "OCC",
+   "url": "https://www.occ.com.mx/empleo/oferta/21337822/"
+  },
+  {
+   "titulo": "Estudiantes de Administración, Negocios Internacionales o afín. Excel intermedio avanzado",
+   "empresa": "Adecco",
+   "ubicacion": "Álvaro Obregón, Ciudad de México",
+   "habilidades_tecnicas": [
+    "Gestión administrativa y operativa"
+   ],
+   "habilidades_blandas": [
+    "Coordinación de equipos"
+   ],
+   "salario_min": 72000,
+   "salario_max": 84000,
+   "fecha_publicacion": "2026-09-15",
+   "fuente": "OCC",
+   "url": "https://www.occ.com.mx/empleo/oferta/21338048/"
+  },
+  {
+   "titulo": "Contador administrativo",
+   "empresa": "Coppel, S.A. de C.V.",
+   "ubicacion": "Guadalupe, Nuevo León",
+   "habilidades_tecnicas": [
+    "Gestión administrativa y operativa"
+   ],
+   "habilidades_blandas": [
+    "Coordinación de equipos"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-15",
+   "fuente": "OCC",
+   "url": "https://www.occ.com.mx/empleo/oferta/21338508/"
+  }
+ ],
+ "vacantes_detalle_nota": "Generado programáticamente (2026-09-14) por etapa4_sector_json.py sobre 130 vacantes verificadas (vacantes_gestion_verificadas_auto.csv). Todos los conteos son exactos (pandas, sin estimaciones). Salario normalizado a MXN mensual (Adzuna >90,000/año se dividió entre 12). vacantes_con_habilidades cuenta solo habilidades EXPLÍCITAS en el CSV fuente. Muestra vacantes_detalle: filtro de recencia Adzuna<=10d / Indeed<=15d / OCC<=20d desde hoy, muestreo proporcional por fuente, máx. 60; habilidades faltantes inferidas por categoría de puesto."
 }

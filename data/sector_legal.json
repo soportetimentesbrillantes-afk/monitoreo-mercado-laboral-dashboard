@@ -1,174 +1,129 @@
 {
  "nombre": "Legal",
- "vacantes_verificadas": 373,
- "vacantes_descartadas": 280,
- "vacantes_con_habilidades": 31,
- "pct_con_habilidades": 8.3,
+ "vacantes_verificadas": 157,
+ "vacantes_descartadas": 119,
+ "vacantes_con_habilidades": 0,
+ "pct_con_habilidades": 0.0,
  "fuentes": {
-  "Adzuna": 201,
-  "OCC": 136,
-  "Indeed": 36
+  "Adzuna": 139,
+  "OCC": 18
  },
  "categorias_puesto": [
   {
-   "categoria": "Abogado general",
-   "vacantes": 122,
-   "pct": 32.7
-  },
-  {
-   "categoria": "Derecho corporativo",
-   "vacantes": 63,
-   "pct": 16.9
-  },
-  {
    "categoria": "Otro",
-   "vacantes": 45,
-   "pct": 12.1
-  },
-  {
-   "categoria": "Derecho laboral",
-   "vacantes": 37,
-   "pct": 9.9
-  },
-  {
-   "categoria": "Litigio",
-   "vacantes": 37,
-   "pct": 9.9
-  },
-  {
-   "categoria": "Paralegal / Auxiliar legal",
-   "vacantes": 28,
-   "pct": 7.5
+   "vacantes": 119,
+   "pct": 75.8
   },
   {
    "categoria": "Cobranza judicial/extrajudicial",
-   "vacantes": 13,
-   "pct": 3.5
+   "vacantes": 19,
+   "pct": 12.1
+  },
+  {
+   "categoria": "Abogado general",
+   "vacantes": 9,
+   "pct": 5.7
   },
   {
    "categoria": "Cumplimiento normativo / Compliance",
-   "vacantes": 11,
-   "pct": 2.9
-  },
-  {
-   "categoria": "Derecho fiscal",
-   "vacantes": 6,
-   "pct": 1.6
-  },
-  {
-   "categoria": "Derecho de seguros",
    "vacantes": 5,
+   "pct": 3.2
+  },
+  {
+   "categoria": "Derecho corporativo",
+   "vacantes": 2,
    "pct": 1.3
   },
   {
-   "categoria": "Notariado",
-   "vacantes": 4,
-   "pct": 1.1
+   "categoria": "Derecho de seguros",
+   "vacantes": 1,
+   "pct": 0.6
   },
   {
-   "categoria": "Propiedad intelectual",
-   "vacantes": 2,
-   "pct": 0.5
+   "categoria": "Derecho laboral",
+   "vacantes": 1,
+   "pct": 0.6
+  },
+  {
+   "categoria": "Paralegal / Auxiliar legal",
+   "vacantes": 1,
+   "pct": 0.6
   }
  ],
  "habilidades_tecnicas": [
   {
-   "skill": "Asesoría jurídica",
-   "menciones": 290
-  },
-  {
-   "skill": "Derecho corporativo",
-   "menciones": 91
-  },
-  {
-   "skill": "Derecho laboral",
-   "menciones": 46
-  },
-  {
-   "skill": "Litigio",
-   "menciones": 42
-  },
-  {
-   "skill": "Apoyo paralegal",
-   "menciones": 26
-  },
-  {
-   "skill": "Derecho mercantil",
-   "menciones": 22
-  },
-  {
-   "skill": "Redacción de contratos",
-   "menciones": 15
-  },
-  {
-   "skill": "Cumplimiento normativo",
-   "menciones": 15
-  },
-  {
    "skill": "Cobranza judicial/extrajudicial",
+   "menciones": 19
+  },
+  {
+   "skill": "Asesoría jurídica",
    "menciones": 13
   },
   {
-   "skill": "Derecho de seguros",
-   "menciones": 7
+   "skill": "Cumplimiento normativo",
+   "menciones": 5
   },
   {
    "skill": "Derecho administrativo",
-   "menciones": 7
+   "menciones": 2
   },
   {
-   "skill": "Derecho civil",
-   "menciones": 7
+   "skill": "Derecho corporativo",
+   "menciones": 1
   },
   {
-   "skill": "Derecho fiscal",
-   "menciones": 7
+   "skill": "Derecho laboral",
+   "menciones": 1
   },
   {
-   "skill": "Relaciones laborales",
-   "menciones": 5
+   "skill": "Apoyo paralegal",
+   "menciones": 1
   },
   {
-   "skill": "Propiedad intelectual",
-   "menciones": 5
+   "skill": "Gestión documental",
+   "menciones": 1
+  },
+  {
+   "skill": "Derecho de seguros",
+   "menciones": 1
+  },
+  {
+   "skill": "Derecho mercantil",
+   "menciones": 1
   }
  ],
  "habilidades_blandas": [
   {
-   "skill": "Argumentación oral",
-   "menciones": 79
-  },
-  {
-   "skill": "Disposición para aprender",
-   "menciones": 66
-  },
-  {
-   "skill": "Visión estratégica",
-   "menciones": 65
-  },
-  {
-   "skill": "Manejo de conflictos",
-   "menciones": 50
-  },
-  {
-   "skill": "Organización",
-   "menciones": 22
-  },
-  {
    "skill": "Análisis",
-   "menciones": 18
+   "menciones": 12
   },
   {
    "skill": "Liderazgo",
-   "menciones": 13
+   "menciones": 11
+  },
+  {
+   "skill": "Disposición para aprender",
+   "menciones": 10
+  },
+  {
+   "skill": "Organización",
+   "menciones": 6
+  },
+  {
+   "skill": "Visión estratégica",
+   "menciones": 2
+  },
+  {
+   "skill": "Argumentación oral",
+   "menciones": 2
   },
   {
    "skill": "Atención al cliente",
-   "menciones": 9
+   "menciones": 2
   },
   {
-   "skill": "Comunicación",
-   "menciones": 6
+   "skill": "Manejo de conflictos",
+   "menciones": 1
   },
   {
    "skill": "Atención al detalle",
@@ -178,165 +133,1088 @@
  "top_empresas": [
   {
    "empresa": "BBVA",
-   "vacantes": 12
+   "vacantes": 32
   },
   {
-   "empresa": "Transportes Castores de Baja California S.A. de C.V.",
-   "vacantes": 11
-  },
-  {
-   "empresa": "Despacho Jurídico DOA",
-   "vacantes": 8
-  },
-  {
-   "empresa": "BHERMANOS",
-   "vacantes": 7
+   "empresa": "Autozone",
+   "vacantes": 22
   },
   {
    "empresa": "Bufete Juridico Barrera Badillo, S. C.",
-   "vacantes": 6
+   "vacantes": 15
   },
   {
-   "empresa": "Soluciones en Cobranza Legal",
-   "vacantes": 6
+   "empresa": "Nach",
+   "vacantes": 9
   },
   {
    "empresa": "Cacse",
+   "vacantes": 6
+  },
+  {
+   "empresa": "Magna International, Inc",
    "vacantes": 5
-  },
-  {
-   "empresa": "Human Quality",
-   "vacantes": 5
-  },
-  {
-   "empresa": "Farmacia San Pablo",
-   "vacantes": 4
-  },
-  {
-   "empresa": "PARKING LOGISTICS",
-   "vacantes": 4
-  },
-  {
-   "empresa": "Grupo Salinas",
-   "vacantes": 4
-  },
-  {
-   "empresa": "BANCO DEL BAJIO S.A.",
-   "vacantes": 3
   },
   {
    "empresa": "Hermanos Batta SA de CV",
    "vacantes": 3
   },
   {
-   "empresa": "PORTILLO, LUGO Y ASOCIADOS .",
+   "empresa": "Grupo Salinas",
    "vacantes": 3
+  },
+  {
+   "empresa": "Caja Popular Mexicana",
+   "vacantes": 3
+  },
+  {
+   "empresa": "BHERMANOS",
+   "vacantes": 3
+  },
+  {
+   "empresa": "BANCA AFIRME",
+   "vacantes": 3
+  },
+  {
+   "empresa": "FinancieraIndependencia",
+   "vacantes": 3
+  },
+  {
+   "empresa": "Nissan",
+   "vacantes": 2
+  },
+  {
+   "empresa": "Talisis",
+   "vacantes": 2
   }
  ],
  "cobertura_geografica": {
   "top_estados": [
    {
     "estado": "Ciudad de México",
-    "vacantes": 143
-   },
-   {
-    "estado": "Jalisco",
-    "vacantes": 30
+    "vacantes": 56
    },
    {
     "estado": "Estado de México",
-    "vacantes": 28
-   },
-   {
-    "estado": "Nuevo León",
-    "vacantes": 22
-   },
-   {
-    "estado": "Guanajuato",
-    "vacantes": 18
-   },
-   {
-    "estado": "Puebla",
     "vacantes": 13
    },
    {
-    "estado": "Yucatán",
-    "vacantes": 12
+    "estado": "Nuevo León",
+    "vacantes": 10
    },
    {
-    "estado": "Querétaro",
-    "vacantes": 9
+    "estado": "Jalisco",
+    "vacantes": 6
+   },
+   {
+    "estado": "Baja California Sur",
+    "vacantes": 5
    },
    {
     "estado": "Quintana Roo",
-    "vacantes": 9
+    "vacantes": 5
    },
    {
     "estado": "Coahuila",
-    "vacantes": 9
+    "vacantes": 4
+   },
+   {
+    "estado": "Baja California",
+    "vacantes": 3
+   },
+   {
+    "estado": "Querétaro",
+    "vacantes": 3
+   },
+   {
+    "estado": "Guanajuato",
+    "vacantes": 3
    }
   ],
-  "estados_unicos": 23
+  "estados_unicos": 25
  },
  "salario": {
-  "vacantes_con_dato": 197,
-  "pct_con_dato": 52.8,
-  "mediana_mensual_mxn": 17500,
-  "p25_mensual_mxn": 13000,
-  "p75_mensual_mxn": 22500
+  "vacantes_con_dato": 69,
+  "pct_con_dato": 43.9,
+  "mediana_mensual_mxn": 13868,
+  "p25_mensual_mxn": 9500,
+  "p75_mensual_mxn": 35021
  },
  "evolucion_semanal": [
   {
-   "semana": "11 May",
-   "vacantes": 1
+   "semana": "07 Sep",
+   "vacantes": 132
   },
   {
-   "semana": "25 May",
-   "vacantes": 4
-  },
-  {
-   "semana": "08 Jun",
-   "vacantes": 1
-  },
-  {
-   "semana": "22 Jun",
-   "vacantes": 1
-  },
-  {
-   "semana": "13 Jul",
-   "vacantes": 1
-  },
-  {
-   "semana": "20 Jul",
-   "vacantes": 2
-  },
-  {
-   "semana": "27 Jul",
-   "vacantes": 5
-  },
-  {
-   "semana": "03 Ago",
-   "vacantes": 7
-  },
-  {
-   "semana": "10 Ago",
-   "vacantes": 107
-  },
-  {
-   "semana": "17 Ago",
-   "vacantes": 124
-  },
-  {
-   "semana": "24 Ago",
-   "vacantes": 95
-  },
-  {
-   "semana": "31 Ago",
-   "vacantes": 3
+   "semana": "14 Sep",
+   "vacantes": 13
   }
  ],
- "total_empresas_unicas": 260,
- "ultima_semana_vacantes": 3,
- "vacantes_detalle": [],
- "vacantes_detalle_nota": "Sin vacantes verificadas vigentes al 2026-09-21. Las 60 vacantes de la corrida 2026-08-31 fueron retiradas por exceder el umbral de recencia por fuente (Adzuna 10 dias, Indeed 15 dias, OCC 20 dias) aplicado en el mantenimiento semanal; a esta fecha tienen entre 21 y 30 dias de publicadas. No se publican links caducados. Esperando la proxima corrida completa (Etapas 1-4)."
+ "total_empresas_unicas": 51,
+ "ultima_semana_vacantes": 13,
+ "vacantes_detalle": [
+  {
+   "titulo": "Descansa fines de semana Asesor Telefónico para Didi Lunes a viernes 002 Tiempo completo Contratación inmediata",
+   "empresa": "Bufete Juridico Barrera Badillo, S. C.",
+   "ubicacion": "Venustiano Carranza, Ciudad de México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5883784179"
+  },
+  {
+   "titulo": "Solo de Lunes a Viernes Asesor Telefónico para Didi 002 Tiempo completo Contratación inmediata",
+   "empresa": "Bufete Juridico Barrera Badillo, S. C.",
+   "ubicacion": "Gustavo A. Madero, Ciudad de México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5883784288"
+  },
+  {
+   "titulo": "Senior Accounts Receivable Analyst",
+   "empresa": "Deloitte",
+   "ubicacion": "Querétaro, México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5883452419"
+  },
+  {
+   "titulo": "Agente de transformación de procesos (Ciudad de México, Cuauhtémoc)",
+   "empresa": "BBVA",
+   "ubicacion": "Cuauhtémoc, Ciudad de México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5883724525"
+  },
+  {
+   "titulo": "Asesor/a riesgos Pyme. (Ciudad de México, Cuauhtémoc).",
+   "empresa": "BBVA",
+   "ubicacion": "Cuauhtémoc, Ciudad de México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5883750894"
+  },
+  {
+   "titulo": "Ejecutivo/a Hipotecario (Monterrey, Nuevo León)",
+   "empresa": "BBVA",
+   "ubicacion": "San Pedro Garza García, Nuevo León",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5883749024"
+  },
+  {
+   "titulo": "Arquitecto/a de Soluciones Sr. (Ciudad de México, Miguel Hidalgo)",
+   "empresa": "BBVA",
+   "ubicacion": "Miguel Hidalgo, Ciudad de México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5883748985"
+  },
+  {
+   "titulo": "Asesor de Servicios Banca Remota (Monterrey, Nuevo León)",
+   "empresa": "BBVA",
+   "ubicacion": "San Pedro Garza García, Nuevo León",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5883735963"
+  },
+  {
+   "titulo": "Gerente de Administracion - Gerente de Administración",
+   "empresa": "Talisis",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882734565"
+  },
+  {
+   "titulo": "Ingeniero/a Senior Expert en Gestión de Identidades y Accesos - IAM/PAM (Ciudad de México)",
+   "empresa": "BBVA",
+   "ubicacion": "Miguel Hidalgo, Ciudad de México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882732704"
+  },
+  {
+   "titulo": "Senior Manager – Credit Risk & Data Analytics (Miguel Hidalgo, Ciudad de México)",
+   "empresa": "BBVA",
+   "ubicacion": "Miguel Hidalgo, Ciudad de México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882726655"
+  },
+  {
+   "titulo": "Gerente de Recursos Humanos",
+   "empresa": "Coppel",
+   "ubicacion": "León, Guanajuato",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882451987"
+  },
+  {
+   "titulo": "ABOGADO/A REGULATORIO FINANCIERO",
+   "empresa": "Pérez-Llorca México",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "Cumplimiento normativo"
+   ],
+   "habilidades_blandas": [
+    "Análisis"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882451595"
+  },
+  {
+   "titulo": "Analista Jr. de Ciberinteligencia",
+   "empresa": "KPMG México",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882451159"
+  },
+  {
+   "titulo": "Recruiter (US Market) – Onsite",
+   "empresa": "Solvo Global",
+   "ubicacion": "Mérida, Yucatán",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882451147"
+  },
+  {
+   "titulo": "Practicante jurídico",
+   "empresa": "Transportes Castores de Baja California S.A. de C.V.",
+   "ubicacion": "León, Guanajuato",
+   "habilidades_tecnicas": [
+    "Asesoría jurídica"
+   ],
+   "habilidades_blandas": [
+    "Comunicación"
+   ],
+   "salario_min": 10400,
+   "salario_max": 10400,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882808101"
+  },
+  {
+   "titulo": "Sr Associate KYC/EDD (Ciudad de México, Cuauhtémoc)",
+   "empresa": "BBVA",
+   "ubicacion": "Cuauhtémoc, Ciudad de México",
+   "habilidades_tecnicas": [
+    "Cumplimiento normativo"
+   ],
+   "habilidades_blandas": [
+    "Análisis"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882739691"
+  },
+  {
+   "titulo": "Gerente Flotilla",
+   "empresa": "AutoZone, Inc.",
+   "ubicacion": "Monterrey, Nuevo León",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5883288166"
+  },
+  {
+   "titulo": "REPRESENTANTE VENTAS",
+   "empresa": "AutoZone, Inc.",
+   "ubicacion": "Zapopan, Jalisco",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5883288133"
+  },
+  {
+   "titulo": "PROFESIONAL VENDEDOR DE AUTOPARTES",
+   "empresa": "AutoZone, Inc.",
+   "ubicacion": "La Paz, Baja California Sur",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5883288156"
+  },
+  {
+   "titulo": "Auditor",
+   "empresa": "Autozone",
+   "ubicacion": "Monterrey, Nuevo León",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5883117641"
+  },
+  {
+   "titulo": "Repartidor Profesional",
+   "empresa": "Autozone",
+   "ubicacion": "Naucalpan de Juárez, Estado de México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5883117635"
+  },
+  {
+   "titulo": "Profesional Vendedor De Autopartes",
+   "empresa": "Autozone",
+   "ubicacion": "Escárcega, Campeche",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5883117637"
+  },
+  {
+   "titulo": "Analista Comercial",
+   "empresa": "Autozone",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5883117348"
+  },
+  {
+   "titulo": "Representante De Vendas",
+   "empresa": "Autozone",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5883116323"
+  },
+  {
+   "titulo": "Atención al cliente Sueldo Base Bonos",
+   "empresa": "Contel y Ferraez Abogados, S.C.",
+   "ubicacion": "Benito Juárez, Quintana Roo",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": 10000,
+   "salario_max": 10000,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882808205"
+  },
+  {
+   "titulo": "Abogado Penal",
+   "empresa": "Transportes Castores de Baja California S.A. de C.V.",
+   "ubicacion": "León, Guanajuato",
+   "habilidades_tecnicas": [
+    "Asesoría jurídica"
+   ],
+   "habilidades_blandas": [
+    "Comunicación"
+   ],
+   "salario_min": 23000,
+   "salario_max": 23000,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882808196"
+  },
+  {
+   "titulo": "002 Nueva Campaña DIDI tiempo completo Lunes a viernes Auxiliar administrativo Capturista Telefonista",
+   "empresa": "Bufete Juridico Barrera Badillo, S. C.",
+   "ubicacion": "Álvaro Obregón, Ciudad de México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": 8000,
+   "salario_max": 8000,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882808144"
+  },
+  {
+   "titulo": "Ejecutivo Telefónico DIDI No Ventas Lunes a Viernes Sin Experiencia",
+   "empresa": "Bufete Juridico Barrera Badillo, S. C.",
+   "ubicacion": "Benito Juárez, Ciudad de México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882808072"
+  },
+  {
+   "titulo": "Data Scientist Associate - Business Analytics",
+   "empresa": "BBVA",
+   "ubicacion": "Cuauhtémoc, Ciudad de México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882739451"
+  },
+  {
+   "titulo": "Jefe de inventario",
+   "empresa": "Manpower Business Professionals México",
+   "ubicacion": "Naucalpan de Juárez, Estado de México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882451993"
+  },
+  {
+   "titulo": "Asesor inmobiliario ingles avanzado sueldo base",
+   "empresa": "Strategosincrh",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "Derecho corporativo",
+    "Redacción de contratos"
+   ],
+   "habilidades_blandas": [
+    "Visión estratégica"
+   ],
+   "salario_min": 10000,
+   "salario_max": 20000,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882754231"
+  },
+  {
+   "titulo": "Coordinador de Recursos Humanos",
+   "empresa": "BigBola Casinos",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": 18000,
+   "salario_max": 20000,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882776040"
+  },
+  {
+   "titulo": "Analista de Documentos Banco Azteca",
+   "empresa": "Nach",
+   "ubicacion": "Tlalpan, Ciudad de México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": 10000,
+   "salario_max": 10000,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882807813"
+  },
+  {
+   "titulo": "Ejecutivo de Atención Telefónica DIDI Lunes a Viernes Capacitación pagada Bonos",
+   "empresa": "Bufete Juridico Barrera Badillo, S. C.",
+   "ubicacion": "Cuauhtémoc, Ciudad de México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882807792"
+  },
+  {
+   "titulo": "Ayudante de entrega",
+   "empresa": "GEPP",
+   "ubicacion": "Pátzcuaro, Michoacán de Ocampo",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": 10000,
+   "salario_max": 10000,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882807621"
+  },
+  {
+   "titulo": "Pasante de Derecho Para Cobranza Extrajudicial Telefónica Medio Tiempo Mat Vesp 9,451 Bonos de recuperación NO Topados",
+   "empresa": "Cacse",
+   "ubicacion": "Gustavo A. Madero, Ciudad de México",
+   "habilidades_tecnicas": [
+    "Cobranza judicial/extrajudicial"
+   ],
+   "habilidades_blandas": [
+    "Orientación a resultados"
+   ],
+   "salario_min": 9451,
+   "salario_max": 9451,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882807545"
+  },
+  {
+   "titulo": "Pasante de Derecho Para Cobranza Extrajudicial Telefónica Medio Tiempo Horario de 1300 a 2030 9,451 Ingresos de hasta 14,000 o más",
+   "empresa": "Cacse",
+   "ubicacion": "Gustavo A. Madero, Ciudad de México",
+   "habilidades_tecnicas": [
+    "Cobranza judicial/extrajudicial"
+   ],
+   "habilidades_blandas": [
+    "Orientación a resultados"
+   ],
+   "salario_min": 9451,
+   "salario_max": 9451,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882807550"
+  },
+  {
+   "titulo": "Coordinador de Mercadotecnia Mitsubishi Queretaro Por Apertura",
+   "empresa": "Grupo Kasa Automotriz",
+   "ubicacion": "Querétaro",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": 14000,
+   "salario_max": 14000,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882807579"
+  },
+  {
+   "titulo": "Pasante de Derecho Para Cobranza Extrajudicial Telefónica Medio Tiempo Horario de 1100 a 1830 9,451 Ingresos de hasta 14,000 o más",
+   "empresa": "Cacse",
+   "ubicacion": "Gustavo A. Madero, Ciudad de México",
+   "habilidades_tecnicas": [
+    "Cobranza judicial/extrajudicial"
+   ],
+   "habilidades_blandas": [
+    "Orientación a resultados"
+   ],
+   "salario_min": 9451,
+   "salario_max": 9451,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882807549"
+  },
+  {
+   "titulo": "Especialista de Producto Sr. (CMM México)",
+   "empresa": "Nissan",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882763744"
+  },
+  {
+   "titulo": "Pasante de Derecho para Cobranza Extrajudicial Telefónica Ingresos de 15,000 o más",
+   "empresa": "Cacse",
+   "ubicacion": "Gustavo A. Madero, Ciudad de México",
+   "habilidades_tecnicas": [
+    "Cobranza judicial/extrajudicial"
+   ],
+   "habilidades_blandas": [
+    "Orientación a resultados"
+   ],
+   "salario_min": 9451,
+   "salario_max": 9451,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882807551"
+  },
+  {
+   "titulo": "Contratación Inmediata Asesor Telefónico 002 Call Center DIDI Tiempo Completo De Lunes a Viernes",
+   "empresa": "Bufete Juridico Barrera Badillo, S. C.",
+   "ubicacion": "Venustiano Carranza, Ciudad de México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882807585"
+  },
+  {
+   "titulo": "Solo de Lunes a Viernes Únete a DIDI 2 días de Descanso 002 Capturista Datos Recepcionista Llamadas TC",
+   "empresa": "Bufete Juridico Barrera Badillo, S. C.",
+   "ubicacion": "Coyoacán, Ciudad de México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882807661"
+  },
+  {
+   "titulo": "Analista de Calidad telefónica para Cobranza 13,500 brutos bono de productividad",
+   "empresa": "Cacse",
+   "ubicacion": "Gustavo A. Madero, Ciudad de México",
+   "habilidades_tecnicas": [
+    "Cobranza judicial/extrajudicial"
+   ],
+   "habilidades_blandas": [
+    "Orientación a resultados"
+   ],
+   "salario_min": 11200,
+   "salario_max": 11200,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882807556"
+  },
+  {
+   "titulo": "Administrativo de Ventas Seminuevos Suzuki Angelopolis",
+   "empresa": "Grupo Excelencia Puebla SC",
+   "ubicacion": "Puebla",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": 14300,
+   "salario_max": 14300,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882801354"
+  },
+  {
+   "titulo": "Pasantes de Derecho para cobranza Extrajudicial domiciliaria Lunes a Viernes sueldo bruto 13,500 Bonos Ingresos de hasta 16,000 brutos",
+   "empresa": "Cacse",
+   "ubicacion": "Gustavo A. Madero, Ciudad de México",
+   "habilidades_tecnicas": [
+    "Cobranza judicial/extrajudicial"
+   ],
+   "habilidades_blandas": [
+    "Orientación a resultados"
+   ],
+   "salario_min": 13590,
+   "salario_max": 13590,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882807578"
+  },
+  {
+   "titulo": "Data Scientist Expert BEI (AI & Data Products)",
+   "empresa": "BBVA",
+   "ubicacion": "Cuauhtémoc, Ciudad de México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882775916"
+  },
+  {
+   "titulo": "Data Scientist Associate (Ciudad de México, Cuauhtémoc)",
+   "empresa": "BBVA",
+   "ubicacion": "Cuauhtémoc, Ciudad de México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882771374"
+  },
+  {
+   "titulo": "Analista Financiero, Atizapan De Zaragoza Estado De Mexico",
+   "empresa": "BBVA",
+   "ubicacion": "Miguel Hidalgo, Ciudad de México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882764972"
+  },
+  {
+   "titulo": "Asesor PT de atención de clientes Flotilleros - Nissan",
+   "empresa": "Nissan",
+   "ubicacion": "Aguascalientes, México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882774945"
+  },
+  {
+   "titulo": "AML Compliance Associate Ciclo y Analítica (Intelligence) (Ciudad de México, Cuauhtemóc)",
+   "empresa": "BBVA",
+   "ubicacion": "Cuauhtémoc, Ciudad de México",
+   "habilidades_tecnicas": [
+    "Cumplimiento normativo"
+   ],
+   "habilidades_blandas": [
+    "Análisis"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882769787"
+  },
+  {
+   "titulo": "Analista Jr. Regional Recursos Humanos",
+   "empresa": "Autozone",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882770185"
+  },
+  {
+   "titulo": "BECARIO JURÍDICO EN CANCÚN",
+   "empresa": "Qualitas Compañía de Seguros",
+   "ubicacion": "Quintana Roo",
+   "habilidades_tecnicas": [
+    "Asesoría jurídica"
+   ],
+   "habilidades_blandas": [
+    "Comunicación"
+   ],
+   "salario_min": 96000,
+   "salario_max": 96000,
+   "fecha_publicacion": "2026-09-17",
+   "fuente": "OCC",
+   "url": "https://www.occ.com.mx/empleo/oferta/21332443/"
+  },
+  {
+   "titulo": "BECARIO JURÍDICO EN PLAYA DEL CARMEN",
+   "empresa": "Qualitas Compañía de Seguros",
+   "ubicacion": "Quintana Roo",
+   "habilidades_tecnicas": [
+    "Asesoría jurídica"
+   ],
+   "habilidades_blandas": [
+    "Comunicación"
+   ],
+   "salario_min": 96000,
+   "salario_max": 96000,
+   "fecha_publicacion": "2026-09-17",
+   "fuente": "OCC",
+   "url": "https://www.occ.com.mx/empleo/oferta/21332446/"
+  },
+  {
+   "titulo": "Abogado/a",
+   "empresa": "Servicios Jurídicos y Administrativos MACOR,SC",
+   "ubicacion": "Huixquilucan, Estado de México",
+   "habilidades_tecnicas": [
+    "Asesoría jurídica"
+   ],
+   "habilidades_blandas": [
+    "Comunicación"
+   ],
+   "salario_min": 180000,
+   "salario_max": 300000,
+   "fecha_publicacion": "2026-09-17",
+   "fuente": "OCC",
+   "url": "https://www.occ.com.mx/empleo/oferta/21329253/"
+  },
+  {
+   "titulo": "Abogado auxiliar enfocado a REPSE",
+   "empresa": "Gurges Implementación de Negocios",
+   "ubicacion": "Estado de México",
+   "habilidades_tecnicas": [
+    "Asesoría jurídica"
+   ],
+   "habilidades_blandas": [
+    "Comunicación"
+   ],
+   "salario_min": 120000,
+   "salario_max": 144000,
+   "fecha_publicacion": "2026-09-17",
+   "fuente": "OCC",
+   "url": "https://www.occ.com.mx/empleo/oferta/21331844/"
+  },
+  {
+   "titulo": "Gestor/a de Cobranza en Campo (Coyoacan, Cuidad de México)",
+   "empresa": "BBVA Bancomer",
+   "ubicacion": "Coyoacán, Ciudad de México",
+   "habilidades_tecnicas": [
+    "Cobranza judicial/extrajudicial"
+   ],
+   "habilidades_blandas": [
+    "Orientación a resultados"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-16",
+   "fuente": "OCC",
+   "url": "https://www.occ.com.mx/empleo/oferta/21331214/"
+  },
+  {
+   "titulo": "Abogado mercantil",
+   "empresa": "HERMANOS BATTA, S.A. DE C.V.",
+   "ubicacion": "Tijuana, Baja California",
+   "habilidades_tecnicas": [
+    "Derecho corporativo",
+    "Redacción de contratos"
+   ],
+   "habilidades_blandas": [
+    "Visión estratégica"
+   ],
+   "salario_min": 216000,
+   "salario_max": 216000,
+   "fecha_publicacion": "2026-09-16",
+   "fuente": "OCC",
+   "url": "https://www.occ.com.mx/empleo/oferta/21331664/"
+  },
+  {
+   "titulo": "Coordinador de carga aérea",
+   "empresa": "ADECCO",
+   "ubicacion": "Venustiano Carranza, Ciudad de México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": 211200,
+   "salario_max": 211512,
+   "fecha_publicacion": "2026-09-16",
+   "fuente": "OCC",
+   "url": "https://www.occ.com.mx/empleo/oferta/21330559/"
+  }
+ ],
+ "vacantes_detalle_nota": "Generado programáticamente (2026-09-14) por etapa4_sector_json.py sobre 157 vacantes verificadas (vacantes_legal_verificadas_auto.csv). Todos los conteos son exactos (pandas, sin estimaciones). Salario normalizado a MXN mensual (Adzuna >90,000/año se dividió entre 12). vacantes_con_habilidades cuenta solo habilidades EXPLÍCITAS en el CSV fuente. Muestra vacantes_detalle: filtro de recencia Adzuna<=10d / Indeed<=15d / OCC<=20d desde hoy, muestreo proporcional por fuente, máx. 60; habilidades faltantes inferidas por categoría de puesto."
 }

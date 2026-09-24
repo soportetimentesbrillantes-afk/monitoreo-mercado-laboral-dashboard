@@ -1,8 +1,8 @@
 {
  "meta": {
-  "corrida": "2026-08-28",
+  "corrida": "2026-09-14",
   "fuente": "Dashboards y reportes de Etapa 4 (03 Sectores/[Sector]/Reportes) en la carpeta de Drive del proyecto",
-  "nota_corrida": "Mantenimiento automatico del 2026-09-21 (sin corrida nueva de datos). No hubo dashboards ni CSV verificados nuevos en Drive posteriores a la corrida 2026-08-28, por lo que los KPIs, graficas y agregados de los 9 sectores permanecen sin cambios. Lo unico que cambio es el apartado \"Empleos recomendados para ti\": las 60 vacantes publicadas por sector (corrida 2026-08-31) ya excedieron el umbral de recencia por fuente (Adzuna 10 dias, Indeed 15 dias, OCC 20 dias) y fueron retiradas para no mostrar links caducados; los 9 sectores quedan con vacantes_detalle vacio a la espera de la proxima corrida completa (Etapas 1-4). Nota operativa: la Etapa 1 corrio el 2026-09-14 en automotriz, turismo, gestion, ventas y finanzas, pero no llego a Etapa 2/4, asi que no hay datos nuevos publicables."
+  "nota_corrida": "Corrida completa 2026-09-14 (Etapas 1-4) para los 9 sectores: Automotriz, Turismo, Gestión y Administración, Ventas, Finanzas, Legal, Metalmecánica, TI y Logística. Extracción vía Adzuna + OCC (Indeed no disponible en esta corrida). Verificación de empresa determinística (etapa2_verificar.py) contra el maestro y las listas de confiables por sector; las empresas nuevas sin match quedaron en listas empresas_nuevas_<sector>.csv pendientes de validación (DENUE/web) para incorporarse al maestro en una corrida futura — no bloquean esta publicación. Conteos, categorías, habilidades, salarios y 'Empleos recomendados' (vacantes_detalle) recalculados de forma exacta con etapa4_sector_json.py sobre las vacantes verificadas de esta corrida."
  },
  "sectores": [
   {

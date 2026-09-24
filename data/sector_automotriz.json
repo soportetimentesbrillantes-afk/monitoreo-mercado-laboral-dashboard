@@ -1,358 +1,1229 @@
 {
  "nombre": "Automotriz",
- "vacantes_verificadas": 873,
- "vacantes_descartadas": 657,
- "vacantes_con_habilidades": 105,
- "pct_con_habilidades": 12,
+ "vacantes_verificadas": 234,
+ "vacantes_descartadas": 53,
+ "vacantes_con_habilidades": 0,
+ "pct_con_habilidades": 0.0,
  "fuentes": {
-  "Adzuna": 696,
-  "OCC": 130,
-  "Indeed": 47
+  "Adzuna": 210,
+  "OCC": 24
  },
  "categorias_puesto": [
   {
    "categoria": "Otro",
-   "vacantes": 216,
-   "pct": 24.7
-  },
-  {
-   "categoria": "Ventas / Comercial",
-   "vacantes": 194,
-   "pct": 22.2
-  },
-  {
-   "categoria": "Mecánica / Técnico automotriz (taller, mantenimiento)",
-   "vacantes": 150,
-   "pct": 17.2
+   "vacantes": 85,
+   "pct": 36.3
   },
   {
    "categoria": "Ingeniería (calidad, procesos, diseño, manufactura)",
-   "vacantes": 89,
-   "pct": 10.2
+   "vacantes": 45,
+   "pct": 19.2
   },
   {
    "categoria": "Gerencia / Dirección",
-   "vacantes": 87,
-   "pct": 10
+   "vacantes": 25,
+   "pct": 10.7
   },
   {
-   "categoria": "Financiamiento / Crédito automotriz",
-   "vacantes": 45,
-   "pct": 5.2
+   "categoria": "Mecánica / Técnico automotriz (taller, mantenimiento)",
+   "vacantes": 24,
+   "pct": 10.3
   },
   {
-   "categoria": "Administración",
-   "vacantes": 33,
-   "pct": 3.8
+   "categoria": "Ventas / Comercial",
+   "vacantes": 24,
+   "pct": 10.3
   },
   {
    "categoria": "Compras / Logística / Almacén",
-   "vacantes": 26,
-   "pct": 3
+   "vacantes": 9,
+   "pct": 3.8
+  },
+  {
+   "categoria": "Financiamiento / Crédito automotriz",
+   "vacantes": 7,
+   "pct": 3.0
   },
   {
    "categoria": "Becarios / Prácticas",
-   "vacantes": 13,
-   "pct": 1.5
+   "vacantes": 6,
+   "pct": 2.6
   },
   {
-   "categoria": "Atención a clientes",
-   "vacantes": 12,
-   "pct": 1.4
+   "categoria": "Administración",
+   "vacantes": 4,
+   "pct": 1.7
   },
   {
    "categoria": "Recursos Humanos",
-   "vacantes": 5,
-   "pct": 0.6
+   "vacantes": 3,
+   "pct": 1.3
   },
   {
    "categoria": "Marketing",
-   "vacantes": 3,
-   "pct": 0.3
+   "vacantes": 2,
+   "pct": 0.9
   }
  ],
  "habilidades_tecnicas": [
   {
    "skill": "ventas",
-   "menciones": 237
+   "menciones": 30
   },
   {
    "skill": "mecánica",
-   "menciones": 142
+   "menciones": 17
   },
   {
    "skill": "calidad",
-   "menciones": 49
-  },
-  {
-   "skill": "mantenimiento",
-   "menciones": 43
-  },
-  {
-   "skill": "refacciones",
-   "menciones": 31
-  },
-  {
-   "skill": "producción",
-   "menciones": 22
+   "menciones": 12
   },
   {
    "skill": "manufactura",
-   "menciones": 21
+   "menciones": 11
   },
   {
-   "skill": "excel",
-   "menciones": 13
+   "skill": "mantenimiento",
+   "menciones": 8
   },
   {
-   "skill": "inglés",
+   "skill": "producción",
    "menciones": 5
   },
   {
-   "skill": "erp",
-   "menciones": 4
-  },
-  {
-   "skill": "inventarios",
-   "menciones": 3
-  },
-  {
-   "skill": "nom",
+   "skill": "refacciones",
    "menciones": 2
   },
   {
-   "skill": "python",
+   "skill": "inglés",
    "menciones": 2
   },
   {
    "skill": "sap",
-   "menciones": 1
+   "menciones": 2
   }
  ],
  "habilidades_blandas": [
   {
-   "skill": "resolución de problemas",
-   "menciones": 107
-  },
-  {
    "skill": "liderazgo",
-   "menciones": 100
+   "menciones": 25
   },
   {
-   "skill": "atención al cliente",
-   "menciones": 82
-  },
-  {
-   "skill": "negociación",
-   "menciones": 64
+   "skill": "resolución de problemas",
+   "menciones": 21
   },
   {
    "skill": "organización",
-   "menciones": 60
+   "menciones": 14
   },
   {
-   "skill": "responsabilidad",
-   "menciones": 54
+   "skill": "negociación",
+   "menciones": 10
   },
   {
    "skill": "trabajo en equipo",
-   "menciones": 49
+   "menciones": 9
+  },
+  {
+   "skill": "atención al cliente",
+   "menciones": 9
   },
   {
    "skill": "toma de decisiones",
-   "menciones": 48
+   "menciones": 8
   },
   {
-   "skill": "comunicación",
-   "menciones": 16
+   "skill": "responsabilidad",
+   "menciones": 5
   },
   {
    "skill": "atención al detalle",
-   "menciones": 11
+   "menciones": 4
   }
  ],
  "top_empresas": [
   {
-   "empresa": "Grupo Kasa Automotriz",
-   "vacantes": 64
-  },
-  {
    "empresa": "Magna International, Inc",
-   "vacantes": 40
-  },
-  {
-   "empresa": "Automotriz Bonn S.A",
-   "vacantes": 21
+   "vacantes": 95
   },
   {
    "empresa": "Autozone",
-   "vacantes": 18
+   "vacantes": 31
   },
   {
-   "empresa": "AutoZone México",
-   "vacantes": 15
+   "empresa": "Grupo Kasa Automotriz",
+   "vacantes": 17
   },
   {
-   "empresa": "Grupo Solana",
-   "vacantes": 15
-  },
-  {
-   "empresa": "ALTEN Mexico",
-   "vacantes": 15
-  },
-  {
-   "empresa": "Grupo Fame",
-   "vacantes": 14
-  },
-  {
-   "empresa": "Flosol",
-   "vacantes": 12
-  },
-  {
-   "empresa": "Grupo Autofin",
+   "empresa": "ALTEN MÉXICO",
    "vacantes": 10
   },
   {
-   "empresa": "Alden Tacubaya",
-   "vacantes": 10
+   "empresa": "Grupo Satélite Automotriz",
+   "vacantes": 6
+  },
+  {
+   "empresa": "Global Gas",
+   "vacantes": 4
+  },
+  {
+   "empresa": "AAM",
+   "vacantes": 4
+  },
+  {
+   "empresa": "Yanfeng",
+   "vacantes": 4
+  },
+  {
+   "empresa": "AUMOVIO",
+   "vacantes": 4
   },
   {
    "empresa": "MERCADERES SERVICIOS LABORALES Y ADMINISTRATIVOS",
-   "vacantes": 9
+   "vacantes": 3
   },
   {
-   "empresa": "Corporación-Zapata",
-   "vacantes": 9
+   "empresa": "Manpower",
+   "vacantes": 3
   },
   {
-   "empresa": "BANCA AFIRME",
-   "vacantes": 9
+   "empresa": "Grupo Surman",
+   "vacantes": 3
+  },
+  {
+   "empresa": "Talento Vanguardia",
+   "vacantes": 2
+  },
+  {
+   "empresa": "Incora",
+   "vacantes": 2
   }
  ],
  "cobertura_geografica": {
   "top_estados": [
    {
-    "estado": "Ciudad de México",
-    "vacantes": 130
-   },
-   {
-    "estado": "Estado de México",
-    "vacantes": 91
-   },
-   {
-    "estado": "Jalisco",
-    "vacantes": 66
+    "estado": "Coahuila",
+    "vacantes": 47
    },
    {
     "estado": "Nuevo León",
-    "vacantes": 38
-   },
-   {
-    "estado": "Querétaro",
-    "vacantes": 37
+    "vacantes": 14
    },
    {
     "estado": "Puebla",
-    "vacantes": 35
+    "vacantes": 12
    },
    {
-    "estado": "Coahuila",
-    "vacantes": 29
+    "estado": "Chihuahua",
+    "vacantes": 9
    },
    {
-    "estado": "Guanajuato",
-    "vacantes": 27
-   },
-   {
-    "estado": "San Luis Potosí",
-    "vacantes": 23
+    "estado": "Ciudad de México",
+    "vacantes": 8
    },
    {
     "estado": "Veracruz",
-    "vacantes": 16
+    "vacantes": 7
+   },
+   {
+    "estado": "Jalisco",
+    "vacantes": 6
+   },
+   {
+    "estado": "Guanajuato",
+    "vacantes": 6
+   },
+   {
+    "estado": "Estado de México",
+    "vacantes": 6
+   },
+   {
+    "estado": "Querétaro",
+    "vacantes": 5
    }
   ],
-  "estados_unicos": 31
+  "estados_unicos": 21
  },
  "salario": {
-  "vacantes_con_dato": 431,
-  "pct_con_dato": 49.4,
-  "mediana_mensual_mxn": 14000,
-  "p25_mensual_mxn": 10714,
-  "p75_mensual_mxn": 19362
+  "vacantes_con_dato": 52,
+  "pct_con_dato": 22.2,
+  "mediana_mensual_mxn": 16100,
+  "p25_mensual_mxn": 10743,
+  "p75_mensual_mxn": 211500
  },
  "evolucion_semanal": [
   {
-   "semana": "04 May",
-   "vacantes": 3
+   "semana": "07 Sep",
+   "vacantes": 198
   },
   {
-   "semana": "11 May",
-   "vacantes": 1
-  },
-  {
-   "semana": "18 May",
-   "vacantes": 5
-  },
-  {
-   "semana": "25 May",
-   "vacantes": 5
-  },
-  {
-   "semana": "01 Jun",
-   "vacantes": 3
-  },
-  {
-   "semana": "15 Jun",
-   "vacantes": 3
-  },
-  {
-   "semana": "22 Jun",
-   "vacantes": 4
-  },
-  {
-   "semana": "29 Jun",
-   "vacantes": 59
-  },
-  {
-   "semana": "06 Jul",
-   "vacantes": 31
-  },
-  {
-   "semana": "13 Jul",
-   "vacantes": 45
-  },
-  {
-   "semana": "20 Jul",
-   "vacantes": 8
-  },
-  {
-   "semana": "27 Jul",
-   "vacantes": 4
-  },
-  {
-   "semana": "03 Ago",
-   "vacantes": 24
-  },
-  {
-   "semana": "10 Ago",
-   "vacantes": 120
-  },
-  {
-   "semana": "17 Ago",
-   "vacantes": 13
-  },
-  {
-   "semana": "24 Ago",
-   "vacantes": 489
-  },
-  {
-   "semana": "31 Ago",
-   "vacantes": 43
+   "semana": "14 Sep",
+   "vacantes": 27
   }
  ],
- "total_empresas_unicas": 366,
- "ultima_semana_vacantes": 43,
- "vacantes_detalle": [],
- "vacantes_detalle_nota": "Sin vacantes verificadas vigentes al 2026-09-21. Las 60 vacantes de la corrida 2026-08-31 fueron retiradas por exceder el umbral de recencia por fuente (Adzuna 10 dias, Indeed 15 dias, OCC 20 dias) aplicado en el mantenimiento semanal; a esta fecha tienen entre 21 y 30 dias de publicadas. No se publican links caducados. Esperando la proxima corrida completa (Etapas 1-4)."
+ "total_empresas_unicas": 51,
+ "ultima_semana_vacantes": 27,
+ "vacantes_detalle": [
+  {
+   "titulo": "2016 CFD / FEA Analyst",
+   "empresa": "ALTEN MÉXICO",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5883802344"
+  },
+  {
+   "titulo": "(2173) - Senior Program Manager",
+   "empresa": "ALTEN MÉXICO",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5883871682"
+  },
+  {
+   "titulo": "Asesor a de Crédito, San Luis Potosí",
+   "empresa": "BANCA AFIRME",
+   "ubicacion": "San Luis Potosí",
+   "habilidades_tecnicas": [
+    "Análisis de crédito"
+   ],
+   "habilidades_blandas": [
+    "Atención al cliente"
+   ],
+   "salario_min": 9454,
+   "salario_max": 9454,
+   "fecha_publicacion": "2026-09-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5883784099"
+  },
+  {
+   "titulo": "Técnico Mecánico",
+   "empresa": "Grupo Geisha",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "Mecánica automotriz"
+   ],
+   "habilidades_blandas": [
+    "Resolución de problemas"
+   ],
+   "salario_min": 9500,
+   "salario_max": 16000,
+   "fecha_publicacion": "2026-09-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5883733800"
+  },
+  {
+   "titulo": "Lavador/ Honda Satélie",
+   "empresa": "Grupo Kasa Automotriz",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "Mecánica automotriz"
+   ],
+   "habilidades_blandas": [
+    "Resolución de problemas"
+   ],
+   "salario_min": 10000,
+   "salario_max": 11500,
+   "fecha_publicacion": "2026-09-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5883711933"
+  },
+  {
+   "titulo": "Asesor de ventas sin experiencia / Honda Satelite",
+   "empresa": "Grupo Kasa Automotriz",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "Ventas"
+   ],
+   "habilidades_blandas": [
+    "Negociación"
+   ],
+   "salario_min": 9451,
+   "salario_max": 9451,
+   "fecha_publicacion": "2026-09-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5883712568"
+  },
+  {
+   "titulo": "Auxiliar administrativo de ventas",
+   "empresa": "Grupo Geisha",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "Ventas"
+   ],
+   "habilidades_blandas": [
+    "Negociación"
+   ],
+   "salario_min": 10000,
+   "salario_max": 11000,
+   "fecha_publicacion": "2026-09-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5883712623"
+  },
+  {
+   "titulo": "Lavador Detallador Automotriz",
+   "empresa": "Flosol",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "Mecánica automotriz"
+   ],
+   "habilidades_blandas": [
+    "Resolución de problemas"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5883714154"
+  },
+  {
+   "titulo": "Ingeniero de Procesos de Componentes",
+   "empresa": "SKF Sealing Solutions",
+   "ubicacion": "Zapopan, Jalisco",
+   "habilidades_tecnicas": [
+    "Ingeniería"
+   ],
+   "habilidades_blandas": [
+    "Resolución de problemas"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5883452522"
+  },
+  {
+   "titulo": "Contador General / Grupo Kasa automotriz",
+   "empresa": "Grupo Kasa Automotriz",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5883745364"
+  },
+  {
+   "titulo": "Técnico Mecánico / Mercedes Benz Metepec",
+   "empresa": "Grupo Kasa Automotriz",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "Mecánica automotriz"
+   ],
+   "habilidades_blandas": [
+    "Resolución de problemas"
+   ],
+   "salario_min": 11200,
+   "salario_max": 16000,
+   "fecha_publicacion": "2026-09-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5883746583"
+  },
+  {
+   "titulo": "Gerente de seminuevos/ Honda Tlalnepantla",
+   "empresa": "Grupo Kasa Automotriz",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "Gestión operativa"
+   ],
+   "habilidades_blandas": [
+    "Liderazgo"
+   ],
+   "salario_min": 30000,
+   "salario_max": 50000,
+   "fecha_publicacion": "2026-09-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5883748981"
+  },
+  {
+   "titulo": "Coordinador de Flotillas Agencia Automotriz",
+   "empresa": "Grupo Surman",
+   "ubicacion": "Naucalpan de Juárez, Estado de México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": 15700,
+   "salario_max": 15700,
+   "fecha_publicacion": "2026-09-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5883783911"
+  },
+  {
+   "titulo": "Ingeniero de Robotica",
+   "empresa": "Magna International, Inc",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "Ingeniería"
+   ],
+   "habilidades_blandas": [
+    "Resolución de problemas"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5883092104"
+  },
+  {
+   "titulo": "Maintenance Leader",
+   "empresa": "AUMOVIO",
+   "ubicacion": "Silao, Guanajuato",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5883288332"
+  },
+  {
+   "titulo": "Gerente Flotilla",
+   "empresa": "AutoZone, Inc.",
+   "ubicacion": "Monterrey, Nuevo León",
+   "habilidades_tecnicas": [
+    "Gestión operativa"
+   ],
+   "habilidades_blandas": [
+    "Liderazgo"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5883288166"
+  },
+  {
+   "titulo": "PROFESIONAL VENDEDOR DE AUTOPARTES",
+   "empresa": "AutoZone, Inc.",
+   "ubicacion": "La Paz, Baja California Sur",
+   "habilidades_tecnicas": [
+    "Ventas"
+   ],
+   "habilidades_blandas": [
+    "Negociación"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5883288156"
+  },
+  {
+   "titulo": "Profesional Vendedor De Autopartes",
+   "empresa": "Autozone",
+   "ubicacion": "Escárcega, Campeche",
+   "habilidades_tecnicas": [
+    "Ventas"
+   ],
+   "habilidades_blandas": [
+    "Negociación"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5883117637"
+  },
+  {
+   "titulo": "Simulation Engineer",
+   "empresa": "Magna International, Inc",
+   "ubicacion": "Ramos Arizpe, Coahuila de Zaragoza",
+   "habilidades_tecnicas": [
+    "Ingeniería"
+   ],
+   "habilidades_blandas": [
+    "Resolución de problemas"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5883092147"
+  },
+  {
+   "titulo": "Heat Treatment Process Engineer",
+   "empresa": "Magna International, Inc",
+   "ubicacion": "Ramos Arizpe, Coahuila de Zaragoza",
+   "habilidades_tecnicas": [
+    "Ingeniería"
+   ],
+   "habilidades_blandas": [
+    "Resolución de problemas"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5883092150"
+  },
+  {
+   "titulo": "MATRICERO C",
+   "empresa": "Magna International, Inc",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5883092146"
+  },
+  {
+   "titulo": "Metrologist",
+   "empresa": "Magna International, Inc",
+   "ubicacion": "Ramos Arizpe, Coahuila de Zaragoza",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5883092131"
+  },
+  {
+   "titulo": "Team Leader",
+   "empresa": "Magna International, Inc",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5883092103"
+  },
+  {
+   "titulo": "Ingeniero de Control",
+   "empresa": "Magna International, Inc",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "Ingeniería"
+   ],
+   "habilidades_blandas": [
+    "Resolución de problemas"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5883092113"
+  },
+  {
+   "titulo": "SUPERVISOR DE MANTENIMIENTO",
+   "empresa": "Magna International, Inc",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "Gestión operativa"
+   ],
+   "habilidades_blandas": [
+    "Liderazgo"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5883092112"
+  },
+  {
+   "titulo": "Técnico Mecánico Automotriz",
+   "empresa": "Grupo Satélite Automotriz",
+   "ubicacion": "Venustiano Carranza, Ciudad de México",
+   "habilidades_tecnicas": [
+    "Mecánica automotriz"
+   ],
+   "habilidades_blandas": [
+    "Resolución de problemas"
+   ],
+   "salario_min": 11260,
+   "salario_max": 11260,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882808024"
+  },
+  {
+   "titulo": "Ejecutivo de ventas seminuevos Chevrolet Tlalnepantla",
+   "empresa": "Grupo Kasa Automotriz",
+   "ubicacion": "Tlalnepantla de Baz, Estado de México",
+   "habilidades_tecnicas": [
+    "Ventas"
+   ],
+   "habilidades_blandas": [
+    "Negociación"
+   ],
+   "salario_min": 9500,
+   "salario_max": 9500,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882808019"
+  },
+  {
+   "titulo": "Comprador Directos",
+   "empresa": "Magna International, Inc",
+   "ubicacion": "Saltillo, Coahuila de Zaragoza",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5883092055"
+  },
+  {
+   "titulo": "Coordinador Comercial",
+   "empresa": "Magna International, Inc",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5883092052"
+  },
+  {
+   "titulo": "Gerente de ventas Canal Premium",
+   "empresa": "Grupo Surman",
+   "ubicacion": "Miguel Hidalgo, Ciudad de México",
+   "habilidades_tecnicas": [
+    "Gestión operativa"
+   ],
+   "habilidades_blandas": [
+    "Liderazgo"
+   ],
+   "salario_min": 8373,
+   "salario_max": 8373,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882808161"
+  },
+  {
+   "titulo": "Técnico mecánico Canal Premium",
+   "empresa": "Grupo Surman",
+   "ubicacion": "Miguel Hidalgo, Ciudad de México",
+   "habilidades_tecnicas": [
+    "Mecánica automotriz"
+   ],
+   "habilidades_blandas": [
+    "Resolución de problemas"
+   ],
+   "salario_min": 10048,
+   "salario_max": 10048,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882808159"
+  },
+  {
+   "titulo": "Auxiliar de Mecánica Vendedor de Refacciones",
+   "empresa": "AutoZone México",
+   "ubicacion": "Tianguistenco, Estado de México",
+   "habilidades_tecnicas": [
+    "Mecánica automotriz"
+   ],
+   "habilidades_blandas": [
+    "Resolución de problemas"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882808235"
+  },
+  {
+   "titulo": "Auxiliar de nómina Agencia de Autos",
+   "empresa": "Talento Vanguardia",
+   "ubicacion": "Zapopan, Jalisco",
+   "habilidades_tecnicas": [
+    "Administración"
+   ],
+   "habilidades_blandas": [
+    "Organización"
+   ],
+   "salario_min": 15000,
+   "salario_max": 15000,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882808067"
+  },
+  {
+   "titulo": "Coordinador BDC Agencia de autos premium",
+   "empresa": "Talento Vanguardia",
+   "ubicacion": "Zapopan, Jalisco",
+   "habilidades_tecnicas": [
+    "Ventas"
+   ],
+   "habilidades_blandas": [
+    "Negociación"
+   ],
+   "salario_min": 10000,
+   "salario_max": 10000,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882808036"
+  },
+  {
+   "titulo": "Gerente de Postventa Automotriz",
+   "empresa": "GEELY LOMAS SLP",
+   "ubicacion": "San Luis Potosí",
+   "habilidades_tecnicas": [
+    "Gestión operativa"
+   ],
+   "habilidades_blandas": [
+    "Liderazgo"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882808137"
+  },
+  {
+   "titulo": "Call center BDC Agencia Automotriz",
+   "empresa": "GRUPO STELLA DE PUEBLA",
+   "ubicacion": "San Andrés Cholula, Puebla",
+   "habilidades_tecnicas": [
+    "Ventas"
+   ],
+   "habilidades_blandas": [
+    "Negociación"
+   ],
+   "salario_min": 9452,
+   "salario_max": 9452,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882808002"
+  },
+  {
+   "titulo": "Analista de Recursos Humanos",
+   "empresa": "Magna International, Inc",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "Reclutamiento"
+   ],
+   "habilidades_blandas": [
+    "Comunicación"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5883092053"
+  },
+  {
+   "titulo": "Technician All",
+   "empresa": "Incora",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882775125"
+  },
+  {
+   "titulo": "Buyer",
+   "empresa": "Yanfeng",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "Compras y logística"
+   ],
+   "habilidades_blandas": [
+    "Organización"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882766611"
+  },
+  {
+   "titulo": "Especialista de Producto Sr. (CMM México)",
+   "empresa": "Nissan",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882763744"
+  },
+  {
+   "titulo": "Marketing Specialist - Senior",
+   "empresa": "Cummins",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "Marketing"
+   ],
+   "habilidades_blandas": [
+    "Creatividad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882760481"
+  },
+  {
+   "titulo": "Process Engineer L2",
+   "empresa": "AAM",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "Ingeniería"
+   ],
+   "habilidades_blandas": [
+    "Resolución de problemas"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882744931"
+  },
+  {
+   "titulo": "Direct Buyer",
+   "empresa": "Yanfeng",
+   "ubicacion": "Ciénega de Flores, Nuevo León",
+   "habilidades_tecnicas": [
+    "Compras y logística"
+   ],
+   "habilidades_blandas": [
+    "Organización"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882451752"
+  },
+  {
+   "titulo": "Launch Engineer",
+   "empresa": "Yanfeng",
+   "ubicacion": "Ciénega de Flores, Nuevo León",
+   "habilidades_tecnicas": [
+    "Ingeniería"
+   ],
+   "habilidades_blandas": [
+    "Resolución de problemas"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882451575"
+  },
+  {
+   "titulo": "Costing Engineer / Program Controller",
+   "empresa": "Yanfeng",
+   "ubicacion": "Ciénega de Flores, Nuevo León",
+   "habilidades_tecnicas": [
+    "Ingeniería"
+   ],
+   "habilidades_blandas": [
+    "Resolución de problemas"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882451466"
+  },
+  {
+   "titulo": "Practicante de Mantenimiento",
+   "empresa": "Magna International, Inc",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "Apoyo operativo"
+   ],
+   "habilidades_blandas": [
+    "Disposición a aprender"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5883092118"
+  },
+  {
+   "titulo": "Design Rear-Wheel Drive (RWD) Engineer",
+   "empresa": "ALTEN Mexico",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "Ingeniería"
+   ],
+   "habilidades_blandas": [
+    "Resolución de problemas"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5880951076"
+  },
+  {
+   "titulo": "Program Manager",
+   "empresa": "Magna International, Inc",
+   "ubicacion": "Saltillo, Coahuila de Zaragoza",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882084371"
+  },
+  {
+   "titulo": "Operator",
+   "empresa": "Incora",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5881116676"
+  },
+  {
+   "titulo": "Field Trainer",
+   "empresa": "Autozone",
+   "ubicacion": "Monterrey, Nuevo León",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882106980"
+  },
+  {
+   "titulo": "Marketing Specialist - Senior",
+   "empresa": "Cummins Inc.",
+   "ubicacion": "General Escobedo, Nuevo León",
+   "habilidades_tecnicas": [
+    "Marketing"
+   ],
+   "habilidades_blandas": [
+    "Creatividad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882283304"
+  },
+  {
+   "titulo": "Especialista Recursos Humanos (Comunicacin Interna, Employer Branding, Eventos y Cultura Organizacional)",
+   "empresa": "AUMOVIO",
+   "ubicacion": "Silao, Guanajuato",
+   "habilidades_tecnicas": [
+    "Reclutamiento"
+   ],
+   "habilidades_blandas": [
+    "Comunicación"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882282875"
+  },
+  {
+   "titulo": "Vendedor de Piso",
+   "empresa": "AutoZone, Inc.",
+   "ubicacion": "Veracruz",
+   "habilidades_tecnicas": [
+    "Ventas"
+   ],
+   "habilidades_blandas": [
+    "Negociación"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882282179"
+  },
+  {
+   "titulo": "Lead Developer-Commercial",
+   "empresa": "AutoZone, Inc.",
+   "ubicacion": "Chihuahua",
+   "habilidades_tecnicas": [
+    "Gestión operativa"
+   ],
+   "habilidades_blandas": [
+    "Liderazgo"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5882282169"
+  },
+  {
+   "titulo": "ASESOR DE VENTAS AUTOMOTRIZ",
+   "empresa": "GRUPO FARRERA",
+   "ubicacion": "Tuxtla Gutiérrez, Chiapas",
+   "habilidades_tecnicas": [
+    "Ventas"
+   ],
+   "habilidades_blandas": [
+    "Negociación"
+   ],
+   "salario_min": 600000,
+   "salario_max": 720000,
+   "fecha_publicacion": "2026-09-16",
+   "fuente": "OCC",
+   "url": "https://www.occ.com.mx/empleo/oferta/21330273/"
+  },
+  {
+   "titulo": "Ejecutivo de ventas Jr. (Arrendamiento automotriz)",
+   "empresa": "TIP México",
+   "ubicacion": "Cuautitlán Izcalli, Estado de México",
+   "habilidades_tecnicas": [
+    "Ventas"
+   ],
+   "habilidades_blandas": [
+    "Negociación"
+   ],
+   "salario_min": 156000,
+   "salario_max": 156000,
+   "fecha_publicacion": "2026-09-15",
+   "fuente": "OCC",
+   "url": "https://www.occ.com.mx/empleo/oferta/21337217/"
+  },
+  {
+   "titulo": "Ejecutivo/a de crédito automotriz (Chihuahua, Chih)",
+   "empresa": "BBVA Bancomer",
+   "ubicacion": "Juárez, Chihuahua",
+   "habilidades_tecnicas": [
+    "Análisis de crédito"
+   ],
+   "habilidades_blandas": [
+    "Atención al cliente"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-09-15",
+   "fuente": "OCC",
+   "url": "https://www.occ.com.mx/empleo/oferta/21337809/"
+  },
+  {
+   "titulo": "Ejecutivo de ventas flotillas automotriz",
+   "empresa": "ENLACE DE NEGOCIOS EN CRECIMIENTO HUMANO S.A. DE C.V.",
+   "ubicacion": "Cuautitlán Izcalli, Estado de México",
+   "habilidades_tecnicas": [
+    "Ventas"
+   ],
+   "habilidades_blandas": [
+    "Negociación"
+   ],
+   "salario_min": 180000,
+   "salario_max": 240000,
+   "fecha_publicacion": "2026-09-15",
+   "fuente": "OCC",
+   "url": "https://www.occ.com.mx/empleo/oferta/21334337/"
+  },
+  {
+   "titulo": "Mecanico automotriz Diesel",
+   "empresa": "Adecco",
+   "ubicacion": "Nuevo León",
+   "habilidades_tecnicas": [
+    "Mecánica automotriz"
+   ],
+   "habilidades_blandas": [
+    "Resolución de problemas"
+   ],
+   "salario_min": 240000,
+   "salario_max": 240000,
+   "fecha_publicacion": "2026-09-15",
+   "fuente": "OCC",
+   "url": "https://www.occ.com.mx/empleo/oferta/21338064/"
+  },
+  {
+   "titulo": "Técnico mecánico automotriz-MTY",
+   "empresa": "PRESTADORA DE SERVICIOS DE MOBILIDAD SA DE CV",
+   "ubicacion": "Monterrey, Nuevo León",
+   "habilidades_tecnicas": [
+    "Mecánica automotriz"
+   ],
+   "habilidades_blandas": [
+    "Resolución de problemas"
+   ],
+   "salario_min": 240000,
+   "salario_max": 288000,
+   "fecha_publicacion": "2026-09-15",
+   "fuente": "OCC",
+   "url": "https://www.occ.com.mx/empleo/oferta/21337647/"
+  }
+ ],
+ "vacantes_detalle_nota": "Generado programáticamente (2026-09-14) por etapa4_sector_json.py sobre 234 vacantes verificadas (vacantes_automotriz_verificadas_auto.csv). Todos los conteos son exactos (pandas, sin estimaciones). Salario normalizado a MXN mensual (Adzuna >90,000/año se dividió entre 12). vacantes_con_habilidades cuenta solo habilidades EXPLÍCITAS en el CSV fuente. Muestra vacantes_detalle: filtro de recencia Adzuna<=10d / Indeed<=15d / OCC<=20d desde hoy, muestreo proporcional por fuente, máx. 60; habilidades faltantes inferidas por categoría de puesto."
 }
