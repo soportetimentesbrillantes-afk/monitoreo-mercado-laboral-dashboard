@@ -10,6 +10,33 @@ después.
 corrigió un error, describe también cómo se detectó — eso es lo que evita
 repetirlo.
 
+## 2026-09-24 — Corrida 2026-09-14 publicada y segunda edición del boletín
+
+Se corrieron las Etapas 2 y 4 sobre los crudos de la corrida 2026-09-14 (los
+9 sectores, vía Adzuna + OCC; Indeed no estuvo disponible en esta corrida) y
+se publicaron los `sector_<clave>.json` resultantes. Se generó y publicó la
+edición del 24 de septiembre del boletín con `generar_newsletter.py`.
+
+**Antes de publicar el boletín se investigó una caída aparente de 6,281 a
+1,733 vacantes verificadas.** No fue una regresión de esta sesión: los nueve
+`sector_<clave>.json` que estaban en línea antes de esta corrida ya traían
+`vacantes_detalle` vacío para los nueve sectores, con la nota "Sin vacantes
+verificadas vigentes al 2026-09-21" — el mantenimiento semanal ya había
+retirado esas vacantes por exceder el umbral de recencia por fuente, y el
+sitio estaba esperando la próxima corrida completa. La cifra de
+`vacantes_verificadas` que seguía mostrando el sitio (873, 1224, etc.) era un
+acumulado histórico que ya no correspondía a ninguna vacante vigente. No hay
+CSVs verificados previos con vacantes vigentes contra los cuales acumular
+por hash, así que la corrida 2026-09-14 es, en los hechos, la línea base
+nueva. **Pendiente:** decidir si se retoma el patrón de acumular entre
+corridas consecutivas (como en agosto) o si el sitio pasa a mostrar solo la
+corrida más reciente de forma explícita.
+
+Queda pendiente también la validación DENUE/maestro de las ~1,455 empresas
+nuevas sin match de esta corrida (no bloqueante) y el bug de normalización
+salarial de OCC en `etapa4_sector_json.py` (solo divide entre 12 los salarios
+anuales de Adzuna, no los de OCC).
+
 ---
 
 ## 2026-09-18 — El Worker se mudó a la cuenta de Cloudflare del Club

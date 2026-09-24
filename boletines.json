@@ -1,6 +1,15 @@
 {
   "ediciones": [
     {
+      "folio": "2026-09-24",
+      "fecha": "2026-09-24",
+      "periodo": "Tercer Trimestre 2026",
+      "titulo": "Boletín — Tercer Trimestre 2026",
+      "resumen": "1,733 vacantes verificadas en 9 sectores. Ventas encabeza con 324.",
+      "html": "boletines/newsletter-2026-09-24.html",
+      "pdf": "boletines/newsletter-2026-09-24.pdf"
+    },
+    {
       "folio": "2026-09-08",
       "fecha": "2026-09-11",
       "periodo": "Tercer Trimestre 2026",
