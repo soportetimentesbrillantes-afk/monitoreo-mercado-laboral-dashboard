@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tu estilo de trabajo — Club de Mentes Brillantes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --azul:#b89a57; --azul-osc:#8b7440; --naranja:#c2703d; --verde:#4f8f5b;
+    --hero-bg:#faf8f2; --hero-bg2:#f3efe5; --hero-sub:#5a5346; --hero-line:rgba(31,31,28,.1);
+    --accent:#b89a57; --gold-light:#d0b06a;
+    --gris-bg:#faf8f2; --gris-borde:#e7ddc9; --texto:#1f1f1c; --texto-suave:#6b6459;
+    --font-serif:'Cormorant Garamond',Georgia,'Times New Roman',serif;
+    --font-sans:'Source Sans 3',ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;
+    --sombra:rgba(53,42,21,.1) 0px 10px 25px 0px;
+    --d:#c2703d; --i:#c9a227; --s:#4f8f5b; --c:#4a7a9b;
+  }
+  *{box-sizing:border-box;}
+  body{font-family:var(--font-sans);margin:0;background:linear-gradient(180deg,var(--hero-bg) 0%,var(--hero-bg2) 100%) fixed;color:var(--texto);}
+  .topbar{max-width:1080px;margin:0 auto;padding:16px 32px 0;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+  .topbar .logo-link img{height:34px;width:auto;display:block;}
+  .topbar a{color:var(--texto-suave);font-size:.82rem;font-weight:700;text-decoration:none;}
+  .topbar a:hover{color:var(--azul-osc);}
+  header{background:linear-gradient(180deg,var(--hero-bg) 0%,var(--hero-bg2) 100%);padding:34px 32px 0;border-bottom:1px solid var(--hero-line);}
+  .hero-inner{max-width:1080px;margin:0 auto;padding-bottom:30px;}
+  header .eyebrow{display:inline-block;font-size:.76rem;color:#fff;background:linear-gradient(135deg,var(--azul),var(--gold-light));padding:6px 16px;border-radius:999px;margin:0 0 14px;font-weight:700;box-shadow:var(--sombra);}
+  header h1{font-family:var(--font-serif);margin:0 0 12px;font-size:2.4rem;line-height:1.15;font-weight:700;max-width:640px;}
+  header p{margin:0;font-size:.98rem;color:var(--hero-sub);max-width:600px;line-height:1.6;}
+  main{max-width:860px;margin:0 auto;padding:30px 20px 60px;}
+  .card{background:#fff;border:1px solid var(--gris-borde);border-radius:16px;padding:24px 26px;margin-bottom:20px;box-shadow:var(--sombra);}
+  .card h2{font-family:var(--font-serif);margin:0 0 8px;font-size:1.6rem;}
+  .card h3{font-family:var(--font-serif);margin:22px 0 6px;font-size:1.22rem;color:var(--azul-osc);}
+  .note{font-size:.8rem;color:var(--texto-suave);margin-top:10px;line-height:1.5;}
+  p{line-height:1.6;}
+  button.primary{background:linear-gradient(135deg,var(--azul),var(--gold-light));color:#fff;border:none;padding:12px 28px;border-radius:999px;font-size:.95rem;font-weight:700;cursor:pointer;margin-top:16px;font-family:var(--font-sans);box-shadow:var(--sombra);transition:transform .12s ease;}
+  button.primary:hover{transform:translateY(-1px);}
+  button.primary:disabled{opacity:.45;cursor:not-allowed;filter:grayscale(.3);}
+  button.secondary, a.secondary{background:#fff;color:var(--azul-osc);border:1.5px solid var(--azul);padding:9px 20px;border-radius:999px;font-size:.88rem;font-weight:700;cursor:pointer;margin:10px 8px 0 0;font-family:var(--font-sans);text-decoration:none;display:inline-block;}
+  .aviso{border-radius:10px;padding:13px 15px;font-size:.87rem;line-height:1.55;margin:14px 0;}
+  .aviso.limites{background:#fdfaf1;border:1px solid var(--gris-borde);}
+  .aviso.malo{background:#fdf1ec;border:1px solid #f0d2c4;color:#8a3d1c;}
+
+  /* ---- Cuestionario ---- */
+  .progreso{position:sticky;top:0;background:rgba(250,248,242,.95);backdrop-filter:blur(6px);padding:12px 0 10px;z-index:5;border-bottom:1px solid var(--hero-line);margin-bottom:8px;}
+  .progreso .barra{height:7px;background:var(--gris-borde);border-radius:999px;overflow:hidden;}
+  .progreso .relleno{height:100%;background:linear-gradient(90deg,var(--azul),var(--gold-light));width:0;transition:width .25s ease;}
+  .progreso .txt{font-size:.78rem;color:var(--texto-suave);font-weight:600;margin-top:6px;}
+  .bloque{border:1px solid var(--gris-borde);border-radius:14px;padding:16px 18px;margin-bottom:14px;background:#fff;}
+  .bloque.pendiente{border-color:#f0d2c4;}
+  .bloque .num{font-size:.74rem;font-weight:700;color:var(--texto-suave);letter-spacing:.06em;text-transform:uppercase;}
+  .bloque table{width:100%;border-collapse:collapse;margin-top:10px;}
+  .bloque th{font-size:.72rem;color:var(--texto-suave);font-weight:700;text-transform:uppercase;letter-spacing:.05em;padding-bottom:6px;}
+  .bloque th.frase{text-align:left;}
+  .bloque td{padding:7px 4px;border-top:1px solid var(--gris-bg);font-size:.93rem;}
+  .bloque td.frase{width:100%;}
+  .bloque td.op{text-align:center;width:62px;}
+  .bloque input[type=radio]{width:18px;height:18px;accent-color:var(--azul);cursor:pointer;}
+
+  /* ---- Resultado ---- */
+  .perfil-barra{display:grid;grid-template-columns:118px 1fr 52px;align-items:center;gap:10px;margin-bottom:9px;font-size:.9rem;}
+  .perfil-barra .pista{position:relative;height:26px;background:var(--gris-bg);border-radius:7px;border:1px solid var(--gris-borde);overflow:hidden;}
+  .perfil-barra .centro{position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--gris-borde);}
+  .perfil-barra .valor{position:absolute;top:4px;bottom:4px;border-radius:5px;}
+  .perfil-barra .nom{font-weight:700;}
+  .perfil-barra .cifra{text-align:right;font-variant-numeric:tabular-nums;font-weight:700;color:var(--texto-suave);}
+  .eje{display:grid;grid-template-columns:118px 1fr 52px;gap:10px;font-size:.72rem;color:var(--texto-suave);margin-bottom:14px;}
+  .eje span:nth-child(2){display:flex;justify-content:space-between;}
+  .pill{display:inline-block;padding:4px 12px;border-radius:999px;font-size:.78rem;font-weight:700;margin:0 6px 6px 0;background:var(--gris-bg);border:1px solid var(--gris-borde);color:var(--azul-osc);}
+  .curso-item{border:1px solid var(--gris-borde);border-radius:10px;padding:11px 13px;margin-bottom:8px;background:var(--gris-bg);font-size:.9rem;}
+  .curso-item .sub{font-size:.79rem;color:var(--texto-suave);margin-top:3px;}
+  ul{line-height:1.65;padding-left:20px;}
+  @media(max-width:600px){
+    header{padding:26px 20px 0;} header h1{font-size:1.85rem;}
+    main{padding:22px 16px 48px;} .card{padding:18px 16px;}
+    .perfil-barra,.eje{grid-template-columns:78px 1fr 44px;font-size:.84rem;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a class="logo-link" href="https://www.clubmentesbrillantes.com.mx/index.html" aria-label="Club de Mentes Brillantes"><img src="logo-cmb.svg" alt="Club de Mentes Brillantes"></a>
+  <a href="index.html">← Volver a tu CV frente al mercado</a>
+</div>
+
+<header>
+  <div class="hero-inner">
+    <p class="eyebrow">Autoconocimiento para tu búsqueda de empleo</p>
+    <h1>Tu estilo de trabajo</h1>
+    <p>Veinticuatro bloques de cuatro frases. En cada uno eliges la que <strong>más</strong> te describe y la que <strong>menos</strong>. Toma entre 7 y 10 minutos y no hay respuestas buenas ni malas.</p>
+  </div>
+</header>
+
+<main>
+
+  <div class="card" id="intro">
+    <h2>Antes de empezar</h2>
+    <p>Este cuestionario usa el modelo DISC, que describe cuatro formas de responder al trabajo: <strong>Decisión</strong>, <strong>Influencia</strong>, <strong>Estabilidad</strong> y <strong>Cuidado</strong>. Sirve para ponerle nombre a cómo trabajas y prepararte mejor para una entrevista.</p>
+
+    <div class="aviso limites">
+      <strong>Qué es y qué no es.</strong> Esto es una herramienta de orientación hecha por el Club, no una prueba psicométrica validada. Describe <em>preferencias</em>, no capacidades: no mide inteligencia, no predice qué tan bien harías un trabajo y no dice si eres apto para un puesto. El resultado cambia según el momento y el contexto. Nadie debería usarlo para descartar a una persona de un proceso de selección — tampoco nosotros.
+    </div>
+
+    <p class="note">Tus respuestas se procesan en tu navegador. El resultado se guarda solo en este dispositivo y lo puedes borrar cuando quieras.</p>
+    <button class="primary" type="button" onclick="empezar()">Empezar →</button>
+  </div>
+
+  <div id="cuestionario" style="display:none;">
+    <div class="progreso">
+      <div class="barra"><div class="relleno" id="relleno"></div></div>
+      <div class="txt" id="progresoTxt">0 de 24 bloques contestados</div>
+    </div>
+    <div id="bloques"></div>
+    <div id="avisoFalta"></div>
+    <button class="primary" type="button" id="btnVer" onclick="calcular()">Ver mi resultado →</button>
+  </div>
+
+  <div id="resultado" style="display:none;"></div>
+
+</main>
+
+<script>
+/* ============================ EL CUESTIONARIO ============================
+
+   Reactivos propios, escritos para este sitio. El modelo DISC (Marston, 1928)
+   describe cuatro factores y es de dominio público; los instrumentos
+   comerciales que lo implementan NO lo son, así que aquí no se reproduce
+   ninguno: estas 96 frases están redactadas desde cero para personas recién
+   egresadas en México.
+
+   Formato de elección forzada: en cada bloque hay una frase por factor y la
+   persona marca la que MÁS y la que MENOS la describe. Se usa este formato en
+   vez de una escala del 1 al 5 porque en una escala casi todo el mundo se
+   califica alto en todo y los cuatro factores salen empatados. Obligar a
+   elegir entre cuatro opciones igual de presentables es lo que hace que el
+   perfil tenga forma.
+
+   Orden de las claves dentro de cada bloque: D, I, S, C. En pantalla se
+   barajan para que nadie conteste por posición. */
+
+const BLOQUES = [
+  ['Voy directo al punto', 'Hago plática con cualquiera', 'Escucho sin interrumpir', 'Reviso los detalles'],
+  ['Me gusta decidir rápido', 'Contagio el ánimo', 'Prefiero la calma', 'Prefiero tener datos antes'],
+  ['Tomo el mando si nadie lo hace', 'Convenzo hablando', 'Cedo para no discutir', 'Me apego a las reglas'],
+  ['Me motivan los retos difíciles', 'Me motiva que reconozcan mi trabajo', 'Me motiva un ambiente estable', 'Me motiva que las cosas queden bien'],
+  ['Digo lo que pienso', 'Digo las cosas con entusiasmo', 'Digo las cosas con tacto', 'Digo las cosas con precisión'],
+  ['Compito', 'Socializo', 'Coopero', 'Analizo'],
+  ['Me impacienta lo lento', 'Me incomoda el silencio', 'Me incomoda el conflicto', 'Me incomoda improvisar'],
+  ['Asumo riesgos', 'Confío en la gente', 'Voy a paso seguro', 'Calculo antes de actuar'],
+  ['Dirijo', 'Persuado', 'Acompaño', 'Verifico'],
+  ['Lo importante es el resultado', 'Lo importante es la gente', 'Lo importante es que el equipo esté bien', 'Lo importante es que esté bien hecho'],
+  ['Me aburre la rutina', 'Me pesa trabajar solo', 'Me cuesta el cambio repentino', 'Me cuesta trabajar sin instrucciones claras'],
+  ['Empujo para que las cosas avancen', 'Animo al equipo', 'Sostengo lo que ya funciona', 'Ordeno lo que está disperso'],
+  ['Pregunto qué resultado se espera', 'Pregunto quiénes van a participar', 'Pregunto cómo afecta al equipo', 'Pregunto cuál es el procedimiento'],
+  ['Firme', 'Expresivo', 'Paciente', 'Cuidadoso'],
+  ['Prefiero decidir yo', 'Prefiero decidir platicándolo', 'Prefiero decidir de común acuerdo', 'Prefiero decidir con información'],
+  ['Me adapto exigiendo', 'Me adapto conversando', 'Me adapto cediendo', 'Me adapto estudiando'],
+  ['Bajo presión acelero', 'Bajo presión busco apoyo', 'Bajo presión mantengo la calma', 'Bajo presión reviso dos veces'],
+  ['Quiero autonomía', 'Quiero trato con gente', 'Quiero seguridad', 'Quiero claridad'],
+  ['Me frustra que me detengan', 'Me frustra que me ignoren', 'Me frustra la prisa', 'Me frustra el error'],
+  ['Resuelvo', 'Entusiasmo', 'Apoyo', 'Organizo'],
+  ['Hablo de metas', 'Hablo de personas', 'Hablo de acuerdos', 'Hablo de datos'],
+  ['Un buen día es cuando cerré algo importante', 'Un buen día es cuando conocí gente', 'Un buen día es cuando todo fluyó sin sobresaltos', 'Un buen día es cuando todo quedó en orden'],
+  ['Prefiero dirigir el proyecto', 'Prefiero presentarlo', 'Prefiero sostener la operación', 'Prefiero revisar que esté bien'],
+  ['Me describen como decidido', 'Me describen como sociable', 'Me describen como confiable', 'Me describen como meticuloso']
+];
+
+const CLAVES = ['D','I','S','C'];
+
+const FACTORES = {
+  D: {nombre:'Decisión',    color:'var(--d)', corto:'D',
+      resumen:'Vas al resultado. Decides rápido, te incomoda lo lento y no le sacas a decir lo que piensas.'},
+  I: {nombre:'Influencia',  color:'var(--i)', corto:'I',
+      resumen:'Trabajas con y a través de la gente. Convences hablando, contagias ánimo y te cuesta el trabajo aislado.'},
+  S: {nombre:'Estabilidad', color:'var(--s)', corto:'S',
+      resumen:'Sostienes. Eres constante, escuchas, evitas el conflicto y prefieres el cambio avisado al repentino.'},
+  C: {nombre:'Cuidado',     color:'var(--c)', corto:'C',
+      resumen:'Te importa que esté bien. Analizas, verificas y prefieres una instrucción clara a improvisar.'}
+};
+
+/* Guía de entrevista por estilo dominante. La sección "qué suele costarte" se
+   escribe como algo que se prepara, no como un defecto: a un recién egresado
+   decirle que tiene un problema de personalidad no le sirve de nada. */
+const ENTREVISTA = {
+  D: {fuerza: 'Transmites seguridad y hablas de resultados, que es justo lo que una entrevista premia.',
+      cuida: 'Cuando te preguntan por trabajo en equipo tiendes a contar lo que tú lograste. Lleva preparado un ejemplo donde el mérito sea compartido y puedas nombrar qué aportó cada quien.',
+      prepara: ['Un ejemplo donde alguien más tuvo una mejor idea que la tuya y la seguiste.',
+                'Cómo reaccionaste cuando algo salió mal por una decisión tuya.',
+                'Baja el ritmo al hablar: la prisa se oye como que no escuchaste la pregunta.']},
+  I: {fuerza: 'Conectas rápido y la conversación fluye. Caes bien, y eso cuenta.',
+      cuida: 'Te puedes extender y dejar la respuesta sin un cierre concreto. Practica terminar cada ejemplo con el resultado en una frase.',
+      prepara: ['Tres ejemplos con cifras o resultados medibles, aunque sean pequeños.',
+                'Una respuesta corta a "cuéntame de ti": 90 segundos, no cinco minutos.',
+                'Qué haces cuando tienes que trabajar solo y sin retroalimentación.']},
+  S: {fuerza: 'Das confianza. Las empresas valoran a alguien que se queda y sostiene el trabajo.',
+      cuida: 'Te resta cuando no reclamas lo que hiciste. Si tu aporte fue tuyo, dilo sin rodeos: no es presumir, es informar.',
+      prepara: ['Un ejemplo donde tomaste la iniciativa sin que nadie te lo pidiera.',
+                'Cómo manejaste un cambio que no esperabas.',
+                'Practica decir "yo hice" en vez de "se hizo".']},
+  C: {fuerza: 'Tus respuestas son precisas y tienes el dato a la mano. Eso tranquiliza a quien contrata.',
+      cuida: 'Puedes irte al detalle y perder a quien te escucha. Da primero la conclusión y luego el detalle, solo si lo piden.',
+      prepara: ['Una respuesta a "cómo trabajas con información incompleta".',
+                'Un ejemplo donde entregaste algo bueno pero no perfecto, a tiempo.',
+                'Resume cada ejemplo en tres frases antes de entrar en detalles.']}
+};
+
+/* Habilidades del catálogo del Club que suelen complementar cada estilo. No
+   son carencias: son el lado que ese estilo ejercita menos por naturaleza. */
+const CRECIMIENTO = {
+  D: ['escucha', 'trabajo en equipo', 'comunicación', 'paciencia'],
+  I: ['organización', 'análisis', 'planeación', 'atención al detalle'],
+  S: ['toma de decisiones', 'negociación', 'liderazgo', 'comunicación'],
+  C: ['comunicación', 'liderazgo', 'trabajo en equipo', 'adaptabilidad']
+};
+
+const LLAVE = 'cmb_disc';
+
+let orden = [];        // orden barajado de cada bloque
+let respuestas = [];   // {mas, menos} con claves D/I/S/C
+
+function barajar(n){
+  const a = Array.from({length:n}, (_,i)=>i);
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]] = [a[j],a[i]];
+  }
+  return a;
+}
+
+function esc(v){
+  return String(v == null ? '' : v)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+
+function empezar(){
+  orden = BLOQUES.map(() => barajar(4));
+  respuestas = BLOQUES.map(() => ({mas:'', menos:''}));
+  document.getElementById('intro').style.display = 'none';
+  document.getElementById('resultado').style.display = 'none';
+  document.getElementById('cuestionario').style.display = 'block';
+  pintarBloques();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function pintarBloques(){
+  document.getElementById('bloques').innerHTML = BLOQUES.map((frases, b) => {
+    const filas = orden[b].map(i => {
+      const clave = CLAVES[i];
+      return '<tr>' +
+        '<td class="frase">' + esc(frases[i]) + '</td>' +
+        '<td class="op"><input type="radio" name="mas' + b + '" value="' + clave + '" ' +
+          'onchange="marcar(' + b + ',\'mas\',\'' + clave + '\')" aria-label="La que más me describe"></td>' +
+        '<td class="op"><input type="radio" name="menos' + b + '" value="' + clave + '" ' +
+          'onchange="marcar(' + b + ',\'menos\',\'' + clave + '\')" aria-label="La que menos me describe"></td>' +
+        '</tr>';
+    }).join('');
+    return '<div class="bloque" id="bloque' + b + '">' +
+      '<div class="num">Bloque ' + (b+1) + ' de ' + BLOQUES.length + '</div>' +
+      '<table><thead><tr><th class="frase"></th><th>Más</th><th>Menos</th></tr></thead>' +
+      '<tbody>' + filas + '</tbody></table></div>';
+  }).join('');
+  actualizarProgreso();
+}
+
+/* No se puede marcar la misma frase como la que más y la que menos describe:
+   sería una respuesta sin información. Si pasa, se suelta la otra. */
+function marcar(b, cual, clave){
+  respuestas[b][cual] = clave;
+  const otro = cual === 'mas' ? 'menos' : 'mas';
+  if(respuestas[b][otro] === clave){
+    respuestas[b][otro] = '';
+    const radios = document.getElementsByName(otro + b);
+    for(const r of radios) r.checked = false;
+  }
+  document.getElementById('bloque' + b).classList.remove('pendiente');
+  actualizarProgreso();
+}
+
+function completos(){
+  return respuestas.filter(r => r.mas && r.menos).length;
+}
+
+function actualizarProgreso(){
+  const n = completos();
+  document.getElementById('relleno').style.width = (100 * n / BLOQUES.length) + '%';
+  document.getElementById('progresoTxt').textContent =
+    n + ' de ' + BLOQUES.length + ' bloques contestados';
+}
+
+/* Puntuación clásica de elección forzada: por cada factor se cuentan las veces
+   que se eligió como "más" y como "menos". La intensidad es la resta. Un
+   factor con muchos "más" y pocos "menos" es un rasgo marcado; uno que casi
+   nunca se elige en ninguna de las dos columnas simplemente no te define. */
+function puntuar(){
+  const p = {};
+  for(const k of CLAVES) p[k] = {mas:0, menos:0, neto:0};
+  for(const r of respuestas){
+    if(r.mas) p[r.mas].mas++;
+    if(r.menos) p[r.menos].menos++;
+  }
+  for(const k of CLAVES) p[k].neto = p[k].mas - p[k].menos;
+  return p;
+}
+
+function calcular(){
+  const faltan = [];
+  respuestas.forEach((r, b) => { if(!r.mas || !r.menos) faltan.push(b); });
+  if(faltan.length){
+    faltan.forEach(b => document.getElementById('bloque' + b).classList.add('pendiente'));
+    document.getElementById('avisoFalta').innerHTML =
+      '<div class="aviso malo">Te faltan ' + faltan.length + ' bloque' + (faltan.length>1?'s':'') +
+      ' por contestar. Están marcados abajo. No calculamos el resultado con huecos: saldría un perfil que no es el tuyo.</div>';
+    document.getElementById('bloque' + faltan[0]).scrollIntoView({behavior:'smooth', block:'center'});
+    return;
+  }
+  document.getElementById('avisoFalta').innerHTML = '';
+  const p = puntuar();
+  guardar(p);
+  pintarResultado(p);
+}
+
+function guardar(p){
+  try{
+    localStorage.setItem(LLAVE, JSON.stringify({
+      puntajes: p, fecha: new Date().toISOString().slice(0,10), version: 1
+    }));
+  }catch(e){
+    // Modo privado o almacenamiento bloqueado: el resultado se ve igual, solo
+    // que no sobrevive a cerrar la pestaña.
+    console.warn('No se pudo guardar el resultado:', e);
+  }
+}
+
+function leerGuardado(){
+  try{
+    const crudo = localStorage.getItem(LLAVE);
+    return crudo ? JSON.parse(crudo) : null;
+  }catch(e){ return null; }
+}
+
+function borrar(){
+  try{ localStorage.removeItem(LLAVE); }catch(e){}
+  document.getElementById('resultado').style.display = 'none';
+  document.getElementById('cuestionario').style.display = 'none';
+  document.getElementById('intro').style.display = 'block';
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function barra(k, p){
+  const f = FACTORES[k];
+  const neto = p[k].neto;
+  const max = BLOQUES.length;                  // el neto va de -24 a +24
+  const ancho = Math.abs(neto) / max * 50;     // mitad de la pista
+  const estilo = neto >= 0
+    ? 'left:50%;width:' + ancho + '%;background:' + f.color + ';'
+    : 'right:50%;width:' + ancho + '%;background:' + f.color + ';opacity:.55;';
+  return '<div class="perfil-barra">' +
+    '<span class="nom" style="color:' + f.color + '">' + f.corto + ' · ' + f.nombre + '</span>' +
+    '<span class="pista"><span class="centro"></span><span class="valor" style="' + estilo + '"></span></span>' +
+    '<span class="cifra">' + (neto > 0 ? '+' : '') + neto + '</span>' +
+    '</div>';
+}
+
+function pintarResultado(p){
+  const ordenados = CLAVES.slice().sort((a,b) => p[b].neto - p[a].neto);
+  const dom = ordenados[0];
+  const seg = ordenados[1];
+  const empate = p[dom].neto - p[seg].neto <= 2;
+  const plano = p[ordenados[0]].neto - p[ordenados[3]].neto <= 4;
+  const g = ENTREVISTA[dom];
+
+  let encabezado;
+  if(plano){
+    encabezado = '<p>Tus cuatro factores salieron muy parejos. Eso no es un error ni un resultado “malo”: significa que te mueves según lo que pida la situación, y que este cuestionario no encuentra un estilo que domine claramente. Léelo como cuatro descripciones que te quedan a ratos, no como una etiqueta.</p>';
+  }else if(empate){
+    encabezado = '<p>Tu estilo dominante es <strong style="color:' + FACTORES[dom].color + '">' +
+      FACTORES[dom].nombre + '</strong>, muy seguido de <strong style="color:' + FACTORES[seg].color + '">' +
+      FACTORES[seg].nombre + '</strong>. Están tan cerca que conviene leer las dos descripciones: probablemente cambies de una a otra según el contexto.</p>';
+  }else{
+    encabezado = '<p>Tu estilo dominante es <strong style="color:' + FACTORES[dom].color + '">' +
+      FACTORES[dom].nombre + '</strong>, con <strong style="color:' + FACTORES[seg].color + '">' +
+      FACTORES[seg].nombre + '</strong> como segundo.</p>';
+  }
+
+  document.getElementById('cuestionario').style.display = 'none';
+  const cont = document.getElementById('resultado');
+  cont.style.display = 'block';
+  cont.innerHTML =
+    '<div class="card">' +
+      '<h2>Tu perfil</h2>' + encabezado +
+      '<div class="eje"><span></span><span><span>menos tuyo</span><span>más tuyo</span></span><span></span></div>' +
+      CLAVES.map(k => barra(k, p)).join('') +
+      '<p class="note">La cifra es cuántas veces elegiste ese factor como el que más te describe, menos las veces que lo elegiste como el que menos. Va de −24 a +24. Un valor cercano a cero quiere decir que ese rasgo ni te define ni te es ajeno.</p>' +
+      '<h3>Qué dice cada uno de ti</h3>' +
+      CLAVES.map(k =>
+        '<p style="margin:8px 0;"><strong style="color:' + FACTORES[k].color + '">' +
+        FACTORES[k].nombre + '</strong> — ' + esc(FACTORES[k].resumen) + '</p>').join('') +
+      '<div class="aviso limites"><strong>Recuerda qué es esto.</strong> Una herramienta de orientación del Club, no una prueba psicométrica validada. Describe preferencias, no capacidades, y no predice tu desempeño en un trabajo. Si una empresa te pide un DISC como requisito, este resultado no lo sustituye.</div>' +
+    '</div>' +
+
+    '<div class="card">' +
+      '<h2>Para tu próxima entrevista</h2>' +
+      '<p><strong>Lo que juega a tu favor.</strong> ' + esc(g.fuerza) + '</p>' +
+      '<p><strong>Lo que conviene preparar.</strong> ' + esc(g.cuida) + '</p>' +
+      '<h3>Lleva lista una respuesta para esto</h3>' +
+      '<ul>' + g.prepara.map(x => '<li>' + esc(x) + '</li>').join('') + '</ul>' +
+    '</div>' +
+
+    '<div class="card" id="cursosCard">' +
+      '<h2>Qué te conviene reforzar</h2>' +
+      '<p class="note">Estas no son carencias. Son el lado que tu estilo ejercita menos por costumbre, y donde un curso rinde más.</p>' +
+      '<div>' + CRECIMIENTO[dom].map(h => '<span class="pill">' + esc(h) + '</span>').join('') + '</div>' +
+      '<div id="cursosSugeridos"><p class="note">Buscando en el catálogo del Club…</p></div>' +
+    '</div>' +
+
+    '<div class="card">' +
+      '<h2>Y ahora</h2>' +
+      '<p>Tu resultado quedó guardado en este dispositivo. Si vuelves a <a href="index.html">Tu CV frente al mercado</a>, las vacantes recomendadas te van a mostrar qué tanto se parecen al estilo que pide cada puesto.</p>' +
+      '<a class="secondary" href="index.html">Ir a mi CV frente al mercado →</a>' +
+      '<button class="secondary" type="button" onclick="empezar()">Volver a contestar</button>' +
+      '<button class="secondary" type="button" onclick="borrar()">Borrar mi resultado</button>' +
+    '</div>';
+
+  sugerirCursos(dom);
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+/* ---- Cursos del catálogo propio ----
+   Misma regla que el resto del sitio: SOLO cursos del catálogo del Club. Si
+   ninguno coincide, se dice, no se rellena con plataformas externas. */
+
+function normalizar(s){
+  return String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
+}
+
+async function sugerirCursos(dom){
+  const cont = document.getElementById('cursosSugeridos');
+  if(!cont) return;
+  let catalogo;
+  try{
+    const r = await fetch('manifest.json', {cache:'no-store'});
+    const m = await r.json();
+    catalogo = (m.COURSES && m.COURSES.cursos) || {};
+  }catch(err){
+    cont.innerHTML = '<p class="note">No pudimos cargar el catálogo de cursos en este momento.</p>';
+    return;
+  }
+  const buscadas = CRECIMIENTO[dom].map(normalizar);
+  const vistos = new Set();
+  const encontrados = [];
+  for(const sector in catalogo){
+    for(const c of (catalogo[sector] || [])){
+      if(vistos.has(c.id)) continue;
+      const suyas = (c.habilidades || []).map(normalizar);
+      const cubre = buscadas.filter(b => suyas.some(s => s.includes(b) || b.includes(s)));
+      if(cubre.length){
+        vistos.add(c.id);
+        encontrados.push({c, cubre, sector});
+      }
+    }
+  }
+  encontrados.sort((a,b) => b.cubre.length - a.cubre.length);
+  if(!encontrados.length){
+    cont.innerHTML = '<p class="note">Hoy el catálogo del Club no tiene un curso que trabaje estas habilidades. Preferimos decírtelo a recomendarte algo de otra parte.</p>';
+    return;
+  }
+  cont.innerHTML = encontrados.slice(0,5).map(({c, cubre}) =>
+    '<div class="curso-item"><strong>' + esc(c.nombre) + '</strong>' +
+    '<div class="sub">' + esc([c.institucion, c.modalidad].filter(v => v && !/^no especificado$/i.test(v)).join(' · ')) +
+    (cubre.length ? ' — trabaja ' + esc(cubre.join(', ')) : '') + '</div></div>').join('');
+}
+
+/* Si ya contestó antes, se le ofrece su resultado en vez de hacerlo empezar
+   de cero. */
+(function iniciar(){
+  const guardado = leerGuardado();
+  if(!guardado || !guardado.puntajes) return;
+  const intro = document.getElementById('intro');
+  const aviso = document.createElement('div');
+  aviso.className = 'aviso limites';
+  aviso.innerHTML = 'Ya contestaste este cuestionario el ' + esc(guardado.fecha) + '. ' +
+    '<button class="secondary" type="button" id="btnVerGuardado" style="margin-top:8px;">Ver mi resultado</button>';
+  intro.appendChild(aviso);
+  document.getElementById('btnVerGuardado').onclick = () => pintarResultado(guardado.puntajes);
+})();
+</script>
+
+</body>
+</html>

@@ -1,22 +1,31 @@
 {
-  "ediciones": [
-    {
-      "folio": "2026-09-24",
-      "fecha": "2026-09-24",
-      "periodo": "Semana del 21 al 27 de septiembre de 2026",
-      "titulo": "Boletín — Semana del 21 al 27 de septiembre de 2026",
-      "resumen": "1,733 vacantes verificadas en 9 sectores. Ventas encabeza con 324.",
-      "html": "boletines/newsletter-2026-09-24.html",
-      "pdf": "boletines/newsletter-2026-09-24.pdf"
-    },
-    {
-      "folio": "2026-09-08",
-      "fecha": "2026-09-11",
-      "periodo": "Semana del 7 al 13 de septiembre de 2026",
-      "titulo": "Boletín — Semana del 7 al 13 de septiembre de 2026",
-      "resumen": "6,281 vacantes verificadas en 9 sectores. Ventas encabeza con 1,224.",
-      "html": "boletines/newsletter-2026-09-08.html",
-      "pdf": "boletines/newsletter-2026-09-08.pdf"
-    }
-  ]
+ "ediciones": [
+  {
+   "folio": "2026-10-03",
+   "fecha": "2026-10-03",
+   "periodo": "Semana del 28 de septiembre al 4 de octubre de 2026",
+   "titulo": "Boletín — Semana del 28 de septiembre al 4 de octubre de 2026",
+   "resumen": "Sin vacantes nuevas esta semana. 1,733 vacantes verificadas en 9 sectores. Ventas encabeza con 324.",
+   "html": "boletines/newsletter-2026-10-03.html",
+   "pdf": "boletines/newsletter-2026-10-03.pdf"
+  },
+  {
+   "folio": "2026-09-24",
+   "fecha": "2026-09-24",
+   "periodo": "Semana del 21 al 27 de septiembre de 2026",
+   "titulo": "Boletín — Semana del 21 al 27 de septiembre de 2026",
+   "resumen": "1,733 vacantes verificadas en 9 sectores. Ventas encabeza con 324.",
+   "html": "boletines/newsletter-2026-09-24.html",
+   "pdf": "boletines/newsletter-2026-09-24.pdf"
+  },
+  {
+   "folio": "2026-09-08",
+   "fecha": "2026-09-11",
+   "periodo": "Semana del 7 al 13 de septiembre de 2026",
+   "titulo": "Boletín — Semana del 7 al 13 de septiembre de 2026",
+   "resumen": "6,281 vacantes verificadas en 9 sectores. Ventas encabeza con 1,224.",
+   "html": "boletines/newsletter-2026-09-08.html",
+   "pdf": "boletines/newsletter-2026-09-08.pdf"
+  }
+ ]
 }

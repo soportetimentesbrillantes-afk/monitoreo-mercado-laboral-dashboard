@@ -73,6 +73,44 @@
   .pill-toggle button.active{background:linear-gradient(135deg,var(--azul),var(--gold-light));color:#fff;border-color:transparent;}
   #resultado{display:none;}
   /* Consentimiento: sin marcar la casilla no se puede analizar ni resguardar nada. */
+  /* ---------- Confirmación de datos del CV ---------- */
+  .campos-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px 16px;margin-top:16px;}
+  .campo label{display:block;font-size:.78rem;font-weight:600;color:var(--texto-suave);margin-bottom:4px;}
+  .campo input{width:100%;padding:9px 11px;border:1px solid var(--gris-borde);border-radius:9px;font-family:var(--font-sans);font-size:.92rem;background:#fff;color:var(--texto);}
+  .campo input:placeholder-shown{background:#fdfcf8;}
+  .campo .detectado{font-size:.72rem;color:var(--azul-osc);margin-top:3px;}
+  .campo .vacio{font-size:.72rem;color:var(--texto-suave);margin-top:3px;}
+
+  /* ---------- Cuentas ---------- */
+  .sesion-bar{display:flex;justify-content:flex-end;align-items:center;gap:12px;max-width:1080px;margin:0 auto;padding:10px 0 0;font-size:.84rem;}
+  .sesion-bar .quien{color:var(--texto-suave);}
+  .sesion-bar button{background:none;border:none;color:var(--azul-osc);font-weight:700;font-size:.84rem;cursor:pointer;font-family:var(--font-sans);padding:4px 6px;}
+  .sesion-bar button:hover{text-decoration:underline;}
+  .modal-fondo{position:fixed;inset:0;background:rgba(31,31,28,.45);display:flex;align-items:center;justify-content:center;padding:20px;z-index:60;}
+  .modal-fondo[hidden]{display:none;}
+  .modal{background:#fff;border:1px solid var(--gris-borde);border-radius:16px;box-shadow:var(--sombra);max-width:440px;width:100%;padding:26px;max-height:88vh;overflow:auto;}
+  .modal h3{font-family:var(--font-serif);margin:0 0 6px;font-size:1.5rem;color:var(--texto);}
+  .modal .cerrar{float:right;background:none;border:none;font-size:1.3rem;line-height:1;color:var(--texto-suave);cursor:pointer;padding:0 0 0 12px;}
+  .modal label{display:block;margin:14px 0 4px;font-size:.8rem;font-weight:600;color:var(--texto-suave);}
+  .modal input{width:100%;padding:10px 12px;border:1px solid var(--gris-borde);border-radius:9px;font-family:var(--font-sans);font-size:.95rem;background:#fff;color:var(--texto);}
+  .modal input.codigo{letter-spacing:.42em;text-align:center;font-size:1.35rem;font-weight:700;}
+  .modal .aviso{margin-top:12px;font-size:.84rem;border-radius:9px;padding:10px 12px;}
+  .modal .aviso.malo{background:#fdf1ec;border:1px solid #f0d2c4;color:#8a3d1c;}
+  .modal .aviso.bueno{background:#f1f7f2;border:1px solid #cfe3d3;color:#33603d;}
+  .cuenta-seccion{margin-top:20px;}
+  .cuenta-seccion h4{font-family:var(--font-serif);font-size:1.12rem;margin:0 0 8px;color:var(--azul-osc);}
+  .cuenta-item{border:1px solid var(--gris-borde);border-radius:10px;padding:10px 12px;margin-bottom:8px;font-size:.87rem;background:var(--gris-bg);}
+  .cuenta-item a{color:var(--azul-osc);text-decoration:none;}
+  .cuenta-item a:hover{text-decoration:underline;}
+  .cuenta-item .sub{color:var(--texto-suave);font-size:.8rem;margin-top:3px;}
+  .cuenta-item.expirada{opacity:.68;}
+  .cuenta-item.expirada .sub{color:#8a3d1c;}
+  .btn-vacante{background:#fff;border:1.5px solid var(--gris-borde);color:var(--texto-suave);padding:8px 16px;border-radius:999px;font-size:.86rem;font-weight:600;cursor:pointer;font-family:var(--font-sans);}
+  .btn-vacante.guardada{border-color:var(--azul);color:var(--azul-osc);background:#fdfaf1;}
+  .curso-estado{margin-top:10px;display:flex;gap:6px;flex-wrap:wrap;align-items:center;}
+  .curso-estado .lbl{font-size:.76rem;color:var(--texto-suave);font-weight:600;}
+  .curso-estado button{background:#fff;border:1.5px solid var(--gris-borde);color:var(--texto-suave);border-radius:999px;padding:4px 12px;font-size:.78rem;cursor:pointer;font-family:var(--font-sans);font-weight:600;}
+  .curso-estado button.activo{border-color:var(--azul);color:var(--azul-osc);background:#fdfaf1;}
   .consent{background:#fdfaf1;border:1px solid var(--gris-borde);border-radius:10px;padding:14px 16px;margin:16px 0 4px;}
   .consent-linea{display:flex;gap:10px;align-items:flex-start;font-size:.88rem;line-height:1.5;color:var(--texto);margin-bottom:10px;cursor:pointer;}
   .consent-linea:last-child{margin-bottom:0;}
@@ -164,8 +202,12 @@ button.secondary:hover, a.secondary:hover{background:var(--hero-bg2);}
 <div id="loadingOverlay">Cargando datos más recientes…</div>
 <div id="loadError">No se pudieron cargar los datos más recientes (sector_data.json). Mostrando la página sin datos — recarga en unos minutos o avisa a Gael.</div>
 
-<div class="topbar"><a class="logo-link" href="https://www.clubmentesbrillantes.com.mx/index.html" aria-label="Club de Mentes Brillantes"><img src="logo-cmb.svg" alt="Club de Mentes Brillantes"></a><a class="volver-link" href="https://www.clubmentesbrillantes.com.mx/index.html">← Volver a Mentes Brillantes</a></div>
+<div class="topbar"><a class="logo-link" href="https://www.clubmentesbrillantes.com.mx/index.html" aria-label="Club de Mentes Brillantes"><img src="logo-cmb.svg" alt="Club de Mentes Brillantes"></a><span style="display:inline-flex;gap:18px;align-items:center;flex-wrap:wrap;"><a class="volver-link" href="disc.html">Tu estilo de trabajo →</a><a class="volver-link" href="https://www.clubmentesbrillantes.com.mx/index.html">← Volver a Mentes Brillantes</a></span></div>
 <header>
+  <div class="sesion-bar" id="sesionBar" hidden>
+    <span class="quien" id="sesionQuien"></span>
+    <button type="button" id="btnSesion" onclick="CUENTA.abrir()">Entrar</button>
+  </div>
   <div class="hero-inner">
     <div class="hero-text">
       <p class="eyebrow">Análisis de demanda de talento y habilidades</p>
@@ -239,6 +281,20 @@ button.secondary:hover, a.secondary:hover{background:var(--hero-bg2);}
       <button class="secondary" onclick="descargarReporte()">Descargar reporte (.md)</button>
     </div>
 
+    <div class="card" id="confirmarDatosCard" style="display:none;">
+      <h2 style="font-family:var(--font-serif);margin:0 0 6px;font-size:1.5rem;">Confirma tus datos</h2>
+      <p class="note">Esto es lo que alcanzamos a leer de tu CV. <strong>Revísalo</strong>: la lectura automática se equivoca seguido, sobre todo con los apellidos. Lo que dejes en blanco se queda en blanco — no lo inventamos.</p>
+      <div class="campos-grid" id="camposConfirmar"></div>
+      <div id="confirmarAviso"></div>
+      <button class="primary" type="button" id="btnConfirmarDatos" style="margin-top:16px;" onclick="guardarConfirmacion()">Guardar mis datos</button>
+    </div>
+
+    <div class="card" id="guardarCuentaCard" style="display:none;">
+      <h2 style="font-family:var(--font-serif);margin:0 0 6px;font-size:1.5rem;">Guarda este análisis en tu cuenta</h2>
+      <p class="note" id="guardarCuentaTexto">Crea tu cuenta para volver a este diagnóstico cuando quieras, guardar vacantes y llevar el seguimiento de tus cursos.</p>
+      <div id="guardarCuentaAcciones"></div>
+    </div>
+
     <div class="card" id="cursosCard" style="display:none;">
       <div class="step-header"><div class="step-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.4 10.9a1 1 0 0 0 0-1.84L12.8 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.83l8.57 3.9a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></svg></div><div><span class="step-tag">Paso 4 · Recomendado por IA</span><h2>Cursos recomendados</h2></div></div>
       <div class="note">Todos los cursos que ves aquí son <strong>del catálogo del Club de Mentes Brillantes</strong>: no recomendamos cursos de otras plataformas. A partir de las habilidades que te faltaron arriba, elegimos hasta 5 de nuestra oferta del sector, priorizando las habilidades más pedidas en las vacantes. Si todavía no tenemos cursos para tu sector, te lo decimos y no aparece nada.</div>
@@ -284,6 +340,52 @@ button.secondary:hover, a.secondary:hover{background:var(--hero-bg2);}
   </section>
 
 </main>
+
+<!-- Entrar / crear cuenta. Dos pasos: correo y luego el código que llega por correo. -->
+<div class="modal-fondo" id="cuentaModal" hidden onclick="if(event.target===this) CUENTA.cerrar()">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="cuentaModalTitulo">
+    <button class="cerrar" type="button" onclick="CUENTA.cerrar()" aria-label="Cerrar">×</button>
+
+    <div id="pasoCorreo">
+      <h3 id="cuentaModalTitulo">Entra o crea tu cuenta</h3>
+      <p class="note">Te mandamos un código de 6 dígitos. No hay contraseña que recordar.</p>
+      <label for="cuentaNombre">Tu nombre</label>
+      <input type="text" id="cuentaNombre" autocomplete="name" placeholder="Como quieres que te llamemos">
+      <label for="cuentaCorreo">Tu correo</label>
+      <input type="email" id="cuentaCorreo" autocomplete="email" inputmode="email" placeholder="tu@correo.com">
+      <p class="note" id="cuentaPrellenadoNota" style="display:none;">Tomamos estos datos de tu CV. Revísalos: a veces el archivo trae el correo de otra persona.</p>
+      <div id="cuentaAviso"></div>
+      <button class="primary" type="button" id="btnPedirCodigo" style="margin-top:16px;" onclick="CUENTA.pedirCodigo()">Enviarme el código →</button>
+    </div>
+
+    <div id="pasoCodigo" style="display:none;">
+      <h3>Revisa tu correo</h3>
+      <p class="note">Escribimos a <strong id="cuentaCorreoEco"></strong>. El código vence en <span id="cuentaVigencia">10</span> minutos.</p>
+      <label for="cuentaCodigo">Código de 6 dígitos</label>
+      <input type="text" id="cuentaCodigo" class="codigo" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="······">
+      <div id="cuentaAviso2"></div>
+      <button class="primary" type="button" id="btnVerificarCodigo" style="margin-top:16px;" onclick="CUENTA.verificar()">Entrar →</button>
+      <button class="secondary" type="button" style="margin-top:8px;" onclick="CUENTA.volverAlCorreo()">Usar otro correo</button>
+    </div>
+  </div>
+</div>
+
+<!-- Mi cuenta -->
+<div class="modal-fondo" id="panelModal" hidden onclick="if(event.target===this) CUENTA.cerrarPanel()">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="panelTitulo">
+    <button class="cerrar" type="button" onclick="CUENTA.cerrarPanel()" aria-label="Cerrar">×</button>
+    <h3 id="panelTitulo">Mi cuenta</h3>
+    <p class="note" id="panelQuien"></p>
+    <div id="panelContenido"><p class="note">Cargando…</p></div>
+    <div class="cuenta-seccion">
+      <label class="consent-linea" style="cursor:pointer;">
+        <input type="checkbox" id="panelAvisos" onchange="CUENTA.cambiarAvisos(this.checked)">
+        <span>Quiero recibir el boletín del mercado laboral y avisos de los programas del Club.</span>
+      </label>
+      <button class="secondary" type="button" style="margin-top:14px;" onclick="CUENTA.salir()">Cerrar sesión</button>
+    </div>
+  </div>
+</div>
 
 <script>
 /* ===================== DATOS (cargados en vivo desde manifest.json + data/sector_<key>.json) =====================
@@ -700,11 +802,14 @@ function quiereAvisos(){
   return !!(c && c.checked);
 }
 
-async function guardarCVEnHoja(datos){
+async function guardarCVEnHoja(datos, estricto){
   if(!HOJA_CV_ENDPOINT) return;
   if(!consentimientoDado()) return;
+  // El archivo se manda solo en la primera escritura. En la confirmación se
+  // omite a propósito: volver a mandarlo subiría un duplicado a Drive.
   const cuerpo = Object.assign({
-    clave: HOJA_CV_CLAVE, acepta: true, avisos: quiereAvisos(), archivo: archivoCV
+    clave: HOJA_CV_CLAVE, acepta: true, avisos: quiereAvisos(),
+    archivo: datos && datos.datosConfirmados ? null : archivoCV
   }, datos);
   try{
     // Texto plano a propósito: así el navegador no hace la petición previa de
@@ -715,36 +820,397 @@ async function guardarCVEnHoja(datos){
       body: JSON.stringify(cuerpo)
     });
     const d = await r.json();
-    if(!d || !d.ok) console.warn('No se pudo guardar el CV:', (d && d.error) || 'respuesta inesperada');
+    if(!d || !d.ok) throw new Error((d && d.error) || 'respuesta inesperada');
   }catch(err){
-    // Que falle el resguardo no debe estropearle el análisis a la persona.
+    // En el guardado automático, que falle el resguardo no debe estropearle el
+    // análisis a la persona. En la confirmación sí hay que decírselo: ahí ella
+    // está esperando una respuesta.
     console.warn('No se pudo guardar el CV:', err);
+    if(estricto) throw err;
   }
 }
 
-function datosDeContacto(texto){
-  const out = {nombre:'', correo:'', telefono:''};
-  const t = String(texto || '');
-  const correo = t.match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/);
-  if(correo) out.correo = correo[0];
-  const tel = t.match(/(?:\+?52[\s-]?)?(?:\(?\d{2,3}\)?[\s-]?)?\d{3,4}[\s-]?\d{4}/);
-  if(tel && tel[0].replace(/\D/g,'').length >= 10) out.telefono = tel[0].trim();
-  const linea = t.split('\n').map(l=>l.trim()).find(l =>
-    l.length >= 5 && l.length <= 60 &&
-    /[A-Za-zÁÉÍÓÚÑáéíóúñ]/.test(l) && !/[@\d]/.test(l) &&
-    l.split(/\s+/).length <= 6);
-  if(linea) out.nombre = linea;
+// === INICIO EXTRACCION CV ===
+/* Lectura de los datos de contacto y perfil a partir del texto del CV.
+
+   Esto NO adivina: cuando una señal no es clara, el campo se queda vacío y la
+   persona lo llena. La versión anterior tomaba la primera línea corta sin
+   dígitos y la llamaba "nombre", así que en CVs reales devolvía "CURRICULUM
+   VITAE" o "Datos personales". Un campo vacío se corrige en el formulario; uno
+   mal llenado se queda mal para siempre. */
+
+const MX_ESTADOS = ['Aguascalientes','Baja California Sur','Baja California','Campeche','Chiapas',
+  'Chihuahua','Ciudad de México','CDMX','Coahuila','Colima','Durango','Estado de México','Edomex',
+  'Guanajuato','Guerrero','Hidalgo','Jalisco','Michoacán','Morelos','Nayarit','Nuevo León','Oaxaca',
+  'Puebla','Querétaro','Quintana Roo','San Luis Potosí','Sinaloa','Sonora','Tabasco','Tamaulipas',
+  'Tlaxcala','Veracruz','Yucatán','Zacatecas'];
+
+/* Líneas que un CV pone arriba y que NO son el nombre de nadie. */
+const NO_ES_NOMBRE = /^(curriculum|currículum|curriculum vitae|cv|hoja de vida|resume|résumé|datos personales|informacion personal|información personal|perfil|perfil profesional|objetivo|objetivo profesional|resumen|resumen profesional|acerca de mi|acerca de mí|contacto|datos de contacto|experiencia|experiencia laboral|educacion|educación|formacion|formación|habilidades|competencias|idiomas|referencias|telefono|teléfono|correo|email|direccion|dirección)\b/i;
+
+/* Palabras de puesto o grado: si la línea empieza con una, es un título, no un nombre. */
+const ES_PUESTO = /^(lic|lic\.|licenciad[oa]|ing|ing\.|ingenier[oa]|mtr[oa]|maestr[oa]|dr|dra|doctor[a]?|c\.p\.|cp|contador[a]?|pasante|estudiante|egresad[oa]|tecnic[oa]|técnic[oa]|arq|arquitect[oa]|profesor[a]?|aux|auxiliar|asistente|analista|coordinador[a]?|gerente|director[a]?|jefe|supervisor[a]?)\b/i;
+
+const PARTICULAS = new Set(['de','del','la','las','los','y','e','da','do','van','von','mac','mc','san','santa']);
+
+function limpiarLineas(texto){
+  return String(texto || '').split(/\r?\n/).map(l => l.replace(/\s+/g,' ').trim()).filter(Boolean);
+}
+
+/* Muchos CV ponen todo el encabezado en un renglón: "Juan Pérez · correo ·
+   teléfono". Partimos también por los separadores típicos para poder mirar
+   cada pedazo por su cuenta. */
+function fragmentos(lineas){
+  const out = [];
+  for(const l of lineas){
+    out.push(l);
+    if(/[·|•—–]/.test(l)){
+      for(const p of l.split(/[·|•—–]/)){
+        const t = p.trim();
+        if(t) out.push(t);
+      }
+    }
+  }
   return out;
 }
 
-function registroDesdeAnalisis(){
-  const r = ultimoReporte || {};
-  const contacto = datosDeContacto(r.cvTextoRaw || '');
+/* El texto sin correos ni URLs. Hace falta porque "@uanl.edu.mx" hacía que el
+   buscador de universidad devolviera "uanl" sacado del correo. */
+function sinCorreosNiUrls(texto){
+  return String(texto || '')
+    .replace(/[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/g, ' ')
+    .replace(/https?:\/\/\S+/g, ' ');
+}
+
+function soloLetras(s){
+  return /^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ'’.-]+$/.test(s);
+}
+
+/* ¿Esta línea parece el nombre de una persona? Entre 2 y 5 palabras, todas de
+   letras, sin palabras de sección ni de puesto. */
+function pareceNombre(linea){
+  if(linea.length < 5 || linea.length > 70) return false;
+  if(/[@\d]/.test(linea)) return false;
+  if(NO_ES_NOMBRE.test(linea)) return false;
+  if(ES_PUESTO.test(linea)) return false;
+  const palabras = linea.split(' ').filter(Boolean);
+  if(palabras.length < 2 || palabras.length > 5) return false;
+  if(!palabras.every(soloLetras)) return false;
+  // Nombre propio: o va en Mayúscula Inicial, o va TODO EN MAYÚSCULAS.
+  const significativas = palabras.filter(p => !PARTICULAS.has(p.toLowerCase()));
+  if(!significativas.length) return false;
+  const mayusInicial = significativas.every(p => /^[A-ZÁÉÍÓÚÜÑ]/.test(p));
+  const todoMayus = linea === linea.toUpperCase();
+  return mayusInicial || todoMayus;
+}
+
+/* Parte un nombre completo en nombres y apellidos con la convención mexicana:
+   los dos últimos bloques son los apellidos. Las partículas se pegan al
+   apellido que les sigue ("de la Torre" es un apellido, no tres).
+   Es una convención, no una regla: por eso el formulario deja corregirlo. */
+function partirNombre(completo){
+  const bruto = String(completo || '').split(' ').filter(Boolean);
+  const bloques = [];
+  for(let i = 0; i < bruto.length; i++){
+    if(PARTICULAS.has(bruto[i].toLowerCase()) && i + 1 < bruto.length){
+      let j = i;
+      let pieza = '';
+      while(j < bruto.length && PARTICULAS.has(bruto[j].toLowerCase())){ pieza += bruto[j] + ' '; j++; }
+      if(j < bruto.length){ pieza += bruto[j]; }
+      bloques.push(pieza.trim());
+      i = j;
+    }else{
+      bloques.push(bruto[i]);
+    }
+  }
+  if(bloques.length >= 3) return {nombres: bloques.slice(0, -2).join(' '), paterno: bloques.at(-2), materno: bloques.at(-1)};
+  if(bloques.length === 2) return {nombres: bloques[0], paterno: bloques[1], materno: ''};
+  return {nombres: bloques.join(' '), paterno: '', materno: ''};
+}
+
+function valorEtiquetado(lineas, etiquetas){
+  const re = new RegExp('^\\s*(?:' + etiquetas.join('|') + ')\\s*[:：]\\s*(.+)$', 'i');
+  for(const l of lineas){
+    const m = l.match(re);
+    if(m && m[1].trim()) return m[1].trim();
+  }
+  return '';
+}
+
+function extraerNombre(lineas, correo){
+  // 1. Etiqueta explícita: es lo más confiable que hay.
+  const etiquetado = valorEtiquetado(lineas, ['nombre completo','nombre\\(s\\)','nombre']);
+  if(etiquetado && pareceNombre(etiquetado)) return etiquetado;
+
+  // 2. Se miran las primeras líneas y también sus pedazos: el nombre suele ir
+  //    en el mismo renglón que el correo, separado por · o |.
+  const candidatas = fragmentos(lineas.slice(0, 15)).filter(pareceNombre);
+  if(!candidatas.length) return '';
+
+  // 3. Si el correo da pistas del apellido, se prefiere la línea que coincide:
+  //    "lopez.hernandez@" con "María Fernanda López Hernández".
+  if(correo){
+    const local = normalizarBasico(correo.split('@')[0]).replace(/[._\-0-9]+/g, ' ').trim();
+    const partes = local.split(' ').filter(p => p.length >= 4);
+    if(partes.length){
+      const conPista = candidatas.find(c => {
+        const n = normalizarBasico(c);
+        return partes.some(p => n.includes(p));
+      });
+      if(conPista) return conPista;
+    }
+  }
+  return candidatas[0];
+}
+
+function normalizarBasico(s){
+  return String(s || '').toLowerCase()
+    .normalize('NFD').replace(/[̀-ͯ]/g, '');
+}
+
+function extraerCorreo(texto, lineas){
+  const etiquetado = valorEtiquetado(lineas, ['correo electr[oó]nico','correo','e-?mail','mail']);
+  const deEtiqueta = etiquetado.match(/[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/);
+  if(deEtiqueta) return deEtiqueta[0];
+  const todos = String(texto || '').match(/[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/g) || [];
+  return todos[0] || '';
+}
+
+/* Teléfono mexicano: 10 dígitos, con o sin lada país. Se devuelve solo si
+   quedan exactamente 10 o 12 dígitos, para no confundirlo con un folio, una
+   matrícula o un rango de años. */
+function extraerTelefono(texto, lineas){
+  const fuentes = [valorEtiquetado(lineas, ['tel[eé]fono','tel','celular','cel','m[oó]vil','whatsapp']), String(texto || '')];
+  for(const fuente of fuentes){
+    if(!fuente) continue;
+    const posibles = fuente.match(/(?:\+?\s*52\s*)?(?:1\s*)?(?:\(\d{2,3}\)|\d{2,3})[\s.\-]?\d{3,4}[\s.\-]?\d{4}/g) || [];
+    for(const p of posibles){
+      const d = p.replace(/\D/g, '');
+      const nacional = d.length === 12 && d.startsWith('52') ? d.slice(2)
+                     : d.length === 11 && d.startsWith('1') ? d.slice(1)
+                     : d;
+      if(nacional.length === 10) return nacional.replace(/(\d{2})(\d{4})(\d{4})/, '$1 $2 $3');
+    }
+  }
+  return '';
+}
+
+function extraerUbicacion(texto, lineas){
+  const etiquetado = valorEtiquetado(lineas, ['ciudad','ubicaci[oó]n','direcci[oó]n','residencia','domicilio']);
+  const donde = etiquetado || lineas.slice(0, 20).join(' | ');
+  const n = normalizarBasico(donde);
+  let estado = '';
+  for(const e of MX_ESTADOS){
+    if(n.includes(normalizarBasico(e))){
+      estado = e === 'CDMX' ? 'Ciudad de México' : e === 'Edomex' ? 'Estado de México' : e;
+      break;
+    }
+  }
+  // "Zapopan, Jalisco" → ciudad Zapopan. Se busca en la etiqueta si la hay y,
+  // si no, en una línea suelta del encabezado con la forma "Ciudad, Estado".
+  let ciudad = '';
+  const fuentes = etiquetado ? [etiquetado] : fragmentos(lineas.slice(0, 20));
+  for(const f of fuentes){
+    if(f.length > 60 || /[@\d]/.test(f)) continue;
+    const partes = f.split(',').map(s => s.trim()).filter(Boolean);
+    if(partes.length < 2) continue;
+    const cola = normalizarBasico(partes[partes.length - 1]);
+    const coincide = MX_ESTADOS.some(e => cola === normalizarBasico(e));
+    if(coincide){ ciudad = partes.slice(0, -1).join(', '); break; }
+  }
+  if(!ciudad && etiquetado && !/[@\d]/.test(etiquetado) && etiquetado.length <= 60 && !estado){
+    ciudad = etiquetado;
+  }
+  return {ciudad, estado};
+}
+
+const CARRERA_RE = /\b(licenciatura en|lic\.? en|ingenier[ií]a (?:en |industrial|mec[aá]nica|civil|qu[ií]mica|el[eé]ctrica|electr[oó]nica)?|ing\.? en|t[eé]cnico en|t[eé]cnico superior en|maestr[ií]a en|carrera de|pasante de)\s+([A-ZÁÉÍÓÚÑa-záéíóúñ ,.-]{3,60})/i;
+
+function extraerCarrera(texto, lineas){
+  const etiquetado = valorEtiquetado(lineas, ['carrera','formaci[oó]n acad[eé]mica','escolaridad','estudios']);
+  if(etiquetado && etiquetado.length <= 70) return etiquetado;
+  const m = String(texto || '').match(CARRERA_RE);
+  if(!m) return '';
+  const cola = m[2].split(/[.,;|]/)[0].trim();
+  const completo = (m[1].trim() + ' ' + cola).replace(/\s+/g, ' ').trim();
+  return completo.length <= 70 ? completo : '';
+}
+
+const UNIVERSIDAD_RE = /\b(universidad[^|,\n]{0,55}|instituto tecnol[oó]gico[^|,\n]{0,45}|tecnol[oó]gico de monterrey|tec de monterrey|unam|ipn|uam|uanl|udg|uaeh|buap|itesm|upiicsa|escuela superior[^|,\n]{0,40})/i;
+
+const SIGLAS = new Set(['unam','ipn','uam','uanl','udg','uaeh','buap','itesm','upiicsa']);
+
+function extraerUniversidad(texto, lineas){
+  const etiquetado = valorEtiquetado(lineas, ['universidad','instituci[oó]n','escuela']);
+  const bruto = (etiquetado && etiquetado.length <= 70)
+    ? etiquetado
+    : (sinCorreosNiUrls(texto).match(UNIVERSIDAD_RE) || [])[1] || '';
+  if(!bruto) return '';
+  // Se corta en el primer año: "Universidad de Guadalajara 2019 - 2023" es el
+  // nombre más las fechas del periodo, y las fechas van en otra columna.
+  const limpio = bruto.split(/\b(?:19|20)\d{2}\b/)[0].replace(/[\s,.;|-]+$/,'').replace(/\s+/g,' ').trim();
+  return SIGLAS.has(limpio.toLowerCase()) ? limpio.toUpperCase() : limpio;
+}
+
+/* Año de egreso: el año más alto que aparezca y que no sea futuro. Si el CV
+   dice "2024 - Actualidad" no hay egreso todavía y se deja vacío. */
+function extraerAnioEgreso(texto){
+  const t = String(texto || '');
+  const ahora = new Date().getFullYear();
+  const anios = (t.match(/\b(19[89]\d|20[0-4]\d)\b/g) || []).map(Number).filter(a => a <= ahora);
+  if(!anios.length) return '';
+  return String(Math.max(...anios));
+}
+
+/* Solo si el CV lo dice con todas sus letras. No se infiere de las fechas:
+   una suma mal hecha aquí es un dato inventado sobre la persona. */
+function extraerAniosExperiencia(texto){
+  const m = String(texto || '').match(/(\d{1,2})\+?\s*a[nñ]os?\s+de\s+experiencia/i);
+  return m ? m[1] : '';
+}
+
+function extraerPuestoObjetivo(lineas){
+  const etiquetado = valorEtiquetado(lineas, ['puesto objetivo','objetivo laboral','puesto deseado','vacante de inter[eé]s','objetivo']);
+  return etiquetado && etiquetado.length <= 80 ? etiquetado : '';
+}
+
+function extraerNivelIngles(texto){
+  const t = String(texto || '');
+  const m = t.match(/ingl[eé]s[^.\n]{0,24}?\b(nativo|avanzado|intermedio|b[aá]sico|c2|c1|b2|b1|a2|a1|100\s*%|\d{2}\s*%)/i);
+  if(m) return m[1].toUpperCase().length <= 2 ? m[1].toUpperCase() : m[1].toLowerCase();
+  if(/\btoefl\b|\bielts\b|\bcambridge\b/i.test(t)) return 'certificación mencionada';
+  return '';
+}
+
+function datosDeContacto(texto){
+  const lineas = limpiarLineas(texto);
+  const correo = extraerCorreo(texto, lineas);
+  const completo = extraerNombre(lineas, correo);
+  const partes = partirNombre(completo);
+  const ubic = extraerUbicacion(texto, lineas);
   return {
+    nombreCompleto: completo,
+    nombres: partes.nombres,
+    apellidoPaterno: partes.paterno,
+    apellidoMaterno: partes.materno,
+    correo,
+    telefono: extraerTelefono(texto, lineas),
+    ciudad: ubic.ciudad,
+    estado: ubic.estado,
+    carrera: extraerCarrera(texto, lineas),
+    universidad: extraerUniversidad(texto, lineas),
+    anioEgreso: extraerAnioEgreso(texto),
+    aniosExperiencia: extraerAniosExperiencia(texto),
+    puestoObjetivo: extraerPuestoObjetivo(lineas),
+    nivelIngles: extraerNivelIngles(texto)
+  };
+}
+// === FIN EXTRACCION CV ===
+
+/* ================= CONFIRMACIÓN DE LOS DATOS DEL CV =================
+
+   La lectura automática acierta a veces. Por eso el registro se guarda dos
+   veces: primero con lo detectado, en cuanto termina el análisis, y luego otra
+   vez si la persona corrige algo. Las dos escrituras llevan el mismo ID de
+   envío, así que la segunda ACTUALIZA el mismo renglón en vez de duplicarlo, y
+   la columna "Datos confirmados" dice cuál de las dos es la buena.
+
+   Se hace así y no al revés —pedir confirmación antes de guardar— para no
+   perder a quien cierra la pestaña sin llenar el formulario: su renglón ya
+   está, aunque sea con lo detectado. */
+
+const CAMPOS_PERFIL = [
+  {id:'nombres',          etiqueta:'Nombre(s)',          ancho:1},
+  {id:'apellidoPaterno',  etiqueta:'Apellido paterno',   ancho:1},
+  {id:'apellidoMaterno',  etiqueta:'Apellido materno',   ancho:1},
+  {id:'correo',           etiqueta:'Correo',             ancho:1, tipo:'email'},
+  {id:'telefono',         etiqueta:'Teléfono',           ancho:1, tipo:'tel'},
+  {id:'ciudad',           etiqueta:'Ciudad',             ancho:1},
+  {id:'estado',           etiqueta:'Estado',             ancho:1},
+  {id:'carrera',          etiqueta:'Carrera',            ancho:1},
+  {id:'universidad',      etiqueta:'Universidad',        ancho:1},
+  {id:'anioEgreso',       etiqueta:'Año de egreso',      ancho:1},
+  {id:'aniosExperiencia', etiqueta:'Años de experiencia',ancho:1},
+  {id:'puestoObjetivo',   etiqueta:'Puesto objetivo',    ancho:1},
+  {id:'nivelIngles',      etiqueta:'Nivel de inglés',    ancho:1}
+];
+
+let idEnvioActual = '';
+let datosDetectados = {};
+
+function nuevoIdEnvio(){
+  const b = new Uint8Array(4);
+  (crypto && crypto.getRandomValues) ? crypto.getRandomValues(b) : b.set([0,0,0,0]);
+  return Array.from(b, x => x.toString(16).padStart(2,'0')).join('');
+}
+
+function pintarConfirmacion(){
+  const card = document.getElementById('confirmarDatosCard');
+  const cont = document.getElementById('camposConfirmar');
+  if(!card || !cont) return;
+  cont.innerHTML = CAMPOS_PERFIL.map(c => {
+    const v = datosDetectados[c.id] || '';
+    return '<div class="campo">' +
+      '<label for="perfil_' + c.id + '">' + esc(c.etiqueta) + '</label>' +
+      '<input id="perfil_' + c.id + '" type="' + (c.tipo || 'text') + '" value="' + esc(v) + '" placeholder="—">' +
+      (v ? '<div class="detectado">leído de tu CV</div>' : '<div class="vacio">no lo encontramos</div>') +
+      '</div>';
+  }).join('');
+  document.getElementById('confirmarAviso').innerHTML = '';
+  card.style.display = 'block';
+}
+
+function leerFormularioPerfil(){
+  const out = {};
+  for(const c of CAMPOS_PERFIL){
+    const el = document.getElementById('perfil_' + c.id);
+    out[c.id] = el ? el.value.trim() : '';
+  }
+  out.nombreCompleto = [out.nombres, out.apellidoPaterno, out.apellidoMaterno].filter(Boolean).join(' ');
+  return out;
+}
+
+async function guardarConfirmacion(){
+  const btn = document.getElementById('btnConfirmarDatos');
+  const aviso = document.getElementById('confirmarAviso');
+  const datos = leerFormularioPerfil();
+  if(datos.correo && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(datos.correo)){
+    aviso.innerHTML = '<div class="aviso malo">Ese correo no parece válido. Corrígelo o déjalo vacío.</div>';
+    return;
+  }
+  btn.disabled = true; btn.textContent = 'Guardando…';
+  try{
+    await guardarCVEnHoja(registroDesdeAnalisis(datos, true), true);
+    aviso.innerHTML = '<div class="aviso bueno">Listo, guardamos tus datos.</div>';
+  }catch(err){
+    aviso.innerHTML = '<div class="aviso malo">No pudimos guardar en este momento. Vuelve a intentarlo.</div>';
+    console.warn('No se pudo confirmar los datos:', err);
+  }finally{
+    btn.disabled = false; btn.textContent = 'Guardar mis datos';
+  }
+}
+
+function registroDesdeAnalisis(perfil, confirmado){
+  const r = ultimoReporte || {};
+  const p = perfil || datosDetectados || {};
+  return {
+    idEnvio: idEnvioActual,
     pagina: 'Tu CV frente al mercado',
-    nombre: contacto.nombre,
-    correo: contacto.correo,
-    telefono: contacto.telefono,
+    datosConfirmados: confirmado === true,
+    nombreCompleto: p.nombreCompleto || '',
+    nombres: p.nombres || '',
+    apellidoPaterno: p.apellidoPaterno || '',
+    apellidoMaterno: p.apellidoMaterno || '',
+    correo: p.correo || '',
+    telefono: p.telefono || '',
+    ciudad: p.ciudad || '',
+    estado: p.estado || '',
+    carrera: p.carrera || '',
+    universidad: p.universidad || '',
+    anioEgreso: p.anioEgreso || '',
+    aniosExperiencia: p.aniosExperiencia || '',
+    puestoObjetivo: p.puestoObjetivo || '',
+    nivelIngles: p.nivelIngles || '',
     sector: (r.sector && r.sector.nombre) || r.sectorKey || '',
     habilidadesDetectadas: (r.matched || []).map(h => h.skill),
     habilidadesFaltantes: (r.missingTop || []).map(h => h.skill),
@@ -842,7 +1308,16 @@ async function analizarCV(){
   document.getElementById('resultado').scrollIntoView({behavior:'smooth'});
   renderCursos();
   renderEmpleos();
-  guardarCVEnHoja(registroDesdeAnalisis());
+  // Primero el guardado con lo detectado, por si la persona no llega a
+  // confirmar. El formulario de abajo actualiza este mismo renglón.
+  idEnvioActual = nuevoIdEnvio();
+  datosDetectados = datosDeContacto(cvTextoRaw);
+  guardarCVEnHoja(registroDesdeAnalisis(datosDetectados, false));
+  pintarConfirmacion();
+  // Con sesión abierta el análisis se guarda solo; sin ella, se ofrece la
+  // cuenta con los datos del CV prellenados pero editables.
+  CUENTA.guardarAnalisis();
+  CUENTA.trasAnalisis();
 }
 
 function descargarReporte(){
@@ -973,6 +1448,13 @@ function renderCursoCard(c, i){
             .join(' · ')}</div>
         ${c.razon ? `<div class="job-razon" style="margin-top:8px;"><span class="lbl">Por qué te lo recomendamos</span>${c.razon}</div>` : ''}
         <div style="margin-top:8px;">${c.cubre.map(s=>`<span class="badge missing">${s}</span>`).join('')}</div>
+        ${c.id ? `
+        <div class="curso-estado">
+          <span class="lbl">Mi avance:</span>
+          <button type="button" data-curso="${esc(c.id)}" data-estado="interes"  onclick="CUENTA.fijarCurso('${esc(c.id)}','interes')">Me interesa</button>
+          <button type="button" data-curso="${esc(c.id)}" data-estado="cursando" onclick="CUENTA.fijarCurso('${esc(c.id)}','cursando')">Cursando</button>
+          <button type="button" data-curso="${esc(c.id)}" data-estado="hecho"    onclick="CUENTA.fijarCurso('${esc(c.id)}','hecho')">Terminado</button>
+        </div>` : ''}
       </div>
     `;
 }
@@ -1033,6 +1515,7 @@ async function renderCursos(){
        el orden es por cuántas brechas cubre cada uno.)</p>`;
 
   cont.innerHTML = introTexto + recomendados.map((c,i) => renderCursoCard(c,i)).join('');
+  CUENTA.repintarMarcas();
 }
 
 /* ===================== EMPLEOS RECOMENDADOS ===================== */
@@ -1222,6 +1705,91 @@ function descargarCVMejorado(i){
   a.click();
 }
 
+/* ================= AFINIDAD DE ESTILO (DISC) =================
+
+   Si la persona contestó el cuestionario de disc.html, cada vacante muestra
+   qué tanto se parece su estilo al que ese tipo de puesto suele pedir.
+
+   Tres reglas que NO se rompen:
+   1. Nunca esconde vacantes. Es una etiqueta, no un filtro. Un perfil no
+      descalifica a nadie de un puesto y el sitio no va a sugerir que sí.
+   2. Ordenar por afinidad es opcional y la persona lo activa. Por omisión
+      manda la coincidencia de habilidades, que es un dato del mercado; el
+      estilo es una preferencia declarada.
+   3. La correspondencia entre puesto y estilo es nuestra, hecha a mano sobre
+      las categorías del pipeline. No sale de ningún estudio. Por eso se
+      muestra como "afinidad de estilo" y nunca como una probabilidad. */
+
+const ESTILO_PUESTO = [
+  {re:/venta|comercial|asesor|ejecutiv|telemarketing|call center|comisionista|mostrador|retail|promotor/i, perfil:{D:2, I:3, S:0, C:0}},
+  {re:/gerenc|direcci[oó]n|jefatura|supervisi[oó]n|coordinaci[oó]n/i,                                      perfil:{D:3, I:1, S:1, C:1}},
+  {re:/contabilidad|fiscal|auditor|cumplimiento|compliance|calidad|an[aá]lisis|anal[ií]tica|datos|business intelligence|financier|tesorer[ií]a|cr[eé]dito/i, perfil:{D:0, I:0, S:1, C:3}},
+  {re:/legal|abogad|jur[ií]dic|notar|cobranza judicial/i,                                                  perfil:{D:1, I:0, S:0, C:3}},
+  {re:/ingenier|manufactura|procesos|dise[nñ]o|desarrollo de software|infraestructura|soporte t[eé]cnico|inteligencia artificial|automatizaci[oó]n|sistemas/i, perfil:{D:0, I:0, S:1, C:3}},
+  {re:/almac[eé]n|cedis|log[ií]stica|inventario|transporte|reparto|distribuci[oó]n|flota|producci[oó]n|operaci[oó]n|mantenimiento|soldadura|maquinado|mec[aá]nic/i, perfil:{D:0, I:0, S:3, C:2}},
+  {re:/hoteler|recepci[oó]n|atenci[oó]n a clientes|alimentos y bebidas|banquete|reservacion|turismo|educaci[oó]n|capacitaci[oó]n|recursos humanos|eventos/i, perfil:{D:0, I:3, S:3, C:0}},
+  {re:/administraci[oó]n|asistente|auxiliar|secretar|archivo|control administrativo/i,                      perfil:{D:0, I:1, S:2, C:2}},
+  {re:/compras|comercio exterior|aduana|importaci[oó]n|exportaci[oó]n/i,                                    perfil:{D:1, I:1, S:1, C:2}}
+];
+
+function perfilDisc(){
+  try{
+    const crudo = localStorage.getItem('cmb_disc');
+    if(!crudo) return null;
+    const g = JSON.parse(crudo);
+    return (g && g.puntajes) ? g.puntajes : null;
+  }catch(e){ return null; }
+}
+
+/* Lleva los netos (−24..+24) a pesos comparables de 0 a 1. */
+function perfilNormalizado(p){
+  const claves = ['D','I','S','C'];
+  const vals = claves.map(k => (p[k] && typeof p[k].neto === 'number') ? p[k].neto : 0);
+  const min = Math.min(...vals), rango = Math.max(...vals) - min;
+  const out = {};
+  claves.forEach((k, i) => { out[k] = rango ? (vals[i] - min) / rango : 0.5; });
+  return out;
+}
+
+function estiloEsperado(vacante){
+  const texto = [vacante.titulo, vacante._categoria, vacante._sectorNombre].filter(Boolean).join(' ');
+  for(const regla of ESTILO_PUESTO){
+    if(regla.re.test(texto)) return regla.perfil;
+  }
+  return null;
+}
+
+/* Afinidad 0..1: qué tanto coincide el estilo de la persona con el que ese
+   tipo de puesto suele pedir. Si no sabemos qué pide el puesto, devuelve null
+   y la vacante simplemente no muestra etiqueta. */
+function afinidadEstilo(vacante, perfilNorm){
+  const esperado = estiloEsperado(vacante);
+  if(!esperado || !perfilNorm) return null;
+  const claves = ['D','I','S','C'];
+  const total = claves.reduce((s,k) => s + esperado[k], 0);
+  if(!total) return null;
+  const puntos = claves.reduce((s,k) => s + (esperado[k] / total) * perfilNorm[k], 0);
+  return Math.max(0, Math.min(1, puntos));
+}
+
+function etiquetaAfinidad(a){
+  if(a === null) return '';
+  const nivel = a >= 0.62 ? 'alta' : a >= 0.38 ? 'media' : 'baja';
+  const color = nivel === 'alta' ? 'var(--verde)' : nivel === 'media' ? 'var(--azul-osc)' : 'var(--texto-suave)';
+  return '<span class="job-badge" style="color:' + color + ';" title="Qué tanto se parece tu estilo al que suele pedir este tipo de puesto. Es orientación, no un requisito.">Afinidad de estilo: ' + nivel + '</span>';
+}
+
+function avisoDisc(hayPerfil){
+  if(hayPerfil){
+    return '<p class="note">Las vacantes traen una etiqueta de <strong>afinidad de estilo</strong> según tu resultado de <a href="disc.html">Tu estilo de trabajo</a>. Es orientación, no un requisito: la afinidad baja no te descarta de nada. ' +
+      '<label style="display:inline-flex;gap:6px;align-items:center;margin-left:4px;cursor:pointer;">' +
+      '<input type="checkbox" id="ordenarPorAfinidad" ' + (ordenarPorAfinidad ? 'checked' : '') + '> ordenar por afinidad</label></p>';
+  }
+  return '<p class="note">¿Quieres saber qué puestos van con tu forma de trabajar? Contesta <a href="disc.html">Tu estilo de trabajo</a> — son 7 minutos y después estas vacantes te muestran la afinidad.</p>';
+}
+
+let ordenarPorAfinidad = false;
+
 async function renderEmpleos(){
   const cont = document.getElementById('empleosContenido');
   const empleosCard = document.getElementById('empleosCard');
@@ -1266,6 +1834,15 @@ async function renderEmpleos(){
       : '<p class="note">Vacantes dentro de tus filtros, ordenadas por cuántas de las habilidades detectadas en tu CV coinciden con lo que pide cada vacante.</p>';
   }
 
+  // Afinidad de estilo: se calcula para todas, se ordena solo si la persona
+  // lo pidió, y nunca se descarta una vacante por tener afinidad baja.
+  const disc = perfilDisc();
+  const perfilNorm = disc ? perfilNormalizado(disc) : null;
+  items.forEach(v => { v._afinidad = afinidadEstilo(v, perfilNorm); });
+  if(perfilNorm && ordenarPorAfinidad){
+    items = items.slice().sort((a,b) => (b._afinidad ?? -1) - (a._afinidad ?? -1));
+  }
+
   empleosMostrados = items;
 
   if(!items.length){
@@ -1273,7 +1850,7 @@ async function renderEmpleos(){
     return;
   }
 
-  cont.innerHTML = introTexto +
+  cont.innerHTML = introTexto + avisoDisc(!!perfilNorm) +
     items.map((v,i) => {
       const salario = formatSalarioRango(v.salario_min, v.salario_max);
       const nivel = NIVEL_LABEL[inferirNivelPuesto(v.titulo)];
@@ -1288,6 +1865,7 @@ async function renderEmpleos(){
         '<span class="job-badge">' + nivel + '</span>' +
         (salario ? ('<span class="job-badge">' + salario + '</span>') : '') +
         '<span class="job-badge">' + v.fuente + '</span>' +
+        etiquetaAfinidad(v._afinidad ?? null) +
         '</div>';
       return '' +
         '<div class="job-card">' +
@@ -1299,11 +1877,397 @@ async function renderEmpleos(){
         '<div class="job-actions">' +
         '<a href="' + v.url + '" target="_blank" rel="noopener noreferrer" style="display:inline-block;background:#fff;color:var(--azul);border:1.5px solid var(--azul);padding:8px 18px;border-radius:999px;font-size:0.86rem;font-weight:600;text-decoration:none;">Ver vacante original →</a>' +
         '<button class="secondary" style="font-size:0.86rem;padding:8px 18px;margin:0;" onclick="mejorarCV(' + i + ', event)">Optimizar mi CV para esta vacante</button>' +
+        '<button type="button" class="btn-vacante" data-vacante="' + esc(v.url) + '" onclick="CUENTA.alternarVacante(' + i + ', this)">☆ Guardar</button>' +
         '</div>' +
         '<div id="cvMejoradoBox-' + i + '"></div>' +
         '</div>';
     }).join('');
+  CUENTA.repintarMarcas();
+  const chk = document.getElementById('ordenarPorAfinidad');
+  if(chk){
+    chk.onchange = () => { ordenarPorAfinidad = chk.checked; renderEmpleos(); };
+  }
 }
+
+/* ============================== CUENTAS ==============================
+   Entrar con un código de 6 dígitos que llega por correo. Sin contraseñas.
+
+   El token vive en localStorage y viaja en la cabecera Authorization, no en
+   una cookie: el sitio está en github.io y el Worker en workers.dev, así que
+   una cookie de sesión sería de terceros y Safari y Firefox la bloquean por
+   omisión — el inicio de sesión no funcionaría para buena parte de la gente.
+
+   La contrapartida de ese token legible por JavaScript es que CUALQUIER HTML
+   que esta página inserte sin escapar se vuelve una forma de robarlo. Por eso
+   todo lo que venga de la cuenta pasa por esc(). El resto del sitio interpola
+   datos del propio pipeline; esto es distinto, porque el nombre lo escribe la
+   persona. */
+
+const CUENTA_BASE = CV_ANALYSIS_ENDPOINT;
+const CUENTA_LLAVE = 'cmb_sesion';
+
+const CUENTA = {
+  token: null,
+  usuario: null,
+  datos: null,
+
+  // ---------- sesión guardada ----------
+
+  cargar(){
+    try{
+      const crudo = localStorage.getItem(CUENTA_LLAVE);
+      if(!crudo) return;
+      const s = JSON.parse(crudo);
+      if(s && s.token && s.usuario){ this.token = s.token; this.usuario = s.usuario; }
+    }catch(e){
+      // Modo privado o almacenamiento bloqueado: la página funciona igual,
+      // solo que sin sesión recordada.
+      console.warn('No se pudo leer la sesión guardada:', e);
+    }
+  },
+
+  guardar(){
+    try{
+      if(this.token) localStorage.setItem(CUENTA_LLAVE, JSON.stringify({token:this.token, usuario:this.usuario}));
+      else localStorage.removeItem(CUENTA_LLAVE);
+    }catch(e){ console.warn('No se pudo guardar la sesión:', e); }
+  },
+
+  get dentro(){ return !!this.token; },
+
+  // ---------- puente con el Worker ----------
+
+  async api(ruta, opciones){
+    const o = Object.assign({headers:{}}, opciones || {});
+    if(o.cuerpo){
+      o.method = 'POST';
+      o.headers['content-type'] = 'application/json';
+      o.body = JSON.stringify(o.cuerpo);
+      delete o.cuerpo;
+    }
+    if(this.token) o.headers['authorization'] = 'Bearer ' + this.token;
+    const r = await fetch(CUENTA_BASE + ruta, o);
+    let d = {};
+    try{ d = await r.json(); }catch(e){ /* respuesta sin JSON */ }
+    // 401 significa sesión vencida o revocada: se limpia para que la persona
+    // vea el botón de entrar y no una pantalla que falla en silencio.
+    if(r.status === 401 && this.token){ this.olvidar(); }
+    if(!r.ok) throw new Error((d && d.error) || ('El servicio respondió ' + r.status));
+    return d;
+  },
+
+  olvidar(){
+    this.token = null; this.usuario = null; this.datos = null;
+    this.guardar(); this.pintarBarra();
+  },
+
+  // ---------- interfaz ----------
+
+  pintarBarra(){
+    const bar = document.getElementById('sesionBar');
+    const quien = document.getElementById('sesionQuien');
+    const btn = document.getElementById('btnSesion');
+    if(!bar) return;
+    bar.hidden = false;
+    if(this.dentro){
+      const n = (this.usuario && (this.usuario.nombre || this.usuario.correo)) || '';
+      quien.textContent = n ? ('Hola, ' + n) : '';
+      btn.textContent = 'Mi cuenta';
+      btn.onclick = () => CUENTA.abrirPanel();
+    }else{
+      quien.textContent = '';
+      btn.textContent = 'Entrar';
+      btn.onclick = () => CUENTA.abrir();
+    }
+  },
+
+  abrir(prellenado){
+    const modal = document.getElementById('cuentaModal');
+    document.getElementById('pasoCorreo').style.display = 'block';
+    document.getElementById('pasoCodigo').style.display = 'none';
+    document.getElementById('cuentaAviso').innerHTML = '';
+    document.getElementById('cuentaAviso2').innerHTML = '';
+    if(prellenado){
+      if(prellenado.nombre) document.getElementById('cuentaNombre').value = prellenado.nombre;
+      if(prellenado.correo) document.getElementById('cuentaCorreo').value = prellenado.correo;
+      document.getElementById('cuentaPrellenadoNota').style.display =
+        (prellenado.nombre || prellenado.correo) ? 'block' : 'none';
+    }
+    modal.hidden = false;
+    setTimeout(()=>{ const c = document.getElementById('cuentaCorreo'); if(c && !c.value) c.focus(); }, 60);
+  },
+
+  cerrar(){ document.getElementById('cuentaModal').hidden = true; },
+
+  volverAlCorreo(){
+    document.getElementById('pasoCorreo').style.display = 'block';
+    document.getElementById('pasoCodigo').style.display = 'none';
+  },
+
+  aviso(id, texto, tipo){
+    document.getElementById(id).innerHTML = texto
+      ? '<div class="aviso ' + (tipo || 'malo') + '">' + esc(texto) + '</div>'
+      : '';
+  },
+
+  async pedirCodigo(){
+    const correo = document.getElementById('cuentaCorreo').value.trim();
+    const nombre = document.getElementById('cuentaNombre').value.trim();
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(correo)){
+      this.aviso('cuentaAviso', 'Escribe un correo válido.');
+      return;
+    }
+    const btn = document.getElementById('btnPedirCodigo');
+    btn.disabled = true; btn.textContent = 'Enviando…';
+    try{
+      const d = await this.api('/auth/solicitar-codigo', {cuerpo:{correo, nombre}});
+      document.getElementById('cuentaCorreoEco').textContent = correo;
+      document.getElementById('cuentaVigencia').textContent = d.vigenciaMin || 10;
+      document.getElementById('pasoCorreo').style.display = 'none';
+      document.getElementById('pasoCodigo').style.display = 'block';
+      setTimeout(()=>document.getElementById('cuentaCodigo').focus(), 60);
+    }catch(err){
+      this.aviso('cuentaAviso', err.message);
+    }finally{
+      btn.disabled = false; btn.textContent = 'Enviarme el código →';
+    }
+  },
+
+  async verificar(){
+    const correo = document.getElementById('cuentaCorreo').value.trim();
+    const nombre = document.getElementById('cuentaNombre').value.trim();
+    const codigo = document.getElementById('cuentaCodigo').value.replace(/\D/g,'');
+    if(codigo.length !== 6){ this.aviso('cuentaAviso2', 'El código son 6 dígitos.'); return; }
+    const btn = document.getElementById('btnVerificarCodigo');
+    btn.disabled = true; btn.textContent = 'Entrando…';
+    try{
+      const d = await this.api('/auth/verificar-codigo', {cuerpo:{correo, codigo, nombre, avisos: quiereAvisos()}});
+      this.token = d.token; this.usuario = d.usuario;
+      this.guardar(); this.pintarBarra(); this.cerrar();
+      // Si venía de un análisis, ya se puede guardar sin pedir nada más.
+      if(ultimoReporte) await this.guardarAnalisis();
+      this.trasAnalisis();
+      await this.refrescar();
+      this.repintarMarcas();
+    }catch(err){
+      this.aviso('cuentaAviso2', err.message);
+    }finally{
+      btn.disabled = false; btn.textContent = 'Entrar →';
+    }
+  },
+
+  async salir(){
+    try{ await this.api('/auth/salir', {cuerpo:{}}); }catch(e){ /* da igual: el token es local */ }
+    this.olvidar();
+    this.cerrarPanel();
+    this.trasAnalisis();
+    this.repintarMarcas();
+  },
+
+  // ---------- datos ----------
+
+  async refrescar(){
+    if(!this.dentro) return;
+    try{
+      const d = await this.api('/cuenta');
+      this.datos = d;
+      if(d.usuario) { this.usuario = d.usuario; this.guardar(); }
+    }catch(err){ console.warn('No se pudo leer la cuenta:', err); }
+  },
+
+  async guardarAnalisis(){
+    if(!this.dentro || !ultimoReporte) return;
+    const r = ultimoReporte;
+    try{
+      await this.api('/cuenta/cv', {cuerpo:{analisis:{
+        sector: (r.sector && r.sector.nombre) || r.sectorKey,
+        cobertura: r.pct,
+        diagnostico: ultimoDiagScore,
+        habilidades: (r.matched || []).map(h=>h.skill),
+        faltantes: (r.missingTop || []).map(h=>h.skill),
+        origen: r.origen || ''
+      }}});
+    }catch(err){ console.warn('No se pudo guardar el análisis:', err); }
+  },
+
+  /* Se llama al terminar un análisis y al entrar o salir. */
+  trasAnalisis(){
+    const card = document.getElementById('guardarCuentaCard');
+    const texto = document.getElementById('guardarCuentaTexto');
+    const acciones = document.getElementById('guardarCuentaAcciones');
+    if(!card || !ultimoReporte) return;
+    card.style.display = 'block';
+    if(this.dentro){
+      texto.textContent = 'Listo: este análisis quedó guardado en tu cuenta.';
+      acciones.innerHTML = '<button class="secondary" type="button" onclick="CUENTA.abrirPanel()">Ver mi cuenta →</button>';
+    }else{
+      texto.textContent = 'Crea tu cuenta para volver a este diagnóstico cuando quieras, guardar vacantes y llevar el seguimiento de tus cursos.';
+      acciones.innerHTML = '<button class="primary" type="button" onclick="CUENTA.abrirDesdeCV()">Crear mi cuenta →</button>';
+    }
+  },
+
+  /* Abre el modal con lo que se detectó en el CV, pero editable: el correo es
+     la primera coincidencia de una expresión regular sobre el texto, y puede
+     ser el de una referencia o el de un jefe anterior. La cuenta la confirma
+     la persona; nunca se crea sola al subir el CV. */
+  abrirDesdeCV(){
+    // Se prefiere lo que la persona ya corrigió en el formulario de arriba;
+    // si todavía no lo toca, lo detectado del CV.
+    const c = Object.assign({}, datosDetectados, leerFormularioPerfil());
+    this.abrir({nombre: c.nombreCompleto || '', correo: c.correo || ''});
+  },
+
+  // ---------- vacantes guardadas ----------
+
+  vacanteGuardada(url){
+    return !!(this.datos && (this.datos.vacantes || []).some(v => String(v.id) === String(url)));
+  },
+
+  async alternarVacante(i, btn){
+    if(!this.dentro){ this.abrirDesdeCV(); return; }
+    const v = empleosMostrados[i];
+    if(!v) return;
+    const guardada = this.vacanteGuardada(v.url);
+    btn.disabled = true;
+    try{
+      await this.api('/cuenta/vacante', {cuerpo:{
+        quitar: guardada,
+        vacante: {
+          id: v.url, titulo: v.titulo, empresa: v.empresa, ubicacion: v.ubicacion,
+          salarioMin: v.salario_min, salarioMax: v.salario_max,
+          fuente: v.fuente, url: v.url, sector: v._sectorNombre || ''
+        }
+      }});
+      await this.refrescar();
+      this.repintarMarcas();
+    }catch(err){
+      console.warn('No se pudo guardar la vacante:', err);
+    }finally{ btn.disabled = false; }
+  },
+
+  // ---------- cursos ----------
+
+  estadoCurso(id){
+    const c = this.datos && (this.datos.cursos || []).find(x => String(x.idCurso) === String(id));
+    return c ? String(c.estado) : '';
+  },
+
+  async fijarCurso(id, estado){
+    if(!this.dentro){ this.abrirDesdeCV(); return; }
+    const actual = this.estadoCurso(id);
+    try{
+      await this.api('/cuenta/curso', {cuerpo:{idCurso:id, estado: actual === estado ? '' : estado}});
+      await this.refrescar();
+      this.repintarMarcas();
+    }catch(err){ console.warn('No se pudo guardar el curso:', err); }
+  },
+
+  /* Vuelve a pintar botones de vacante y curso sin rehacer las tarjetas: la
+     lista de vacantes la arma la IA y volver a pedirla costaría una llamada. */
+  repintarMarcas(){
+    document.querySelectorAll('[data-vacante]').forEach(btn => {
+      const guardada = this.vacanteGuardada(btn.getAttribute('data-vacante'));
+      btn.classList.toggle('guardada', guardada);
+      btn.textContent = guardada ? '★ Guardada' : '☆ Guardar';
+    });
+    document.querySelectorAll('[data-curso]').forEach(btn => {
+      const activo = this.estadoCurso(btn.getAttribute('data-curso')) === btn.getAttribute('data-estado');
+      btn.classList.toggle('activo', activo);
+    });
+  },
+
+  // ---------- panel ----------
+
+  async abrirPanel(){
+    document.getElementById('panelModal').hidden = false;
+    document.getElementById('panelContenido').innerHTML = '<p class="note">Cargando…</p>';
+    await this.refrescar();
+    this.pintarPanel();
+  },
+
+  cerrarPanel(){ document.getElementById('panelModal').hidden = true; },
+
+  pintarPanel(){
+    const d = this.datos || {};
+    const u = d.usuario || this.usuario || {};
+    document.getElementById('panelQuien').textContent = [u.nombre, u.correo].filter(Boolean).join(' · ');
+    const chk = document.getElementById('panelAvisos');
+    if(chk) chk.checked = u.avisos === true;
+
+    const seccion = (titulo, items, vacio) =>
+      '<div class="cuenta-seccion"><h4>' + esc(titulo) + '</h4>' +
+      (items.length ? items.join('') : '<p class="note">' + esc(vacio) + '</p>') + '</div>';
+
+    const historial = (d.historial || []).slice().reverse().map(h =>
+      '<div class="cuenta-item"><strong>' + esc(h.sector || 'Sector no registrado') + '</strong>' +
+      '<div class="sub">' + esc(formatearFecha(h.fecha) || '') +
+      (h.cobertura !== '' && h.cobertura != null ? ' · ' + esc(String(h.cobertura)) + '% de cobertura' : ' · cobertura: dato pendiente') +
+      '</div></div>');
+
+    // Una vacante que ya salió de la corrida no se borra ni se esconde: se dice
+    // que ya no está vigente, igual que el resto del sitio.
+    const vacantes = (d.vacantes || []).slice().reverse().map(v =>
+      '<div class="cuenta-item' + (v.vigente ? '' : ' expirada') + '">' +
+      (v.url ? '<a href="' + esc(v.url) + '" target="_blank" rel="noopener noreferrer"><strong>' + esc(v.titulo || 'Vacante') + '</strong></a>'
+             : '<strong>' + esc(v.titulo || 'Vacante') + '</strong>') +
+      '<div class="sub">' + esc([v.empresa, v.ubicacion].filter(Boolean).join(' · ')) +
+      (v.vigente ? '' : ' — ya no aparece en la corrida más reciente') + '</div></div>');
+
+    const etiquetaCurso = {interes:'Me interesa', cursando:'Cursando', hecho:'Terminado'};
+    const cursos = (d.cursos || []).filter(c => c.estado).map(c =>
+      '<div class="cuenta-item"><strong>' + esc(this.nombreCurso(c.idCurso)) + '</strong>' +
+      '<div class="sub">' + esc(etiquetaCurso[c.estado] || c.estado) + '</div></div>');
+
+    document.getElementById('panelContenido').innerHTML =
+      seccion('Tus análisis', historial, 'Todavía no has guardado ningún análisis.') +
+      seccion('Vacantes guardadas', vacantes, 'Todavía no has guardado vacantes.') +
+      seccion('Cursos', cursos, 'Todavía no has marcado ningún curso.');
+  },
+
+  nombreCurso(id){
+    if(!COURSES || !COURSES.cursos) return String(id);
+    for(const k in COURSES.cursos){
+      const c = (COURSES.cursos[k] || []).find(x => String(x.id) === String(id));
+      if(c) return c.nombre;
+    }
+    return String(id);
+  },
+
+  async cambiarAvisos(valor){
+    if(!this.dentro) return;
+    try{
+      await this.api('/cuenta/preferencias', {cuerpo:{avisos: !!valor}});
+      if(this.usuario){ this.usuario.avisos = !!valor; this.guardar(); }
+    }catch(err){ console.warn('No se pudieron guardar las preferencias:', err); }
+  }
+};
+
+/* Escapa texto antes de meterlo en innerHTML. Hace falta porque el nombre lo
+   escribe la persona y el token de sesión vive en localStorage: sin esto, un
+   nombre con etiquetas sería una forma de robarlo. */
+function esc(v){
+  return String(v == null ? '' : v)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+
+(function iniciarCuenta(){
+  CUENTA.cargar();
+  CUENTA.pintarBarra();
+  if(CUENTA.dentro) CUENTA.refrescar().then(()=>CUENTA.repintarMarcas());
+  const campoCodigo = document.getElementById('cuentaCodigo');
+  if(campoCodigo){
+    campoCodigo.addEventListener('keydown', e => { if(e.key === 'Enter') CUENTA.verificar(); });
+  }
+  const campoCorreo = document.getElementById('cuentaCorreo');
+  if(campoCorreo){
+    campoCorreo.addEventListener('keydown', e => { if(e.key === 'Enter') CUENTA.pedirCodigo(); });
+  }
+  document.addEventListener('keydown', e => {
+    if(e.key !== 'Escape') return;
+    CUENTA.cerrar(); CUENTA.cerrarPanel();
+  });
+})();
 
 </script>
 

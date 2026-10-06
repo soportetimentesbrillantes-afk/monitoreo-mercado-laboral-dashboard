@@ -10,6 +10,167 @@ después.
 corrigió un error, describe también cómo se detectó — eso es lo que evita
 repetirlo.
 
+## 2026-10-06 — OCC bloquea los centros de datos, y la búsqueda semanal ahora corre en la máquina de Gael
+
+El filtro de salida de la organización ya permite `api.adzuna.com` y
+`www.occ.com.mx`: Adzuna responde `AUTH_FAIL` con llaves falsas, que es
+exactamente lo que debe responder cuando sí se le alcanza.
+
+**Pero OCC sigue sin funcionar desde la nube, y no por el filtro.** Devuelve 403
+a cualquier petición de un centro de datos — se probó con `curl` y con un
+navegador Chromium headless real, y las dos veces 403 antes de servir una sola
+tarjeta. Es OCC rechazando la IP, no la política de la organización. Las corridas
+anteriores funcionaban porque OCC se abría desde el Chrome de Gael, con su IP
+doméstica.
+
+Por eso `busqueda-vacantes-semanal` se rehízo atada a su computadora. Adzuna
+sigue corriendo desde la nube, que es donde funciona bien; solo OCC usa el
+navegador local. La tarea anterior se borró en vez de modificarse porque una
+tarea no puede empezar a requerir una computadora después de creada; estaba
+deshabilitada y nunca había corrido, así que no se perdió historial.
+
+**Si la computadora está apagada el lunes, la corrida no se cae:** hace Adzuna
+sola y deja escrito "OCC no disponible en esta corrida" en el control de cada
+sector y en el reporte. Ese registro es la parte importante. El reporte de
+tendencias de septiembre tuvo que descartar medio análisis porque la caída de
+Indeed solo estaba anotada en la bitácora y no en los datos, así que el cambio de
+mezcla de fuentes se veía como movimiento del mercado. Registrar qué fuentes
+aportaron es lo que evita repetirlo.
+
+También se creó `credenciales_adzuna.md` en la carpeta raíz del proyecto en
+Drive. Hasta ahora las llaves se pedían a mano en cada corrida, y esa era la
+segunda razón por la que la extracción no podía correr sola. **Van en Drive y no
+en este repositorio, que es público.**
+
+## 2026-10-03 — Se reconstruyó el generador del boletín, y la edición dice que no hay datos nuevos
+
+El generador vivía en una carpeta de trabajo fuera del repositorio y se perdió
+con la sesión que lo tenía. Se reconstruyó desde la edición publicada del 24 de
+septiembre —el HTML trae el diseño y los logos incrustados— y ahora vive en
+`newsletter_cmb/`, versionado. Esa era la razón de la pérdida y queda cerrada.
+
+**La edición del 3 de octubre imprime un aviso de datos viejos.** No hubo corrida
+nueva: la extracción sigue sin poder correr porque la política de egress bloquea
+`api.adzuna.com` y `www.occ.com.mx`, y las credenciales de Adzuna no existen en
+Drive. La vacante más reciente de los datos publicados es del 17 de septiembre,
+16 días antes de la edición. Como el sitio retira las vacantes por recencia a
+los 10, 15 y 20 días según la fuente, repartirlas hoy sin decirlo mandaría a la
+gente a postularse a plazas ya cerradas. El generador lo detecta solo y lo
+imprime arriba del boletín, y lo antepone también al resumen del índice.
+
+**Lo que valida el generador, con su motivo:** dos páginas exactas contadas
+sobre el PDF renderizado (las hojas tienen alto fijo con `overflow:hidden`, así
+que un desbordamiento recorta en silencio en vez de agregar página); la cifra
+global contra la suma por sector (por la edición de septiembre que marcó 1,907
+en vez de 6,281); cero lenguaje interno y cero fechas `AAAA-MM-DD` a la vista;
+todas las fuentes que aportaron vacantes en el pie; y ningún `{{hueco}}` sin
+llenar. Si algo falla no escribe el archivo.
+
+El PDF se arma con el navegador y no con weasyprint porque weasyprint no se
+puede instalar en todos los entornos. Si no hay navegador, el generador escribe
+el HTML y **avisa que el largo no quedó validado** en vez de darlo por bueno.
+
+**Contexto del mes.** El reporte `tendencias_2026-09.md`, generado el 1 de
+octubre, concluye que no se deben publicar comparativos mes contra mes hasta que
+haya dos corridas no acumuladas consecutivas con la misma mezcla de fuentes, y
+su segunda recomendación es corregir la normalización salarial de OCC y
+recalcular los cortes afectados — el mismo arreglo del 29 de septiembre, que
+sigue sin publicarse.
+
+## 2026-10-02 — Más columnas en la hoja de CVs, y "Tu estilo de trabajo"
+
+**La hoja ya tenía 20 columnas; el sitio solo llenaba una parte.** `Ciudad`,
+`Puesto objetivo` y `Años de experiencia` existían vacías porque `index.html`
+nunca las mandaba. Ahora se mandan, y se agregaron al final `Nombre(s)`,
+`Apellido paterno`, `Apellido materno`, `Estado`, `Carrera`, `Universidad`,
+`Año de egreso`, `Nivel de inglés`, `Datos confirmados` y `Última
+actualización`. Las columnas nuevas van al final a propósito: así los
+registros viejos siguen cuadrando.
+
+**El `#ERROR!` del teléfono.** El único registro real que había en la hoja
+tenía `#ERROR!` en el teléfono. Un número que empieza con `+52` hace que Sheets
+lo tome por una fórmula, falle al evaluarla y escriba el error en la celda. Se
+corrigió anteponiendo un apóstrofo a cualquier valor que empiece con `=`, `+`,
+`-` o `@`; el apóstrofo fuerza texto y no se muestra ni se devuelve al leer.
+
+**La lectura del nombre estaba rota y nadie lo había notado.** La heurística
+anterior tomaba la primera línea corta sin dígitos y la llamaba nombre. Probada
+contra seis formatos reales de CV acertaba en tres: en los otros devolvía
+"CURRICULUM VITAE", "Datos personales" o "Licenciado en Administración". Por eso
+la columna `Nombre` estaba vacía. La nueva lectura descarta encabezados de
+sección y títulos de puesto, mira también los pedazos de un renglón partido por
+`·` o `|`, usa el correo como pista para desempatar, y parte el nombre en
+nombres y apellidos con la convención mexicana (los dos últimos bloques son los
+apellidos, y las partículas se pegan al que les sigue). Las pruebas están en
+`cuentas/pruebas/test_extraccion.mjs` y leen el código directamente de
+`index.html`, entre dos marcadores, para que no haya una copia que se
+desincronice.
+
+**Se guarda dos veces, no una.** Primero con lo detectado, en cuanto termina el
+análisis, y otra vez si la persona corrige algo en el formulario nuevo
+"Confirma tus datos". Las dos escrituras llevan el mismo `ID de envío`, así que
+la segunda actualiza el renglón en vez de duplicarlo, y la columna `Datos
+confirmados` dice cuál de las dos es la buena. Se hizo así y no al revés —pedir
+confirmación antes de guardar— para no perder a quien cierra la pestaña sin
+llenar el formulario.
+
+**Página nueva: `disc.html`.** Cuestionario de estilo de trabajo, 24 bloques de
+elección forzada (la que más y la que menos te describe). Se eligió ese formato
+sobre una escala de 1 a 5 porque en una escala casi todo el mundo se califica
+alto en todo y los cuatro factores salen empatados.
+
+Los 96 reactivos están escritos desde cero para este sitio. El modelo DISC
+(Marston, 1928) es de dominio público, pero los instrumentos comerciales que lo
+implementan no lo son, así que no se reprodujo ninguno.
+
+**El resultado se presenta con sus límites dichos, dos veces:** antes de empezar
+y en el resultado. Es una herramienta de orientación, no una prueba psicométrica
+validada; describe preferencias, no capacidades; no predice desempeño; y no
+debe usarse para descartar a nadie de un proceso. Si los cuatro factores salen
+parejos, se dice que no hay un estilo dominante en vez de inventar uno.
+
+**La conexión con las vacantes etiqueta, nunca filtra.** Cada vacante
+recomendada muestra "afinidad de estilo: alta / media / baja". Ordenar por
+afinidad es opcional y lo activa la persona; por omisión manda la coincidencia
+de habilidades, que es un dato del mercado, mientras que el estilo es una
+preferencia declarada. La correspondencia entre puesto y estilo la escribimos a
+mano sobre las categorías del pipeline y no sale de ningún estudio: por eso se
+muestra como afinidad y nunca como una probabilidad. Hay una prueba que falla si
+alguna vez llega a esconder una vacante.
+
+**Pendiente:** el resultado del DISC vive solo en el navegador. Para que siga a
+la persona entre dispositivos haría falta un endpoint en el Worker; se dejó
+fuera a propósito de esta entrega.
+
+## 2026-09-29 — Los salarios de OCC ya se convierten a mensual
+
+`etapa4_sector_json.py` normalizaba a MXN mensual solo los salarios de Adzuna.
+Los de OCC pasaban intactos e inflaban las medianas: TI publicó ~141,000
+MXN/mes y metalmecánica ~77,000, cifras imposibles para vacantes de primer
+empleo. Los percentiles lo gritaban: p75 de 442,491 en TI y 211,500 en
+automotriz.
+
+**La causa no era una heurística fallida sino una conversión sin deshacer.** El
+`control_ultima_corrida.md` de cada sector lo dice: la Etapa 1 multiplica por 12
+los salarios de OCC —que el portal publica mensuales— para hacerlos comparables
+con Adzuna. La Etapa 4 nunca revertía esa multiplicación.
+
+Por eso la corrección es incondicional, no por umbral. Se comprobó contra el
+crudo `vacantes_gestion_occ_2026-09-14.csv`: los valores van de 72,000 a 600,000
+y **todos** están anualizados, incluidas las becas. Un umbral de 90,000 habría
+dejado sin convertir las vacantes de 72,000 y 84,000, que son 6,000 y 7,000 al
+mes. La regla quedó en la constante `FUENTES_ANUALIZADAS`, separada del
+`UMBRAL_SALARIO_ANUAL` que sigue aplicando solo a Adzuna, porque son dos
+problemas distintos y confundirlos fue el error original.
+
+**Ojo antes de volver a tocarlo:** si algún día la Etapa 1 deja de anualizar OCC,
+hay que sacar "OCC" de `FUENTES_ANUALIZADAS` en el mismo cambio. Las dos etapas
+están acopladas por esta convención y no hay nada que lo verifique solo.
+
+Queda pendiente decidir si se recalcula la corrida 2026-09-14 ya publicada. Sus
+CSV verificados nunca se subieron a Drive, así que rehacerla obliga a repetir la
+Etapa 2 desde los crudos.
+
 ## 2026-09-24 — Corrida 2026-09-14 publicada y segunda edición del boletín
 
 Se corrieron las Etapas 2 y 4 sobre los crudos de la corrida 2026-09-14 (los

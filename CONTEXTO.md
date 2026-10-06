@@ -119,14 +119,35 @@ weasyprint no descarga nada de internet.
 
 ## 8. Tareas programadas
 
-| Tarea | Cuándo |
-|---|---|
-| `busqueda-vacantes-semanal` | Lunes 8:00 |
-| `actualizar-dashboard-web` | Lunes 9:03 |
-| `tendencias-mensuales-sector` | Día 1 de cada mes |
+| Tarea | Cuándo | Dónde corre |
+|---|---|---|
+| `busqueda-vacantes-semanal` | Lunes 7:51 | **Requiere la computadora de Gael** |
+| `actualizar-dashboard-web` | Lunes 9:03 | En la nube |
+| `tendencias-mensuales-sector` | Día 1 de cada mes, 7:49 | En la nube |
 
 La tarea semanal copia el catálogo de cursos tal cual desde el manifiesto
 publicado, así que el catálogo real sobrevive a cada corrida.
+
+**Por qué la búsqueda necesita la computadora de Gael.** OCC responde 403 a
+cualquier petición que venga de un centro de datos — con `curl` y con navegador
+headless por igual. No es el filtro de salida de la organización, que ya permite
+el dominio: es OCC rechazando la IP. Solo funciona desde el navegador de su
+máquina, con su IP de casa, que es como funcionaban las corridas anteriores.
+Adzuna sí responde desde la nube.
+
+Si la computadora está apagada el lunes, la corrida no se cae: hace Adzuna sola
+—entre 85% y 95% del volumen— y deja escrito "OCC no disponible en esta corrida"
+en el control de cada sector. **Ese registro no es opcional.** Cuando falta una
+fuente cambia la mezcla, y una mezcla distinta mueve las medianas salariales y
+las tablas de habilidades por razones que no son del mercado. El reporte mensual
+de septiembre tuvo que descartar medio análisis justamente porque la caída de
+Indeed solo estaba anotada en la bitácora y no en los datos.
+
+Las horas no son en punto a propósito: ahí se amontona el tráfico y las corridas
+se retrasan.
+
+Las credenciales de Adzuna viven en `credenciales_adzuna.md`, en la carpeta raíz
+del proyecto en Drive. **Nunca en este repositorio**, que es público.
 
 ## 9. Pendientes conocidos
 

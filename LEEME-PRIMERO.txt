@@ -1,0 +1,43 @@
+QUÉ SUBIR Y CÓMO
+================
+
+Estos son los archivos que faltan por publicar en el sitio.
+
+PASOS
+-----
+1. Descomprime este zip.
+2. Entra a tu repositorio en GitHub:
+   https://github.com/soportetimentesbrillantes-afk/monitoreo-mercado-laboral-dashboard
+3. Botón "Add file" (arriba a la derecha) -> "Upload files".
+4. Arrastra EL CONTENIDO de la carpeta descomprimida a la zona punteada.
+   El contenido, no la carpeta. GitHub respeta las subcarpetas solo.
+   NO subas este archivo (LEEME-PRIMERO.txt); bórralo antes de arrastrar.
+5. Abajo escribe un mensaje, por ejemplo:
+   "Arreglo de salarios de OCC, cuentas de usuario, Tu estilo de trabajo y boletin del 3 de octubre"
+6. Botón verde "Commit changes".
+7. Espera 2-3 minutos y revisa EL SITIO EN VIVO, no solo el repositorio:
+   https://soportetimentesbrillantes-afk.github.io/monitoreo-mercado-laboral-dashboard/
+   - que cargue /disc.html
+   - que el boletin del 3 de octubre aparezca en boletines.html
+   - que al analizar un CV salga el formulario "Confirma tus datos"
+
+QUÉ ESTÁS PUBLICANDO
+--------------------
+index.html ............... pantalla de cuentas, captura ampliada de datos del CV,
+                           y la afinidad de estilo en las vacantes
+disc.html ................ pagina nueva: Tu estilo de trabajo (cuestionario DISC)
+herramientas/ ............ arreglo del bug de salarios de OCC
+cuentas/ ................. backend de cuentas (queda inerte hasta desplegarlo)
+newsletter_cmb/ .......... el generador del boletin, ahora versionado
+boletines/ + boletines.json  la edicion del 3 de octubre
+BITACORA.md .............. por que se hizo cada cosa
+.gitignore ............... para que no se suba basura de Python
+
+DOS AVISOS
+----------
+* La captura ampliada de datos del CV empieza a operar en cuanto publiques:
+  la hoja empezara a recibir apellidos, ciudad, estado, carrera y universidad
+  de personas reales. El Aviso de Privacidad todavia no menciona nada de eso.
+
+* Las cuentas NO funcionan solo con publicar esto. Falta desplegar el Worker y
+  el Apps Script con sus secretos; los pasos estan en cuentas/LEEME.md.
