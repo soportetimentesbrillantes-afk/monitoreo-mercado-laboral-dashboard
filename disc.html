@@ -48,16 +48,40 @@
   .progreso .barra{height:7px;background:var(--gris-borde);border-radius:999px;overflow:hidden;}
   .progreso .relleno{height:100%;background:linear-gradient(90deg,var(--azul),var(--gold-light));width:0;transition:width .25s ease;}
   .progreso .txt{font-size:.78rem;color:var(--texto-suave);font-weight:600;margin-top:6px;}
-  .bloque{border:1px solid var(--gris-borde);border-radius:14px;padding:16px 18px;margin-bottom:14px;background:#fff;}
+  /* Un bloque por pantalla. Los demás existen en el DOM (así el estado y las
+     pruebas no cambian) pero solo el actual se ve. */
+  .bloque{display:none;border:1px solid var(--gris-borde);border-radius:14px;padding:16px 18px;margin-bottom:14px;background:#fff;}
+  .bloque.actual{display:block;animation:entra .18s ease;}
+  @keyframes entra{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
+  .navegacion{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:4px;}
+  .navegacion .pista{white-space:nowrap;margin:0;}
+  .navegacion button.secondary{margin:0;}
+  .navegacion .pista{font-size:.8rem;color:var(--texto-suave);}
   .bloque.pendiente{border-color:#f0d2c4;}
   .bloque .num{font-size:.74rem;font-weight:700;color:var(--texto-suave);letter-spacing:.06em;text-transform:uppercase;}
   .bloque table{width:100%;border-collapse:collapse;margin-top:10px;}
   .bloque th{font-size:.72rem;color:var(--texto-suave);font-weight:700;text-transform:uppercase;letter-spacing:.05em;padding-bottom:6px;}
   .bloque th.frase{text-align:left;}
-  .bloque td{padding:7px 4px;border-top:1px solid var(--gris-bg);font-size:.93rem;}
-  .bloque td.frase{width:100%;}
-  .bloque td.op{text-align:center;width:62px;}
-  .bloque input[type=radio]{width:18px;height:18px;accent-color:var(--azul);cursor:pointer;}
+  .bloque.listo{border-color:#cfe3d3;}
+  .bloque td{padding:0 4px;border-top:1px solid var(--gris-bg);font-size:.93rem;}
+  .bloque td.frase{width:100%;padding:10px 6px 10px 2px;}
+  .bloque td.op{text-align:center;padding:0;}
+  /* Cada número es un botón que llena su celda. Antes el área sensible era el
+     círculo del radio, 18x18 px: en un teléfono eso se falla más veces de las
+     que se acierta y la página parece rota. */
+  .bloque .rango{display:flex;align-items:center;justify-content:center;
+    width:100%;min-width:40px;height:42px;border:1.5px solid var(--gris-borde);
+    border-radius:10px;background:#fff;color:var(--texto-suave);
+    font-family:var(--font-sans);font-size:.95rem;font-weight:700;cursor:pointer;
+    transition:background .12s ease,border-color .12s ease,color .12s ease;}
+  .bloque .rango:hover{background:var(--gris-bg);}
+  .bloque .rango.activo{background:var(--azul);border-color:var(--azul-osc);color:#fff;}
+  .bloque .rango.activo.r1{background:var(--d);border-color:#a85c2e;}
+  .bloque .rango.activo.r4{background:var(--c);border-color:#3c647f;}
+  .bloque th.op{font-size:.68rem;padding-bottom:5px;}
+  .instrucciones{background:#fdfaf1;border:1px solid var(--gris-borde);border-radius:10px;
+    padding:11px 14px;margin:10px 0 14px;font-size:.86rem;line-height:1.5;}
+  .instrucciones b{color:var(--azul-osc);}
 
   /* ---- Resultado ---- */
   .perfil-barra{display:grid;grid-template-columns:118px 1fr 52px;align-items:center;gap:10px;margin-bottom:9px;font-size:.9rem;}
@@ -90,7 +114,7 @@
   <div class="hero-inner">
     <p class="eyebrow">Autoconocimiento para tu búsqueda de empleo</p>
     <h1>Tu estilo de trabajo</h1>
-    <p>Veinticuatro bloques de cuatro frases. En cada uno eliges la que <strong>más</strong> te describe y la que <strong>menos</strong>. Toma entre 7 y 10 minutos y no hay respuestas buenas ni malas.</p>
+    <p>Veinticuatro bloques de cuatro frases. En cada uno ordenas las frases del <strong>1</strong> (la que más te describe) al <strong>4</strong> (la que menos), un bloque a la vez. Toma entre 7 y 10 minutos y no hay respuestas buenas ni malas.</p>
   </div>
 </header>
 
@@ -113,9 +137,19 @@
       <div class="barra"><div class="relleno" id="relleno"></div></div>
       <div class="txt" id="progresoTxt">0 de 24 bloques contestados</div>
     </div>
+    <div class="instrucciones">
+      En cada bloque ordena las cuatro frases: <b>1</b> la que más te describe,
+      <b>4</b> la que menos. Usa cada número una sola vez. Si pones un número que
+      ya estaba en otra frase, las dos se intercambian.
+    </div>
     <div id="bloques"></div>
     <div id="avisoFalta"></div>
-    <button class="primary" type="button" id="btnVer" onclick="calcular()">Ver mi resultado →</button>
+    <div class="navegacion">
+      <button class="secondary" type="button" id="btnAnterior" onclick="irA(actual - 1)">← Anterior</button>
+      <span class="pista" id="pistaNav"></span>
+      <button class="secondary" type="button" id="btnSiguiente" onclick="irA(actual + 1)">Siguiente →</button>
+    </div>
+    <button class="primary" type="button" id="btnVer" onclick="calcular()" style="display:none;">Ver mi resultado →</button>
   </div>
 
   <div id="resultado" style="display:none;"></div>
@@ -219,7 +253,16 @@ const CRECIMIENTO = {
 const LLAVE = 'cmb_disc';
 
 let orden = [];        // orden barajado de cada bloque
-let respuestas = [];   // {mas, menos} con claves D/I/S/C
+let actual = 0;        // bloque que se muestra en pantalla
+let temporizadorAvance = null;
+let respuestas = [];   // por bloque: {D:rango, I:rango, S:rango, C:rango}, rango 1..4 o null
+
+/* Cuánto suma cada posición. El 1 y el 4 pesan el doble que el 2 y el 3: lo que
+   más y lo que menos te describe dice más de ti que lo de en medio. Un bloque
+   completo siempre suma cero entre los cuatro factores, así que nadie puede
+   salir alto en todo — que es lo que pasa con una escala del 1 al 5. */
+const PUNTOS = {1: 2, 2: 1, 3: -1, 4: -2};
+const RANGOS = [1, 2, 3, 4];
 
 function barajar(n){
   const a = Array.from({length:n}, (_,i)=>i);
@@ -238,50 +281,109 @@ function esc(v){
 
 function empezar(){
   orden = BLOQUES.map(() => barajar(4));
-  respuestas = BLOQUES.map(() => ({mas:'', menos:''}));
+  respuestas = BLOQUES.map(() => ({D:null, I:null, S:null, C:null}));
   document.getElementById('intro').style.display = 'none';
   document.getElementById('resultado').style.display = 'none';
   document.getElementById('cuestionario').style.display = 'block';
   pintarBloques();
+  irA(0);
   window.scrollTo({top:0, behavior:'smooth'});
+}
+
+/* Muestra un solo bloque. Se pidió así —uno por pantalla— porque con los 24 a
+   la vez la página se sentía interminable y no quedaba claro dónde ibas. */
+function irA(i){
+  if(temporizadorAvance){ clearTimeout(temporizadorAvance); temporizadorAvance = null; }
+  actual = Math.max(0, Math.min(BLOQUES.length - 1, i));
+  BLOQUES.forEach((_, b) => {
+    document.getElementById('bloque' + b).classList.toggle('actual', b === actual);
+  });
+  const ultimo = actual === BLOQUES.length - 1;
+  document.getElementById('btnAnterior').style.visibility = actual === 0 ? 'hidden' : 'visible';
+  document.getElementById('btnSiguiente').style.display = ultimo ? 'none' : '';
+  document.getElementById('btnVer').style.display = ultimo ? '' : 'none';
+  document.getElementById('pistaNav').textContent = 'Bloque ' + (actual + 1) + ' de ' + BLOQUES.length;
+  document.getElementById('avisoFalta').innerHTML = '';
+  const caja = document.getElementById('bloque' + actual);
+  if(caja && caja.getBoundingClientRect().top < 0) caja.scrollIntoView({behavior:'smooth', block:'start'});
 }
 
 function pintarBloques(){
   document.getElementById('bloques').innerHTML = BLOQUES.map((frases, b) => {
     const filas = orden[b].map(i => {
       const clave = CLAVES[i];
-      return '<tr>' +
-        '<td class="frase">' + esc(frases[i]) + '</td>' +
-        '<td class="op"><input type="radio" name="mas' + b + '" value="' + clave + '" ' +
-          'onchange="marcar(' + b + ',\'mas\',\'' + clave + '\')" aria-label="La que más me describe"></td>' +
-        '<td class="op"><input type="radio" name="menos' + b + '" value="' + clave + '" ' +
-          'onchange="marcar(' + b + ',\'menos\',\'' + clave + '\')" aria-label="La que menos me describe"></td>' +
-        '</tr>';
+      const botones = RANGOS.map(r =>
+        '<td class="op"><button type="button" class="rango r' + r + '" ' +
+        'data-b="' + b + '" data-f="' + clave + '" data-r="' + r + '" ' +
+        'onclick="fijarRango(' + b + ',\'' + clave + '\',' + r + ')" ' +
+        'aria-label="' + esc(frases[i]) + ': posición ' + r + ' de 4">' + r + '</button></td>'
+      ).join('');
+      return '<tr><td class="frase">' + esc(frases[i]) + '</td>' + botones + '</tr>';
     }).join('');
     return '<div class="bloque" id="bloque' + b + '">' +
       '<div class="num">Bloque ' + (b+1) + ' de ' + BLOQUES.length + '</div>' +
-      '<table><thead><tr><th class="frase"></th><th>Más</th><th>Menos</th></tr></thead>' +
+      '<table><thead><tr><th class="frase"></th>' +
+      '<th class="op">1<br>más</th><th class="op">2</th><th class="op">3</th>' +
+      '<th class="op">4<br>menos</th></tr></thead>' +
       '<tbody>' + filas + '</tbody></table></div>';
   }).join('');
+  BLOQUES.forEach((_, b) => sincronizarBloque(b));
   actualizarProgreso();
 }
 
-/* No se puede marcar la misma frase como la que más y la que menos describe:
-   sería una respuesta sin información. Si pasa, se suelta la otra. */
-function marcar(b, cual, clave){
-  respuestas[b][cual] = clave;
-  const otro = cual === 'mas' ? 'menos' : 'mas';
-  if(respuestas[b][otro] === clave){
-    respuestas[b][otro] = '';
-    const radios = document.getElementsByName(otro + b);
-    for(const r of radios) r.checked = false;
+/* Pinta el estado del bloque: qué número está activo en cada frase, y si el
+   bloque ya quedó completo. Un bloque completo se marca en verde para que se
+   vea terminado; antes no había forma de saber si faltaba algo, y la gente
+   creía que la página no la dejaba seguir marcando. */
+function sincronizarBloque(b){
+  const r = respuestas[b];
+  const caja = document.getElementById('bloque' + b);
+  if(!caja) return;
+  for(const btn of caja.querySelectorAll('.rango')){
+    const activo = r[btn.dataset.f] === Number(btn.dataset.r);
+    btn.classList.toggle('activo', activo);
+    btn.setAttribute('aria-pressed', activo ? 'true' : 'false');
   }
+  caja.classList.toggle('listo', bloqueCompleto(b));
+}
+
+function bloqueCompleto(b){
+  const vals = CLAVES.map(k => respuestas[b][k]).filter(v => v);
+  return vals.length === 4 && new Set(vals).size === 4;
+}
+
+/* Asignar una posición que ya estaba en otra frase INTERCAMBIA las dos, no
+   borra nada. Volver a tocar la posición que ya tenías la quita.
+
+   El intercambio es lo que evita el problema que reportó Gael: antes, poner una
+   marca podía hacer desaparecer otra sin explicación, y eso se siente como que
+   la página falla. Aquí nunca se pierde una decisión ya tomada. */
+function fijarRango(b, factor, rango){
+  const r = respuestas[b];
+  if(r[factor] === rango){
+    r[factor] = null;
+  }else{
+    const anterior = r[factor];
+    const ocupante = CLAVES.find(k => k !== factor && r[k] === rango);
+    if(ocupante) r[ocupante] = anterior;
+    r[factor] = rango;
+  }
+  sincronizarBloque(b);
   document.getElementById('bloque' + b).classList.remove('pendiente');
   actualizarProgreso();
+
+  // Cuando el bloque queda completo, pasa solo al siguiente. La pausa es para
+  // que se alcance a ver el bloque en verde y, si te equivocaste en el último
+  // número, puedas corregirlo antes de que se vaya. En el último bloque no se
+  // avanza: ahí aparece el botón de ver el resultado.
+  if(temporizadorAvance){ clearTimeout(temporizadorAvance); temporizadorAvance = null; }
+  if(b === actual && bloqueCompleto(b) && actual < BLOQUES.length - 1){
+    temporizadorAvance = setTimeout(() => irA(actual + 1), 650);
+  }
 }
 
 function completos(){
-  return respuestas.filter(r => r.mas && r.menos).length;
+  return respuestas.filter((_, b) => bloqueCompleto(b)).length;
 }
 
 function actualizarProgreso(){
@@ -295,26 +397,42 @@ function actualizarProgreso(){
    que se eligió como "más" y como "menos". La intensidad es la resta. Un
    factor con muchos "más" y pocos "menos" es un rasgo marcado; uno que casi
    nunca se elige en ninguna de las dos columnas simplemente no te define. */
+/* Puntuación por orden forzado: en cada bloque las cuatro frases se reparten
+   las posiciones 1 a 4, y cada posición suma lo que dice PUNTOS. Como un bloque
+   completo siempre suma cero entre los cuatro factores, el perfil mide
+   preferencia RELATIVA: no se puede salir alto en todo. Eso es lo que no da una
+   escala del 1 al 5, donde casi todo el mundo se califica alto en todas.
+
+   primero/ultimo se conservan para poder decir cuántas veces elegiste cada
+   factor como el que más y el que menos te describe. */
 function puntuar(){
   const p = {};
-  for(const k of CLAVES) p[k] = {mas:0, menos:0, neto:0};
+  for(const k of CLAVES) p[k] = {primero:0, ultimo:0, neto:0};
   for(const r of respuestas){
-    if(r.mas) p[r.mas].mas++;
-    if(r.menos) p[r.menos].menos++;
+    for(const k of CLAVES){
+      const rango = r[k];
+      if(!rango) continue;
+      p[k].neto += PUNTOS[rango];
+      if(rango === 1) p[k].primero++;
+      if(rango === 4) p[k].ultimo++;
+    }
   }
-  for(const k of CLAVES) p[k].neto = p[k].mas - p[k].menos;
   return p;
 }
 
 function calcular(){
   const faltan = [];
-  respuestas.forEach((r, b) => { if(!r.mas || !r.menos) faltan.push(b); });
+  respuestas.forEach((_, b) => { if(!bloqueCompleto(b)) faltan.push(b); });
   if(faltan.length){
     faltan.forEach(b => document.getElementById('bloque' + b).classList.add('pendiente'));
     document.getElementById('avisoFalta').innerHTML =
       '<div class="aviso malo">Te faltan ' + faltan.length + ' bloque' + (faltan.length>1?'s':'') +
-      ' por contestar. Están marcados abajo. No calculamos el resultado con huecos: saldría un perfil que no es el tuyo.</div>';
-    document.getElementById('bloque' + faltan[0]).scrollIntoView({behavior:'smooth', block:'center'});
+      ' por contestar. Te llevamos al primero. No calculamos el resultado con huecos: saldría un perfil que no es el tuyo.</div>';
+    // Se muestra el primer bloque que falta. El aviso se escribe DESPUÉS de
+    // irA, porque irA limpia el aviso al cambiar de bloque.
+    const aviso = document.getElementById('avisoFalta').innerHTML;
+    irA(faltan[0]);
+    document.getElementById('avisoFalta').innerHTML = aviso;
     return;
   }
   document.getElementById('avisoFalta').innerHTML = '';
@@ -353,7 +471,7 @@ function borrar(){
 function barra(k, p){
   const f = FACTORES[k];
   const neto = p[k].neto;
-  const max = BLOQUES.length;                  // el neto va de -24 a +24
+  const max = BLOQUES.length * PUNTOS[1];      // el neto va de -48 a +48
   const ancho = Math.abs(neto) / max * 50;     // mitad de la pista
   const estilo = neto >= 0
     ? 'left:50%;width:' + ancho + '%;background:' + f.color + ';'
@@ -369,8 +487,10 @@ function pintarResultado(p){
   const ordenados = CLAVES.slice().sort((a,b) => p[b].neto - p[a].neto);
   const dom = ordenados[0];
   const seg = ordenados[1];
-  const empate = p[dom].neto - p[seg].neto <= 2;
-  const plano = p[ordenados[0]].neto - p[ordenados[3]].neto <= 4;
+  // Umbrales al doble que antes: la escala pasó de ±24 a ±48 al puntuar las
+  // cuatro posiciones en vez de solo los dos extremos.
+  const empate = p[dom].neto - p[seg].neto <= 4;
+  const plano = p[ordenados[0]].neto - p[ordenados[3]].neto <= 8;
   const g = ENTREVISTA[dom];
 
   let encabezado;
@@ -394,7 +514,7 @@ function pintarResultado(p){
       '<h2>Tu perfil</h2>' + encabezado +
       '<div class="eje"><span></span><span><span>menos tuyo</span><span>más tuyo</span></span><span></span></div>' +
       CLAVES.map(k => barra(k, p)).join('') +
-      '<p class="note">La cifra es cuántas veces elegiste ese factor como el que más te describe, menos las veces que lo elegiste como el que menos. Va de −24 a +24. Un valor cercano a cero quiere decir que ese rasgo ni te define ni te es ajeno.</p>' +
+      '<p class="note">La cifra suma el lugar que le diste a ese factor en los 24 bloques: la primera posición vale +2, la segunda +1, la tercera −1 y la cuarta −2. Va de −48 a +48. Un valor cercano a cero quiere decir que ese rasgo ni te define ni te es ajeno. Como en cada bloque los cuatro se reparten las cuatro posiciones, lo que mide es qué pesa más <em>en ti</em>, no cuánto tienes de cada cosa.</p>' +
       '<h3>Qué dice cada uno de ti</h3>' +
       CLAVES.map(k =>
         '<p style="margin:8px 0;"><strong style="color:' + FACTORES[k].color + '">' +

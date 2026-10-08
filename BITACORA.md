@@ -10,6 +10,98 @@ después.
 corrigió un error, describe también cómo se detectó — eso es lo que evita
 repetirlo.
 
+## 2026-10-08 — El cuestionario DISC muestra un solo bloque por pantalla
+
+Pedido de Gael tras probar el orden del 1 al 4: "que solo aparezca un bloque en
+la pantalla y cuando se acabe pase al otro".
+
+Antes los 24 bloques iban en una sola página larga. Ahora se ve uno a la vez,
+con "Anterior", "Siguiente" y el contador "Bloque n de 24". Al completar las
+cuatro posiciones de un bloque, la página espera 0.65 segundos —lo suficiente
+para ver el bloque en verde y corregir si se tocó mal— y pasa sola al siguiente.
+Si la persona navega a mano, ese avance automático se cancela para no robarle
+el bloque que acaba de pedir. "Anterior" conserva lo contestado.
+
+"Ver mi resultado" aparece solo en el último bloque. Si se llega ahí con huecos,
+la página lo dice y lleva al primer bloque incompleto, en lugar de enumerar
+números de bloque que en este formato ya no se ven.
+
+Nada cambió en la puntuación ni en los 96 reactivos. La suite pasó a 21 pruebas
+con cinco nuevas: solo un bloque visible, avance automático al completar,
+"Anterior" conserva respuestas, botón de resultado solo al final, y salto al
+primer bloque incompleto.
+
+## 2026-10-08 — El cuestionario DISC ahora se ordena del 1 al 4
+
+Gael probó la versión anterior y reportó dos cosas. La segunda explica a la
+primera.
+
+**"No puedo seleccionar más de dos cosas por bloque."** No era un error: dos
+marcas —una en Más y una en Menos— eran la respuesta completa. Pero si la
+persona que encargó la página creyó que faltaba algo, cualquiera lo va a creer.
+El formato no se explicaba solo, y los círculos atenuados de las opciones en
+conflicto parecían bloqueados en vez de "ya no aplica".
+
+**"Estaría mejor que hubiera más escala de más a menos."** De ahí salió el
+cambio: en vez de marcar solo los dos extremos, ahora se ordenan las cuatro
+frases del 1 al 4. Resuelve las dos quejas con un solo cambio — hay gradación,
+y se marcan las cuatro filas, así que desaparece la sensación de que falta algo.
+
+**Lo que NO se hizo, y por qué.** Una escala del 1 al 5 por frase, que era la
+lectura literal de "más escala". En ese formato casi todo el mundo se califica
+alto en todo y los cuatro factores salen empatados; el perfil se aplana y deja
+de decir nada. El orden forzado del 1 al 4 da la gradación sin perder la
+propiedad que hace que esto funcione: **en cada bloque los cuatro factores se
+reparten las cuatro posiciones, así que siempre suman cero y nadie puede salir
+alto en todo.** Hay una prueba que falla si esa suma deja de ser cero.
+
+**Puntuación.** Primera posición +2, segunda +1, tercera −1, cuarta −2. Los
+extremos pesan el doble porque dicen más que lo de en medio. La escala pasó de
+±24 a ±48 y los umbrales de empate se duplicaron en consecuencia.
+
+**Interacción.** Poner un número que ya estaba en otra frase **intercambia** las
+dos en vez de borrar una. Eso era el fondo de la queja original: una marca que
+desaparece sin explicación se siente como que la página falla. Volver a tocar el
+mismo número lo quita. Un bloque completo se marca en verde.
+
+El área para marcar quedó en 40×42 píxeles por botón, contra los 18×18 de la
+versión anterior, donde el área sensible era solo el círculo del radio y un clic
+al lado no hacía nada.
+
+La suite pasó a 16 pruebas, y las de interacción hacen clic en el navegador en
+lugar de llamar a las funciones desde JavaScript. Las anteriores validaban la
+lógica y nunca tocaron la interfaz, que es por lo que dejaron pasar algo que
+hacía la página inusable.
+
+## 2026-10-06 — Arreglado: en el cuestionario DISC no se podían marcar bien las respuestas
+
+Lo reportó Gael probando la página recién publicada: "no me deja seleccionar
+bien las respuestas". Al reproducirlo en navegador, con viewport de escritorio y
+de teléfono, resultaron ser dos fallas distintas.
+
+**El área sensible medía 18×18 píxeles**, que es el tamaño del círculo del radio
+y nada más. Un clic en la celda junto al círculo, o en el texto de la frase, no
+hacía nada. En un teléfono eso se falla más veces de las que se acierta. Ahora
+cada opción es una etiqueta que llena la celda: 56×46 píxeles, por encima del
+mínimo cómodo para un dedo, y se ilumina al pasar por encima.
+
+**Marcar la misma frase como "Menos" borraba el "Más" en silencio.** La regla
+era correcta —una frase no puede ser a la vez la que más y la que menos te
+describe— pero aplicarla sin avisar se siente como que la página se descompuso:
+pones una marca y se te desaparece otra que ya habías puesto. Ahora la opción en
+conflicto se deshabilita y se ve atenuada, así que queda claro que no se puede
+en lugar de perder trabajo hecho. La lógica anterior se conservó como red de
+seguridad.
+
+Las tres pruebas que cubren esto están en `cuentas/pruebas/test_disc.mjs` y
+miden el tamaño real del área sensible en el navegador, hacen clic en la esquina
+de la celda, y verifican que forzar el clic sobre la opción bloqueada no borre
+lo ya elegido. La suite pasó de 13 a 16.
+
+**Lección:** las pruebas anteriores llamaban a `marcar()` desde JavaScript, así
+que validaban la lógica y nunca tocaron la interfaz. Una prueba que no hace clic
+donde hace clic una persona no prueba que se pueda usar.
+
 ## 2026-10-06 — OCC bloquea los centros de datos, y la búsqueda semanal ahora corre en la máquina de Gael
 
 El filtro de salida de la organización ya permite `api.adzuna.com` y
