@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tu FODA — Club de Mentes Brillantes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --azul:#b89a57; --azul-osc:#8b7440; --naranja:#c2703d; --verde:#4f8f5b;
+    --hero-bg:#faf8f2; --hero-bg2:#f3efe5; --hero-sub:#5a5346; --hero-line:rgba(31,31,28,.1);
+    --accent:#b89a57; --gold-light:#d0b06a;
+    --gris-bg:#faf8f2; --gris-borde:#e7ddc9; --texto:#1f1f1c; --texto-suave:#6b6459;
+    --font-serif:'Cormorant Garamond',Georgia,'Times New Roman',serif;
+    --font-sans:'Source Sans 3',ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;
+    --sombra:rgba(53,42,21,.1) 0px 10px 25px 0px;
+    /* Un color por cuadrante. Verde y dorado para lo que suma; terracota y
+       azul-gris para lo que hay que atender. */
+    --f:#4f8f5b; --o:#b89a57; --d:#c2703d; --a:#4a7a9b;
+  }
+  *{box-sizing:border-box;}
+  body{font-family:var(--font-sans);margin:0;background:linear-gradient(180deg,var(--hero-bg) 0%,var(--hero-bg2) 100%) fixed;color:var(--texto);}
+  .topbar{max-width:1080px;margin:0 auto;padding:16px 32px 0;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+  .topbar .logo-link img{height:34px;width:auto;display:block;}
+  .topbar a{color:var(--texto-suave);font-size:.82rem;font-weight:700;text-decoration:none;}
+  .topbar a:hover{color:var(--azul-osc);}
+  .topbar .enlaces{display:inline-flex;gap:18px;align-items:center;flex-wrap:wrap;}
+  header{background:linear-gradient(180deg,var(--hero-bg) 0%,var(--hero-bg2) 100%);padding:34px 32px 0;border-bottom:1px solid var(--hero-line);}
+  .hero-inner{max-width:1080px;margin:0 auto;padding-bottom:30px;}
+  header .eyebrow{display:inline-block;font-size:.76rem;color:#fff;background:linear-gradient(135deg,var(--azul),var(--gold-light));padding:6px 16px;border-radius:999px;margin:0 0 14px;font-weight:700;box-shadow:var(--sombra);}
+  header h1{font-family:var(--font-serif);margin:0 0 12px;font-size:2.4rem;line-height:1.15;font-weight:700;max-width:640px;}
+  header p{margin:0;font-size:.98rem;color:var(--hero-sub);max-width:600px;line-height:1.6;}
+  main{max-width:1000px;margin:0 auto;padding:30px 20px 60px;}
+  .card{background:#fff;border:1px solid var(--gris-borde);border-radius:16px;padding:24px 26px;margin-bottom:20px;box-shadow:var(--sombra);}
+  .card h2{font-family:var(--font-serif);margin:0 0 8px;font-size:1.6rem;}
+  .card h3{font-family:var(--font-serif);margin:18px 0 6px;font-size:1.22rem;color:var(--azul-osc);}
+  .note{font-size:.8rem;color:var(--texto-suave);margin-top:10px;line-height:1.5;}
+  p{line-height:1.6;}
+  button.primary{background:linear-gradient(135deg,var(--azul),var(--gold-light));color:#fff;border:none;padding:12px 28px;border-radius:999px;font-size:.95rem;font-weight:700;cursor:pointer;margin-top:16px;font-family:var(--font-sans);box-shadow:var(--sombra);transition:transform .12s ease;}
+  button.primary:hover{transform:translateY(-1px);}
+  button.secondary, a.secondary{background:#fff;color:var(--azul-osc);border:1.5px solid var(--azul);padding:9px 20px;border-radius:999px;font-size:.88rem;font-weight:700;cursor:pointer;margin:10px 8px 0 0;font-family:var(--font-sans);text-decoration:none;display:inline-block;}
+  button.secondary.peligro{color:#8a3d1c;border-color:#e0a98f;}
+  .aviso{border-radius:10px;padding:13px 15px;font-size:.87rem;line-height:1.55;margin:14px 0;}
+  .aviso.limites{background:#fdfaf1;border:1px solid var(--gris-borde);}
+  .pill{display:inline-block;padding:4px 12px;border-radius:999px;font-size:.78rem;font-weight:700;margin:0 6px 6px 0;background:var(--gris-bg);border:1px solid var(--gris-borde);color:var(--azul-osc);}
+
+  /* ---- Encabezado del FODA ---- */
+  .datos{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:end;}
+  .datos label{display:block;font-size:.8rem;font-weight:700;color:var(--texto-suave);margin-bottom:4px;}
+  .datos input{width:100%;padding:10px 12px;border:1px solid var(--gris-borde);border-radius:10px;font-family:var(--font-sans);font-size:.95rem;background:#fff;color:var(--texto);}
+  .datos input:focus{outline:2px solid var(--gold-light);border-color:var(--azul);}
+  .estado{font-size:.78rem;color:var(--texto-suave);white-space:nowrap;padding-bottom:10px;}
+  .estado.ok{color:var(--verde);font-weight:600;}
+
+  /* ---- La matriz ---- */
+  .ejes{display:grid;grid-template-columns:auto 1fr 1fr;grid-template-rows:auto 1fr 1fr;gap:0 14px;align-items:stretch;margin-bottom:20px;}
+  .eje{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--texto-suave);font-weight:700;text-align:center;align-self:center;}
+  .eje.vertical{writing-mode:vertical-rl;transform:rotate(180deg);justify-self:center;padding:0 2px;}
+  .matriz{grid-column:2 / 4;grid-row:2 / 4;display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .cuadrante{border:1px solid var(--gris-borde);border-top:5px solid var(--color);border-radius:14px;background:#fff;padding:14px 16px 12px;display:flex;flex-direction:column;}
+  .cuadrante h2{font-family:var(--font-serif);font-size:1.4rem;margin:0;color:var(--color);display:flex;align-items:baseline;justify-content:space-between;gap:8px;}
+  .cuadrante h2 .n{font-family:var(--font-sans);font-size:.78rem;color:var(--texto-suave);font-weight:600;}
+  .cuadrante .que{font-size:.84rem;color:var(--texto-suave);margin:4px 0 10px;line-height:1.45;}
+  .cuadrante textarea{flex:1;min-height:150px;width:100%;resize:vertical;padding:10px 12px;border:1px solid var(--gris-borde);border-radius:10px;font-family:var(--font-sans);font-size:.93rem;line-height:1.5;color:var(--texto);background:#fff;}
+  .cuadrante textarea:focus{outline:2px solid var(--color);border-color:var(--color);}
+  .cuadrante textarea::placeholder{color:#a79f91;}
+  .cuadrante .pista{font-size:.76rem;color:var(--texto-suave);margin:8px 0 0;}
+  #cuadF{--color:var(--f);} #cuadO{--color:var(--o);} #cuadD{--color:var(--d);} #cuadA{--color:var(--a);}
+
+  /* ---- Sugerencias del estilo de trabajo ---- */
+  .sugerencia{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 0;border-top:1px solid var(--gris-borde);font-size:.9rem;}
+  .sugerencia:first-of-type{border-top:none;}
+  .sugerencia button{margin:0;white-space:nowrap;padding:7px 14px;font-size:.8rem;}
+  .sugerencia button:disabled{opacity:.5;cursor:default;}
+
+  /* ---- Acciones ---- */
+  .acciones{display:flex;flex-wrap:wrap;gap:0 4px;align-items:center;}
+  #siguientePaso{width:100%;min-height:80px;padding:10px 12px;border:1px solid var(--gris-borde);border-radius:10px;font-family:var(--font-sans);font-size:.93rem;line-height:1.5;color:var(--texto);}
+  #siguientePaso:focus{outline:2px solid var(--gold-light);border-color:var(--azul);}
+  .cruce{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px;}
+  .cruce div{background:var(--gris-bg);border:1px solid var(--gris-borde);border-radius:10px;padding:12px 14px;font-size:.88rem;line-height:1.5;}
+  .cruce strong{display:block;margin-bottom:4px;color:var(--azul-osc);}
+
+  /* ---- Versión para imprimir: una hoja, sin cajas de texto ---- */
+  #impresion{display:none;}
+  @media print{
+    @page{size:letter;margin:14mm;}
+    body{background:#fff;}
+    .topbar, header, main > .card, .ejes, .no-imprimir{display:none !important;}
+    #impresion{display:block;font-family:var(--font-sans);color:#000;}
+    #impresion h1{font-family:var(--font-serif);font-size:22pt;margin:0 0 2pt;}
+    #impresion .sub{font-size:10pt;color:#444;margin:0 0 12pt;}
+    #impresion .grid{display:grid;grid-template-columns:1fr 1fr;gap:10pt;}
+    #impresion .q{border:1pt solid #999;border-top:4pt solid var(--color);border-radius:6pt;padding:8pt 10pt;break-inside:avoid;}
+    #impresion .q h2{font-family:var(--font-serif);font-size:14pt;margin:0 0 4pt;color:var(--color);}
+    #impresion ul{margin:0;padding-left:14pt;font-size:10pt;line-height:1.4;}
+    #impresion .vacio{font-size:9.5pt;color:#777;font-style:italic;}
+    #impresion .paso:empty{display:none;}
+    #impresion .paso{margin-top:12pt;font-size:10.5pt;border-top:1pt solid #999;padding-top:8pt;}
+    #impresion .pie{margin-top:12pt;font-size:8.5pt;color:#666;}
+    #impF{--color:var(--f);} #impO{--color:var(--o);} #impD{--color:var(--d);} #impA{--color:var(--a);}
+  }
+
+  @media(max-width:700px){
+    .topbar{padding:14px 20px 0;} .topbar .logo-link img{height:28px;}
+    header{padding:26px 20px 0;} header h1{font-size:1.85rem;}
+    main{padding:22px 16px 48px;} .card{padding:18px 16px;}
+    .ejes{display:block;} .eje{display:none;}
+    .matriz{grid-template-columns:1fr;}
+    .datos{grid-template-columns:1fr;}
+    .cruce{grid-template-columns:1fr;}
+    .sugerencia{flex-direction:column;align-items:flex-start;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a class="logo-link" href="https://www.clubmentesbrillantes.com.mx/index.html" aria-label="Club de Mentes Brillantes"><img src="logo-cmb.svg" alt="Club de Mentes Brillantes"></a>
+  <span class="enlaces">
+    <a href="disc.html">Tu estilo de trabajo →</a>
+    <a href="index.html">← Volver a tu CV frente al mercado</a>
+  </span>
+</div>
+
+<header>
+  <div class="hero-inner">
+    <p class="eyebrow">Autoconocimiento para tu búsqueda de empleo</p>
+    <h1>Tu FODA</h1>
+    <p>Cuatro cuadros para ordenar dónde estás parado antes de buscar trabajo: lo que ya tienes, lo que te falta, lo que hay afuera a tu favor y lo que te puede estorbar. Se guarda en este dispositivo mientras escribes.</p>
+  </div>
+</header>
+
+<main>
+
+  <div class="card">
+    <h2>Cómo llenarlo</h2>
+    <p>Escribe <strong>una idea por renglón</strong>. Los dos cuadros de arriba hablan de ti (dependen de ti); los dos de abajo hablan de lo que hay afuera (no dependen de ti). Lo de la izquierda suma; lo de la derecha hay que atenderlo.</p>
+    <div class="aviso limites">
+      <strong>La prueba del ejemplo.</strong> Si no puedes dar un caso concreto, no va. "Soy proactivo" no es una fortaleza; "organicé el evento de fin de curso para 80 personas" sí. Lo mismo para las debilidades: "me falta experiencia" dice poco; "no he usado Power BI y lo piden en las vacantes de mi carrera" ya dice qué hacer.
+    </div>
+    <p class="note">Nada de lo que escribas sale de tu navegador. Puedes imprimirlo, copiarlo o borrarlo cuando quieras.</p>
+  </div>
+
+  <div class="card">
+    <div class="datos">
+      <div>
+        <label for="nombre">Tu nombre (opcional, solo para la hoja impresa)</label>
+        <input type="text" id="nombre" autocomplete="name" placeholder="Nombre y apellido">
+      </div>
+      <span class="estado" id="estado">Todavía no has escrito nada.</span>
+    </div>
+  </div>
+
+  <div class="ejes">
+    <span></span>
+    <span class="eje">Suma</span>
+    <span class="eje">Hay que atender</span>
+    <span class="eje vertical" style="grid-row:2;">Depende de ti</span>
+    <span class="eje vertical" style="grid-row:3;">Está afuera</span>
+    <div class="matriz">
+
+      <section class="cuadrante" id="cuadF">
+        <h2>Fortalezas <span class="n" id="nF"></span></h2>
+        <p class="que">Lo que ya tienes y depende de ti: lo que sabes hacer, lo que te han reconocido, lo que terminaste.</p>
+        <textarea id="F" placeholder="Manejo Excel a nivel intermedio (tablas dinámicas)&#10;Hice prácticas 6 meses en un despacho contable&#10;Inglés B1, puedo leer manuales y correos&#10;Terminé la carrera trabajando medio tiempo"></textarea>
+        <p class="pista">Pregúntate: ¿qué me han pedido que haga porque lo hago bien?</p>
+      </section>
+
+      <section class="cuadrante" id="cuadD">
+        <h2>Debilidades <span class="n" id="nD"></span></h2>
+        <p class="que">Lo que te falta o te cuesta, y también depende de ti. No es para castigarte: es para saber qué atender primero.</p>
+        <textarea id="D" placeholder="No tengo experiencia formal con contrato&#10;Me pongo nervioso en entrevistas y hablo rápido&#10;Mi CV no tiene cifras ni resultados&#10;No sé usar Power BI"></textarea>
+        <p class="pista">Pregúntate: ¿qué piden las vacantes que me interesan y todavía no tengo?</p>
+      </section>
+
+      <section class="cuadrante" id="cuadO">
+        <h2>Oportunidades <span class="n" id="nO"></span></h2>
+        <p class="que">Lo que hay afuera y puedes aprovechar: sectores contratando, cursos, contactos, cambios en tu ciudad.</p>
+        <textarea id="O" placeholder="Logística está contratando en mi ciudad&#10;El Club tiene un curso de Excel avanzado&#10;Una conocida trabaja en una empresa que me interesa&#10;Las vacantes de mi carrera piden inglés y ya lo tengo"></textarea>
+        <p class="pista">Pregúntate: ¿qué está pasando a mi alrededor que me conviene?</p>
+      </section>
+
+      <section class="cuadrante" id="cuadA">
+        <h2>Amenazas <span class="n" id="nA"></span></h2>
+        <p class="que">Lo que hay afuera y te puede estorbar: competencia, requisitos que no controlas, dónde están las vacantes.</p>
+        <textarea id="A" placeholder="Muchos egresados compiten por las mismas vacantes&#10;Las empresas piden un año de experiencia&#10;La mayoría de las vacantes están en otra ciudad&#10;Piden certificación y cuesta"></textarea>
+        <p class="pista">Pregúntate: ¿qué no depende de mí pero me puede cerrar puertas?</p>
+      </section>
+
+    </div>
+  </div>
+
+  <div class="card" id="pistasDisc" style="display:none;">
+    <h2>Pistas de tu estilo de trabajo</h2>
+    <p class="note" style="margin-top:0;">Salen de lo que contestaste en <a href="disc.html">Tu estilo de trabajo</a>. Son un punto de partida, no un veredicto: agrega solo las que te describan y cámbialas con tus palabras.</p>
+    <div id="listaPistas"></div>
+  </div>
+
+  <div class="card">
+    <h2>Qué hacer con tu FODA</h2>
+    <p>Un FODA sirve para decidir, no para describirte. Cruza los cuadros:</p>
+    <div class="cruce">
+      <div><strong>Fortalezas + Oportunidades</strong>¿Cuál de tus fortalezas te abre cuál oportunidad? Eso es lo que debes buscar primero y poner arriba en tu CV.</div>
+      <div><strong>Debilidades + Oportunidades</strong>¿Qué te falta para aprovechar una oportunidad que ya está ahí? Si es una habilidad concreta, revisa si el Club tiene un curso para eso.</div>
+      <div><strong>Fortalezas + Amenazas</strong>¿Con qué fortaleza le das la vuelta a una amenaza? Si piden experiencia y no la tienes, tus prácticas y proyectos escolares son la respuesta, con cifras.</div>
+      <div><strong>Debilidades + Amenazas</strong>Donde se juntan es lo que hay que atender ya, antes de postularte a esas vacantes.</div>
+    </div>
+    <h3>Mi siguiente paso</h3>
+    <p class="note" style="margin-top:0;">Con lo que escribiste arriba: ¿qué es lo primero que vas a hacer esta semana? Una sola cosa, concreta.</p>
+    <textarea id="siguientePaso" placeholder="Agregar cifras a las tres experiencias de mi CV y revisar el curso de Excel del Club"></textarea>
+  </div>
+
+  <div class="card no-imprimir">
+    <h2>Guardar o llevarlo contigo</h2>
+    <div class="acciones">
+      <button class="secondary" type="button" onclick="window.print()">Imprimir o guardar como PDF</button>
+      <button class="secondary" type="button" id="btnCopiar" onclick="copiar()">Copiar como texto</button>
+      <button class="secondary" type="button" onclick="descargar()">Descargar .txt</button>
+      <button class="secondary peligro" type="button" id="btnBorrar" onclick="borrar()">Borrar todo</button>
+    </div>
+    <p class="note">Si lo llevas a <a href="index.html">Tu CV frente al mercado</a>, usa las fortalezas con ejemplo concreto para los logros del CV, y las debilidades que sean habilidades para buscar un curso del catálogo del Club.</p>
+  </div>
+
+  <div id="impresion" aria-hidden="true">
+    <h1>FODA <span id="impNombre"></span></h1>
+    <p class="sub" id="impFecha"></p>
+    <div class="grid">
+      <div class="q" id="impF"><h2>Fortalezas</h2><div class="cuerpo"></div></div>
+      <div class="q" id="impD"><h2>Debilidades</h2><div class="cuerpo"></div></div>
+      <div class="q" id="impO"><h2>Oportunidades</h2><div class="cuerpo"></div></div>
+      <div class="q" id="impA"><h2>Amenazas</h2><div class="cuerpo"></div></div>
+    </div>
+    <div class="paso" id="impPaso"></div>
+    <p class="pie">Hecho con la herramienta de FODA del Club de Mentes Brillantes. Lo escrito es del autor; el Club no lo recibe ni lo guarda.</p>
+  </div>
+
+</main>
+
+<script>
+/* =============================== EL FODA ===============================
+
+   Cuatro cajas de texto, una idea por renglón. Todo vive en el navegador:
+   se guarda en localStorage con cada tecla y nunca se manda a ningún lado.
+   No hay cuenta, no hay servidor, no hay IA. Lo que escribe la persona es
+   suyo y es lo único que aparece.                                          */
+
+const LLAVE = 'cmb_foda';
+const CUADROS = ['F', 'D', 'O', 'A'];
+const NOMBRES = {F:'Fortalezas', D:'Debilidades', O:'Oportunidades', A:'Amenazas'};
+
+function esc(v){
+  return String(v == null ? '' : v)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+
+/* Fecha legible, nunca AAAA-MM-DD a la vista del lector. */
+function fechaLegible(d){
+  try{ return d.toLocaleDateString('es-MX', {day:'numeric', month:'long', year:'numeric'}); }
+  catch(e){ return d.toDateString(); }
+}
+
+function renglones(texto){
+  return String(texto || '').split('\n').map(s => s.trim()).filter(Boolean);
+}
+
+function leer(){
+  return {
+    nombre: document.getElementById('nombre').value,
+    F: document.getElementById('F').value,
+    D: document.getElementById('D').value,
+    O: document.getElementById('O').value,
+    A: document.getElementById('A').value,
+    paso: document.getElementById('siguientePaso').value
+  };
+}
+
+function hayAlgo(d){
+  return CUADROS.some(k => renglones(d[k]).length) || renglones(d.paso).length > 0;
+}
+
+let temporizadorGuardado = null;
+function guardar(){
+  const d = leer();
+  const estado = document.getElementById('estado');
+  if(!hayAlgo(d) && !d.nombre.trim()){
+    try{ localStorage.removeItem(LLAVE); }catch(e){}
+    estado.textContent = 'Todavía no has escrito nada.';
+    estado.classList.remove('ok');
+    return;
+  }
+  try{
+    localStorage.setItem(LLAVE, JSON.stringify(Object.assign({}, d, {
+      fecha: new Date().toISOString(), version: 1
+    })));
+    estado.textContent = 'Guardado en este dispositivo.';
+    estado.classList.add('ok');
+  }catch(e){
+    // Modo privado o almacenamiento bloqueado. La página sigue sirviendo,
+    // solo que no sobrevive a cerrar la pestaña, y eso se dice.
+    estado.textContent = 'No se pudo guardar en este navegador: imprime o copia antes de cerrar.';
+    estado.classList.remove('ok');
+  }
+}
+
+function leerGuardado(){
+  try{
+    const crudo = localStorage.getItem(LLAVE);
+    return crudo ? JSON.parse(crudo) : null;
+  }catch(e){ return null; }
+}
+
+function contar(){
+  for(const k of CUADROS){
+    const n = renglones(document.getElementById(k).value).length;
+    document.getElementById('n' + k).textContent = n ? (n === 1 ? '1 idea' : n + ' ideas') : '';
+  }
+}
+
+/* La versión impresa se arma a partir del texto, no de las cajas: un
+   textarea impreso recorta lo que no cabe y no lo avisa. */
+function pintarImpresion(){
+  const d = leer();
+  document.getElementById('impNombre').textContent = d.nombre.trim() ? 'de ' + d.nombre.trim() : '';
+  document.getElementById('impFecha').textContent = fechaLegible(new Date());
+  for(const k of CUADROS){
+    const items = renglones(d[k]);
+    document.querySelector('#imp' + k + ' .cuerpo').innerHTML = items.length
+      ? '<ul>' + items.map(x => '<li>' + esc(x) + '</li>').join('') + '</ul>'
+      : '<p class="vacio">Sin ideas todavía.</p>';
+  }
+  const paso = d.paso.trim();
+  document.getElementById('impPaso').innerHTML = paso
+    ? '<strong>Mi siguiente paso:</strong> ' + esc(paso) : '';
+}
+
+function alEscribir(){
+  contar();
+  pintarImpresion();
+  clearTimeout(temporizadorGuardado);
+  temporizadorGuardado = setTimeout(guardar, 250);
+}
+
+/* ---- Exportar ---- */
+function comoTexto(){
+  const d = leer();
+  const lineas = ['FODA' + (d.nombre.trim() ? ' de ' + d.nombre.trim() : ''), fechaLegible(new Date()), ''];
+  for(const k of CUADROS){
+    lineas.push(NOMBRES[k].toUpperCase());
+    const items = renglones(d[k]);
+    lineas.push(...(items.length ? items.map(x => '- ' + x) : ['(sin ideas todavía)']));
+    lineas.push('');
+  }
+  if(d.paso.trim()){ lineas.push('MI SIGUIENTE PASO', d.paso.trim(), ''); }
+  lineas.push('Hecho con la herramienta de FODA del Club de Mentes Brillantes.');
+  return lineas.join('\n');
+}
+
+async function copiar(){
+  const btn = document.getElementById('btnCopiar');
+  const texto = comoTexto();
+  let ok = false;
+  try{ await navigator.clipboard.writeText(texto); ok = true; }
+  catch(e){
+    // Navegadores viejos o sin permiso: se selecciona en un campo temporal.
+    const ta = document.createElement('textarea');
+    ta.value = texto; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    try{ ok = document.execCommand('copy'); }catch(e2){}
+    ta.remove();
+  }
+  btn.textContent = ok ? 'Copiado ✓' : 'No se pudo copiar';
+  setTimeout(() => { btn.textContent = 'Copiar como texto'; }, 1800);
+}
+
+function descargar(){
+  const blob = new Blob([comoTexto()], {type:'text/plain;charset=utf-8'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'mi-foda.txt';
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+}
+
+/* ---- Borrar: dos toques, sin diálogo del navegador ---- */
+let borrarArmado = null;
+function borrar(){
+  const btn = document.getElementById('btnBorrar');
+  if(!borrarArmado){
+    btn.textContent = '¿Seguro? Toca otra vez para borrar';
+    borrarArmado = setTimeout(() => { borrarArmado = null; btn.textContent = 'Borrar todo'; }, 4000);
+    return;
+  }
+  clearTimeout(borrarArmado); borrarArmado = null;
+  for(const k of CUADROS) document.getElementById(k).value = '';
+  document.getElementById('nombre').value = '';
+  document.getElementById('siguientePaso').value = '';
+  try{ localStorage.removeItem(LLAVE); }catch(e){}
+  btn.textContent = 'Borrar todo';
+  contar(); pintarImpresion(); guardar();
+  pintarPistas();
+}
+
+/* ---- Pistas del estilo de trabajo (disc.html) ----
+   Solo aparecen si la persona ya contestó el cuestionario. Nada se agrega sin
+   que lo toque; y lo que se agrega es una preferencia que ella misma declaró
+   al contestar, no una conclusión nuestra sobre su capacidad.                */
+const PISTAS_DISC = {
+  D: {F:'Decido rápido y voy al resultado',
+      D:'Me cuesta escuchar y reconocer lo que aportan los demás'},
+  I: {F:'Me comunico bien y conecto rápido con la gente',
+      D:'Me extiendo al hablar y me cuesta cerrar con un resultado concreto'},
+  S: {F:'Soy constante, escucho y sostengo el trabajo',
+      D:'No reclamo lo que hice; me cuesta decir "yo lo hice"'},
+  C: {F:'Soy preciso y verifico antes de entregar',
+      D:'Me voy al detalle y me cuesta decidir con información incompleta'}
+};
+const NOMBRE_FACTOR = {D:'Decisión', I:'Influencia', S:'Estabilidad', C:'Cuidado'};
+
+function estiloDominante(){
+  try{
+    const g = JSON.parse(localStorage.getItem('cmb_disc') || 'null');
+    if(!g || !g.puntajes) return null;
+    const claves = ['D','I','S','C'].filter(k => g.puntajes[k] && typeof g.puntajes[k].neto === 'number');
+    if(!claves.length) return null;
+    return claves.sort((a,b) => g.puntajes[b].neto - g.puntajes[a].neto)[0];
+  }catch(e){ return null; }
+}
+
+function yaEsta(cuadro, frase){
+  return renglones(document.getElementById(cuadro).value).some(r => r.toLowerCase() === frase.toLowerCase());
+}
+
+function agregarPista(cuadro, frase){
+  if(yaEsta(cuadro, frase)) return;
+  const ta = document.getElementById(cuadro);
+  ta.value = (ta.value.trim() ? ta.value.replace(/\s+$/, '') + '\n' : '') + frase;
+  alEscribir();
+  pintarPistas();
+}
+
+function pintarPistas(){
+  const card = document.getElementById('pistasDisc');
+  const dom = estiloDominante();
+  if(!dom){ card.style.display = 'none'; return; }
+  card.style.display = '';
+  const p = PISTAS_DISC[dom];
+  document.getElementById('listaPistas').innerHTML =
+    '<p style="margin:0 0 6px;">Tu estilo dominante salió <strong>' + NOMBRE_FACTOR[dom] + '</strong>.</p>' +
+    [['F', p.F, 'Agregar a Fortalezas'], ['D', p.D, 'Agregar a Debilidades']].map(([k, frase, rotulo]) =>
+      '<div class="sugerencia"><span>' + esc(frase) + '</span>' +
+      '<button class="secondary" type="button" data-cuadro="' + k + '" data-frase="' + esc(frase) + '"' +
+      (yaEsta(k, frase) ? ' disabled>Ya está' : '>' + rotulo) + '</button></div>').join('');
+  document.querySelectorAll('#listaPistas button').forEach(b => {
+    b.onclick = () => agregarPista(b.dataset.cuadro, b.dataset.frase);
+  });
+}
+
+/* ---- Arranque ---- */
+(function iniciar(){
+  const g = leerGuardado();
+  if(g){
+    document.getElementById('nombre').value = g.nombre || '';
+    for(const k of CUADROS) document.getElementById(k).value = g[k] || '';
+    document.getElementById('siguientePaso').value = g.paso || '';
+  }
+  ['nombre', 'F', 'D', 'O', 'A', 'siguientePaso'].forEach(id => {
+    document.getElementById(id).addEventListener('input', alEscribir);
+  });
+  contar(); pintarImpresion(); pintarPistas();
+  if(g && hayAlgo(g)){
+    const e = document.getElementById('estado');
+    e.textContent = 'Recuperado de este dispositivo.'; e.classList.add('ok');
+  }
+  window.addEventListener('beforeprint', pintarImpresion);
+})();
+</script>
+</body>
+</html>
