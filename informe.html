@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tu informe — Club de Mentes Brillantes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --azul:#b89a57; --azul-osc:#8b7440; --naranja:#c2703d; --verde:#4f8f5b;
+    --hero-bg:#faf8f2; --hero-bg2:#f3efe5; --hero-sub:#5a5346; --hero-line:rgba(31,31,28,.1);
+    --accent:#b89a57; --gold-light:#d0b06a;
+    --gris-bg:#faf8f2; --gris-borde:#e7ddc9; --texto:#1f1f1c; --texto-suave:#6b6459;
+    --font-serif:'Cormorant Garamond',Georgia,'Times New Roman',serif;
+    --font-sans:'Source Sans 3',ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;
+    --sombra:rgba(53,42,21,.1) 0px 10px 25px 0px;
+    --d:#b8452f; --i:#c9a227; --s:#4f8f5b; --c:#3f6f94;
+    --f:#4f8f5b; --o:#b89a57; --de:#c2703d; --a:#4a7a9b;
+  }
+  *{box-sizing:border-box;}
+  body{font-family:var(--font-sans);margin:0;background:linear-gradient(180deg,var(--hero-bg) 0%,var(--hero-bg2) 100%) fixed;color:var(--texto);}
+  .topbar{max-width:1080px;margin:0 auto;padding:16px 32px 0;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+  .topbar .logo-link img{height:34px;width:auto;display:block;}
+  .topbar a{color:var(--texto-suave);font-size:.82rem;font-weight:700;text-decoration:none;}
+  .topbar a:hover{color:var(--azul-osc);}
+  .topbar .enlaces{display:inline-flex;gap:18px;align-items:center;flex-wrap:wrap;}
+  header{background:linear-gradient(180deg,var(--hero-bg) 0%,var(--hero-bg2) 100%);padding:34px 32px 0;border-bottom:1px solid var(--hero-line);}
+  .hero-inner{max-width:1080px;margin:0 auto;padding-bottom:30px;}
+  header .eyebrow{display:inline-block;font-size:.76rem;color:#fff;background:linear-gradient(135deg,var(--azul),var(--gold-light));padding:6px 16px;border-radius:999px;margin:0 0 14px;font-weight:700;box-shadow:var(--sombra);}
+  header h1{font-family:var(--font-serif);margin:0 0 12px;font-size:2.4rem;line-height:1.15;font-weight:700;max-width:640px;}
+  header p{margin:0;font-size:.98rem;color:var(--hero-sub);max-width:600px;line-height:1.6;}
+  main{max-width:960px;margin:0 auto;padding:30px 20px 60px;}
+  .card{background:#fff;border:1px solid var(--gris-borde);border-radius:16px;padding:24px 26px;margin-bottom:20px;box-shadow:var(--sombra);}
+  .card h2{font-family:var(--font-serif);margin:0 0 8px;font-size:1.6rem;}
+  .card h3{font-family:var(--font-serif);margin:18px 0 6px;font-size:1.22rem;color:var(--azul-osc);}
+  .note{font-size:.8rem;color:var(--texto-suave);margin-top:10px;line-height:1.5;}
+  p{line-height:1.6;}
+  button.primary{background:linear-gradient(135deg,var(--azul),var(--gold-light));color:#fff;border:none;padding:12px 28px;border-radius:999px;font-size:.95rem;font-weight:700;cursor:pointer;margin-top:16px;font-family:var(--font-sans);box-shadow:var(--sombra);}
+  button.secondary, a.secondary{background:#fff;color:var(--azul-osc);border:1.5px solid var(--azul);padding:9px 20px;border-radius:999px;font-size:.88rem;font-weight:700;cursor:pointer;margin:10px 8px 0 0;font-family:var(--font-sans);text-decoration:none;display:inline-block;}
+  .aviso{border-radius:10px;padding:13px 15px;font-size:.87rem;line-height:1.55;margin:14px 0;}
+  .aviso.limites{background:#fdfaf1;border:1px solid var(--gris-borde);}
+  .aviso.malo{background:#fdf1ec;border:1px solid #f0d2c4;color:#8a3d1c;}
+  label{display:block;font-size:.8rem;font-weight:700;color:var(--texto-suave);margin:12px 0 4px;}
+  input[type=text], textarea{width:100%;padding:10px 12px;border:1px solid var(--gris-borde);border-radius:10px;font-family:var(--font-sans);font-size:.93rem;line-height:1.5;background:#fff;color:var(--texto);}
+  input:focus, textarea:focus{outline:2px solid var(--gold-light);border-color:var(--azul);}
+  textarea{min-height:88px;resize:vertical;}
+  .dos{display:grid;grid-template-columns:2fr 1fr;gap:14px;}
+  .tres{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;}
+  .orden{border:1px solid var(--gris-borde);border-radius:12px;padding:12px 14px;background:var(--gris-bg);}
+  .orden h4{margin:0 0 2px;font-family:var(--font-serif);font-size:1.1rem;color:var(--azul-osc);}
+  .orden .plazo{font-size:.76rem;color:var(--texto-suave);margin:0 0 6px;}
+  .estado{font-size:.78rem;color:var(--texto-suave);}
+  .estado.ok{color:var(--verde);font-weight:600;}
+  .faltante{display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-size:.9rem;}
+
+  /* ---- El documento, en pantalla y en papel ---- */
+  #documento{background:#fff;border:1px solid var(--gris-borde);border-radius:16px;padding:40px 48px;margin-bottom:20px;box-shadow:var(--sombra);font-size:.93rem;line-height:1.55;}
+  #documento .lema{font-family:var(--font-serif);font-style:italic;color:var(--texto-suave);margin:0 0 6px;font-size:1.05rem;}
+  #documento .titulo{font-family:var(--font-serif);font-size:1.9rem;margin:0;line-height:1.15;}
+  #documento .subtitulo{color:var(--texto-suave);margin:4px 0 14px;font-size:.95rem;}
+  #documento .ficha{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px 18px;border:1px solid var(--gris-borde);border-radius:10px;padding:10px 14px;margin-bottom:18px;font-size:.88rem;}
+  #documento .ficha b{color:var(--texto-suave);font-weight:600;display:block;font-size:.74rem;text-transform:uppercase;letter-spacing:.04em;}
+  #documento h2{font-family:var(--font-serif);font-size:1.35rem;margin:26px 0 8px;padding-bottom:4px;border-bottom:1px solid var(--gris-borde);}
+  #documento h3{font-family:var(--font-sans);font-size:.95rem;font-weight:700;margin:14px 0 4px;color:var(--azul-osc);}
+  #documento ul{margin:4px 0 8px;padding-left:20px;line-height:1.5;}
+  #documento table{width:100%;border-collapse:collapse;font-size:.9rem;margin:6px 0 10px;}
+  #documento th{font-size:.74rem;text-transform:uppercase;letter-spacing:.04em;color:var(--texto-suave);text-align:left;padding:6px 8px;border-bottom:1px solid var(--gris-borde);}
+  #documento td{padding:6px 8px;border-bottom:1px solid var(--gris-bg);vertical-align:top;}
+  #documento .cuadros{display:grid;grid-template-columns:1fr 1fr;gap:12px;break-inside:avoid;}
+  #documento table{break-inside:auto;}
+  #documento tr{break-inside:avoid;}
+  #documento .q{border:1px solid var(--gris-borde);border-top:4px solid var(--qc);border-radius:10px;padding:8px 12px;break-inside:avoid;}
+  #documento .q h3{margin:0 0 4px;color:var(--qc);}
+  #documento .vacio{color:var(--texto-suave);font-style:italic;}
+  #documento .pendiente{border:1px dashed #c9a227;background:#fdfaf1;border-radius:10px;padding:10px 14px;font-size:.88rem;}
+  #documento .lineas{min-height:84px;background:repeating-linear-gradient(to bottom,transparent 0,transparent 27px,var(--gris-borde) 27px,var(--gris-borde) 28px);border-radius:4px;margin:4px 0 8px;}
+  #documento .pie{margin-top:24px;padding-top:10px;border-top:1px solid var(--gris-borde);font-size:.78rem;color:var(--texto-suave);line-height:1.5;}
+  #documento .dos-col{display:grid;grid-template-columns:1fr 1fr;gap:0 24px;}
+  #documento .bloque{break-inside:avoid;}
+  #documento .perfil-barra{grid-template-columns:150px 1fr 48px;}
+  #documento .tablero{max-width:460px;}
+
+  @media print{
+    @page{size:letter;margin:16mm 16mm 18mm;}
+    body{background:#fff;}
+    .topbar, header, main > .card, .no-imprimir{display:none !important;}
+    main{max-width:none;padding:0;}
+    #documento{border:none;box-shadow:none;border-radius:0;padding:0;font-size:10.5pt;}
+    #documento h2{break-after:avoid;}
+    #documento .salto{break-before:page;}
+    a{color:inherit;text-decoration:none;}
+  }
+  @media(max-width:700px){
+    .topbar{padding:14px 20px 0;} .topbar .logo-link img{height:28px;}
+    header{padding:26px 20px 0;} header h1{font-size:1.85rem;}
+    main{padding:22px 16px 48px;} .card{padding:18px 16px;}
+    .dos,.tres{grid-template-columns:1fr;}
+    #documento{padding:22px 18px;}
+    #documento .ficha,#documento .cuadros,#documento .dos-col{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a class="logo-link" href="https://www.clubmentesbrillantes.com.mx/index.html" aria-label="Club de Mentes Brillantes"><img src="logo-cmb.svg" alt="Club de Mentes Brillantes"></a>
+  <span class="enlaces">
+    <a href="disc.html">Tu estilo de trabajo →</a>
+    <a href="foda.html">Tu FODA →</a>
+    <a href="index.html">← Volver a tu CV frente al mercado</a>
+  </span>
+</div>
+
+<header>
+  <div class="hero-inner">
+    <p class="eyebrow">Autoconocimiento para la construcción de tu plan de vida</p>
+    <h1>Tu informe</h1>
+    <p>Junta en un solo documento tu perfil DISC, tu FODA y tu plan de acción a 60–90 días, con espacio para lo que trabajes con tu orientador. Lo que escribas se queda en este dispositivo; imprímelo o guárdalo como PDF cuando esté listo.</p>
+  </div>
+</header>
+
+<main>
+
+  <div class="card" id="fuentes">
+    <h2>De dónde sale</h2>
+    <div class="faltante" id="estadoDisc"></div>
+    <div class="faltante" id="estadoFoda" style="margin-top:8px;"></div>
+    <p class="note">El informe no inventa nada: el perfil sale de tus respuestas al cuestionario, el FODA es el que tú escribiste, y las secciones de carrera y plan de vida las llenas con tu orientador. Lo que no esté, se imprime como pendiente.</p>
+  </div>
+
+  <div class="card">
+    <h2>Datos del informe</h2>
+    <div class="dos">
+      <div><label for="nombre">Nombre</label><input type="text" id="nombre" autocomplete="name" placeholder="Nombre y apellidos"></div>
+      <div><label for="edad">Edad (opcional)</label><input type="text" id="edad" inputmode="numeric" placeholder="años"></div>
+    </div>
+    <label for="programa">Programa</label><input type="text" id="programa" placeholder="Programa o grupo con el que trabajas">
+    <p class="estado" id="estado" style="margin-top:10px;">Todavía no has escrito nada.</p>
+  </div>
+
+  <div class="card">
+    <h2>Plan de acción a 60–90 días</h2>
+    <p>Combina tu resultado DISC y tu FODA para armar un plan corto. Anota las frases o áreas conflictivas que quieres trabajar, en orden: lo primero en los próximos 15 días, lo segundo a 30 y lo tercero a 60. Una idea por renglón, hasta cinco por bloque. Ve marcándolas conforme las trabajes; en el camino pueden surgir otras.</p>
+    <div class="tres">
+      <div class="orden"><h4>Primer orden</h4><p class="plazo">15 días</p>
+        <textarea id="plan1" placeholder="Frases o áreas a trabajar primero"></textarea>
+        <label for="ref1">Reflexión</label><textarea id="ref1" style="min-height:60px;" placeholder="Qué pasó, qué aprendiste"></textarea></div>
+      <div class="orden"><h4>Segundo orden</h4><p class="plazo">30 días</p>
+        <textarea id="plan2" placeholder="Lo siguiente"></textarea>
+        <label for="ref2">Reflexión</label><textarea id="ref2" style="min-height:60px;"></textarea></div>
+      <div class="orden"><h4>Tercer orden</h4><p class="plazo">60 días</p>
+        <textarea id="plan3" placeholder="Lo que viene después"></textarea>
+        <label for="ref3">Reflexión</label><textarea id="ref3" style="min-height:60px;"></textarea></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Para trabajar con tu orientador</h2>
+    <p>Estas secciones no las calcula la página. Salen de la conversación con tu orientador, que conoce tu historia, tus pruebas vocacionales y el mercado. Si todavía no las tienen, se imprimen con líneas para escribirlas a mano.</p>
+    <label for="carrera1">Carrera o ruta con mayor compatibilidad, y por qué</label><textarea id="carrera1"></textarea>
+    <label for="carrera2">Segunda ruta de alta compatibilidad</label><textarea id="carrera2"></textarea>
+    <label for="complementarias">Carreras o rutas complementarias</label><textarea id="complementarias" style="min-height:60px;"></textarea>
+    <label for="riesgo">Principal reto del perfil</label><textarea id="riesgo" style="min-height:60px;"></textarea>
+    <label for="plan05">Plan de vida: horizonte 0–5 años (construcción)</label><textarea id="plan05"></textarea>
+    <label for="plan510">Horizonte 5–10 años (consolidación)</label><textarea id="plan510"></textarea>
+    <label for="plan1015">Horizonte 10–15 años (expansión)</label><textarea id="plan1015"></textarea>
+    <label for="autonomia">Estrategia de autonomía</label><textarea id="autonomia"></textarea>
+  </div>
+
+  <div class="card no-imprimir">
+    <h2>Imprimir o guardar</h2>
+    <button class="secondary" type="button" onclick="window.print()">Imprimir o guardar como PDF</button>
+    <button class="secondary" type="button" id="btnBorrar" onclick="borrar()">Borrar lo escrito aquí</button>
+    <p class="note">Borrar aquí no toca tu resultado DISC ni tu FODA: esos se borran desde sus propias páginas.</p>
+  </div>
+
+  <div id="documento"></div>
+
+</main>
+
+<script src="disc-interpretacion.js"></script>
+<script>
+/* ============================== EL INFORME ==============================
+
+   Lee tres cosas del navegador —el resultado DISC (cmb_disc), el FODA
+   (cmb_foda) y lo que se escriba en esta página (cmb_informe)— y arma un
+   documento imprimible. No llama a ningún servidor ni a ninguna IA.
+
+   La regla que manda: el documento solo contiene lo que la persona
+   contestó o escribió, más las descripciones generales de su estilo según
+   Ágora. Las conclusiones que requieren juicio —qué carrera le conviene,
+   cuál es su principal reto, su plan a 15 años— quedan explícitamente en
+   manos del orientador. Si no están, se imprimen como pendientes con
+   líneas para escribir, no se rellenan.                                   */
+
+const LLAVE = 'cmb_informe';
+const CAMPOS = ['nombre','edad','programa','plan1','ref1','plan2','ref2','plan3','ref3',
+  'carrera1','carrera2','complementarias','riesgo','plan05','plan510','plan1015','autonomia'];
+const esc = DISC.esc;
+const F = DISC.FACTORES;
+
+function renglones(t){ return String(t || '').split('\n').map(s => s.trim()).filter(Boolean); }
+
+function leer(){
+  const d = {};
+  CAMPOS.forEach(id => { d[id] = document.getElementById(id).value; });
+  return d;
+}
+function hayAlgo(d){ return CAMPOS.some(id => String(d[id] || '').trim()); }
+
+let temporizador = null;
+function guardar(){
+  const d = leer();
+  const e = document.getElementById('estado');
+  if(!hayAlgo(d)){
+    try{ localStorage.removeItem(LLAVE); }catch(err){}
+    e.textContent = 'Todavía no has escrito nada.'; e.classList.remove('ok'); return;
+  }
+  try{
+    localStorage.setItem(LLAVE, JSON.stringify(Object.assign({}, d, {fecha: new Date().toISOString(), version: 1})));
+    e.textContent = 'Guardado en este dispositivo.'; e.classList.add('ok');
+  }catch(err){
+    e.textContent = 'No se pudo guardar en este navegador: imprime antes de cerrar.'; e.classList.remove('ok');
+  }
+}
+function leerGuardado(llave){
+  try{ return JSON.parse(localStorage.getItem(llave) || 'null'); }catch(e){ return null; }
+}
+function alEscribir(){
+  clearTimeout(temporizador);
+  temporizador = setTimeout(() => { guardar(); pintarDocumento(); }, 250);
+}
+
+let borrarArmado = null;
+function borrar(){
+  const btn = document.getElementById('btnBorrar');
+  if(!borrarArmado){
+    btn.textContent = '¿Seguro? Toca otra vez para borrar';
+    borrarArmado = setTimeout(() => { borrarArmado = null; btn.textContent = 'Borrar lo escrito aquí'; }, 4000);
+    return;
+  }
+  clearTimeout(borrarArmado); borrarArmado = null;
+  CAMPOS.forEach(id => { document.getElementById(id).value = ''; });
+  btn.textContent = 'Borrar lo escrito aquí';
+  guardar(); pintarDocumento();
+}
+
+/* ------------------------- Las fuentes ------------------------- */
+function fuentes(){
+  const disc = DISC.leerGuardado();
+  const foda = leerGuardado('cmb_foda');
+  const fodaTieneAlgo = foda && ['F','D','O','A'].some(k => renglones(foda[k]).length);
+  return {disc, foda: fodaTieneAlgo ? foda : null};
+}
+
+function pintarEstado(){
+  const {disc, foda} = fuentes();
+  document.getElementById('estadoDisc').innerHTML = disc
+    ? '<span>✓ Perfil DISC del ' + esc(DISC.fechaLegible(disc.fecha)) + (disc.instrumento === 'agora' ? ' (cuestionario de Ágora)' : ' (versión de 24 bloques)') + '.</span>'
+    : '<span>Falta tu perfil DISC.</span><a class="secondary" href="disc-agora.html" style="margin-top:0;">Contestar el cuestionario de Ágora</a><a class="secondary" href="disc.html" style="margin-top:0;">o la versión corta</a>';
+  document.getElementById('estadoFoda').innerHTML = foda
+    ? '<span>✓ FODA' + (foda.fecha ? ' del ' + esc(DISC.fechaLegible(foda.fecha)) : '') + '.</span>'
+    : '<span>Falta tu FODA.</span><a class="secondary" href="foda.html" style="margin-top:0;">Hacer mi FODA</a>';
+}
+
+/* ------------------------- El documento ------------------------- */
+function lista(items, vacio){
+  return items.length ? '<ul>' + items.map(x => '<li>' + esc(x) + '</li>').join('') + '</ul>' : '<p class="vacio">' + (vacio || 'Pendiente.') + '</p>';
+}
+function lineas(texto, alto){
+  const r = renglones(texto);
+  return r.length ? lista(r) : '<div class="lineas" style="min-height:' + (alto || 84) + 'px;"></div>';
+}
+const LUGAR = ['Más alto', 'Segundo', 'Tercero', 'Más bajo'];
+
+function pintarDocumento(){
+  const d = leer();
+  const {disc, foda} = fuentes();
+  const doc = document.getElementById('documento');
+  const hoy = DISC.fechaLegible();
+  const nombre = d.nombre.trim();
+
+  let perfil = '';
+  let resumen = '';
+  let estilo = '';
+  let relacion = '';
+  let crecimiento = '';
+  if(disc){
+    const p = disc.puntajes;
+    const escala = disc.escala || (disc.instrumento === 'agora' ? {min:0, max:82} : {min:-48, max:48});
+    const {ordenados, dom, seg, empate, plano} = DISC.analizar(p, escala);
+    const a = DISC.AGORA[dom];
+    resumen =
+      '<p>Este documento integra el perfil conductual DISC, el análisis FODA personal y el plan de acción de ' + (nombre ? esc(nombre) : 'la persona') + ', con el propósito de apoyar la construcción de su plan de vida. Las secciones de ruta profesional y plan de vida se trabajan con el orientador.</p>' +
+      '<p>Los resultados muestran un perfil con predominancia:</p>' +
+      '<ul>' + ordenados.map(k => '<li><strong style="color:' + F[k].color + '">' + F[k].nombre + ' (' + k + ')</strong>: ' + p[k].neto + '</li>').join('') + '</ul>' +
+      (plano
+        ? '<p>Los cuatro factores salieron muy parejos: no hay un estilo que domine claramente, y conviene leer las cuatro descripciones como rasgos que aparecen según la situación.</p>'
+        : '<p>Lo anterior configura un perfil <strong>' + F[dom].nombre + (empate ? ' – ' + F[seg].nombre : ' con ' + F[seg].nombre) + '</strong>, caracterizado por: ' +
+          esc(a.estilo.map(x => x.toLowerCase()).join(', ')) + (empate ? '; y también ' + esc(DISC.AGORA[seg].estilo.map(x => x.toLowerCase()).join(', ')) : '') + '.</p>');
+
+    perfil =
+      '<h3>Distribución conductual</h3>' +
+      '<table><tr><th>Factor</th><th>Color</th><th>Puntuación</th><th>Lugar</th></tr>' +
+      ordenados.map((k, i) => '<tr><td><strong style="color:' + F[k].color + '">' + F[k].nombre + ' (' + k + ')</strong></td><td>' + F[k].colorNombre + '</td><td>' + p[k].neto + '</td><td>' + LUGAR[i] + '</td></tr>').join('') +
+      '</table>' +
+      '<p class="note" style="margin:0 0 8px;">' + (disc.instrumento === 'agora'
+        ? 'Suma de las cinco secciones del cuestionario de Ágora Internacional; cada color puede juntar hasta 82 puntos.'
+        : 'Cuestionario de 24 bloques del Club; cada factor va de −48 a +48 y los cuatro se reparten las posiciones, así que mide qué pesa más en la persona, no cuánto tiene de cada cosa.') + '</p>' +
+      '<div class="dos-col"><div class="bloque">' + DISC.tablero(p, escala) + '</div>' +
+      '<div class="bloque"><h3>Principales características</h3>' +
+      '<p><strong style="color:' + F[dom].color + '">' + F[dom].nombre + ' (' + LUGAR[0].toLowerCase() + ')</strong></p>' + lista(a.descripcion.slice(0, 4)) +
+      '<p><strong style="color:' + F[seg].color + '">' + F[seg].nombre + ' (segundo)</strong></p>' + lista(DISC.AGORA[seg].descripcion.slice(0, 3)) +
+      '</div></div>';
+
+    estilo =
+      '<div class="dos-col">' +
+      '<div class="bloque"><h3>Fortalezas</h3>' + lista(a.fortalezas) + '</div>' +
+      '<div class="bloque"><h3>Limitaciones potenciales</h3>' + lista(a.limitaciones) + '</div>' +
+      '<div class="bloque"><h3>Qué lo motiva</h3>' + lista(a.motivadores) + '</div>' +
+      '<div class="bloque"><h3>Ambiente ideal</h3>' + lista(a.ambiente) + '</div>' +
+      '</div><h3>Mayor temor</h3><p>' + esc(a.temor) + '</p>';
+
+    relacion =
+      '<div class="dos-col">' +
+      '<div class="bloque"><h3>Cómo conviene comunicarse con esta persona</h3>' + lista(a.comoComunicarse) + '</div>' +
+      '<div class="bloque"><h3>Lo que no funciona</h3>' + lista(a.comoNo) + '</div></div>';
+
+    crecimiento = lista(a.crecimiento);
+  }
+
+  const cuadro = (k, titulo, color) =>
+    '<div class="q" style="--qc:' + color + '"><h3>' + titulo + '</h3>' +
+    (foda ? lista(renglones(foda[k]), 'Sin ideas todavía.') : '<p class="vacio">Pendiente.</p>') + '</div>';
+
+  doc.innerHTML =
+    '<p class="lema">“Creamos porque creemos”</p>' +
+    '<h1 class="titulo">Documento ejecutivo integral</h1>' +
+    '<p class="subtitulo">Perfil conductual, FODA personal y plan de acción</p>' +
+    '<div class="ficha">' +
+      '<div><b>Alumno(a)</b>' + (nombre ? esc(nombre) : '<span class="vacio">Sin nombre</span>') + '</div>' +
+      '<div><b>Edad</b>' + (d.edad.trim() ? esc(d.edad.trim()) + ' años' : '—') + '</div>' +
+      '<div><b>Programa</b>' + (d.programa.trim() ? esc(d.programa.trim()) : '—') + '</div>' +
+      '<div><b>Fecha</b>' + hoy + '</div>' +
+      '<div><b>Perfil DISC</b>' + (disc ? DISC.fechaLegible(disc.fecha) : '<span class="vacio">Pendiente</span>') + '</div>' +
+      '<div><b>FODA</b>' + (foda ? (foda.fecha ? DISC.fechaLegible(foda.fecha) : 'Capturado') : '<span class="vacio">Pendiente</span>') + '</div>' +
+    '</div>' +
+
+    '<h2>1. Resumen</h2>' +
+    (disc ? resumen : '<div class="pendiente">Falta el perfil DISC. Contesta el cuestionario en <a href="disc-agora.html">disc-agora.html</a> (versión de Ágora) o <a href="disc.html">disc.html</a> (versión corta) y vuelve aquí.</div>') +
+
+    '<h2>2. Perfil DISC</h2>' +
+    (disc ? perfil : '<div class="pendiente">Pendiente.</div>') +
+    '<p class="note" style="margin:6px 0 0;">Interpretación de Ágora Internacional basada en el modelo DISC de William Moulton Marston. En la práctica no hay estilos puros: hay una mezcla, y cambia con las circunstancias.</p>' +
+
+    '<h2>3. Análisis FODA</h2>' +
+    (foda ? '' : '<div class="pendiente" style="margin-bottom:10px;">Falta el FODA. Llénalo en <a href="foda.html">foda.html</a> y vuelve aquí.</div>') +
+    '<div class="cuadros">' +
+      cuadro('F', 'Fortalezas', 'var(--f)') + cuadro('D', 'Debilidades', 'var(--de)') +
+      cuadro('O', 'Oportunidades', 'var(--o)') + cuadro('A', 'Amenazas', 'var(--a)') +
+    '</div>' +
+    (foda && foda.paso && foda.paso.trim() ? '<p><strong>Siguiente paso declarado:</strong> ' + esc(foda.paso.trim()) + '</p>' : '') +
+
+    '<h2>4. Estilo en el trabajo y en los grupos</h2>' +
+    (disc ? estilo : '<div class="pendiente">Pendiente.</div>') +
+
+    '<h2>5. Cómo se relaciona</h2>' +
+    (disc ? relacion : '<div class="pendiente">Pendiente.</div>') +
+
+    '<h2>6. Áreas de crecimiento personal</h2>' +
+    (disc ? crecimiento : '<div class="pendiente">Pendiente.</div>') +
+
+    '<h2>7. Plan de acción a 60–90 días</h2>' +
+    '<table><tr><th style="width:22%">Ruta de trabajo</th><th>Áreas o frases a trabajar</th><th style="width:32%">Reflexión</th></tr>' +
+    [['Primer orden', '15 días', d.plan1, d.ref1], ['Segundo orden', '30 días', d.plan2, d.ref2], ['Tercer orden', '60 días', d.plan3, d.ref3]].map(([t, plazo, plan, ref]) =>
+      '<tr><td><strong>' + t + '</strong><br><span class="note" style="margin:0;">' + plazo + '</span></td><td>' + lineas(plan, 84) + '</td><td>' + lineas(ref, 84) + '</td></tr>').join('') +
+    '</table>' +
+
+    '<h2>8. Ruta profesional y plan de vida</h2>' +
+    '<p class="note" style="margin:0 0 8px;">Esta sección se trabaja con el orientador. La página no la calcula.</p>' +
+    '<h3>Carrera o ruta con mayor compatibilidad</h3>' + lineas(d.carrera1, 70) +
+    '<h3>Segunda ruta de alta compatibilidad</h3>' + lineas(d.carrera2, 70) +
+    '<h3>Carreras o rutas complementarias</h3>' + lineas(d.complementarias, 56) +
+    '<h3>Principal reto del perfil</h3>' + lineas(d.riesgo, 56) +
+    '<h3>Plan de vida</h3>' +
+    '<table><tr><th style="width:28%">Horizonte</th><th>Objetivos</th></tr>' +
+    '<tr><td><strong>0–5 años</strong><br><span class="note" style="margin:0;">Construcción</span></td><td>' + lineas(d.plan05, 70) + '</td></tr>' +
+    '<tr><td><strong>5–10 años</strong><br><span class="note" style="margin:0;">Consolidación</span></td><td>' + lineas(d.plan510, 70) + '</td></tr>' +
+    '<tr><td><strong>10–15 años</strong><br><span class="note" style="margin:0;">Expansión</span></td><td>' + lineas(d.plan1015, 70) + '</td></tr>' +
+    '</table>' +
+    '<h3>Estrategia de autonomía</h3>' + lineas(d.autonomia, 70) +
+
+    '<div class="pie">' +
+      '<p><strong>Qué es y qué no es este documento.</strong> El perfil DISC es una herramienta de autoconocimiento, no una prueba psicométrica validada: describe preferencias, no capacidades, y no predice el desempeño en un trabajo. El FODA y el plan de acción los escribió la persona. Las rutas profesionales y el plan de vida son el resultado del trabajo con su orientador, no de un cálculo. Nada de este documento debe usarse para descartar a una persona de un proceso de selección.</p>' +
+      '<p>Hecho con las herramientas de autoconocimiento del Club de Mentes Brillantes, con la interpretación DISC de Ágora Internacional. Los datos viven únicamente en el dispositivo de la persona.</p>' +
+    '</div>';
+}
+
+/* ------------------------- Arranque ------------------------- */
+(function iniciar(){
+  const g = leerGuardado(LLAVE);
+  if(g) CAMPOS.forEach(id => { document.getElementById(id).value = g[id] || ''; });
+  CAMPOS.forEach(id => document.getElementById(id).addEventListener('input', alEscribir));
+  if(g && hayAlgo(g)){ const e = document.getElementById('estado'); e.textContent = 'Recuperado de este dispositivo.'; e.classList.add('ok'); }
+  pintarEstado();
+  pintarDocumento();
+  window.addEventListener('beforeprint', pintarDocumento);
+})();
+</script>
+</body>
+</html>

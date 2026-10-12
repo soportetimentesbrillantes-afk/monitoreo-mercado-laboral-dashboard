@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tu estilo de trabajo (cuestionario Ágora) — Club de Mentes Brillantes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --azul:#b89a57; --azul-osc:#8b7440; --naranja:#c2703d; --verde:#4f8f5b;
+    --hero-bg:#faf8f2; --hero-bg2:#f3efe5; --hero-sub:#5a5346; --hero-line:rgba(31,31,28,.1);
+    --accent:#b89a57; --gold-light:#d0b06a;
+    --gris-bg:#faf8f2; --gris-borde:#e7ddc9; --texto:#1f1f1c; --texto-suave:#6b6459;
+    --font-serif:'Cormorant Garamond',Georgia,'Times New Roman',serif;
+    --font-sans:'Source Sans 3',ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;
+    --sombra:rgba(53,42,21,.1) 0px 10px 25px 0px;
+    --d:#b8452f; --i:#c9a227; --s:#4f8f5b; --c:#3f6f94;
+  }
+  *{box-sizing:border-box;}
+  body{font-family:var(--font-sans);margin:0;background:linear-gradient(180deg,var(--hero-bg) 0%,var(--hero-bg2) 100%) fixed;color:var(--texto);}
+  .topbar{max-width:1080px;margin:0 auto;padding:16px 32px 0;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+  .topbar .logo-link img{height:34px;width:auto;display:block;}
+  .topbar a{color:var(--texto-suave);font-size:.82rem;font-weight:700;text-decoration:none;}
+  .topbar a:hover{color:var(--azul-osc);}
+  .topbar .enlaces{display:inline-flex;gap:18px;align-items:center;flex-wrap:wrap;}
+  header{background:linear-gradient(180deg,var(--hero-bg) 0%,var(--hero-bg2) 100%);padding:34px 32px 0;border-bottom:1px solid var(--hero-line);}
+  .hero-inner{max-width:1080px;margin:0 auto;padding-bottom:30px;}
+  header .eyebrow{display:inline-block;font-size:.76rem;color:#fff;background:linear-gradient(135deg,var(--azul),var(--gold-light));padding:6px 16px;border-radius:999px;margin:0 0 14px;font-weight:700;box-shadow:var(--sombra);}
+  header h1{font-family:var(--font-serif);margin:0 0 12px;font-size:2.4rem;line-height:1.15;font-weight:700;max-width:640px;}
+  header p{margin:0;font-size:.98rem;color:var(--hero-sub);max-width:600px;line-height:1.6;}
+  main{max-width:860px;margin:0 auto;padding:30px 20px 60px;}
+  .card{background:#fff;border:1px solid var(--gris-borde);border-radius:16px;padding:24px 26px;margin-bottom:20px;box-shadow:var(--sombra);}
+  .card h2{font-family:var(--font-serif);margin:0 0 8px;font-size:1.6rem;}
+  .card h3{font-family:var(--font-serif);margin:22px 0 6px;font-size:1.22rem;color:var(--azul-osc);}
+  .note{font-size:.8rem;color:var(--texto-suave);margin-top:10px;line-height:1.5;}
+  p{line-height:1.6;}
+  button.primary{background:linear-gradient(135deg,var(--azul),var(--gold-light));color:#fff;border:none;padding:12px 28px;border-radius:999px;font-size:.95rem;font-weight:700;cursor:pointer;margin-top:16px;font-family:var(--font-sans);box-shadow:var(--sombra);transition:transform .12s ease;}
+  button.primary:hover{transform:translateY(-1px);}
+  button.secondary, a.secondary{background:#fff;color:var(--azul-osc);border:1.5px solid var(--azul);padding:9px 20px;border-radius:999px;font-size:.88rem;font-weight:700;cursor:pointer;margin:10px 8px 0 0;font-family:var(--font-sans);text-decoration:none;display:inline-block;}
+  .aviso{border-radius:10px;padding:13px 15px;font-size:.87rem;line-height:1.55;margin:14px 0;}
+  .aviso.limites{background:#fdfaf1;border:1px solid var(--gris-borde);}
+  .aviso.malo{background:#fdf1ec;border:1px solid #f0d2c4;color:#8a3d1c;}
+
+  /* ---- Cuestionario: una sección por pantalla ---- */
+  .progreso{position:sticky;top:0;background:rgba(250,248,242,.95);backdrop-filter:blur(6px);padding:12px 0 10px;z-index:5;border-bottom:1px solid var(--hero-line);margin-bottom:8px;}
+  .progreso .barra{height:7px;background:var(--gris-borde);border-radius:999px;overflow:hidden;}
+  .progreso .relleno{height:100%;background:linear-gradient(90deg,var(--azul),var(--gold-light));width:0;transition:width .25s ease;}
+  .progreso .txt{font-size:.78rem;color:var(--texto-suave);font-weight:600;margin-top:6px;}
+  .seccion{display:none;}
+  .seccion.actual{display:block;animation:entra .18s ease;}
+  @keyframes entra{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
+  .seccion .encabezado{font-size:.74rem;font-weight:700;color:var(--texto-suave);letter-spacing:.06em;text-transform:uppercase;margin:4px 0 2px;}
+  .seccion h2{font-family:var(--font-serif);font-size:1.5rem;margin:0 0 8px;}
+  .instrucciones{background:#fdfaf1;border:1px solid var(--gris-borde);border-radius:10px;padding:11px 14px;margin:10px 0 14px;font-size:.86rem;line-height:1.5;}
+  .instrucciones b{color:var(--azul-osc);}
+  .navegacion{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:14px;}
+  .navegacion .pista{white-space:nowrap;margin:0;font-size:.8rem;color:var(--texto-suave);}
+  .navegacion button.secondary{margin:0;}
+
+  /* Botones de respuesta: celdas grandes, nunca radios de 18 px. */
+  .op{display:flex;align-items:center;justify-content:center;min-width:40px;height:42px;border:1.5px solid var(--gris-borde);
+    border-radius:10px;background:#fff;color:var(--texto-suave);font-family:var(--font-sans);font-size:.95rem;font-weight:700;cursor:pointer;
+    transition:background .12s ease,border-color .12s ease,color .12s ease;padding:0 10px;}
+  .op:hover{background:var(--gris-bg);}
+  .op.activo{background:var(--azul);border-color:var(--azul-osc);color:#fff;}
+  .op:disabled{opacity:.35;cursor:not-allowed;}
+  .fila{display:grid;grid-template-columns:1fr repeat(4,44px);gap:4px;align-items:center;border-top:1px solid var(--gris-bg);padding:6px 0;font-size:.93rem;}
+  .fila.cinco{grid-template-columns:1fr repeat(5,44px);}
+  .fila .frase{padding-right:6px;}
+  .cab{display:grid;grid-template-columns:1fr repeat(4,44px);gap:4px;font-size:.68rem;color:var(--texto-suave);font-weight:700;text-transform:uppercase;letter-spacing:.04em;text-align:center;padding-bottom:4px;}
+  .cab.cinco{grid-template-columns:1fr repeat(5,44px);}
+  .cab span:first-child{text-align:left;}
+  .cupos{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 10px;font-size:.8rem;color:var(--texto-suave);}
+  .cupos span{border:1px solid var(--gris-borde);border-radius:999px;padding:3px 10px;background:var(--gris-bg);}
+  .cupos span.lleno{border-color:#cfe3d3;background:#eef6ef;color:#2f6b3b;}
+
+  /* Sección b: adjetivos */
+  .adjetivos{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;}
+  .adj{display:flex;align-items:center;justify-content:space-between;gap:6px;border:1.5px solid var(--gris-borde);border-radius:10px;padding:9px 10px 9px 12px;background:#fff;cursor:pointer;font-size:.92rem;font-family:var(--font-sans);text-align:left;color:var(--texto);}
+  .adj:hover{background:var(--gris-bg);}
+  .adj.activo{border-color:var(--azul-osc);background:#fbf6e8;font-weight:700;}
+  .adj.estrella{border-color:var(--d);background:#fbeee9;}
+  .adj:disabled{opacity:.4;cursor:not-allowed;}
+  .adj .estrellita{font-size:1.05rem;color:var(--gris-borde);}
+  .adj.activo .estrellita{color:var(--azul);}
+  .adj.estrella .estrellita{color:var(--d);}
+
+  /* Sección c: renglones de cuatro palabras */
+  .renglon{border:1px solid var(--gris-borde);border-radius:12px;padding:10px 12px;margin-bottom:10px;background:#fff;}
+  .renglon.listo{border-color:#cfe3d3;}
+  .renglon .num{font-size:.72rem;font-weight:700;color:var(--texto-suave);letter-spacing:.05em;text-transform:uppercase;}
+  .renglon .fila{grid-template-columns:1fr repeat(4,44px);}
+  .op.activo.r4{background:var(--d);border-color:#a85c2e;}
+  .op.activo.r1{background:var(--c);border-color:#3c647f;}
+
+  /* Sección d: pares */
+  .par{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center;margin-bottom:8px;}
+  .par .o{text-align:center;}
+  .par .op{width:100%;height:46px;}
+  .par .vs{font-size:.72rem;color:var(--texto-suave);font-weight:700;}
+
+  ul{line-height:1.65;padding-left:20px;}
+  @media(max-width:600px){
+    .topbar{padding:14px 20px 0;} .topbar .logo-link img{height:28px;}
+    header{padding:26px 20px 0;} header h1{font-size:1.85rem;}
+    main{padding:22px 16px 48px;} .card{padding:18px 16px;}
+    .fila,.cab{grid-template-columns:1fr repeat(4,38px);}
+    .fila.cinco,.cab.cinco{grid-template-columns:1fr repeat(5,34px);}
+    .op{min-width:34px;padding:0 4px;font-size:.88rem;}
+    .adjetivos{grid-template-columns:1fr 1fr;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a class="logo-link" href="https://www.clubmentesbrillantes.com.mx/index.html" aria-label="Club de Mentes Brillantes"><img src="logo-cmb.svg" alt="Club de Mentes Brillantes"></a>
+  <span class="enlaces">
+    <a href="disc.html">Versión corta (24 bloques) →</a>
+    <a href="index.html">← Volver a tu CV frente al mercado</a>
+  </span>
+</div>
+
+<header>
+  <div class="hero-inner">
+    <p class="eyebrow">Autoconocimiento para la construcción de tu plan de vida</p>
+    <h1>Tu estilo de trabajo</h1>
+    <p>El cuestionario de Ágora Internacional, en cinco secciones: lo que haces en tu trabajo o estudio, cómo te describes, cómo aprendes, con qué te identificas y con qué estás de acuerdo. Toma unos 20 minutos. No es una prueba: no hay respuestas correctas ni incorrectas.</p>
+  </div>
+</header>
+
+<main>
+
+  <div class="card" id="intro">
+    <h2>Antes de empezar</h2>
+    <p>Este cuestionario está orientado a definir tus preferencias, tu sensibilidad y tu forma de aprender. Simplemente indica la palabra o afirmación con la que más te identificas; cada sección trae sus propias instrucciones. Los resultados son exclusivamente para tu uso personal, para conocerte mejor y facilitar la interacción con los demás. De la sinceridad con la que contestes dependerá lo útil que te resulte.</p>
+    <p>Si ya lo contestaste en papel, aquí puedes capturar tus respuestas para ver la interpretación y llevarla a tu informe. Si prefieres una versión más corta, está la de <a href="disc.html">24 bloques</a>; las dos llevan a la misma interpretación.</p>
+    <div class="aviso limites">
+      <strong>Qué es y qué no es.</strong> Esto es una herramienta de autoconocimiento, no una prueba psicométrica validada. Describe <em>preferencias</em>, no capacidades: no mide inteligencia, no predice qué tan bien harías un trabajo y no dice si eres apto para un puesto. El resultado cambia según el momento y el contexto. Nadie debería usarlo para descartar a una persona de un proceso de selección — tampoco nosotros.
+    </div>
+    <p class="note">Tus respuestas se guardan en este dispositivo conforme avanzas, por si cierras la página a medio camino. No se mandan a ningún lado.</p>
+    <button class="primary" type="button" onclick="empezar()">Empezar →</button>
+  </div>
+
+  <div id="cuestionario" style="display:none;">
+    <div class="progreso">
+      <div class="barra"><div class="relleno" id="relleno"></div></div>
+      <div class="txt" id="progresoTxt"></div>
+    </div>
+
+    <div class="card seccion" id="sec-a">
+      <p class="encabezado">Sección a de 5</p>
+      <h2>Factores laborales y académicos</h2>
+      <div class="instrucciones">De las siguientes acciones asociadas con tus labores cotidianas, trabajo o estudio, evalúa cada una: <b>4</b> lo que haces mejor, <b>3</b> lo que haces bien, <b>2</b> lo que haces regular, <b>1</b> lo que haces peor. Solo puedes usar cada número <b>cuatro veces</b> — cuatro respuestas de 1, cuatro de 2, cuatro de 3 y cuatro de 4 — así que analízalas lo mejor posible.</div>
+      <div class="cupos" id="cuposA"></div>
+      <div class="cab"><span>Acción</span><span>1</span><span>2</span><span>3</span><span>4</span></div>
+      <div id="filasA"></div>
+    </div>
+
+    <div class="card seccion" id="sec-b">
+      <p class="encabezado">Sección b de 5</p>
+      <h2>Descriptores personales</h2>
+      <div class="instrucciones">Elige los <b>siete</b> adjetivos que mejor describen la percepción que tienes de ti mismo. Después, de esos siete, toca la estrella del que <b>más</b> te define.</div>
+      <div class="cupos" id="cuposB"></div>
+      <div class="adjetivos" id="adjetivos"></div>
+    </div>
+
+    <div class="card seccion" id="sec-c">
+      <p class="encabezado">Sección c de 5</p>
+      <h2>Factores de aprendizaje</h2>
+      <div class="instrucciones">En cada renglón hay cuatro palabras. Dales un número distinto a cada una, sin repetir: <b>4</b> a la que mejor caracteriza tu aprendizaje, <b>3</b> a la que le sigue, <b>2</b> a la que no lo caracteriza tanto y <b>1</b> a la que no lo caracteriza para nada. Si pones un número que ya estaba en otra palabra del renglón, las dos se intercambian.</div>
+      <div id="renglonesC"></div>
+    </div>
+
+    <div class="card seccion" id="sec-d">
+      <p class="encabezado">Sección d de 5</p>
+      <h2>Preferencias de personalidad</h2>
+      <div class="instrucciones">En cada pareja elige <b>forzosamente</b> la palabra con la que más te identificas, aunque las dos te queden.</div>
+      <div id="paresD"></div>
+    </div>
+
+    <div class="card seccion" id="sec-e">
+      <p class="encabezado">Sección e de 5</p>
+      <h2>Afirmaciones cotidianas</h2>
+      <div class="instrucciones">Contesta cada afirmación según qué tan de acuerdo estés: <b>TA</b> totalmente de acuerdo, <b>DA</b> de acuerdo, <b>I</b> indiferente, <b>ED</b> en desacuerdo, <b>TD</b> totalmente en desacuerdo.</div>
+      <div class="cab cinco"><span>Afirmación</span><span>TA</span><span>DA</span><span>I</span><span>ED</span><span>TD</span></div>
+      <div id="filasE"></div>
+    </div>
+
+    <div id="avisoFalta"></div>
+    <div class="navegacion">
+      <button class="secondary" type="button" id="btnAnterior" onclick="irA(actual - 1)">← Anterior</button>
+      <span class="pista" id="pistaNav"></span>
+      <button class="secondary" type="button" id="btnSiguiente" onclick="irA(actual + 1)">Siguiente →</button>
+    </div>
+    <button class="primary" type="button" id="btnVer" onclick="calcular()" style="display:none;">Ver mi resultado →</button>
+  </div>
+
+  <div id="resultado" style="display:none;"></div>
+
+</main>
+
+<script src="disc-interpretacion.js"></script>
+<script>
+/* ======================= EL CUESTIONARIO DE ÁGORA =======================
+
+   Transcripción del instrumento "DISC As de Diversidad" de Ágora
+   Internacional, con su hoja de puntuación por colores: Azul = Cumplimiento
+   (C), Rojo = Dominancia (D), Amarillo = Influencia (I), Verde = Estabilidad
+   (S). Los reactivos y la clave de puntuación son de Ágora; aquí solo se
+   capturan y se suman.
+
+   LA CLAVE DE COLORES ESTÁ EN UN SOLO LUGAR (abajo, en CLAVE). Dos puntos
+   del documento en papel no dicen explícitamente el color de cada columna
+   —las secciones a y c— y se asumió el mismo orden que usan las secciones
+   b y e (Azul, Rojo, Amarillo, Verde). En la sección d se asumió un punto
+   por elección. Si Ágora confirma otra cosa, se cambia aquí y en ningún
+   otro lado.                                                               */
+
+const COLOR_A_FACTOR = {azul:'C', rojo:'D', amarillo:'I', verde:'S'};
+
+const SECCION_A = [
+  [1,'Analizar'], [2,'Administrar'], [3,'Conceptualizar'], [4,'Expresar ideas'],
+  [5,'Integrar'], [6,'Escribir'], [7,'Implementar'], [8,'Aportar aspectos técnicos'],
+  [9,'Planear'], [10,'Relacionarse con personas'], [11,'Resolver problemas'], [12,'Innovar'],
+  [13,'Enseñar'], [14,'Organizar'], [15,'Ser creativo'], [16,'Manejar finanzas']
+];
+
+const SECCION_B = [
+  [17,'Lógico'], [18,'Creativo'], [19,'Musical'], [20,'Metódico'], [21,'Sintético'], [22,'Verbal'],
+  [23,'Conservador'], [24,'Analítico'], [25,'Detallista'], [26,'Emocional'], [27,'Crítico'], [28,'Artístico'],
+  [29,'Espiritual'], [30,'Racional'], [31,'Prudente'], [32,'Sistemático'], [33,'Simbólico'], [34,'Dominante'],
+  [35,'Integrador'], [36,'Intuitivo'], [37,'Cuantitativo'], [38,'Curioso'], [39,'Flexible'], [40,'Pragmático']
+];
+
+/* Cada renglón: cuatro palabras en el orden de las columnas del papel. */
+const SECCION_C = [
+  [41, ['Selectivo', 'Práctico', 'Comprometido', 'Analítico']],
+  [42, ['Juicioso', 'Emprendedor', 'Sensitivo', 'Observador']],
+  [43, ['Evaluativo', 'Arriesgado', 'Receptivo', 'Consciente']],
+  [44, ['Abstracto', 'Activo', 'Concreto', 'Pasivo']],
+  [45, ['Pragmático', 'Prospectivo', 'Realista', 'Reflexivo']],
+  [46, ['Conceptual', 'Experimentador', 'Empírico', 'Minucioso']],
+  [47, ['Racional', 'Apasionado', 'Imparcial', 'Reservado']]
+];
+
+/* Cada par: [número, palabra izquierda, color izquierda, palabra derecha, color derecha],
+   tal como lo marca el papel (az, r, am, v). */
+const SECCION_D = [
+  [48, 'Dominante', 'azul', 'Espontáneo', 'rojo'],
+  [49, 'Impositivo', 'azul', 'Emotivo', 'amarillo'],
+  [50, 'Exigente', 'azul', 'Concentrado', 'verde'],
+  [51, 'Emprendedor', 'rojo', 'Desafiante', 'azul'],
+  [52, 'Competitivo', 'rojo', 'Cooperador', 'amarillo'],
+  [53, 'Activo', 'rojo', 'Metódico', 'verde'],
+  [54, 'Sociable', 'amarillo', 'Estático', 'azul'],
+  [55, 'Abierto', 'amarillo', 'Impulsivo', 'rojo'],
+  [56, 'Informal', 'amarillo', 'Concreto', 'verde'],
+  [57, 'Disciplinado', 'verde', 'Frío', 'azul'],
+  [58, 'Introvertido', 'verde', 'Platicador', 'rojo'],
+  [59, 'Perfeccionista', 'verde', 'Receptivo', 'amarillo']
+];
+
+const SECCION_E = [
+  [60, 'En el mayor número de ocasiones la fantasía me ayuda a resolver los problemas.'],
+  [61, 'Me gusta la gente que está segura de sus opiniones.'],
+  [62, 'Prefiero a una persona realista que a una imaginativa.'],
+  [63, 'Confío en mis corazonadas para identificar una solución correcta.'],
+  [64, 'En ocasiones me salto las normas y hago cosas que nunca pensé que sería capaz de hacer.'],
+  [65, 'La mayoría de las cosas importantes de la vida no pueden expresarse con palabras.'],
+  [66, 'Soy más exigente conmigo mismo que con los demás.'],
+  [67, 'Me encanta pasar el día solo, reflexionando.'],
+  [68, 'Me desagrada lo impredecible.'],
+  [69, 'Prefiero trabajar en equipo que hacerlo solo.'],
+  [70, 'Cada cosa tiene su lugar y cada lugar su cosa.'],
+  [71, 'Las ideas extrañas y novedosas me atraen.'],
+  [72, 'Prefiero las instrucciones precisas a las que son más abiertas.'],
+  [73, 'Saber por qué es más importante que saber cómo.'],
+  [74, 'Normalmente me anticipo a las soluciones de los problemas.'],
+  [75, 'Me fío más de mi primera impresión que de un análisis profundo.']
+];
+const VALOR_E = {TA:4, DA:3, I:2, ED:1, TD:0};
+const OPCIONES_E = ['TA', 'DA', 'I', 'ED', 'TD'];
+
+/* ---- La clave de puntuación, tal como viene en la hoja de Ágora ---- */
+const CLAVE = {
+  // Sección a: las cuatro columnas de la hoja. Color por columna ASUMIDO
+  // (ver nota de arriba).
+  a: {azul:[2,7,9,14], rojo:[3,4,12,15], amarillo:[5,6,10,13], verde:[1,8,11,16]},
+  // Sección b: la hoja sí nombra los colores.
+  b: {azul:[17,20,23,27,30,37], rojo:[18,22,33,34,35,36], amarillo:[19,26,28,29,39,40], verde:[21,24,25,31,32,38]},
+  // Sección c: una columna por color, en el orden de las palabras. ASUMIDO.
+  c: ['azul', 'rojo', 'amarillo', 'verde'],
+  // Sección d: el color va en cada opción (arriba). Un punto por elección. ASUMIDO.
+  dPuntos: 1,
+  // Sección e: la hoja sí nombra los colores.
+  e: {azul:[61,65,67,73], rojo:[60,63,71,74], amarillo:[64,66,69,75], verde:[62,68,70,72]}
+};
+
+/* Máximo que puede juntar un solo color, para la escala de las barras:
+   a) 4 acciones × 4 = 16; b) 5 adjetivos × 2 + 1 × 6 = 16 (siete no caben
+   en un color de seis); c) 7 renglones × 4 = 28; d) 6 pares × 1 = 6;
+   e) 4 afirmaciones × 4 = 16. Total 82. */
+const ESCALA = {min: 0, max: 82};
+const SECCIONES = ['a', 'b', 'c', 'd', 'e'];
+const LLAVE = 'cmb_disc';
+const LLAVE_PROGRESO = 'cmb_disc_agora_progreso';
+const esc = DISC.esc;
+
+let actual = 0;
+let R = respuestasVacias();
+
+function respuestasVacias(){
+  return {
+    a: {},                 // número → 1..4
+    b: {marcados: [], estrella: null},
+    c: {},                 // número → [rango de cada palabra] (4,3,2,1 o null)
+    d: {},                 // número → 'izq' | 'der'
+    e: {}                  // número → 'TA'...'TD'
+  };
+}
+
+/* --------------------------- Progreso --------------------------- */
+function guardarProgreso(){
+  try{ localStorage.setItem(LLAVE_PROGRESO, JSON.stringify(R)); }catch(e){}
+}
+function leerProgreso(){
+  try{
+    const g = JSON.parse(localStorage.getItem(LLAVE_PROGRESO) || 'null');
+    return (g && g.a && g.b && g.c && g.d && g.e) ? g : null;
+  }catch(e){ return null; }
+}
+
+/* ------------------------- Sección a ------------------------- */
+function cuposA(){
+  const c = {1:0, 2:0, 3:0, 4:0};
+  Object.values(R.a).forEach(v => { c[v]++; });
+  return c;
+}
+function pintarA(){
+  const c = cuposA();
+  document.getElementById('cuposA').innerHTML = [1,2,3,4].map(v =>
+    '<span class="' + (c[v] >= 4 ? 'lleno' : '') + '">' + v + ': ' + c[v] + ' de 4</span>').join('');
+  document.getElementById('filasA').innerHTML = SECCION_A.map(([n, txt]) =>
+    '<div class="fila"><span class="frase">' + n + '. ' + esc(txt) + '</span>' +
+    [1,2,3,4].map(v => {
+      const activo = R.a[n] === v;
+      const lleno = c[v] >= 4 && !activo;
+      return '<button type="button" class="op' + (activo ? ' activo' : '') + '" data-n="' + n + '" data-v="' + v + '"' +
+        (lleno ? ' disabled title="Ya usaste cuatro veces el ' + v + '"' : '') + '>' + v + '</button>';
+    }).join('') + '</div>').join('');
+  document.querySelectorAll('#filasA .op').forEach(b => {
+    b.onclick = () => fijarA(Number(b.dataset.n), Number(b.dataset.v));
+  });
+}
+function fijarA(n, v){
+  if(R.a[n] === v) delete R.a[n]; else R.a[n] = v;
+  pintarA(); despues();
+}
+function completaA(){ const c = cuposA(); return [1,2,3,4].every(v => c[v] === 4); }
+function faltaA(){
+  const c = cuposA();
+  const faltan = [1,2,3,4].filter(v => c[v] < 4).map(v => 'el ' + v + ' (' + (4 - c[v]) + ' más)');
+  return faltan.length ? 'Te falta usar ' + faltan.join(', ') + '.' : '';
+}
+
+/* ------------------------- Sección b ------------------------- */
+function pintarB(){
+  const m = R.b.marcados;
+  document.getElementById('cuposB').innerHTML =
+    '<span class="' + (m.length === 7 ? 'lleno' : '') + '">' + m.length + ' de 7 elegidos</span>' +
+    '<span class="' + (R.b.estrella ? 'lleno' : '') + '">' + (R.b.estrella ? 'El que más te define: ' + esc(nombreB(R.b.estrella)) : 'Falta marcar con estrella el que más te define') + '</span>';
+  document.getElementById('adjetivos').innerHTML = SECCION_B.map(([n, txt]) => {
+    const activo = m.includes(n);
+    const estrella = R.b.estrella === n;
+    const bloqueado = !activo && m.length >= 7;
+    return '<button type="button" class="adj' + (activo ? ' activo' : '') + (estrella ? ' estrella' : '') + '" data-n="' + n + '"' +
+      (bloqueado ? ' disabled title="Ya elegiste siete; quita uno para cambiar"' : '') + '>' +
+      '<span>' + n + '. ' + esc(txt) + '</span>' +
+      '<span class="estrellita" data-estrella="' + n + '" title="El que más me define">★</span></button>';
+  }).join('');
+  document.querySelectorAll('#adjetivos .adj').forEach(b => {
+    b.onclick = (ev) => {
+      const n = Number(b.dataset.n);
+      if(ev.target.dataset.estrella && R.b.marcados.includes(n)){ R.b.estrella = (R.b.estrella === n ? null : n); }
+      else alternarB(n);
+      pintarB(); despues();
+    };
+  });
+}
+function nombreB(n){ const f = SECCION_B.find(([k]) => k === n); return f ? f[1] : ''; }
+function alternarB(n){
+  const i = R.b.marcados.indexOf(n);
+  if(i >= 0){ R.b.marcados.splice(i, 1); if(R.b.estrella === n) R.b.estrella = null; }
+  else if(R.b.marcados.length < 7) R.b.marcados.push(n);
+}
+function completaB(){ return R.b.marcados.length === 7 && R.b.estrella != null; }
+function faltaB(){
+  if(R.b.marcados.length < 7) return 'Te faltan ' + (7 - R.b.marcados.length) + ' adjetivos.';
+  if(R.b.estrella == null) return 'Marca con la estrella el adjetivo que más te define.';
+  return '';
+}
+
+/* ------------------------- Sección c ------------------------- */
+function pintarC(){
+  document.getElementById('renglonesC').innerHTML = SECCION_C.map(([n, palabras]) => {
+    const r = R.c[n] || [null, null, null, null];
+    const listo = r.every(v => v);
+    return '<div class="renglon' + (listo ? ' listo' : '') + '" id="renglon' + n + '"><div class="num">Renglón ' + n + '</div>' +
+      '<div class="cab"><span></span><span>1</span><span>2</span><span>3</span><span>4</span></div>' +
+      palabras.map((p, i) =>
+        '<div class="fila"><span class="frase">' + esc(p) + '</span>' +
+        [1,2,3,4].map(v => '<button type="button" class="op' + (r[i] === v ? ' activo r' + v : '') + '" data-n="' + n + '" data-i="' + i + '" data-v="' + v + '">' + v + '</button>').join('') +
+        '</div>').join('') + '</div>';
+  }).join('');
+  document.querySelectorAll('#renglonesC .op').forEach(b => {
+    b.onclick = () => fijarC(Number(b.dataset.n), Number(b.dataset.i), Number(b.dataset.v));
+  });
+}
+/* Mismo comportamiento que en los bloques: repetir un número lo quita, y un
+   número que ya estaba en otra palabra se intercambia con ella. */
+function fijarC(n, i, v){
+  const r = R.c[n] || [null, null, null, null];
+  if(r[i] === v){ r[i] = null; }
+  else{
+    const j = r.indexOf(v);
+    if(j >= 0) r[j] = r[i];
+    r[i] = v;
+  }
+  R.c[n] = r;
+  pintarC(); despues();
+}
+function completaC(){ return SECCION_C.every(([n]) => R.c[n] && R.c[n].every(v => v)); }
+function faltaC(){
+  const f = SECCION_C.filter(([n]) => !(R.c[n] && R.c[n].every(v => v))).map(([n]) => n);
+  return f.length ? 'Faltan los renglones ' + f.join(', ') + '.' : '';
+}
+
+/* ------------------------- Sección d ------------------------- */
+function pintarD(){
+  document.getElementById('paresD').innerHTML = SECCION_D.map(([n, izq, , der]) =>
+    '<div class="par"><div class="o"><button type="button" class="op' + (R.d[n] === 'izq' ? ' activo' : '') + '" data-n="' + n + '" data-l="izq">' + esc(izq) + '</button></div>' +
+    '<span class="vs">' + n + '</span>' +
+    '<div class="o"><button type="button" class="op' + (R.d[n] === 'der' ? ' activo' : '') + '" data-n="' + n + '" data-l="der">' + esc(der) + '</button></div></div>').join('');
+  document.querySelectorAll('#paresD .op').forEach(b => {
+    b.onclick = () => { const n = Number(b.dataset.n); R.d[n] = (R.d[n] === b.dataset.l ? undefined : b.dataset.l); if(!R.d[n]) delete R.d[n]; pintarD(); despues(); };
+  });
+}
+function completaD(){ return SECCION_D.every(([n]) => R.d[n]); }
+function faltaD(){
+  const f = SECCION_D.filter(([n]) => !R.d[n]).map(([n]) => n);
+  return f.length ? 'Faltan las parejas ' + f.join(', ') + '.' : '';
+}
+
+/* ------------------------- Sección e ------------------------- */
+function pintarE(){
+  document.getElementById('filasE').innerHTML = SECCION_E.map(([n, txt]) =>
+    '<div class="fila cinco"><span class="frase">' + n + '. ' + esc(txt) + '</span>' +
+    OPCIONES_E.map(o => '<button type="button" class="op' + (R.e[n] === o ? ' activo' : '') + '" data-n="' + n + '" data-o="' + o + '">' + o + '</button>').join('') +
+    '</div>').join('');
+  document.querySelectorAll('#filasE .op').forEach(b => {
+    b.onclick = () => { const n = Number(b.dataset.n); R.e[n] = (R.e[n] === b.dataset.o ? undefined : b.dataset.o); if(!R.e[n]) delete R.e[n]; pintarE(); despues(); };
+  });
+}
+function completaE(){ return SECCION_E.every(([n]) => R.e[n]); }
+function faltaE(){
+  const f = SECCION_E.filter(([n]) => !R.e[n]).map(([n]) => n);
+  return f.length ? 'Faltan las afirmaciones ' + f.join(', ') + '.' : '';
+}
+
+const COMPLETA = {a: completaA, b: completaB, c: completaC, d: completaD, e: completaE};
+const FALTA = {a: faltaA, b: faltaB, c: faltaC, d: faltaD, e: faltaE};
+const PINTAR = {a: pintarA, b: pintarB, c: pintarC, d: pintarD, e: pintarE};
+
+/* ------------------------- Navegación ------------------------- */
+function contestadas(){
+  return Object.keys(R.a).length + R.b.marcados.length + (R.b.estrella ? 1 : 0) +
+    SECCION_C.reduce((s, [n]) => s + ((R.c[n] || []).filter(v => v).length), 0) +
+    Object.keys(R.d).length + Object.keys(R.e).length;
+}
+const TOTAL_RESPUESTAS = 16 + 8 + 28 + 12 + 16;
+
+function despues(){
+  guardarProgreso();
+  const n = contestadas();
+  document.getElementById('relleno').style.width = (n / TOTAL_RESPUESTAS * 100) + '%';
+  document.getElementById('progresoTxt').textContent = n + ' de ' + TOTAL_RESPUESTAS + ' respuestas';
+  document.getElementById('avisoFalta').innerHTML = '';
+}
+
+function irA(i){
+  actual = Math.max(0, Math.min(SECCIONES.length - 1, i));
+  SECCIONES.forEach((s, k) => document.getElementById('sec-' + s).classList.toggle('actual', k === actual));
+  const ultimo = actual === SECCIONES.length - 1;
+  document.getElementById('btnAnterior').style.visibility = actual === 0 ? 'hidden' : 'visible';
+  document.getElementById('btnSiguiente').style.display = ultimo ? 'none' : '';
+  document.getElementById('btnVer').style.display = ultimo ? '' : 'none';
+  document.getElementById('pistaNav').textContent = 'Sección ' + SECCIONES[actual] + ' de 5';
+  document.getElementById('avisoFalta').innerHTML = '';
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function empezar(){
+  R = respuestasVacias();
+  guardarProgreso();
+  document.getElementById('intro').style.display = 'none';
+  document.getElementById('resultado').style.display = 'none';
+  document.getElementById('cuestionario').style.display = 'block';
+  SECCIONES.forEach(s => PINTAR[s]());
+  despues();
+  irA(0);
+}
+
+function continuar(){
+  document.getElementById('intro').style.display = 'none';
+  document.getElementById('cuestionario').style.display = 'block';
+  SECCIONES.forEach(s => PINTAR[s]());
+  despues();
+  const primera = SECCIONES.findIndex(s => !COMPLETA[s]());
+  irA(primera < 0 ? SECCIONES.length - 1 : primera);
+}
+
+/* ------------------------- Puntuación ------------------------- */
+function puntuar(){
+  const porColor = {azul:0, rojo:0, amarillo:0, verde:0};
+  const secciones = {};
+  for(const color in porColor) secciones[color] = {a:0, b:0, c:0, d:0, e:0};
+
+  for(const color in CLAVE.a) for(const n of CLAVE.a[color]) secciones[color].a += (R.a[n] || 0);
+  for(const color in CLAVE.b) for(const n of CLAVE.b[color]){
+    if(R.b.marcados.includes(n)) secciones[color].b += (R.b.estrella === n ? 6 : 2);
+  }
+  for(const [n] of SECCION_C){
+    const r = R.c[n] || [];
+    CLAVE.c.forEach((color, i) => { secciones[color].c += (r[i] || 0); });
+  }
+  for(const [n, , colorIzq, , colorDer] of SECCION_D){
+    if(R.d[n] === 'izq') secciones[colorIzq].d += CLAVE.dPuntos;
+    if(R.d[n] === 'der') secciones[colorDer].d += CLAVE.dPuntos;
+  }
+  for(const color in CLAVE.e) for(const n of CLAVE.e[color]) secciones[color].e += (R.e[n] ? VALOR_E[R.e[n]] : 0);
+
+  const p = {};
+  for(const color in porColor){
+    const total = SECCIONES.reduce((s, k) => s + secciones[color][k], 0);
+    p[COLOR_A_FACTOR[color]] = {neto: total, secciones: secciones[color]};
+  }
+  return p;
+}
+
+function calcular(){
+  const faltan = SECCIONES.filter(s => !COMPLETA[s]());
+  if(faltan.length){
+    const s = faltan[0];
+    irA(SECCIONES.indexOf(s));
+    document.getElementById('avisoFalta').innerHTML =
+      '<div class="aviso malo">Falta completar la sección ' + s + '. ' + esc(FALTA[s]()) +
+      (faltan.length > 1 ? ' También faltan: ' + faltan.slice(1).join(', ') + '.' : '') + '</div>';
+    return;
+  }
+  const p = puntuar();
+  guardar(p);
+  pintarResultado(p);
+}
+
+function guardar(p){
+  try{
+    localStorage.setItem(LLAVE, JSON.stringify({
+      puntajes: p, fecha: new Date().toISOString().slice(0,10), version: 2,
+      instrumento: 'agora', escala: ESCALA
+    }));
+    localStorage.removeItem(LLAVE_PROGRESO);
+  }catch(e){ console.warn('No se pudo guardar el resultado:', e); }
+}
+
+function borrar(){
+  try{ localStorage.removeItem(LLAVE); localStorage.removeItem(LLAVE_PROGRESO); }catch(e){}
+  document.getElementById('resultado').style.display = 'none';
+  document.getElementById('cuestionario').style.display = 'none';
+  document.getElementById('intro').style.display = 'block';
+  const viejo = document.getElementById('avisoGuardado'); if(viejo) viejo.remove();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function tablaSecciones(p){
+  const nombres = {a:'a) Factores laborales/académicos', b:'b) Descriptores personales', c:'c) Factores de aprendizaje', d:'d) Preferencias de personalidad', e:'e) Afirmaciones cotidianas'};
+  const F = DISC.FACTORES;
+  const orden = ['C', 'D', 'I', 'S']; // azul, rojo, amarillo, verde: el orden de la hoja
+  return '<h3>Puntuación por sección</h3><p class="note" style="margin-top:0;">La misma tabla que cierra la hoja en papel, por si quieres compararla.</p>' +
+    '<div style="overflow-x:auto;"><table style="width:100%;border-collapse:collapse;font-size:.88rem;">' +
+    '<tr><th style="text-align:left;padding:6px 4px;border-bottom:1px solid var(--gris-borde);">Sección</th>' +
+    orden.map(k => '<th style="padding:6px 4px;border-bottom:1px solid var(--gris-borde);color:' + F[k].color + '">' + F[k].colorNombre + ' (' + k + ')</th>').join('') + '</tr>' +
+    SECCIONES.map(s => '<tr><td style="padding:6px 4px;border-bottom:1px solid var(--gris-bg);">' + nombres[s] + '</td>' +
+      orden.map(k => '<td style="text-align:center;padding:6px 4px;border-bottom:1px solid var(--gris-bg);font-variant-numeric:tabular-nums;">' + ((p[k].secciones || {})[s] || 0) + '</td>').join('') + '</tr>').join('') +
+    '<tr><td style="padding:6px 4px;font-weight:700;">Total</td>' +
+    orden.map(k => '<td style="text-align:center;padding:6px 4px;font-weight:700;">' + p[k].neto + '</td>').join('') + '</tr>' +
+    '</table></div>';
+}
+
+function pintarResultado(p){
+  document.getElementById('cuestionario').style.display = 'none';
+  const cont = document.getElementById('resultado');
+  cont.style.display = 'block';
+  DISC.pintarResultado(cont, p, {
+    instrumento: 'agora',
+    escala: ESCALA,
+    notaEscala: 'La cifra es la suma de las cinco secciones para ese color, con la misma clave que la hoja de Ágora. Un color puede juntar hasta 82 puntos. Lo que importa no es el número en sí, sino cuáles salen más altos y qué tan lejos quedan de los demás.',
+    alRepetir: empezar,
+    alBorrar: borrar
+  });
+  // La tabla por sección va después de las barras, antes del tablero.
+  const primera = cont.querySelector('.card');
+  const h3 = primera.querySelector('h3');
+  const div = document.createElement('div');
+  div.innerHTML = tablaSecciones(p);
+  h3.parentNode.insertBefore(div, h3);
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+/* Si ya contestó antes se le ofrece su resultado; si dejó el cuestionario a
+   medias, se le ofrece continuar donde iba. */
+(function iniciar(){
+  const intro = document.getElementById('intro');
+  const guardado = DISC.leerGuardado();
+  const progreso = leerProgreso();
+  if(guardado && guardado.puntajes){
+    const aviso = document.createElement('div');
+    aviso.className = 'aviso limites'; aviso.id = 'avisoGuardado';
+    aviso.innerHTML = 'Ya tienes un resultado del ' + esc(DISC.fechaLegible(guardado.fecha)) +
+      (guardado.instrumento === 'bloques' ? ' (de la versión de 24 bloques)' : '') + '. ' +
+      '<button class="secondary" type="button" id="btnVerGuardado" style="margin-top:8px;">Ver mi resultado</button>';
+    intro.appendChild(aviso);
+    document.getElementById('btnVerGuardado').onclick = () => {
+      if(guardado.instrumento === 'agora'){ pintarResultado(guardado.puntajes); }
+      else{ location.href = 'disc.html'; }
+    };
+  }else if(progreso && Object.keys(progreso.a).length + progreso.b.marcados.length + Object.keys(progreso.d).length + Object.keys(progreso.e).length + Object.keys(progreso.c).length > 0){
+    R = progreso;
+    const aviso = document.createElement('div');
+    aviso.className = 'aviso limites'; aviso.id = 'avisoGuardado';
+    aviso.innerHTML = 'Dejaste este cuestionario a medias en este dispositivo. ' +
+      '<button class="secondary" type="button" id="btnContinuar" style="margin-top:8px;">Continuar donde iba</button>';
+    intro.appendChild(aviso);
+    document.getElementById('btnContinuar').onclick = continuar;
+  }
+})();
+</script>
+</body>
+</html>

@@ -10,6 +10,125 @@ después.
 corrigió un error, describe también cómo se detectó — eso es lo que evita
 repetirlo.
 
+## 2026-10-12 — El DISC se alinea con Ágora: dos cuestionarios, una interpretación y el informe
+
+Gael trajo el material de Ágora Internacional —el cuestionario "DISC As de
+Diversidad" (5 secciones, 75 reactivos, puntuación por colores), su documento
+de interpretación, el tablero de cuadrantes y un ejemplo de informe
+ejecutivo— con ocho cambios de texto puntuales y la instrucción de "considerar
+lo de estos documentos". Decidió dos versiones del cuestionario y un informe
+"con lo que se sostiene; el resto lo llena el orientador".
+
+**Los ocho cambios de texto** se aplicaron tal cual: el enfoque pasa de "tu
+búsqueda de empleo" y "tu próxima entrevista" a "la construcción de tu plan
+de vida"; "herramienta de orientación hecha por el Club" pasa a "herramienta
+de autoconocimiento"; "no le sacas a decir" a "no evades decir"; y "donde un
+curso rinde más" a "dónde puedes fortalecerte más".
+
+**Una sola interpretación, en `disc-interpretacion.js`.** El texto de Ágora
+(estilo, descripción, fortalezas, limitaciones potenciales, mayor temor,
+motivadores, ambiente ideal, cómo comunicarse y cómo no, áreas de crecimiento)
+vive en un archivo compartido que usan `disc.html`, `disc-agora.html` e
+`informe.html`. Es la primera excepción a "páginas autocontenidas", y es a
+propósito: ese texto es largo y tres copias terminan diciendo cosas distintas.
+La redacción se limpió donde el original traía errores de traducción
+("jugador de la selección", "dará en lugar de argumentar"); la sustancia no.
+Los factores se llaman como en el informe de Ágora —Dominancia, Influencia,
+Estabilidad, Cumplimiento— con sus colores rojo, amarillo, verde y azul, para
+que la pantalla coincida con el papel. El resultado trae además el "tablero
+de cuadrantes y tendencias": una recta por color, un punto por puntuación y
+la línea que los une. Hay una prueba que verifica que las dos versiones del
+cuestionario pintan exactamente la misma interpretación.
+
+**`disc-agora.html`, el cuestionario de Ágora.** Las cinco secciones con sus
+reglas: cuatro veces cada número en la a (el quinto se bloquea), siete
+adjetivos y una estrella en la b, orden sin repetir con intercambio en la c,
+par forzado en la d, escala TA–TD en la e. Una sección por pantalla. El
+progreso se guarda a cada toque (`cmb_disc_agora_progreso`) porque son 20
+minutos y cerrar la pestaña a la mitad no debe costar todo. El resultado
+imprime la misma tabla "puntuación por sección" que cierra la hoja en papel,
+para comparar.
+
+**La clave de colores está en un solo lugar (`CLAVE`) y tiene tres
+supuestos que Ágora debe confirmar:**
+
+1. En la sección a, la hoja de puntuación no dice de qué color es cada
+   columna. Se asumió el orden de las secciones b y e: Azul = 2, 7, 9, 14;
+   Rojo = 3, 4, 12, 15; Amarillo = 5, 6, 10, 13; Verde = 1, 8, 11, 16.
+2. En la sección c tampoco: se asumió columna 1 Azul, 2 Rojo, 3 Amarillo,
+   4 Verde.
+3. En la sección d se asumió un punto por elección.
+
+Las secciones b y e sí traen los colores en la hoja y se transcribieron tal
+cual. Si alguno de los tres supuestos está mal, se corrige en `CLAVE` y en
+ningún otro lado. En el renglón 42 de la sección c, "Observado" del original
+se escribió "Observador".
+
+**`informe.html`, el documento ejecutivo.** Sigue la estructura del ejemplo
+de Ágora —resumen, perfil DISC con tabla y tablero, FODA, estilo en el
+trabajo, cómo se relaciona, áreas de crecimiento, plan de acción a 60–90
+días, ruta profesional y plan de vida— con una diferencia deliberada: **las
+secciones que en el ejemplo salen del juicio del orientador no se calculan.**
+Carrera con mayor compatibilidad, segunda ruta, principal reto, plan de vida
+a 0–5 / 5–10 / 10–15 años y estrategia de autonomía son campos que se
+escriben con el orientador; si están vacíos, se imprimen con líneas para
+llenar a mano y la leyenda "se trabaja con el orientador". Tampoco se
+bautiza el perfil con un nombre ("Estratega Analítico-Relacional"): se dice
+"perfil Estabilidad con Cumplimiento" y se listan los adjetivos de Ágora.
+Generar esas conclusiones a partir de cuatro números sería inventar sobre la
+persona. El plan de acción a 60–90 días (primer, segundo y tercer orden, con
+reflexión) sí lo llena la persona en la misma página. Todo vive en el
+navegador (`cmb_informe`); nada va a un servidor.
+
+**Pendiente que esto deja:** el aviso de privacidad sigue sin mencionar
+cuentas, DISC, FODA ni informe. Con el informe la omisión pesa más, porque
+pide nombre, edad y programa. Aunque nada sale del dispositivo, hay que
+decirlo ahí.
+
+Suites: `test_disc.mjs` 21, `test_foda.mjs` 10, `test_agora.mjs` 13 (nueva:
+puntuación contra un caso calculado a mano, reglas de cada sección, progreso,
+misma interpretación en las dos versiones, el informe no inventa).
+
+## 2026-10-08 — Nueva página: Tu FODA
+
+Pedido de Gael: "otra página donde las personas puedan hacer un FODA". Eligió
+el formato libre, cuatro cuadros, en vez de uno guiado con preguntas.
+
+`foda.html` son cuatro cajas de texto, una idea por renglón, con los ejes
+rotulados (depende de ti / está afuera; suma / hay que atender) y una pregunta
+guía debajo de cada cuadro. Todo se guarda en el navegador con cada tecla
+(`localStorage`, llave `cmb_foda`) y no sale de ahí: no hay servidor, no hay
+cuenta, no hay IA. Se puede imprimir —la hoja impresa se arma aparte, con
+listas en vez de cajas de texto, porque un `textarea` impreso recorta sin
+avisar—, copiar como texto o descargar como `.txt`. Borrar pide dos toques en
+el mismo botón; no se usa el diálogo del navegador.
+
+**La prueba del ejemplo.** La página insiste en que cada idea traiga un caso
+concreto ("organicé el evento de fin de curso para 80 personas", no "soy
+proactivo"). Es la misma regla que rige el análisis de CV: nada que no se pueda
+sostener con un hecho.
+
+**Conexión con el DISC.** Si la persona ya contestó `disc.html`, aparece un
+recuadro con dos pistas de su estilo dominante —una para Fortalezas, otra para
+Debilidades— con botón "Agregar". Nada se agrega sin que lo toque, y lo que se
+agrega es una preferencia que ella misma declaró al contestar, no una
+conclusión nuestra. Si no contestó el DISC, el recuadro no existe.
+
+**Lo que NO hace, a propósito.** No sugiere fortalezas ni debilidades a partir
+del CV ni de las vacantes: eso sería inventar sobre el candidato. Los cuadros
+de Oportunidades y Amenazas quedan en blanco hasta que la persona escriba.
+
+También se enlazó desde `index.html` (barra superior) y desde el resultado de
+`disc.html` ("Llevar esto a mi FODA"). De paso se corrigió en `disc.html` el
+aviso "Ya contestaste este cuestionario el…", que imprimía la fecha en formato
+AAAA-MM-DD; ahora dice "8 de octubre de 2026".
+
+Suite nueva `cuentas/pruebas/test_foda.mjs`, 10 pruebas: lo escrito sobrevive
+a recargar, conteo de ideas, exportación con las cuatro secciones, cero fechas
+técnicas a la vista, hoja impresa escapa HTML, borrar exige dos toques, pistas
+DISC solo con resultado guardado y sin agregar nada solas, y los enlaces desde
+las otras páginas.
+
 ## 2026-10-08 — El cuestionario DISC muestra un solo bloque por pantalla
 
 Pedido de Gael tras probar el orden del 1 al 4: "que solo aparezca un bloque en

@@ -6,7 +6,7 @@ Este archivo existe para que cualquiera (persona o asistente) entienda el estado
 del proyecto sin rebuscar en conversaciones pasadas. Si algo aquí ya no es
 cierto, corrígelo: un contexto desactualizado es peor que no tenerlo.
 
-**Última revisión:** 18 de septiembre de 2026
+**Última revisión:** 12 de octubre de 2026
 
 ---
 
@@ -29,10 +29,21 @@ El sitio se sirve con GitHub Pages desde este repositorio:
 | `cv-builder.html` | Arma tu CV. Constructor guiado paso a paso. |
 | `comparativo.html` | Dashboard que cruza indicadores entre los nueve sectores. |
 | `boletines.html` | Índice de boletines publicados, con buscador por fecha y por texto. |
+| `disc.html` | Tu estilo de trabajo, versión corta: cuestionario DISC propio de 24 bloques. |
+| `disc-agora.html` | Tu estilo de trabajo, cuestionario de Ágora Internacional: 5 secciones, 75 reactivos, puntuación por colores. |
+| `foda.html` | Tu FODA. Cuatro cuadros libres que se guardan solo en el navegador; imprimible. |
+| `informe.html` | Documento ejecutivo integral: DISC + FODA + plan de acción; lo del orientador se escribe, no se calcula. |
+| `disc-interpretacion.js` | La interpretación DISC de Ágora, compartida por las tres páginas anteriores. Única excepción a "páginas autocontenidas". |
 
 Todas son archivos HTML autocontenidos: la lógica, los estilos y el marcado van
 en el mismo archivo. No hay compilación ni empaquetador. Lo que está en el repo
 es exactamente lo que corre en el navegador.
+
+Las herramientas de autoconocimiento (DISC, FODA, informe) guardan todo en el
+navegador de la persona (`localStorage`: `cmb_disc`, `cmb_foda`, `cmb_informe`)
+y no mandan nada a ningún servidor. El resultado DISC se guarda con el mismo
+formato venga del cuestionario que venga (`instrumento: 'bloques' | 'agora'`,
+`escala`), y `index.html` lo lee para la afinidad de vacantes.
 
 ## 3. Los datos
 
@@ -159,6 +170,9 @@ del proyecto en Drive. **Nunca en este repositorio**, que es público.
 - El vocabulario de habilidades de turismo ya no coincide bien con el catálogo.
 - Falta el logo de Ágora Internacional; hoy se dibuja como texto.
 - Ninguna de las herramientas se ha probado con usuarios finales fuera del equipo.
+- La clave de colores del cuestionario de Ágora tiene tres supuestos por confirmar
+  con Ágora (secciones a, c y d). Están marcados en `CLAVE`, en `disc-agora.html`.
+- El aviso de privacidad no menciona cuentas, DISC, FODA ni informe.
 
 ## 10. Dónde está el resto de la documentación
 

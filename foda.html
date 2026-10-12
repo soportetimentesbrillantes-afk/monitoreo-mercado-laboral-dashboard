@@ -121,13 +121,14 @@
   <a class="logo-link" href="https://www.clubmentesbrillantes.com.mx/index.html" aria-label="Club de Mentes Brillantes"><img src="logo-cmb.svg" alt="Club de Mentes Brillantes"></a>
   <span class="enlaces">
     <a href="disc.html">Tu estilo de trabajo →</a>
+    <a href="informe.html">Tu informe →</a>
     <a href="index.html">← Volver a tu CV frente al mercado</a>
   </span>
 </div>
 
 <header>
   <div class="hero-inner">
-    <p class="eyebrow">Autoconocimiento para tu búsqueda de empleo</p>
+    <p class="eyebrow">Autoconocimiento para la construcción de tu plan de vida</p>
     <h1>Tu FODA</h1>
     <p>Cuatro cuadros para ordenar dónde estás parado antes de buscar trabajo: lo que ya tienes, lo que te falta, lo que hay afuera a tu favor y lo que te puede estorbar. Se guarda en este dispositivo mientras escribes.</p>
   </div>
@@ -221,7 +222,8 @@
       <button class="secondary" type="button" onclick="descargar()">Descargar .txt</button>
       <button class="secondary peligro" type="button" id="btnBorrar" onclick="borrar()">Borrar todo</button>
     </div>
-    <p class="note">Si lo llevas a <a href="index.html">Tu CV frente al mercado</a>, usa las fortalezas con ejemplo concreto para los logros del CV, y las debilidades que sean habilidades para buscar un curso del catálogo del Club.</p>
+    <a class="secondary" href="informe.html">Armar mi informe →</a>
+    <p class="note">Tu FODA entra tal cual en <a href="informe.html">tu informe</a>, junto con tu perfil DISC y tu plan de acción. Si lo llevas a <a href="index.html">Tu CV frente al mercado</a>, usa las fortalezas con ejemplo concreto para los logros del CV, y las debilidades que sean habilidades para buscar un curso del catálogo del Club.</p>
   </div>
 
   <div id="impresion" aria-hidden="true">
@@ -418,7 +420,7 @@ const PISTAS_DISC = {
   C: {F:'Soy preciso y verifico antes de entregar',
       D:'Me voy al detalle y me cuesta decidir con información incompleta'}
 };
-const NOMBRE_FACTOR = {D:'Decisión', I:'Influencia', S:'Estabilidad', C:'Cuidado'};
+const NOMBRE_FACTOR = {D:'Dominancia', I:'Influencia', S:'Estabilidad', C:'Cumplimiento'};
 
 function estiloDominante(){
   try{
