@@ -1,92 +1,88 @@
 {
  "nombre": "Logística",
- "vacantes_verificadas": 189,
- "vacantes_descartadas": 163,
+ "vacantes_verificadas": 406,
+ "vacantes_descartadas": 630,
  "vacantes_con_habilidades": 0,
  "pct_con_habilidades": 0.0,
  "fuentes": {
-  "Adzuna": 180,
-  "OCC": 9
+  "Adzuna": 393,
+  "OCC": 13
  },
  "categorias_puesto": [
   {
-   "categoria": "Otro",
-   "vacantes": 65,
-   "pct": 34.4
-  },
-  {
    "categoria": "Almacén, CEDIS y manejo de materiales",
-   "vacantes": 60,
-   "pct": 31.7
+   "vacantes": 130,
+   "pct": 32.0
   },
   {
    "categoria": "Transporte, reparto y distribución",
-   "vacantes": 33,
-   "pct": 17.5
+   "vacantes": 110,
+   "pct": 27.1
+  },
+  {
+   "categoria": "Otro",
+   "vacantes": 86,
+   "pct": 21.2
   },
   {
    "categoria": "Coordinación y operación logística",
-   "vacantes": 18,
-   "pct": 9.5
-  },
-  {
-   "categoria": "Mantenimiento de flota",
-   "vacantes": 5,
-   "pct": 2.6
-  },
-  {
-   "categoria": "Comercio exterior, aduanas e importación/exportación",
-   "vacantes": 3,
-   "pct": 1.6
+   "vacantes": 29,
+   "pct": 7.1
   },
   {
    "categoria": "Administración y soporte administrativo",
-   "vacantes": 2,
-   "pct": 1.1
-  },
-  {
-   "categoria": "Gerencia/Jefatura/Dirección de logística y almacén",
-   "vacantes": 2,
-   "pct": 1.1
+   "vacantes": 18,
+   "pct": 4.4
   },
   {
    "categoria": "Analista, planeación, compras y supply chain",
-   "vacantes": 1,
-   "pct": 0.5
+   "vacantes": 11,
+   "pct": 2.7
+  },
+  {
+   "categoria": "Mantenimiento de flota",
+   "vacantes": 8,
+   "pct": 2.0
+  },
+  {
+   "categoria": "Gerencia/Jefatura/Dirección de logística y almacén",
+   "vacantes": 8,
+   "pct": 2.0
+  },
+  {
+   "categoria": "Comercio exterior, aduanas e importación/exportación",
+   "vacantes": 6,
+   "pct": 1.5
   }
  ],
  "habilidades_tecnicas": [
   {
    "skill": "gestion de almacenes (WMS)",
-   "menciones": 63
-  },
-  {
-   "skill": "manejo de montacargas",
-   "menciones": 6
+   "menciones": 152
   },
   {
    "skill": "ruteo y distribucion",
-   "menciones": 6
+   "menciones": 37
+  },
+  {
+   "skill": "manejo de montacargas",
+   "menciones": 9
+  },
+  {
+   "skill": "mantenimiento de flota",
+   "menciones": 9
+  },
+  {
+   "skill": "excel y erp",
+   "menciones": 4
   },
   {
    "skill": "comercio exterior y aduanas",
    "menciones": 3
   },
   {
-   "skill": "excel y erp",
-   "menciones": 3
-  },
-  {
-   "skill": "mantenimiento de flota",
-   "menciones": 3
-  },
-  {
    "skill": "supply chain y planeacion",
-   "menciones": 1
-  },
-  {
-   "skill": "normatividad de transporte",
-   "menciones": 1
+   "menciones": 2
   }
  ],
  "habilidades_blandas": [
@@ -98,610 +94,144 @@
  "top_empresas": [
   {
    "empresa": "ManpowerGroup",
-   "vacantes": 25
+   "vacantes": 102
   },
   {
    "empresa": "Adecco",
-   "vacantes": 14
-  },
-  {
-   "empresa": "Aluminio Zaragoza",
-   "vacantes": 14
-  },
-  {
-   "empresa": "Paquetexpress",
-   "vacantes": 13
+   "vacantes": 44
   },
   {
    "empresa": "GEPP",
+   "vacantes": 25
+  },
+  {
+   "empresa": "Grupo Salinas",
+   "vacantes": 18
+  },
+  {
+   "empresa": "Grupo DAR Suspensión y Dirección Refaccionarias DAR",
+   "vacantes": 18
+  },
+  {
+   "empresa": "Nach",
+   "vacantes": 16
+  },
+  {
+   "empresa": "Desarrollo Logístico",
+   "vacantes": 12
+  },
+  {
+   "empresa": "Magna International, Inc",
+   "vacantes": 11
+  },
+  {
+   "empresa": "Heineken México",
+   "vacantes": 10
+  },
+  {
+   "empresa": "SILCA Consultores",
    "vacantes": 9
   },
   {
-   "empresa": "Prowork",
+   "empresa": "Grupo viso",
+   "vacantes": 9
+  },
+  {
+   "empresa": "AutoZone México",
+   "vacantes": 9
+  },
+  {
+   "empresa": "Abarrotera Del Duero Sa De Cv",
    "vacantes": 8
   },
   {
-   "empresa": "DHL METROPOLITAN LOGISTICS SC MEXICO SA DE CV",
-   "vacantes": 7
-  },
-  {
-   "empresa": "Muebles para Baño",
-   "vacantes": 6
-  },
-  {
-   "empresa": "Megacable",
-   "vacantes": 5
-  },
-  {
-   "empresa": "Transportes Castores de Baja California S.A. de C.V.",
-   "vacantes": 5
-  },
-  {
-   "empresa": "Medica Sur",
-   "vacantes": 5
-  },
-  {
-   "empresa": "Grupo Truper",
-   "vacantes": 5
-  },
-  {
-   "empresa": "99minutos.com",
-   "vacantes": 4
-  },
-  {
-   "empresa": "Autozone",
-   "vacantes": 3
+   "empresa": "TEVA RH",
+   "vacantes": 8
   }
  ],
  "cobertura_geografica": {
   "top_estados": [
    {
     "estado": "Estado de México",
-    "vacantes": 66
+    "vacantes": 93
    },
    {
     "estado": "Ciudad de México",
-    "vacantes": 30
+    "vacantes": 63
    },
    {
     "estado": "Nuevo León",
-    "vacantes": 9
+    "vacantes": 47
    },
    {
     "estado": "Jalisco",
-    "vacantes": 8
+    "vacantes": 34
    },
    {
-    "estado": "Michoacán",
-    "vacantes": 6
+    "estado": "Querétaro",
+    "vacantes": 22
    },
    {
     "estado": "Guanajuato",
-    "vacantes": 6
-   },
-   {
-    "estado": "Baja California",
-    "vacantes": 4
+    "vacantes": 11
    },
    {
     "estado": "Coahuila",
-    "vacantes": 4
+    "vacantes": 11
    },
    {
-    "estado": "Puebla",
-    "vacantes": 4
+    "estado": "Baja California",
+    "vacantes": 9
    },
    {
     "estado": "Tamaulipas",
-    "vacantes": 2
+    "vacantes": 7
+   },
+   {
+    "estado": "Veracruz",
+    "vacantes": 6
    }
   ],
-  "estados_unicos": 23
+  "estados_unicos": 30
  },
  "salario": {
-  "vacantes_con_dato": 135,
-  "pct_con_dato": 71.4,
-  "mediana_mensual_mxn": 12500,
-  "p25_mensual_mxn": 10394,
-  "p75_mensual_mxn": 15312
+  "vacantes_con_dato": 307,
+  "pct_con_dato": 75.6,
+  "mediana_mensual_mxn": 13000,
+  "p25_mensual_mxn": 10460,
+  "p75_mensual_mxn": 15000
  },
  "evolucion_semanal": [
   {
-   "semana": "07 Sep",
-   "vacantes": 144
+   "semana": "05 Oct",
+   "vacantes": 103
   },
   {
-   "semana": "14 Sep",
-   "vacantes": 39
+   "semana": "12 Oct",
+   "vacantes": 303
   }
  ],
- "total_empresas_unicas": 60,
- "ultima_semana_vacantes": 39,
+ "total_empresas_unicas": 63,
+ "ultima_semana_vacantes": 303,
  "vacantes_detalle": [
   {
-   "titulo": "Asesor logistico PV",
-   "empresa": "Paquetexpress",
-   "ubicacion": "México",
-   "habilidades_tecnicas": [
-    "gestion de almacenes (WMS)",
-    "ruteo y distribucion"
-   ],
-   "habilidades_blandas": [
-    "trabajo en equipo",
-    "resolucion de problemas"
-   ],
-   "salario_min": 19666,
-   "salario_max": 21066,
-   "fecha_publicacion": "2026-09-14",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5883719935"
-  },
-  {
-   "titulo": "Líder de Investigaciones",
-   "empresa": "Paquetexpress",
-   "ubicacion": "México",
-   "habilidades_tecnicas": [
-    "(inferida del título)"
-   ],
-   "habilidades_blandas": [],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-09-14",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5883750828"
-  },
-  {
-   "titulo": "Ayudante de entrega",
-   "empresa": "GEPP",
-   "ubicacion": "México",
-   "habilidades_tecnicas": [
-    "(inferida del título)"
-   ],
-   "habilidades_blandas": [],
-   "salario_min": 10000,
-   "salario_max": 11000,
-   "fecha_publicacion": "2026-09-14",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5883750524"
-  },
-  {
-   "titulo": "Auxiliar de Almacen area de Devolucion y WMS",
-   "empresa": "99minutos.com",
-   "ubicacion": "México",
-   "habilidades_tecnicas": [
-    "gestion de almacenes (WMS)",
-    "manejo de montacargas"
-   ],
-   "habilidades_blandas": [
-    "organizacion y planeacion del tiempo",
-    "trabajo en equipo"
-   ],
-   "salario_min": 40954,
-   "salario_max": 40954,
-   "fecha_publicacion": "2026-09-14",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5883749703"
-  },
-  {
-   "titulo": "Auxiliar de almacén / SUC 266 Castillotla - Pagos Semanales / Prestaciones inmediatas",
-   "empresa": "Muebles para Baño",
-   "ubicacion": "México",
-   "habilidades_tecnicas": [
-    "gestion de almacenes (WMS)",
-    "manejo de montacargas"
-   ],
-   "habilidades_blandas": [
-    "organizacion y planeacion del tiempo",
-    "trabajo en equipo"
-   ],
-   "salario_min": 10056,
-   "salario_max": 10056,
-   "fecha_publicacion": "2026-09-14",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5883748126"
-  },
-  {
-   "titulo": "Auxiliar de Almacén y Maniobras Eventual",
-   "empresa": "Paquetexpress",
-   "ubicacion": "México",
-   "habilidades_tecnicas": [
-    "gestion de almacenes (WMS)",
-    "manejo de montacargas"
-   ],
-   "habilidades_blandas": [
-    "organizacion y planeacion del tiempo",
-    "trabajo en equipo"
-   ],
-   "salario_min": 18408,
-   "salario_max": 19808,
-   "fecha_publicacion": "2026-09-14",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5883746936"
-  },
-  {
-   "titulo": "Auxiliar de Almacen Eventual",
-   "empresa": "Paquetexpress",
-   "ubicacion": "México",
-   "habilidades_tecnicas": [
-    "gestion de almacenes (WMS)",
-    "manejo de montacargas"
-   ],
-   "habilidades_blandas": [
-    "organizacion y planeacion del tiempo",
-    "trabajo en equipo"
-   ],
-   "salario_min": 18300,
-   "salario_max": 19500,
-   "fecha_publicacion": "2026-09-14",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5883746272"
-  },
-  {
-   "titulo": "Auxiliar de Almacén y Maniobras",
-   "empresa": "Paquetexpress",
-   "ubicacion": "México",
-   "habilidades_tecnicas": [
-    "gestion de almacenes (WMS)",
-    "manejo de montacargas"
-   ],
-   "habilidades_blandas": [
-    "organizacion y planeacion del tiempo",
-    "trabajo en equipo"
-   ],
-   "salario_min": 18408,
-   "salario_max": 19808,
-   "fecha_publicacion": "2026-09-14",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5883733005"
-  },
-  {
-   "titulo": "Coordinador de Atención a Clientes",
-   "empresa": "AMERICAN RECRUITERS MEXICO",
-   "ubicacion": "León, Guanajuato",
-   "habilidades_tecnicas": [
-    "(inferida del título)"
-   ],
-   "habilidades_blandas": [],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-09-14",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5883452546"
-  },
-  {
-   "titulo": "Gestor de Cobranza Domiciliaria",
-   "empresa": "Caja Popular Mexicana",
-   "ubicacion": "México",
-   "habilidades_tecnicas": [
-    "(inferida del título)"
-   ],
-   "habilidades_blandas": [],
-   "salario_min": 10000,
-   "salario_max": 13000,
-   "fecha_publicacion": "2026-09-14",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5883711620"
-  },
-  {
-   "titulo": "Ayudante general / Almacen",
-   "empresa": "GEPP",
-   "ubicacion": "México",
-   "habilidades_tecnicas": [
-    "gestion de almacenes (WMS)",
-    "manejo de montacargas"
-   ],
-   "habilidades_blandas": [
-    "organizacion y planeacion del tiempo",
-    "trabajo en equipo"
-   ],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-09-14",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5883711549"
-  },
-  {
-   "titulo": "Operador logístico, monitoreo GPS Primera milla Con experiencia en Excel avanzado",
-   "empresa": "ManpowerGroup",
-   "ubicacion": "Atizapán de Zaragoza, Estado de México",
-   "habilidades_tecnicas": [
-    "gestion de almacenes (WMS)",
-    "ruteo y distribucion"
-   ],
-   "habilidades_blandas": [
-    "trabajo en equipo",
-    "resolucion de problemas"
-   ],
-   "salario_min": 15312,
-   "salario_max": 15312,
-   "fecha_publicacion": "2026-09-14",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5883784017"
-  },
-  {
-   "titulo": "Almacenista auxiliar de almacén Ya tenemos reingresos",
-   "empresa": "Adecco",
-   "ubicacion": "Coacalco de Berriozabal, Estado de México",
-   "habilidades_tecnicas": [
-    "gestion de almacenes (WMS)",
-    "manejo de montacargas"
-   ],
-   "habilidades_blandas": [
-    "organizacion y planeacion del tiempo",
-    "trabajo en equipo"
-   ],
-   "salario_min": 10460,
-   "salario_max": 10460,
-   "fecha_publicacion": "2026-09-14",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5883784249"
-  },
-  {
-   "titulo": "Asesor logistico PV Eventual",
-   "empresa": "Paquetexpress",
-   "ubicacion": "México",
-   "habilidades_tecnicas": [
-    "gestion de almacenes (WMS)",
-    "ruteo y distribucion"
-   ],
-   "habilidades_blandas": [
-    "trabajo en equipo",
-    "resolucion de problemas"
-   ],
-   "salario_min": 19666,
-   "salario_max": 21066,
-   "fecha_publicacion": "2026-09-14",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5883751123"
-  },
-  {
-   "titulo": "(2173) - Ingeniero(a) Senior de Commissioning y Lanzamiento Industrial",
-   "empresa": "ALTEN MÉXICO",
-   "ubicacion": "México",
-   "habilidades_tecnicas": [
-    "(inferida del título)"
-   ],
-   "habilidades_blandas": [],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-09-14",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5883986629"
-  },
-  {
-   "titulo": "Almacenista auxiliar de almacén Mercado libre Tultepec ya tenemos reingresos",
-   "empresa": "Adecco",
-   "ubicacion": "Zumpango, Estado de México",
-   "habilidades_tecnicas": [
-    "gestion de almacenes (WMS)",
-    "manejo de montacargas"
-   ],
-   "habilidades_blandas": [
-    "organizacion y planeacion del tiempo",
-    "trabajo en equipo"
-   ],
-   "salario_min": 10436,
-   "salario_max": 10436,
-   "fecha_publicacion": "2026-09-14",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5883784044"
-  },
-  {
-   "titulo": "Auxiliar de recibo Sin experiencia KJRP Bonos, vales, transporte, dos descansos",
-   "empresa": "ManpowerGroup",
-   "ubicacion": "Zumpango, Estado de México",
-   "habilidades_tecnicas": [
-    "ruteo y distribucion",
-    "normatividad de transporte"
-   ],
-   "habilidades_blandas": [
-    "orientacion a resultados",
-    "adaptabilidad"
-   ],
-   "salario_min": 11540,
-   "salario_max": 11540,
-   "fecha_publicacion": "2026-09-14",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5883784141"
-  },
-  {
-   "titulo": "Ayudante de almacén Turno no rolas tenemos puntos de reclutamiento",
-   "empresa": "Adecco",
-   "ubicacion": "Cuautitlán Izcalli, Estado de México",
-   "habilidades_tecnicas": [
-    "gestion de almacenes (WMS)",
-    "manejo de montacargas"
-   ],
-   "habilidades_blandas": [
-    "organizacion y planeacion del tiempo",
-    "trabajo en equipo"
-   ],
-   "salario_min": 12500,
-   "salario_max": 12500,
-   "fecha_publicacion": "2026-09-14",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5883784008"
-  },
-  {
-   "titulo": "Chofer de reparto",
-   "empresa": "Grupo Truper",
+   "titulo": "Recolector Comercial",
+   "empresa": "Autozone",
    "ubicacion": "Morelia, Michoacán de Ocampo",
    "habilidades_tecnicas": [
-    "ruteo y distribucion",
-    "normatividad de transporte"
-   ],
-   "habilidades_blandas": [
-    "orientacion a resultados",
-    "adaptabilidad"
-   ],
-   "salario_min": 12000,
-   "salario_max": 12000,
-   "fecha_publicacion": "2026-09-14",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5883784156"
-  },
-  {
-   "titulo": "Almacenista auxiliar de almacén Parque Industrial Laguna Gomes Palacio",
-   "empresa": "ManpowerGroup",
-   "ubicacion": "Gómez Palacio, Durango",
-   "habilidades_tecnicas": [
-    "gestion de almacenes (WMS)",
-    "manejo de montacargas"
-   ],
-   "habilidades_blandas": [
-    "organizacion y planeacion del tiempo",
-    "trabajo en equipo"
-   ],
-   "salario_min": 10460,
-   "salario_max": 10460,
-   "fecha_publicacion": "2026-09-14",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5883784148"
-  },
-  {
-   "titulo": "Ayudante de reparto",
-   "empresa": "Grupo Truper",
-   "ubicacion": "Morelia, Michoacán de Ocampo",
-   "habilidades_tecnicas": [
-    "ruteo y distribucion",
-    "normatividad de transporte"
-   ],
-   "habilidades_blandas": [
-    "orientacion a resultados",
-    "adaptabilidad"
-   ],
-   "salario_min": 10000,
-   "salario_max": 10000,
-   "fecha_publicacion": "2026-09-14",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5883784158"
-  },
-  {
-   "titulo": "Almacenista Montacargas Warehouse Aeropuerto Tijuana",
-   "empresa": "Adecco",
-   "ubicacion": "Tijuana, Baja California",
-   "habilidades_tecnicas": [
-    "gestion de almacenes (WMS)",
-    "manejo de montacargas"
-   ],
-   "habilidades_blandas": [
-    "organizacion y planeacion del tiempo",
-    "trabajo en equipo"
-   ],
-   "salario_min": 15073,
-   "salario_max": 15073,
-   "fecha_publicacion": "2026-09-14",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5883784227"
-  },
-  {
-   "titulo": "Coordinador de recibo Tultitlan",
-   "empresa": "IMPULSORA SAHUAYO",
-   "ubicacion": "Tultitlán, Estado de México",
-   "habilidades_tecnicas": [
     "(inferida del título)"
    ],
    "habilidades_blandas": [],
    "salario_min": null,
    "salario_max": null,
-   "fecha_publicacion": "2026-09-14",
+   "fecha_publicacion": "2026-10-15",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5883784246"
+   "url": "https://www.adzuna.com.mx/details/5929804022"
   },
   {
-   "titulo": "chofer suplente Con posibilidad a chofer titular",
-   "empresa": "CocaCola FEMSA",
-   "ubicacion": "Morelia, Michoacán de Ocampo",
-   "habilidades_tecnicas": [
-    "ruteo y distribucion",
-    "normatividad de transporte"
-   ],
-   "habilidades_blandas": [
-    "orientacion a resultados",
-    "adaptabilidad"
-   ],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-09-14",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5883784223"
-  },
-  {
-   "titulo": "Conductor de vehículo eléctrico",
-   "empresa": "99minutos.com",
-   "ubicacion": "Tultitlán, Estado de México",
-   "habilidades_tecnicas": [
-    "ruteo y distribucion",
-    "normatividad de transporte"
-   ],
-   "habilidades_blandas": [
-    "orientacion a resultados",
-    "adaptabilidad"
-   ],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-09-14",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5883784228"
-  },
-  {
-   "titulo": "Auxiliar de Aduanas Bilinge Aeropuerto Tijuana",
+   "titulo": "Operador Logístico Dispatcher First Mile, Line Haul, Last Mile Rol de turno Iztapalapa RA",
    "empresa": "Adecco",
-   "ubicacion": "Tijuana, Baja California",
-   "habilidades_tecnicas": [
-    "comercio exterior y aduanas",
-    "excel y erp"
-   ],
-   "habilidades_blandas": [
-    "atencion al detalle",
-    "organizacion y planeacion del tiempo"
-   ],
-   "salario_min": 17087,
-   "salario_max": 17087,
-   "fecha_publicacion": "2026-09-14",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5883784243"
-  },
-  {
-   "titulo": "Auxiliar en almacén mujeres y hombres turno matutino",
-   "empresa": "Adecco",
-   "ubicacion": "Cuautitlán Izcalli, Estado de México",
-   "habilidades_tecnicas": [
-    "gestion de almacenes (WMS)",
-    "manejo de montacargas"
-   ],
-   "habilidades_blandas": [
-    "organizacion y planeacion del tiempo",
-    "trabajo en equipo"
-   ],
-   "salario_min": 10460,
-   "salario_max": 10460,
-   "fecha_publicacion": "2026-09-14",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5883784180"
-  },
-  {
-   "titulo": "Almacenista",
-   "empresa": "Grupo Truper",
-   "ubicacion": "León, Guanajuato",
-   "habilidades_tecnicas": [
-    "gestion de almacenes (WMS)",
-    "manejo de montacargas"
-   ],
-   "habilidades_blandas": [
-    "organizacion y planeacion del tiempo",
-    "trabajo en equipo"
-   ],
-   "salario_min": 10000,
-   "salario_max": 10000,
-   "fecha_publicacion": "2026-09-14",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5883784151"
-  },
-  {
-   "titulo": "Operador logístico",
-   "empresa": "Prowork",
-   "ubicacion": "Cuautitlán, Estado de México",
+   "ubicacion": "Iztapalapa, Ciudad de México",
    "habilidades_tecnicas": [
     "gestion de almacenes (WMS)",
     "ruteo y distribucion"
@@ -712,32 +242,78 @@
    ],
    "salario_min": 15000,
    "salario_max": 15000,
-   "fecha_publicacion": "2026-09-14",
+   "fecha_publicacion": "2026-10-15",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5883784067"
+   "url": "https://www.adzuna.com.mx/details/5929277541"
   },
   {
-   "titulo": "Auxiliar de almacén Surtidor a turno fijo descanso fines de semana",
+   "titulo": "Jefe de Almacen",
+   "empresa": "Talink",
+   "ubicacion": "Zapopan, Jalisco",
+   "habilidades_tecnicas": [
+    "gestion de almacenes (WMS)",
+    "manejo de montacargas"
+   ],
+   "habilidades_blandas": [
+    "organizacion y planeacion del tiempo",
+    "trabajo en equipo"
+   ],
+   "salario_min": 15000,
+   "salario_max": 15000,
+   "fecha_publicacion": "2026-10-15",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5929259067"
+  },
+  {
+   "titulo": "Auxiliar de almacen Sucursal, Xalapa Veracruz",
+   "empresa": "Megacable",
+   "ubicacion": "Xalapa, Veracruz",
+   "habilidades_tecnicas": [
+    "gestion de almacenes (WMS)",
+    "manejo de montacargas"
+   ],
+   "habilidades_blandas": [
+    "organizacion y planeacion del tiempo",
+    "trabajo en equipo"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-10-15",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5929260404"
+  },
+  {
+   "titulo": "Empacador a",
    "empresa": "ManpowerGroup",
    "ubicacion": "Tlalnepantla de Baz, Estado de México",
    "habilidades_tecnicas": [
-    "gestion de almacenes (WMS)",
-    "manejo de montacargas"
+    "(inferida del título)"
    ],
-   "habilidades_blandas": [
-    "organizacion y planeacion del tiempo",
-    "trabajo en equipo"
-   ],
-   "salario_min": 12500,
-   "salario_max": 12500,
-   "fecha_publicacion": "2026-09-14",
+   "habilidades_blandas": [],
+   "salario_min": 10000,
+   "salario_max": 10000,
+   "fecha_publicacion": "2026-10-15",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5883784069"
+   "url": "https://www.adzuna.com.mx/details/5929262371"
   },
   {
-   "titulo": "Almacenista auxiliar de almacén bono, transporte gratuito de ida y vuelta,ingreso inmediato MA Turno fijo",
-   "empresa": "Adecco",
-   "ubicacion": "Tultepec, Estado de México",
+   "titulo": "Liberador de embarques",
+   "empresa": "Mabe",
+   "ubicacion": "Celaya, Guanajuato",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [],
+   "salario_min": 13700,
+   "salario_max": 13700,
+   "fecha_publicacion": "2026-10-15",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5929273725"
+  },
+  {
+   "titulo": "Auxiliar de Almacen El Tigre , Tesistan",
+   "empresa": "Grupo DAR Suspensión y Dirección Refaccionarias DAR",
+   "ubicacion": "Zapopan, Jalisco",
    "habilidades_tecnicas": [
     "gestion de almacenes (WMS)",
     "manejo de montacargas"
@@ -746,70 +322,72 @@
     "organizacion y planeacion del tiempo",
     "trabajo en equipo"
    ],
-   "salario_min": 10460,
-   "salario_max": 10460,
-   "fecha_publicacion": "2026-09-14",
+   "salario_min": 9520,
+   "salario_max": 9520,
+   "fecha_publicacion": "2026-10-15",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5883784082"
+   "url": "https://www.adzuna.com.mx/details/5929275735"
   },
   {
-   "titulo": "Almacenista auxiliar de almacén turno fijo Tlalnepantla",
-   "empresa": "Prowork",
-   "ubicacion": "Azcapotzalco, Ciudad de México",
-   "habilidades_tecnicas": [
-    "gestion de almacenes (WMS)",
-    "manejo de montacargas"
-   ],
-   "habilidades_blandas": [
-    "organizacion y planeacion del tiempo",
-    "trabajo en equipo"
-   ],
-   "salario_min": 12500,
-   "salario_max": 12500,
-   "fecha_publicacion": "2026-09-14",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5883784122"
-  },
-  {
-   "titulo": "Almacenista auxiliar de almacén Surtidores Etiquetadores AYS",
+   "titulo": "Auxiliar de patio 5 mayo Gomes Palacio",
    "empresa": "ManpowerGroup",
-   "ubicacion": "Coacalco de Berriozabal, Estado de México",
+   "ubicacion": "Gómez Palacio, Durango",
    "habilidades_tecnicas": [
-    "gestion de almacenes (WMS)",
-    "manejo de montacargas"
+    "(inferida del título)"
    ],
-   "habilidades_blandas": [
-    "organizacion y planeacion del tiempo",
-    "trabajo en equipo"
-   ],
-   "salario_min": 12500,
-   "salario_max": 12500,
-   "fecha_publicacion": "2026-09-14",
+   "habilidades_blandas": [],
+   "salario_min": 13376,
+   "salario_max": 13376,
+   "fecha_publicacion": "2026-10-15",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5883784083"
+   "url": "https://www.adzuna.com.mx/details/5929276800"
   },
   {
-   "titulo": "Operador logístico, monitoreo de última milla Con experiencia en Excel avanzado Google Sheets",
+   "titulo": "Auxiliar operativo Turno Fijo Nocturno",
    "empresa": "ManpowerGroup",
    "ubicacion": "Naucalpan de Juárez, Estado de México",
    "habilidades_tecnicas": [
-    "gestion de almacenes (WMS)",
-    "ruteo y distribucion"
+    "(inferida del título)"
    ],
-   "habilidades_blandas": [
-    "trabajo en equipo",
-    "resolucion de problemas"
-   ],
-   "salario_min": 15312,
-   "salario_max": 15312,
-   "fecha_publicacion": "2026-09-14",
+   "habilidades_blandas": [],
+   "salario_min": 48000,
+   "salario_max": 48000,
+   "fecha_publicacion": "2026-10-15",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5883784027"
+   "url": "https://www.adzuna.com.mx/details/5929277151"
   },
   {
-   "titulo": "Etiquetado y Scaneo de Productos en Linea No necesitas experiencia Turno Fijo Sueldo Base, Bonos, Vales, Transporte y más",
-   "empresa": "ManpowerGroup",
-   "ubicacion": "Cuautitlán, Estado de México",
+   "titulo": "Ayudante general Carga y descarga",
+   "empresa": "Silca Consultores",
+   "ubicacion": "Cuautitlán Izcalli, Estado de México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [],
+   "salario_min": 10500,
+   "salario_max": 10500,
+   "fecha_publicacion": "2026-10-15",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5929277211"
+  },
+  {
+   "titulo": "Ayudante general sin experiencia",
+   "empresa": "Silca Consultores",
+   "ubicacion": "Miguel Hidalgo, Ciudad de México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [],
+   "salario_min": 10513,
+   "salario_max": 10513,
+   "fecha_publicacion": "2026-10-15",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5929277222"
+  },
+  {
+   "titulo": "Chofer Almacenista Querétaro",
+   "empresa": "Alvarez Automotriz",
+   "ubicacion": "Querétaro",
    "habilidades_tecnicas": [
     "ruteo y distribucion",
     "normatividad de transporte"
@@ -818,29 +396,119 @@
     "orientacion a resultados",
     "adaptabilidad"
    ],
-   "salario_min": 13000,
-   "salario_max": 13000,
-   "fecha_publicacion": "2026-09-14",
+   "salario_min": 14000,
+   "salario_max": 14000,
+   "fecha_publicacion": "2026-10-15",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5883784090"
+   "url": "https://www.adzuna.com.mx/details/5929277417"
   },
   {
-   "titulo": "Ayudante general con o sin experiencia Contratación inmediata LC",
-   "empresa": "ManpowerGroup",
-   "ubicacion": "Tecámac, Estado de México",
+   "titulo": "Encargado de Almacén",
+   "empresa": "Grupo viso",
+   "ubicacion": "Veracruz",
+   "habilidades_tecnicas": [
+    "gestion de almacenes (WMS)",
+    "manejo de montacargas"
+   ],
+   "habilidades_blandas": [
+    "organizacion y planeacion del tiempo",
+    "trabajo en equipo"
+   ],
+   "salario_min": 12000,
+   "salario_max": 12000,
+   "fecha_publicacion": "2026-10-15",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5929277383"
+  },
+  {
+   "titulo": "Operador Logístico Dispatcher First Mile, Line Haul, Last Mile Vallejo, Rol turno RA",
+   "empresa": "Adecco",
+   "ubicacion": "Gustavo A. Madero, Ciudad de México",
+   "habilidades_tecnicas": [
+    "gestion de almacenes (WMS)",
+    "ruteo y distribucion"
+   ],
+   "habilidades_blandas": [
+    "trabajo en equipo",
+    "resolucion de problemas"
+   ],
+   "salario_min": 15000,
+   "salario_max": 15000,
+   "fecha_publicacion": "2026-10-15",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5929277565"
+  },
+  {
+   "titulo": "coordinador de almacen refacciones diesel",
+   "empresa": "Aralo Express",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "gestion de almacenes (WMS)",
+    "manejo de montacargas"
+   ],
+   "habilidades_blandas": [
+    "organizacion y planeacion del tiempo",
+    "trabajo en equipo"
+   ],
+   "salario_min": 18000,
+   "salario_max": 20000,
+   "fecha_publicacion": "2026-10-15",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5929225497"
+  },
+  {
+   "titulo": "Supervisor Almacén",
+   "empresa": "GEPP",
+   "ubicacion": "Jalostotitlán, Jalisco",
+   "habilidades_tecnicas": [
+    "gestion de almacenes (WMS)",
+    "manejo de montacargas"
+   ],
+   "habilidades_blandas": [
+    "organizacion y planeacion del tiempo",
+    "trabajo en equipo"
+   ],
+   "salario_min": 15000,
+   "salario_max": 15000,
+   "fecha_publicacion": "2026-10-15",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5929277588"
+  },
+  {
+   "titulo": "Repartidor en moto Incremento de plantilla",
+   "empresa": "Grupo DAR Suspensión y Dirección Refaccionarias DAR",
+   "ubicacion": "Xalapa, Veracruz",
+   "habilidades_tecnicas": [
+    "ruteo y distribucion",
+    "normatividad de transporte"
+   ],
+   "habilidades_blandas": [
+    "orientacion a resultados",
+    "adaptabilidad"
+   ],
+   "salario_min": 10500,
+   "salario_max": 10500,
+   "fecha_publicacion": "2026-10-15",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5929277694"
+  },
+  {
+   "titulo": "Ayudante general 12000 brutos Contratación inmediata",
+   "empresa": "Nach",
+   "ubicacion": "Tepotzotlán, Estado de México",
    "habilidades_tecnicas": [
     "(inferida del título)"
    ],
    "habilidades_blandas": [],
-   "salario_min": 13500,
-   "salario_max": 13500,
-   "fecha_publicacion": "2026-09-14",
+   "salario_min": 9583,
+   "salario_max": 9583,
+   "fecha_publicacion": "2026-10-15",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5883784076"
+   "url": "https://www.adzuna.com.mx/details/5929277805"
   },
   {
-   "titulo": "Almacenista zona Belenes",
-   "empresa": "Talink",
+   "titulo": "Almacenista Zona La venta, Nextipac",
+   "empresa": "Staffbridge Group",
    "ubicacion": "Zapopan, Jalisco",
    "habilidades_tecnicas": [
     "gestion de almacenes (WMS)",
@@ -852,88 +520,78 @@
    ],
    "salario_min": 14000,
    "salario_max": 14000,
-   "fecha_publicacion": "2026-09-13",
+   "fecha_publicacion": "2026-10-15",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5882807429"
+   "url": "https://www.adzuna.com.mx/details/5929277961"
   },
   {
-   "titulo": "Coordinador, Finanzas Operativas",
-   "empresa": "Constellation Brands",
-   "ubicacion": "Veracruz, México",
+   "titulo": "Auxiliar de Almacen Mercado Libre Turno matutino fijo",
+   "empresa": "Adecco",
+   "ubicacion": "Coacalco de Berriozabal, Estado de México",
+   "habilidades_tecnicas": [
+    "gestion de almacenes (WMS)",
+    "manejo de montacargas"
+   ],
+   "habilidades_blandas": [
+    "organizacion y planeacion del tiempo",
+    "trabajo en equipo"
+   ],
+   "salario_min": 10450,
+   "salario_max": 10450,
+   "fecha_publicacion": "2026-10-15",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5929278042"
+  },
+  {
+   "titulo": "Ayudante general Turno Fijo",
+   "empresa": "ManpowerGroup",
+   "ubicacion": "Tlalnepantla de Baz, Estado de México",
    "habilidades_tecnicas": [
     "(inferida del título)"
    ],
    "habilidades_blandas": [],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-09-13",
+   "salario_min": 10000,
+   "salario_max": 10000,
+   "fecha_publicacion": "2026-10-15",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5882774667"
+   "url": "https://www.adzuna.com.mx/details/5929278239"
   },
   {
-   "titulo": "Auxiliar de Logistica - Paqueteria/logistica",
-   "empresa": "Conejo Corriendo",
-   "ubicacion": "México",
+   "titulo": "Chofer repartidor Truper",
+   "empresa": "Nach",
+   "ubicacion": "Tlalnepantla de Baz, Estado de México",
+   "habilidades_tecnicas": [
+    "ruteo y distribucion",
+    "normatividad de transporte"
+   ],
+   "habilidades_blandas": [
+    "orientacion a resultados",
+    "adaptabilidad"
+   ],
+   "salario_min": 9582,
+   "salario_max": 9582,
+   "fecha_publicacion": "2026-10-15",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5929278206"
+  },
+  {
+   "titulo": "Consultor Monitoreo",
+   "empresa": "Grupo Salinas",
+   "ubicacion": "Tlalpan, Ciudad de México",
    "habilidades_tecnicas": [
     "(inferida del título)"
    ],
    "habilidades_blandas": [],
    "salario_min": 15000,
    "salario_max": 15000,
-   "fecha_publicacion": "2026-09-13",
+   "fecha_publicacion": "2026-10-15",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5882775279"
+   "url": "https://www.adzuna.com.mx/details/5929278272"
   },
   {
-   "titulo": "Asistente de Crédito y Cobranza",
-   "empresa": "Caja Popular Mexicana",
-   "ubicacion": "México",
-   "habilidades_tecnicas": [
-    "(inferida del título)"
-   ],
-   "habilidades_blandas": [],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-09-13",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5882776114"
-  },
-  {
-   "titulo": "Documentador a Facturista",
-   "empresa": "Transportes Castores de Baja California S.A. de C.V.",
-   "ubicacion": "Cuautitlán, Estado de México",
-   "habilidades_tecnicas": [
-    "(inferida del título)"
-   ],
-   "habilidades_blandas": [],
-   "salario_min": 9200,
-   "salario_max": 9200,
-   "fecha_publicacion": "2026-09-13",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5882807032"
-  },
-  {
-   "titulo": "Operador logistico Monitoreo de ruta",
-   "empresa": "ManpowerGroup",
-   "ubicacion": "Tlalnepantla de Baz, Estado de México",
-   "habilidades_tecnicas": [
-    "gestion de almacenes (WMS)",
-    "ruteo y distribucion"
-   ],
-   "habilidades_blandas": [
-    "trabajo en equipo",
-    "resolucion de problemas"
-   ],
-   "salario_min": 15312,
-   "salario_max": 15312,
-   "fecha_publicacion": "2026-09-13",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5882807471"
-  },
-  {
-   "titulo": "Jefe o Encargado de Almacen",
-   "empresa": "Grupo Truper",
-   "ubicacion": "Matamoros, Tamaulipas",
+   "titulo": "Auxiliar de almacén",
+   "empresa": "Grupo DAR Suspensión y Dirección Refaccionarias DAR",
+   "ubicacion": "Tuxtla Gutiérrez, Chiapas",
    "habilidades_tecnicas": [
     "gestion de almacenes (WMS)",
     "manejo de montacargas"
@@ -942,34 +600,80 @@
     "organizacion y planeacion del tiempo",
     "trabajo en equipo"
    ],
-   "salario_min": 14000,
-   "salario_max": 14000,
-   "fecha_publicacion": "2026-09-13",
+   "salario_min": 9500,
+   "salario_max": 9500,
+   "fecha_publicacion": "2026-10-15",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5882807415"
+   "url": "https://www.adzuna.com.mx/details/5929278271"
   },
   {
-   "titulo": "Dispatcher , monitoreos de ruta vallejo , contratacion inmediata",
+   "titulo": "Auxiliar de Almacén Contratación inmediata",
    "empresa": "ManpowerGroup",
-   "ubicacion": "Gustavo A. Madero, Ciudad de México",
+   "ubicacion": "Ciénega de Flores, Nuevo León",
    "habilidades_tecnicas": [
     "gestion de almacenes (WMS)",
-    "ruteo y distribucion"
+    "manejo de montacargas"
    ],
    "habilidades_blandas": [
-    "trabajo en equipo",
-    "resolucion de problemas"
+    "organizacion y planeacion del tiempo",
+    "trabajo en equipo"
    ],
-   "salario_min": 13257,
-   "salario_max": 13257,
-   "fecha_publicacion": "2026-09-13",
+   "salario_min": 13860,
+   "salario_max": 13860,
+   "fecha_publicacion": "2026-10-15",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5882807633"
+   "url": "https://www.adzuna.com.mx/details/5929278366"
   },
   {
-   "titulo": "Chófer de reparto Tecnopiso Industrias",
-   "empresa": "NITROPISO",
-   "ubicacion": "San Luis Potosí",
+   "titulo": "Estibador a",
+   "empresa": "Abarrotera Del Duero Sa De Cv",
+   "ubicacion": "Tlajomulco de Zuñiga, Jalisco",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-10-15",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5929258973"
+  },
+  {
+   "titulo": "Vendedor Multifuncional Temporal Tiempo Completo Plaza Mayor - Plaza Mayor",
+   "empresa": "C&A Mexico S De Rl",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [],
+   "salario_min": 11000,
+   "salario_max": 11001,
+   "fecha_publicacion": "2026-10-15",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5929222125"
+  },
+  {
+   "titulo": ". Operador de Almacén Pago semanal",
+   "empresa": "ManpowerGroup",
+   "ubicacion": "Ciénega de Flores, Nuevo León",
+   "habilidades_tecnicas": [
+    "ruteo y distribucion",
+    "normatividad de transporte"
+   ],
+   "habilidades_blandas": [
+    "orientacion a resultados",
+    "adaptabilidad"
+   ],
+   "salario_min": 13860,
+   "salario_max": 13860,
+   "fecha_publicacion": "2026-10-15",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5929278376"
+  },
+  {
+   "titulo": "Chofer Almacenista Prod Quimicos Licencia E Periferico Sur",
+   "empresa": "Talink",
+   "ubicacion": "México",
    "habilidades_tecnicas": [
     "ruteo y distribucion",
     "normatividad de transporte"
@@ -980,78 +684,42 @@
    ],
    "salario_min": null,
    "salario_max": null,
-   "fecha_publicacion": "2026-09-13",
+   "fecha_publicacion": "2026-10-15",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5882807502"
+   "url": "https://www.adzuna.com.mx/details/5929206290"
   },
   {
-   "titulo": "Dispatcher monitoreo de ruta contratacion inmediata",
-   "empresa": "ManpowerGroup",
-   "ubicacion": "Gustavo A. Madero, Ciudad de México",
-   "habilidades_tecnicas": [
-    "gestion de almacenes (WMS)",
-    "ruteo y distribucion"
-   ],
-   "habilidades_blandas": [
-    "trabajo en equipo",
-    "resolucion de problemas"
-   ],
-   "salario_min": 13257,
-   "salario_max": 13257,
-   "fecha_publicacion": "2026-09-13",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5882807570"
-  },
-  {
-   "titulo": "Ayudante general Contratación Inmediata",
-   "empresa": "ManpowerGroup",
-   "ubicacion": "Melchor Ocampo, Estado de México",
+   "titulo": "Purchasing Agent",
+   "empresa": "Daimler Truck North America",
+   "ubicacion": "México",
    "habilidades_tecnicas": [
     "(inferida del título)"
    ],
    "habilidades_blandas": [],
-   "salario_min": 12550,
-   "salario_max": 12550,
-   "fecha_publicacion": "2026-09-13",
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-10-15",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5882807669"
+   "url": "https://www.adzuna.com.mx/details/5929194413"
   },
   {
-   "titulo": "Almacenista Waldos Plaza Santa Maria Pesqueria",
-   "empresa": "WALDOS",
-   "ubicacion": "General Zuazua, Nuevo León",
-   "habilidades_tecnicas": [
-    "gestion de almacenes (WMS)",
-    "manejo de montacargas"
-   ],
-   "habilidades_blandas": [
-    "organizacion y planeacion del tiempo",
-    "trabajo en equipo"
-   ],
-   "salario_min": 9582,
-   "salario_max": 9582,
-   "fecha_publicacion": "2026-09-13",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5882807649"
-  },
-  {
-   "titulo": "Asociado de Mercadeo Nocturno Corregidora",
-   "empresa": "HOME DEPOT MÉXICO",
-   "ubicacion": "Querétaro",
+   "titulo": "CTS Saltillo Manager (E4)",
+   "empresa": "Daimler Truck North America",
+   "ubicacion": "México",
    "habilidades_tecnicas": [
     "(inferida del título)"
    ],
    "habilidades_blandas": [],
-   "salario_min": 10073,
-   "salario_max": 10073,
-   "fecha_publicacion": "2026-09-13",
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-10-15",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5882807533"
+   "url": "https://www.adzuna.com.mx/details/5929200678"
   },
   {
-   "titulo": "Auxiliar Logístico Despacho De Rutas Importante Paqueteria Amarilla Internacional",
-   "empresa": "ManpowerGroup",
-   "ubicacion": "Tijuana, Baja California",
+   "titulo": "Intralogistics AM",
+   "empresa": "Daimler Truck North America",
+   "ubicacion": "México",
    "habilidades_tecnicas": [
     "gestion de almacenes (WMS)",
     "ruteo y distribucion"
@@ -1060,33 +728,47 @@
     "trabajo en equipo",
     "resolucion de problemas"
    ],
-   "salario_min": 18575,
-   "salario_max": 18575,
-   "fecha_publicacion": "2026-09-13",
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-10-15",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5882807659"
+   "url": "https://www.adzuna.com.mx/details/5929218926"
   },
   {
-   "titulo": "Monitoreo de ruta , contratacion inmediata contratacion inmediata",
-   "empresa": "ManpowerGroup",
-   "ubicacion": "Gustavo A. Madero, Ciudad de México",
+   "titulo": "Almacenista auxiliar de almacén Bono,transporte gratuito,2 o 3 dias de descanso desde primaria Turno fijo",
+   "empresa": "Adecco",
+   "ubicacion": "Tultepec, Estado de México",
    "habilidades_tecnicas": [
-    "gestion de almacenes (WMS)",
-    "ruteo y distribucion"
+    "ruteo y distribucion",
+    "normatividad de transporte"
    ],
    "habilidades_blandas": [
-    "trabajo en equipo",
-    "resolucion de problemas"
+    "orientacion a resultados",
+    "adaptabilidad"
    ],
-   "salario_min": 13257,
-   "salario_max": 13257,
-   "fecha_publicacion": "2026-09-13",
+   "salario_min": 10460,
+   "salario_max": 10460,
+   "fecha_publicacion": "2026-10-15",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5882807657"
+   "url": "https://www.adzuna.com.mx/details/5929281524"
   },
   {
-   "titulo": "Coordinación de reparto Temporal",
-   "empresa": "Heineken México",
+   "titulo": "Practicante de Enfermeria",
+   "empresa": "Stanley Black & Decker",
+   "ubicacion": "Reynosa, Tamaulipas",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-10-15",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5929187391"
+  },
+  {
+   "titulo": "Operador de camioneta Cedis Elektra Lerma Toluca",
+   "empresa": "Grupo Salinas",
    "ubicacion": "México",
    "habilidades_tecnicas": [
     "ruteo y distribucion",
@@ -1096,30 +778,382 @@
     "orientacion a resultados",
     "adaptabilidad"
    ],
-   "salario_min": 23000,
-   "salario_max": 24900,
-   "fecha_publicacion": "2026-09-13",
+   "salario_min": 12600,
+   "salario_max": 12600,
+   "fecha_publicacion": "2026-10-15",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5882772485"
+   "url": "https://www.adzuna.com.mx/details/5929191687"
   },
   {
-   "titulo": "Asesor de ventas material eléctrico",
-   "empresa": "Distribuidora Tamex",
+   "titulo": "Tecnólogo, Transporte",
+   "empresa": "Constellation Brands",
+   "ubicacion": "Veracruz, México",
+   "habilidades_tecnicas": [
+    "ruteo y distribucion",
+    "normatividad de transporte"
+   ],
+   "habilidades_blandas": [
+    "orientacion a resultados",
+    "adaptabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-10-15",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5929192376"
+  },
+  {
+   "titulo": "Coordinador/a Costos Logisticos",
+   "empresa": "Comercializadora Gonac",
    "ubicacion": "México",
    "habilidades_tecnicas": [
-    "(inferida del título)"
+    "gestion de almacenes (WMS)",
+    "ruteo y distribucion"
    ],
-   "habilidades_blandas": [],
+   "habilidades_blandas": [
+    "trabajo en equipo",
+    "resolucion de problemas"
+   ],
    "salario_min": 20000,
    "salario_max": 25000,
-   "fecha_publicacion": "2026-09-13",
+   "fecha_publicacion": "2026-10-15",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5882774185"
+   "url": "https://www.adzuna.com.mx/details/5929195028"
   },
   {
-   "titulo": "Practicante de Comercio Exterior",
-   "empresa": "Logistica 365",
+   "titulo": "Asistente Personal (Ciudad de México, Metropolitana Sur)",
+   "empresa": "BBVA",
    "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-10-15",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5929201981"
+  },
+  {
+   "titulo": "Especialista, Operaciones Logísticas",
+   "empresa": "Constellation Brands",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "gestion de almacenes (WMS)",
+    "ruteo y distribucion"
+   ],
+   "habilidades_blandas": [
+    "trabajo en equipo",
+    "resolucion de problemas"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-10-15",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5929206017"
+  },
+  {
+   "titulo": "Ventas Residuos Peligrosos Santa Cruz de las Flores",
+   "empresa": "Talink",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [],
+   "salario_min": 40000,
+   "salario_max": 60000,
+   "fecha_publicacion": "2026-10-15",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5929220154"
+  },
+  {
+   "titulo": "(2180) - Industrial Engineer - Material Flow Management - Mid",
+   "empresa": "ALTEN MÉXICO",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-10-15",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5929418360"
+  },
+  {
+   "titulo": "Group Leader Sr Material Cost Reduction",
+   "empresa": "Magna International, Inc",
+   "ubicacion": "Ramos Arizpe, Coahuila de Zaragoza",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-10-15",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5929770420"
+  },
+  {
+   "titulo": "Material Conveyance Engineer (PC&L)",
+   "empresa": "Magna International, Inc",
+   "ubicacion": "Ramos Arizpe, Coahuila de Zaragoza",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-10-15",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5929770426"
+  },
+  {
+   "titulo": "AMR´s Engineer (PC&L)",
+   "empresa": "Magna International, Inc",
+   "ubicacion": "Ramos Arizpe, Coahuila de Zaragoza",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-10-15",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5929770421"
+  },
+  {
+   "titulo": "SAP Key User (PC&L)",
+   "empresa": "Magna International, Inc",
+   "ubicacion": "Ramos Arizpe, Coahuila de Zaragoza",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-10-15",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5929770427"
+  },
+  {
+   "titulo": "Facturista",
+   "empresa": "Magna International, Inc",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-10-15",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5929770473"
+  },
+  {
+   "titulo": "Chofer De Hub",
+   "empresa": "Autozone",
+   "ubicacion": "La Paz, Baja California Sur",
+   "habilidades_tecnicas": [
+    "ruteo y distribucion",
+    "normatividad de transporte"
+   ],
+   "habilidades_blandas": [
+    "orientacion a resultados",
+    "adaptabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-10-15",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5929804024"
+  },
+  {
+   "titulo": "Vendedor Multifuncional Temporal Tiempo Completo Plaza Altacia - Plaza Altacia",
+   "empresa": "C&A Mexico S De Rl",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [],
+   "salario_min": 11000,
+   "salario_max": 11001,
+   "fecha_publicacion": "2026-10-15",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5929183952"
+  },
+  {
+   "titulo": "Auxiliar de Almacen",
+   "empresa": "Price shoes",
+   "ubicacion": "Iztapalapa, Ciudad de México",
+   "habilidades_tecnicas": [
+    "gestion de almacenes (WMS)",
+    "manejo de montacargas"
+   ],
+   "habilidades_blandas": [
+    "organizacion y planeacion del tiempo",
+    "trabajo en equipo"
+   ],
+   "salario_min": 9451,
+   "salario_max": 9451,
+   "fecha_publicacion": "2026-10-15",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5929184086"
+  },
+  {
+   "titulo": "Ayudante General de Almacén Sin experiencia",
+   "empresa": "ManpowerGroup",
+   "ubicacion": "Ciénega de Flores, Nuevo León",
+   "habilidades_tecnicas": [
+    "gestion de almacenes (WMS)",
+    "manejo de montacargas"
+   ],
+   "habilidades_blandas": [
+    "organizacion y planeacion del tiempo",
+    "trabajo en equipo"
+   ],
+   "salario_min": 13860,
+   "salario_max": 13860,
+   "fecha_publicacion": "2026-10-15",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5929278370"
+  },
+  {
+   "titulo": "representante de envios turno fijo",
+   "empresa": "ManpowerGroup",
+   "ubicacion": "Ciénega de Flores, Nuevo León",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [],
+   "salario_min": 13680,
+   "salario_max": 13680,
+   "fecha_publicacion": "2026-10-15",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5929276780"
+  },
+  {
+   "titulo": "Surtidor de Pedidos Turno fijo de día",
+   "empresa": "ManpowerGroup",
+   "ubicacion": "Ciénega de Flores, Nuevo León",
+   "habilidades_tecnicas": [
+    "gestion de almacenes (WMS)",
+    "manejo de montacargas"
+   ],
+   "habilidades_blandas": [
+    "organizacion y planeacion del tiempo",
+    "trabajo en equipo"
+   ],
+   "salario_min": 13860,
+   "salario_max": 13860,
+   "fecha_publicacion": "2026-10-15",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5929278398"
+  },
+  {
+   "titulo": "Almacenista Kia La Villa",
+   "empresa": "Grupo Satélite Automotriz",
+   "ubicacion": "Gustavo A. Madero, Ciudad de México",
+   "habilidades_tecnicas": [
+    "gestion de almacenes (WMS)",
+    "manejo de montacargas"
+   ],
+   "habilidades_blandas": [
+    "organizacion y planeacion del tiempo",
+    "trabajo en equipo"
+   ],
+   "salario_min": 9453,
+   "salario_max": 9453,
+   "fecha_publicacion": "2026-10-15",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5929280212"
+  },
+  {
+   "titulo": "Ayudante de reparto Ayudante de reparto",
+   "empresa": "GEPP",
+   "ubicacion": "Xochimilco, Ciudad de México",
+   "habilidades_tecnicas": [
+    "ruteo y distribucion",
+    "normatividad de transporte"
+   ],
+   "habilidades_blandas": [
+    "orientacion a resultados",
+    "adaptabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-10-15",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5929279468"
+  },
+  {
+   "titulo": "Mecánico Diesel Mecánico Diesel",
+   "empresa": "GEPP",
+   "ubicacion": "Xochimilco, Ciudad de México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [],
+   "salario_min": 13700,
+   "salario_max": 13700,
+   "fecha_publicacion": "2026-10-15",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5929279577"
+  },
+  {
+   "titulo": "ayudante de almacén cargador de almacen",
+   "empresa": "GEPP",
+   "ubicacion": "Tlalpan, Ciudad de México",
+   "habilidades_tecnicas": [
+    "gestion de almacenes (WMS)",
+    "manejo de montacargas"
+   ],
+   "habilidades_blandas": [
+    "organizacion y planeacion del tiempo",
+    "trabajo en equipo"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-10-15",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5929279501"
+  },
+  {
+   "titulo": "Auxiliar de Presentación Visual Polanco",
+   "empresa": "El Palacio de Hierro",
+   "ubicacion": "Miguel Hidalgo, Ciudad de México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [],
+   "salario_min": 9583,
+   "salario_max": 9583,
+   "fecha_publicacion": "2026-10-15",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5929279507"
+  },
+  {
+   "titulo": "Auxiliar de almacén Sin Experiencia",
+   "empresa": "ManpowerGroup",
+   "ubicacion": "Cuautitlán Izcalli, Estado de México",
+   "habilidades_tecnicas": [
+    "gestion de almacenes (WMS)",
+    "manejo de montacargas"
+   ],
+   "habilidades_blandas": [
+    "organizacion y planeacion del tiempo",
+    "trabajo en equipo"
+   ],
+   "salario_min": 10490,
+   "salario_max": 10490,
+   "fecha_publicacion": "2026-10-15",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5929279756"
+  },
+  {
+   "titulo": "Coordinador de Comercio Exterior y Logística Internacional",
+   "empresa": "INGENES",
+   "ubicacion": "Ciudad de México",
    "habilidades_tecnicas": [
     "comercio exterior y aduanas",
     "excel y erp"
@@ -1128,16 +1162,16 @@
     "atencion al detalle",
     "organizacion y planeacion del tiempo"
    ],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-09-13",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5882734523"
+   "salario_min": 25000,
+   "salario_max": 30000,
+   "fecha_publicacion": "2026-10-16",
+   "fuente": "OCC",
+   "url": "https://www.occ.com.mx/empleo/oferta/21369761/"
   },
   {
-   "titulo": "Almacenista carga y descarga mercancía Eventual - Irapuato Guanajuato",
-   "empresa": "Paquetexpress",
-   "ubicacion": "México",
+   "titulo": "Ayudante de Almacén Hospitalario",
+   "empresa": "Médica Sur",
+   "ubicacion": "Tlalpan, Ciudad de México",
    "habilidades_tecnicas": [
     "gestion de almacenes (WMS)",
     "manejo de montacargas"
@@ -1146,86 +1180,12 @@
     "organizacion y planeacion del tiempo",
     "trabajo en equipo"
    ],
-   "salario_min": 13503,
-   "salario_max": 13503,
-   "fecha_publicacion": "2026-09-13",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5882771794"
-  },
-  {
-   "titulo": "Supervisor de Almacen/Ocurre/Atención a cliente",
-   "empresa": "Paquetexpress",
-   "ubicacion": "México",
-   "habilidades_tecnicas": [
-    "gestion de almacenes (WMS)",
-    "manejo de montacargas"
-   ],
-   "habilidades_blandas": [
-    "organizacion y planeacion del tiempo",
-    "trabajo en equipo"
-   ],
-   "salario_min": 19603,
-   "salario_max": 20413,
-   "fecha_publicacion": "2026-09-13",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5882771514"
-  },
-  {
-   "titulo": "Supply Planner",
-   "empresa": "Tenneco",
-   "ubicacion": "Ciudad de México, México",
-   "habilidades_tecnicas": [
-    "(inferida del título)"
-   ],
-   "habilidades_blandas": [],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-09-13",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5882451133"
-  },
-  {
-   "titulo": "AUXILIAR DE EMBARQUES DE SALIDA",
-   "empresa": "HOME DEPOT MEXICO",
-   "ubicacion": "Ciénega de Flores, Nuevo León",
-   "habilidades_tecnicas": [
-    "(inferida del título)"
-   ],
-   "habilidades_blandas": [],
-   "salario_min": 156000,
-   "salario_max": 157200,
-   "fecha_publicacion": "2026-09-17",
+   "salario_min": 10600,
+   "salario_max": 10600,
+   "fecha_publicacion": "2026-10-15",
    "fuente": "OCC",
-   "url": "https://www.occ.com.mx/empleo/oferta/21332063/"
-  },
-  {
-   "titulo": "Auxiliar de envíos y mensajería",
-   "empresa": "Estafeta Mexicana",
-   "ubicacion": "Apodaca, Nuevo León",
-   "habilidades_tecnicas": [
-    "(inferida del título)"
-   ],
-   "habilidades_blandas": [],
-   "salario_min": 120000,
-   "salario_max": 156000,
-   "fecha_publicacion": "2026-09-16",
-   "fuente": "OCC",
-   "url": "https://www.occ.com.mx/empleo/oferta/21331521/"
-  },
-  {
-   "titulo": "Team Leader-Devoluciones",
-   "empresa": "ADECCO",
-   "ubicacion": "Tultitlán, Estado de México",
-   "habilidades_tecnicas": [
-    "(inferida del título)"
-   ],
-   "habilidades_blandas": [],
-   "salario_min": 156000,
-   "salario_max": 180000,
-   "fecha_publicacion": "2026-09-16",
-   "fuente": "OCC",
-   "url": "https://www.occ.com.mx/empleo/oferta/21330851/"
+   "url": "https://www.occ.com.mx/empleo/oferta/21376066/"
   }
  ],
- "vacantes_detalle_nota": "Generado programáticamente (2026-09-14) por etapa4_sector_json.py sobre 189 vacantes verificadas (vacantes_logistica_verificadas_auto.csv). Todos los conteos son exactos (pandas, sin estimaciones). Salario normalizado a MXN mensual (Adzuna >90,000/año se dividió entre 12). vacantes_con_habilidades cuenta solo habilidades EXPLÍCITAS en el CSV fuente. Muestra vacantes_detalle: filtro de recencia Adzuna<=10d / Indeed<=15d / OCC<=20d desde hoy, muestreo proporcional por fuente, máx. 60; habilidades faltantes inferidas por categoría de puesto."
+ "vacantes_detalle_nota": "Generado programáticamente (2026-10-16) por etapa4_sector_json.py sobre 406 vacantes verificadas (vacantes_logistica_verificadas_auto.csv). Todos los conteos son exactos (pandas, sin estimaciones). Salario normalizado a MXN mensual (Adzuna >90,000/año se dividió entre 12; OCC llega anualizado desde la Etapa 1 y se dividió entre 12 siempre). vacantes_con_habilidades cuenta solo habilidades EXPLÍCITAS en el CSV fuente. Muestra vacantes_detalle: filtro de recencia Adzuna<=10d / Indeed<=15d / OCC<=20d desde hoy, muestreo proporcional por fuente, máx. 60; habilidades faltantes inferidas por categoría de puesto."
 }

@@ -1,110 +1,101 @@
 {
  "nombre": "Turismo",
- "vacantes_verificadas": 268,
- "vacantes_descartadas": 70,
+ "vacantes_verificadas": 124,
+ "vacantes_descartadas": 143,
  "vacantes_con_habilidades": 0,
  "pct_con_habilidades": 0.0,
  "fuentes": {
-  "Adzuna": 252,
-  "OCC": 16
+  "Adzuna": 114,
+  "OCC": 10
  },
  "categorias_puesto": [
   {
    "categoria": "Alimentos y Bebidas",
-   "vacantes": 81,
-   "pct": 30.2
+   "vacantes": 48,
+   "pct": 38.7
   },
   {
    "categoria": "Otro",
-   "vacantes": 61,
-   "pct": 22.8
+   "vacantes": 26,
+   "pct": 21.0
   },
   {
    "categoria": "Hotelería y Recepción",
-   "vacantes": 52,
-   "pct": 19.4
-  },
-  {
-   "categoria": "Gerencia y Dirección",
-   "vacantes": 15,
-   "pct": 5.6
+   "vacantes": 12,
+   "pct": 9.7
   },
   {
    "categoria": "Mantenimiento y Operaciones",
-   "vacantes": 13,
-   "pct": 4.9
-  },
-  {
-   "categoria": "Educación y Capacitación",
    "vacantes": 11,
-   "pct": 4.1
-  },
-  {
-   "categoria": "Administración y Finanzas",
-   "vacantes": 11,
-   "pct": 4.1
-  },
-  {
-   "categoria": "Ventas y Comercial",
-   "vacantes": 9,
-   "pct": 3.4
-  },
-  {
-   "categoria": "Agencias y Reservaciones",
-   "vacantes": 6,
-   "pct": 2.2
-  },
-  {
-   "categoria": "Becarios y Recién Egresados",
-   "vacantes": 5,
-   "pct": 1.9
+   "pct": 8.9
   },
   {
    "categoria": "Eventos y Banquetes",
-   "vacantes": 3,
-   "pct": 1.1
+   "vacantes": 8,
+   "pct": 6.5
   },
   {
-   "categoria": "Guías y Turismo Receptivo",
+   "categoria": "Gerencia y Dirección",
+   "vacantes": 5,
+   "pct": 4.0
+  },
+  {
+   "categoria": "Ventas y Comercial",
+   "vacantes": 5,
+   "pct": 4.0
+  },
+  {
+   "categoria": "Administración y Finanzas",
+   "vacantes": 5,
+   "pct": 4.0
+  },
+  {
+   "categoria": "Agencias y Reservaciones",
+   "vacantes": 2,
+   "pct": 1.6
+  },
+  {
+   "categoria": "Atención al Cliente",
    "vacantes": 1,
-   "pct": 0.4
+   "pct": 0.8
+  },
+  {
+   "categoria": "Becarios y Recién Egresados",
+   "vacantes": 1,
+   "pct": 0.8
   }
  ],
  "habilidades_tecnicas": [
   {
    "skill": "Preparación de alimentos y bebidas",
-   "menciones": 87
-  },
-  {
-   "skill": "Estándares de higiene y seguridad alimentaria (A&B)",
-   "menciones": 64
+   "menciones": 55
   },
   {
    "skill": "Gestión operativa y supervisión de equipos",
-   "menciones": 54
+   "menciones": 31
+  },
+  {
+   "skill": "Estándares de higiene y seguridad alimentaria (A&B)",
+   "menciones": 29
   },
   {
    "skill": "Sistemas de reservaciones hoteleras (PMS)",
-   "menciones": 45
+   "menciones": 10
   },
   {
-   "skill": "Gestión administrativa y manejo de Excel",
-   "menciones": 24
+   "skill": "Coordinación de eventos",
+   "menciones": 8
   },
   {
    "skill": "Ventas y prospección comercial",
-   "menciones": 17
+   "menciones": 7
+  },
+  {
+   "skill": "Gestión administrativa y manejo de Excel",
+   "menciones": 7
   },
   {
    "skill": "Mantenimiento general e instalaciones",
-   "menciones": 11
-  },
-  {
-   "skill": "Sistemas de reservación (GDS/OTA)",
-   "menciones": 6
-  },
-  {
-   "skill": "Armado de paquetes turísticos",
    "menciones": 5
   },
   {
@@ -112,103 +103,87 @@
    "menciones": 4
   },
   {
-   "skill": "Coordinación de eventos",
-   "menciones": 3
+   "skill": "Sistemas de reservación (GDS/OTA)",
+   "menciones": 2
   },
   {
    "skill": "Protocolos de seguridad (mantenimiento/vigilancia)",
-   "menciones": 3
+   "menciones": 2
+  },
+  {
+   "skill": "Armado de paquetes turísticos",
+   "menciones": 1
+  },
+  {
+   "skill": "Control de costos y contabilidad básica",
+   "menciones": 1
   }
  ],
  "habilidades_blandas": [
   {
    "skill": "Trabajo en equipo",
-   "menciones": 82
+   "menciones": 37
   },
   {
    "skill": "Trabajo bajo presión",
-   "menciones": 67
+   "menciones": 37
   },
   {
    "skill": "Liderazgo",
-   "menciones": 54
-  },
-  {
-   "skill": "Atención al cliente",
-   "menciones": 40
+   "menciones": 33
   },
   {
    "skill": "Toma de decisiones",
-   "menciones": 39
+   "menciones": 21
+  },
+  {
+   "skill": "Atención al cliente",
+   "menciones": 18
   },
   {
    "skill": "Comunicación",
-   "menciones": 38
+   "menciones": 16
   },
   {
    "skill": "Organización",
-   "menciones": 34
+   "menciones": 16
   },
   {
    "skill": "Adaptabilidad",
-   "menciones": 15
+   "menciones": 10
   },
   {
    "skill": "Negociación",
-   "menciones": 15
-  },
-  {
-   "skill": "Atención al detalle",
-   "menciones": 14
+   "menciones": 9
   },
   {
    "skill": "Orientación a resultados",
-   "menciones": 14
+   "menciones": 7
   },
   {
    "skill": "Responsabilidad",
-   "menciones": 10
+   "menciones": 7
+  },
+  {
+   "skill": "Atención al detalle",
+   "menciones": 6
   }
  ],
  "top_empresas": [
   {
-   "empresa": "OPERADORA DE HOTELES NORTE 19 S.A DE C.V",
-   "vacantes": 14
-  },
-  {
-   "empresa": "Grupo Restaurantero Gigante",
-   "vacantes": 13
-  },
-  {
-   "empresa": "Teikit",
-   "vacantes": 9
-  },
-  {
    "empresa": "Alsea",
-   "vacantes": 9
-  },
-  {
-   "empresa": "Grupo Safi",
-   "vacantes": 8
+   "vacantes": 33
   },
   {
    "empresa": "Palace Resorts",
-   "vacantes": 8
+   "vacantes": 17
   },
   {
-   "empresa": "Xcaret",
-   "vacantes": 8
-  },
-  {
-   "empresa": "PAM hotels",
+   "empresa": "Wingstop",
    "vacantes": 7
   },
   {
-   "empresa": "WINGSTOP",
-   "vacantes": 7
-  },
-  {
-   "empresa": "Corporativo Kosmos",
+   "empresa": "Grupo Presidente",
    "vacantes": 7
   },
   {
@@ -216,188 +191,197 @@
    "vacantes": 6
   },
   {
-   "empresa": "Play City Casino",
+   "empresa": "BigBola Casinos",
    "vacantes": 6
   },
   {
-   "empresa": "Hotel Hotsson",
-   "vacantes": 6
-  },
-  {
-   "empresa": "Meliá Hotels International",
+   "empresa": "BARCELÓ MAYA GRAND RESORT",
    "vacantes": 5
+  },
+  {
+   "empresa": "Twin Dolphin",
+   "vacantes": 5
+  },
+  {
+   "empresa": "CMR",
+   "vacantes": 5
+  },
+  {
+   "empresa": "Medica Sur",
+   "vacantes": 4
+  },
+  {
+   "empresa": "Grupo Estrella Blanca",
+   "vacantes": 4
+  },
+  {
+   "empresa": "Majestic Resorts",
+   "vacantes": 2
+  },
+  {
+   "empresa": "Megacable",
+   "vacantes": 2
+  },
+  {
+   "empresa": "Amarone",
+   "vacantes": 2
   }
  ],
  "cobertura_geografica": {
   "top_estados": [
    {
     "estado": "Ciudad de México",
-    "vacantes": 64
-   },
-   {
-    "estado": "Quintana Roo",
     "vacantes": 33
    },
    {
-    "estado": "Jalisco",
-    "vacantes": 26
+    "estado": "Quintana Roo",
+    "vacantes": 20
    },
    {
-    "estado": "Baja California Sur",
-    "vacantes": 15
-   },
-   {
-    "estado": "Estado de México",
-    "vacantes": 14
-   },
-   {
-    "estado": "Guanajuato",
-    "vacantes": 12
-   },
-   {
-    "estado": "Puebla",
-    "vacantes": 9
+    "estado": "Yucatán",
+    "vacantes": 8
    },
    {
     "estado": "Nuevo León",
     "vacantes": 8
    },
    {
-    "estado": "Baja California",
+    "estado": "Estado de México",
+    "vacantes": 7
+   },
+   {
+    "estado": "Jalisco",
     "vacantes": 6
    },
    {
-    "estado": "Nayarit",
+    "estado": "Baja California Sur",
     "vacantes": 6
+   },
+   {
+    "estado": "Puebla",
+    "vacantes": 4
+   },
+   {
+    "estado": "Veracruz",
+    "vacantes": 4
+   },
+   {
+    "estado": "Baja California",
+    "vacantes": 4
    }
   ],
-  "estados_unicos": 26
+  "estados_unicos": 19
  },
  "salario": {
-  "vacantes_con_dato": 158,
-  "pct_con_dato": 59.0,
-  "mediana_mensual_mxn": 12450,
-  "p25_mensual_mxn": 10158,
+  "vacantes_con_dato": 86,
+  "pct_con_dato": 69.4,
+  "mediana_mensual_mxn": 12825,
+  "p25_mensual_mxn": 10000,
   "p75_mensual_mxn": 16000
  },
  "evolucion_semanal": [
   {
-   "semana": "07 Sep",
-   "vacantes": 249
+   "semana": "05 Oct",
+   "vacantes": 45
   },
   {
-   "semana": "14 Sep",
-   "vacantes": 11
+   "semana": "12 Oct",
+   "vacantes": 79
   }
  ],
- "total_empresas_unicas": 102,
- "ultima_semana_vacantes": 11,
+ "total_empresas_unicas": 30,
+ "ultima_semana_vacantes": 79,
  "vacantes_detalle": [
   {
-   "titulo": "Guardia para hotel Disponibilidad para rolar turnos",
-   "empresa": "OPERADORA DE HOTELES NORTE 19 S.A DE C.V",
-   "ubicacion": "Piedras Negras, Coahuila de Zaragoza",
+   "titulo": "Supervisor operativo fast food Apertura Dominos Pizza Álamo",
+   "empresa": "Alsea",
+   "ubicacion": "Álamo Temapache, Veracruz",
    "habilidades_tecnicas": [
-    "Sistemas de reservaciones hoteleras (PMS)"
+    "Gestión operativa y supervisión de equipos"
    ],
    "habilidades_blandas": [
-    "Atención al cliente",
-    "Organización"
-   ],
-   "salario_min": 9450,
-   "salario_max": 9450,
-   "fecha_publicacion": "2026-09-14",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5883784200"
-  },
-  {
-   "titulo": "Docentes Licenciatura Tlalpan",
-   "empresa": "Lottus Education",
-   "ubicacion": "Benito Juárez, Ciudad de México",
-   "habilidades_tecnicas": [
-    "Gestión administrativa"
-   ],
-   "habilidades_blandas": [
-    "Comunicación",
-    "Organización"
+    "Liderazgo",
+    "Toma de decisiones"
    ],
    "salario_min": null,
    "salario_max": null,
-   "fecha_publicacion": "2026-09-14",
+   "fecha_publicacion": "2026-10-15",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5883784170"
+   "url": "https://www.adzuna.com.mx/details/5929281290"
   },
   {
-   "titulo": "Spa Host",
-   "empresa": "Four Seasons",
-   "ubicacion": "México",
+   "titulo": "Agente de Seguridad",
+   "empresa": "Hotel Marquis Reforma",
+   "ubicacion": "Cuauhtémoc, Ciudad de México",
+   "habilidades_tecnicas": [
+    "Mantenimiento general e instalaciones"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad",
+    "Trabajo en equipo"
+   ],
+   "salario_min": 13300,
+   "salario_max": 13300,
+   "fecha_publicacion": "2026-10-15",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5929280102"
+  },
+  {
+   "titulo": "Ayudante de cocina Down Town",
+   "empresa": "Wingstop",
+   "ubicacion": "San Andrés Cholula, Puebla",
+   "habilidades_tecnicas": [
+    "Preparación de alimentos y bebidas",
+    "Estándares de higiene y seguridad alimentaria (A&B)"
+   ],
+   "habilidades_blandas": [
+    "Trabajo en equipo",
+    "Trabajo bajo presión"
+   ],
+   "salario_min": 10000,
+   "salario_max": 10000,
+   "fecha_publicacion": "2026-10-15",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5929263681"
+  },
+  {
+   "titulo": "Toma ordenes Con experiencia",
+   "empresa": "BARCELÓ MAYA GRAND RESORT",
+   "ubicacion": "Solidaridad, Quintana Roo",
    "habilidades_tecnicas": [
     "(inferida del título)"
    ],
    "habilidades_blandas": [
     "Adaptabilidad"
    ],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-09-14",
+   "salario_min": 12500,
+   "salario_max": 12500,
+   "fecha_publicacion": "2026-10-15",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5883728137"
+   "url": "https://www.adzuna.com.mx/details/5929277160"
   },
   {
-   "titulo": "Gerente General Hotel City Centro by Marriott Oaxaca",
-   "empresa": "OPERADORA DE HOTELES NORTE 19 S.A DE C.V",
-   "ubicacion": "Oaxaca de Juárez, Oaxaca",
+   "titulo": "Auxiliar de cocina",
+   "empresa": "OPERADORA DE HOSPITALES ANGELES SA DE CV",
+   "ubicacion": "Cuauhtémoc, Ciudad de México",
    "habilidades_tecnicas": [
-    "Sistemas de reservaciones hoteleras (PMS)"
+    "Preparación de alimentos y bebidas",
+    "Estándares de higiene y seguridad alimentaria (A&B)"
    ],
    "habilidades_blandas": [
-    "Atención al cliente",
-    "Organización"
+    "Trabajo en equipo",
+    "Trabajo bajo presión"
    ],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-09-14",
+   "salario_min": 9500,
+   "salario_max": 9500,
+   "fecha_publicacion": "2026-10-15",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5883784213"
+   "url": "https://www.adzuna.com.mx/details/5929278018"
   },
   {
-   "titulo": "Cocinero por eventos Estadio GNP Palacio de los deportes Contratación inmediata",
-   "empresa": "TEVA RH",
-   "ubicacion": "Iztacalco, Ciudad de México",
-   "habilidades_tecnicas": [
-    "Coordinación de eventos"
-   ],
-   "habilidades_blandas": [
-    "Organización",
-    "Comunicación"
-   ],
-   "salario_min": 9451,
-   "salario_max": 9451,
-   "fecha_publicacion": "2026-09-14",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5883782972"
-  },
-  {
-   "titulo": "Valet Parking / Centro de Monterrey",
-   "empresa": "Grupo Safi",
-   "ubicacion": "México",
-   "habilidades_tecnicas": [
-    "Sistemas de reservaciones hoteleras (PMS)"
-   ],
-   "habilidades_blandas": [
-    "Atención al cliente",
-    "Organización"
-   ],
-   "salario_min": 9100,
-   "salario_max": 9100,
-   "fecha_publicacion": "2026-09-14",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5883749776"
-  },
-  {
-   "titulo": "Líder de Habitaciones / Supervisora de Camaristas",
-   "empresa": "Grupo Safi",
-   "ubicacion": "México",
+   "titulo": "Recepcionista Con Experiencia",
+   "empresa": "Palace Resorts",
+   "ubicacion": "Benito Juárez, Quintana Roo",
    "habilidades_tecnicas": [
     "Sistemas de reservaciones hoteleras (PMS)"
    ],
@@ -406,254 +390,32 @@
     "Organización"
    ],
    "salario_min": 16500,
-   "salario_max": 18000,
-   "fecha_publicacion": "2026-09-14",
+   "salario_max": 16500,
+   "fecha_publicacion": "2026-10-15",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5883737045"
+   "url": "https://www.adzuna.com.mx/details/5929279019"
   },
   {
-   "titulo": "Cajera turno de tarde / centro de Monterrey",
-   "empresa": "Grupo Safi",
-   "ubicacion": "México",
-   "habilidades_tecnicas": [
-    "(inferida del título)"
-   ],
-   "habilidades_blandas": [
-    "Adaptabilidad"
-   ],
-   "salario_min": 11500,
-   "salario_max": 12500,
-   "fecha_publicacion": "2026-09-14",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5883735998"
-  },
-  {
-   "titulo": "Operador mantenimiento Hotel Novit",
-   "empresa": "Hotel Novit",
-   "ubicacion": "Benito Juárez, Ciudad de México",
-   "habilidades_tecnicas": [
-    "Sistemas de reservaciones hoteleras (PMS)"
-   ],
-   "habilidades_blandas": [
-    "Atención al cliente",
-    "Organización"
-   ],
-   "salario_min": 12600,
-   "salario_max": 12600,
-   "fecha_publicacion": "2026-09-13",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5882807883"
-  },
-  {
-   "titulo": "Analista De Cobranza Operaciones Sofom",
-   "empresa": "Grupo Flecha Amarilla",
-   "ubicacion": "Guanajuato, México",
-   "habilidades_tecnicas": [
-    "Mantenimiento general e instalaciones"
-   ],
-   "habilidades_blandas": [
-    "Responsabilidad",
-    "Trabajo en equipo"
-   ],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-09-13",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5882729649"
-  },
-  {
-   "titulo": "Asistente Ejecutivo/a",
-   "empresa": "Royalton Hotels & Resorts",
-   "ubicacion": "Cancún, Quintana Roo",
-   "habilidades_tecnicas": [
-    "(inferida del título)"
-   ],
-   "habilidades_blandas": [
-    "Adaptabilidad"
-   ],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-09-13",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5882451805"
-  },
-  {
-   "titulo": "Contador General Hotel Novit",
-   "empresa": "Hotel Novit",
-   "ubicacion": "Benito Juárez, Ciudad de México",
-   "habilidades_tecnicas": [
-    "Sistemas de reservaciones hoteleras (PMS)"
-   ],
-   "habilidades_blandas": [
-    "Atención al cliente",
-    "Organización"
-   ],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-09-13",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5882807896"
-  },
-  {
-   "titulo": "Supervisor de Recepción Hotel Novit",
-   "empresa": "Hotel Novit",
-   "ubicacion": "Benito Juárez, Ciudad de México",
-   "habilidades_tecnicas": [
-    "Sistemas de reservaciones hoteleras (PMS)"
-   ],
-   "habilidades_blandas": [
-    "Atención al cliente",
-    "Organización"
-   ],
-   "salario_min": 15304,
-   "salario_max": 15304,
-   "fecha_publicacion": "2026-09-13",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5882807887"
-  },
-  {
-   "titulo": "Almacenista de alimentos Con experiencia",
-   "empresa": "Twin Lions",
-   "ubicacion": "Guadalajara, Jalisco",
-   "habilidades_tecnicas": [
-    "Preparación de alimentos y bebidas",
-    "Estándares de higiene y seguridad alimentaria (A&B)"
-   ],
-   "habilidades_blandas": [
-    "Trabajo en equipo",
-    "Trabajo bajo presión"
-   ],
-   "salario_min": 10000,
-   "salario_max": 10000,
-   "fecha_publicacion": "2026-09-13",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5882807837"
-  },
-  {
-   "titulo": "Cocinero A Hotel Novit",
-   "empresa": "Hotel Novit",
-   "ubicacion": "Benito Juárez, Ciudad de México",
-   "habilidades_tecnicas": [
-    "Sistemas de reservaciones hoteleras (PMS)"
-   ],
-   "habilidades_blandas": [
-    "Atención al cliente",
-    "Organización"
-   ],
-   "salario_min": 11540,
-   "salario_max": 11540,
-   "fecha_publicacion": "2026-09-13",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5882807890"
-  },
-  {
-   "titulo": "Hostess",
-   "empresa": "Hotel Marquis Reforma",
-   "ubicacion": "México",
-   "habilidades_tecnicas": [
-    "Sistemas de reservaciones hoteleras (PMS)"
-   ],
-   "habilidades_blandas": [
-    "Atención al cliente",
-    "Organización"
-   ],
-   "salario_min": 12200,
-   "salario_max": 12200,
-   "fecha_publicacion": "2026-09-13",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5882734287"
-  },
-  {
-   "titulo": "Oficial de Seguridad Cancún",
-   "empresa": "Xcaret",
-   "ubicacion": "Solidaridad, Quintana Roo",
-   "habilidades_tecnicas": [
-    "Mantenimiento general e instalaciones"
-   ],
-   "habilidades_blandas": [
-    "Responsabilidad",
-    "Trabajo en equipo"
-   ],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-09-13",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5882807728"
-  },
-  {
-   "titulo": "Recepcionista de Hotel Hotsson Acapulco - Experiencia Hotelería Playa",
-   "empresa": "Hotel Hotsson",
-   "ubicacion": "México",
-   "habilidades_tecnicas": [
-    "Sistemas de reservaciones hoteleras (PMS)"
-   ],
-   "habilidades_blandas": [
-    "Atención al cliente",
-    "Organización"
-   ],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-09-13",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5882729990"
-  },
-  {
-   "titulo": "Gerente o Subgerente KFC Plazas comerciales Zona Santa Fe",
-   "empresa": "Premium Restaurant Brands",
+   "titulo": "Agente de Seguridad Hyatt House Santa Fe",
+   "empresa": "Grupo Presidente",
    "ubicacion": "Cuajimalpa de Morelos, Ciudad de México",
    "habilidades_tecnicas": [
-    "Preparación de alimentos y bebidas",
-    "Estándares de higiene y seguridad alimentaria (A&B)"
+    "Mantenimiento general e instalaciones"
    ],
    "habilidades_blandas": [
-    "Trabajo en equipo",
-    "Trabajo bajo presión"
-   ],
-   "salario_min": 14300,
-   "salario_max": 14300,
-   "fecha_publicacion": "2026-09-13",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5882808263"
-  },
-  {
-   "titulo": "Supervisor de Ama de Llaves",
-   "empresa": "Meliá Hotels International",
-   "ubicacion": "México",
-   "habilidades_tecnicas": [
-    "Sistemas de reservaciones hoteleras (PMS)"
-   ],
-   "habilidades_blandas": [
-    "Atención al cliente",
-    "Organización"
+    "Responsabilidad",
+    "Trabajo en equipo"
    ],
    "salario_min": null,
    "salario_max": null,
-   "fecha_publicacion": "2026-09-13",
+   "fecha_publicacion": "2026-10-15",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5882736385"
+   "url": "https://www.adzuna.com.mx/details/5929278977"
   },
   {
-   "titulo": "Cocinero B Comedor de Colaboradores",
-   "empresa": "Hotel Marquis Reforma",
-   "ubicacion": "México",
-   "habilidades_tecnicas": [
-    "Preparación de alimentos y bebidas",
-    "Estándares de higiene y seguridad alimentaria (A&B)"
-   ],
-   "habilidades_blandas": [
-    "Trabajo en equipo",
-    "Trabajo bajo presión"
-   ],
-   "salario_min": 11155,
-   "salario_max": 11155,
-   "fecha_publicacion": "2026-09-13",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5882772998"
-  },
-  {
-   "titulo": "Auxiliar de Gestión de Fondos",
-   "empresa": "Xcaret",
-   "ubicacion": "Solidaridad, Quintana Roo",
+   "titulo": "Auxiliar de cafeteria Nueva Suc. Lomas del Campanario",
+   "empresa": "Alsea",
+   "ubicacion": "Querétaro",
    "habilidades_tecnicas": [
     "Gestión administrativa y manejo de Excel"
    ],
@@ -661,217 +423,68 @@
     "Atención al detalle",
     "Organización"
    ],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-09-13",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5882807716"
-  },
-  {
-   "titulo": "Auxiliar de Capacitación en Hard Rock Hotel Riviera Maya - Hard Rock Hotel Riviera Maya",
-   "empresa": "PAM hotels",
-   "ubicacion": "México",
-   "habilidades_tecnicas": [
-    "Gestión administrativa"
-   ],
-   "habilidades_blandas": [
-    "Comunicación",
-    "Organización"
-   ],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-09-13",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5882738878"
-  },
-  {
-   "titulo": "Customer Support Calidad",
-   "empresa": "Majestic Resorts",
-   "ubicacion": "Benito Juárez, Quintana Roo",
-   "habilidades_tecnicas": [
-    "(inferida del título)"
-   ],
-   "habilidades_blandas": [
-    "Adaptabilidad"
-   ],
-   "salario_min": 17500,
-   "salario_max": 17500,
-   "fecha_publicacion": "2026-09-13",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5882807564"
-  },
-  {
-   "titulo": "Ejecutivo de Reservaciones",
-   "empresa": "Camino Real Hoteles",
-   "ubicacion": "Guadalajara, Jalisco",
-   "habilidades_tecnicas": [
-    "Sistemas de reservación (GDS/OTA)",
-    "Armado de paquetes turísticos"
-   ],
-   "habilidades_blandas": [
-    "Atención al cliente",
-    "Organización"
-   ],
-   "salario_min": 15000,
-   "salario_max": 15000,
-   "fecha_publicacion": "2026-09-13",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5882807629"
-  },
-  {
-   "titulo": "Supervisor de tiendas",
-   "empresa": "Silca Consultores",
-   "ubicacion": "Monterrey, Nuevo León",
-   "habilidades_tecnicas": [
-    "Gestión operativa y supervisión de equipos"
-   ],
-   "habilidades_blandas": [
-    "Liderazgo",
-    "Toma de decisiones"
-   ],
-   "salario_min": 16000,
-   "salario_max": 16000,
-   "fecha_publicacion": "2026-09-13",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5882776469"
-  },
-  {
-   "titulo": "Encargado de Ropería",
-   "empresa": "Meliá Hotels International",
-   "ubicacion": "México",
-   "habilidades_tecnicas": [
-    "(inferida del título)"
-   ],
-   "habilidades_blandas": [
-    "Adaptabilidad"
-   ],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-09-13",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5882773295"
-  },
-  {
-   "titulo": "Auditor de Ingresos Grupos en Hard Rock Hotel Riviera Maya - Hard Rock Hotel Riviera Maya",
-   "empresa": "PAM hotels",
-   "ubicacion": "México",
-   "habilidades_tecnicas": [
-    "Sistemas de reservaciones hoteleras (PMS)"
-   ],
-   "habilidades_blandas": [
-    "Atención al cliente",
-    "Organización"
-   ],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-09-13",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5882776479"
-  },
-  {
-   "titulo": "Ejecutivo de atención al paciente bilingüe",
-   "empresa": "Medica Sur",
-   "ubicacion": "México",
-   "habilidades_tecnicas": [
-    "(inferida del título)"
-   ],
-   "habilidades_blandas": [
-    "Adaptabilidad"
-   ],
-   "salario_min": 15000,
-   "salario_max": 15000,
-   "fecha_publicacion": "2026-09-13",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5882767632"
-  },
-  {
-   "titulo": "Ayudante de Cocina/central - Plaza central",
-   "empresa": "Wingstop",
-   "ubicacion": "México",
-   "habilidades_tecnicas": [
-    "Preparación de alimentos y bebidas",
-    "Estándares de higiene y seguridad alimentaria (A&B)"
-   ],
-   "habilidades_blandas": [
-    "Trabajo en equipo",
-    "Trabajo bajo presión"
-   ],
    "salario_min": 9000,
-   "salario_max": 13000,
-   "fecha_publicacion": "2026-09-13",
+   "salario_max": 9000,
+   "fecha_publicacion": "2026-10-15",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5882763715"
+   "url": "https://www.adzuna.com.mx/details/5929279121"
   },
   {
-   "titulo": "Accounting Assistant Manager",
-   "empresa": "Four Seasons",
-   "ubicacion": "México",
+   "titulo": "Ayudante de cocina y mesero en Puerta Aragon gustavo a madero",
+   "empresa": "WINGSTOP",
+   "ubicacion": "Gustavo A. Madero, Ciudad de México",
+   "habilidades_tecnicas": [
+    "Preparación de alimentos y bebidas",
+    "Estándares de higiene y seguridad alimentaria (A&B)"
+   ],
+   "habilidades_blandas": [
+    "Trabajo en equipo",
+    "Trabajo bajo presión"
+   ],
+   "salario_min": 11000,
+   "salario_max": 11000,
+   "fecha_publicacion": "2026-10-15",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5929279307"
+  },
+  {
+   "titulo": "Ejecutivo Atracción de Talento Con Experiencia",
+   "empresa": "Palace Resorts",
+   "ubicacion": "Benito Juárez, Quintana Roo",
    "habilidades_tecnicas": [
     "(inferida del título)"
    ],
    "habilidades_blandas": [
     "Adaptabilidad"
    ],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-09-13",
+   "salario_min": 16119,
+   "salario_max": 16119,
+   "fecha_publicacion": "2026-10-15",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5882763518"
+   "url": "https://www.adzuna.com.mx/details/5929279561"
   },
   {
-   "titulo": "Agente De Ventas Bjx Paqueteria Monterrey",
-   "empresa": "Grupo Flecha Amarilla",
-   "ubicacion": "Nuevo León, México",
+   "titulo": "Cocinero as A, Sub chef, Encargado de cocina y Sous Chef Pedregal",
+   "empresa": "CMR",
+   "ubicacion": "La Magdalena Contreras, Ciudad de México",
    "habilidades_tecnicas": [
-    "Ventas y prospección comercial"
+    "Preparación de alimentos y bebidas",
+    "Estándares de higiene y seguridad alimentaria (A&B)"
    ],
    "habilidades_blandas": [
-    "Orientación a resultados",
-    "Negociación"
-   ],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-09-13",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5882763041"
-  },
-  {
-   "titulo": "Pulidor de pisos - Contratación Directa por Médica Sur",
-   "empresa": "Medica Sur",
-   "ubicacion": "México",
-   "habilidades_tecnicas": [
-    "(inferida del título)"
-   ],
-   "habilidades_blandas": [
-    "Adaptabilidad"
-   ],
-   "salario_min": 9582,
-   "salario_max": 9582,
-   "fecha_publicacion": "2026-09-13",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5882769059"
-  },
-  {
-   "titulo": "Jefe de Formación y Desarrollo Hotel Hard Rock Cancún - Con experiencia en hotelería",
-   "empresa": "PAM hotels",
-   "ubicacion": "México",
-   "habilidades_tecnicas": [
-    "Sistemas de reservaciones hoteleras (PMS)"
-   ],
-   "habilidades_blandas": [
-    "Atención al cliente",
-    "Organización"
+    "Trabajo en equipo",
+    "Trabajo bajo presión"
    ],
    "salario_min": null,
    "salario_max": null,
-   "fecha_publicacion": "2026-09-13",
+   "fecha_publicacion": "2026-10-15",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5882744586"
+   "url": "https://www.adzuna.com.mx/details/5929279907"
   },
   {
-   "titulo": "Subgerente - Ciudad del Carmen",
-   "empresa": "Wingstop",
-   "ubicacion": "México",
+   "titulo": "Subgerente Operativo, Puerto Morelos Apertura Dominos Pizza",
+   "empresa": "Alsea",
+   "ubicacion": "Puerto Morelos, Quintana Roo",
    "habilidades_tecnicas": [
     "Gestión operativa y supervisión de equipos"
    ],
@@ -879,294 +492,16 @@
     "Liderazgo",
     "Toma de decisiones"
    ],
-   "salario_min": 12000,
-   "salario_max": 14000,
-   "fecha_publicacion": "2026-09-13",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5882739049"
-  },
-  {
-   "titulo": "Recepcionista Hotel City Plus",
-   "empresa": "OPERADORA DE HOTELES NORTE 19 S.A DE C.V",
-   "ubicacion": "Guadalajara, Jalisco",
-   "habilidades_tecnicas": [
-    "Sistemas de reservaciones hoteleras (PMS)"
-   ],
-   "habilidades_blandas": [
-    "Atención al cliente",
-    "Organización"
-   ],
-   "salario_min": 10451,
-   "salario_max": 10451,
-   "fecha_publicacion": "2026-09-12",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5881190420"
-  },
-  {
-   "titulo": "Agente de Viajes",
-   "empresa": "Mundo Joven travel Shop sa de cv",
-   "ubicacion": "Cuauhtémoc, Ciudad de México",
-   "habilidades_tecnicas": [
-    "Sistemas de reservación (GDS/OTA)",
-    "Armado de paquetes turísticos"
-   ],
-   "habilidades_blandas": [
-    "Atención al cliente",
-    "Organización"
-   ],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-09-12",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5881194601"
-  },
-  {
-   "titulo": "Mesero y Garrotero Propinas por día",
-   "empresa": "Grupo Restaurantero Gigante",
-   "ubicacion": "Guadalajara, Jalisco",
-   "habilidades_tecnicas": [
-    "Preparación de alimentos y bebidas",
-    "Estándares de higiene y seguridad alimentaria (A&B)"
-   ],
-   "habilidades_blandas": [
-    "Trabajo en equipo",
-    "Trabajo bajo presión"
-   ],
    "salario_min": 16000,
    "salario_max": 16000,
-   "fecha_publicacion": "2026-09-12",
+   "fecha_publicacion": "2026-10-15",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5881198600"
+   "url": "https://www.adzuna.com.mx/details/5929280413"
   },
   {
-   "titulo": "Chef de especialidades",
-   "empresa": "BARCELÓ MAYA GRAND RESORT",
-   "ubicacion": "Solidaridad, Quintana Roo",
-   "habilidades_tecnicas": [
-    "Preparación de alimentos y bebidas",
-    "Estándares de higiene y seguridad alimentaria (A&B)"
-   ],
-   "habilidades_blandas": [
-    "Trabajo en equipo",
-    "Trabajo bajo presión"
-   ],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-09-12",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5881198608"
-  },
-  {
-   "titulo": "Encargado de piso Restaurante",
-   "empresa": "Grupo Restaurantero Gigante",
-   "ubicacion": "Naucalpan de Juárez, Estado de México",
-   "habilidades_tecnicas": [
-    "Preparación de alimentos y bebidas",
-    "Estándares de higiene y seguridad alimentaria (A&B)"
-   ],
-   "habilidades_blandas": [
-    "Trabajo en equipo",
-    "Trabajo bajo presión"
-   ],
-   "salario_min": 13041,
-   "salario_max": 13041,
-   "fecha_publicacion": "2026-09-12",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5881198604"
-  },
-  {
-   "titulo": "Recepcionista de Hotel Hotsson Acapulco Experiencia Hotelería Playa",
-   "empresa": "Hotel Hotsson",
-   "ubicacion": "Acapulco, Guerrero",
-   "habilidades_tecnicas": [
-    "Sistemas de reservaciones hoteleras (PMS)"
-   ],
-   "habilidades_blandas": [
-    "Atención al cliente",
-    "Organización"
-   ],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-09-12",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5881194166"
-  },
-  {
-   "titulo": "Hostess Wingstop San Angel Pago semanal y Propinas Semanales",
-   "empresa": "Wingstop",
-   "ubicacion": "Álvaro Obregón, Ciudad de México",
-   "habilidades_tecnicas": [
-    "Sistemas de reservaciones hoteleras (PMS)"
-   ],
-   "habilidades_blandas": [
-    "Atención al cliente",
-    "Organización"
-   ],
-   "salario_min": 10000,
-   "salario_max": 10000,
-   "fecha_publicacion": "2026-09-12",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5881194457"
-  },
-  {
-   "titulo": "Contador a General con experiencia en hotelería Hotel en Condesa",
-   "empresa": "Schulz Consultores",
-   "ubicacion": "Cuauhtémoc, Ciudad de México",
-   "habilidades_tecnicas": [
-    "Sistemas de reservaciones hoteleras (PMS)"
-   ],
-   "habilidades_blandas": [
-    "Atención al cliente",
-    "Organización"
-   ],
-   "salario_min": 25000,
-   "salario_max": 25000,
-   "fecha_publicacion": "2026-09-12",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5881191002"
-  },
-  {
-   "titulo": "Barman",
-   "empresa": "Grupo Presidente",
-   "ubicacion": "Puebla",
-   "habilidades_tecnicas": [
-    "(inferida del título)"
-   ],
-   "habilidades_blandas": [
-    "Adaptabilidad"
-   ],
-   "salario_min": 9923,
-   "salario_max": 9923,
-   "fecha_publicacion": "2026-09-12",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5881198790"
-  },
-  {
-   "titulo": "Coord. de Grupos y Convenciones Experiencia en Hoteles 4 Diamantes",
-   "empresa": "SECRETS THE VINE CANCUN",
-   "ubicacion": "Benito Juárez, Quintana Roo",
-   "habilidades_tecnicas": [
-    "Sistemas de reservaciones hoteleras (PMS)"
-   ],
-   "habilidades_blandas": [
-    "Atención al cliente",
-    "Organización"
-   ],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-09-12",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5881198721"
-  },
-  {
-   "titulo": "Ejecutivo de Ventas con Auto City Express Junior Sullivan",
-   "empresa": "OPERADORA DE HOTELES NORTE 19 S.A DE C.V",
-   "ubicacion": "Cuauhtémoc, Ciudad de México",
-   "habilidades_tecnicas": [
-    "Ventas y prospección comercial"
-   ],
-   "habilidades_blandas": [
-    "Orientación a resultados",
-    "Negociación"
-   ],
-   "salario_min": 12400,
-   "salario_max": 12400,
-   "fecha_publicacion": "2026-09-12",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5881199449"
-  },
-  {
-   "titulo": "Gerente de Comedor Industrial en Tlajomulco",
-   "empresa": "Live Natura",
-   "ubicacion": "Tlajomulco de Zuñiga, Jalisco",
-   "habilidades_tecnicas": [
-    "Preparación de alimentos y bebidas",
-    "Estándares de higiene y seguridad alimentaria (A&B)"
-   ],
-   "habilidades_blandas": [
-    "Trabajo en equipo",
-    "Trabajo bajo presión"
-   ],
-   "salario_min": 15000,
-   "salario_max": 15000,
-   "fecha_publicacion": "2026-09-12",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5881198870"
-  },
-  {
-   "titulo": "Mesero a Tlalpan",
-   "empresa": "OPERADORA DE HOTELES NORTE 19 S.A DE C.V",
+   "titulo": "Técnico en Mantenimiento Zona Sur Técnico en Mantenimiento Zona Sur",
+   "empresa": "WINGSTOP",
    "ubicacion": "Tlalpan, Ciudad de México",
-   "habilidades_tecnicas": [
-    "Preparación de alimentos y bebidas",
-    "Estándares de higiene y seguridad alimentaria (A&B)"
-   ],
-   "habilidades_blandas": [
-    "Trabajo en equipo",
-    "Trabajo bajo presión"
-   ],
-   "salario_min": 9800,
-   "salario_max": 9800,
-   "fecha_publicacion": "2026-09-12",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5881198956"
-  },
-  {
-   "titulo": "Administrativo de mantenimiento Experiencia en hotelería mantenimiento general",
-   "empresa": "Palladium Hotel Group",
-   "ubicacion": "Benito Juárez, Quintana Roo",
-   "habilidades_tecnicas": [
-    "Sistemas de reservaciones hoteleras (PMS)"
-   ],
-   "habilidades_blandas": [
-    "Atención al cliente",
-    "Organización"
-   ],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-09-12",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5881199158"
-  },
-  {
-   "titulo": "Recepcionista Para nueva apertura de Hotel",
-   "empresa": "MX hoteles",
-   "ubicacion": "Cuauhtémoc, Ciudad de México",
-   "habilidades_tecnicas": [
-    "Sistemas de reservaciones hoteleras (PMS)"
-   ],
-   "habilidades_blandas": [
-    "Atención al cliente",
-    "Organización"
-   ],
-   "salario_min": 14000,
-   "salario_max": 14000,
-   "fecha_publicacion": "2026-09-12",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5881199148"
-  },
-  {
-   "titulo": "Asesor de ventas Agencias de viajes",
-   "empresa": "Logística, Viajes y Bodas SA de CV",
-   "ubicacion": "Querétaro",
-   "habilidades_tecnicas": [
-    "Sistemas de reservación (GDS/OTA)",
-    "Armado de paquetes turísticos"
-   ],
-   "habilidades_blandas": [
-    "Atención al cliente",
-    "Organización"
-   ],
-   "salario_min": 18000,
-   "salario_max": 18000,
-   "fecha_publicacion": "2026-09-12",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5881199377"
-  },
-  {
-   "titulo": "Auxiliar de Mantenimiento Residencial City Express Santa Fe CDMX",
-   "empresa": "OPERADORA DE HOTELES NORTE 19 S.A DE C.V",
-   "ubicacion": "Cuajimalpa de Morelos, Ciudad de México",
    "habilidades_tecnicas": [
     "Mantenimiento general e instalaciones"
    ],
@@ -1174,131 +509,50 @@
     "Responsabilidad",
     "Trabajo en equipo"
    ],
-   "salario_min": 11670,
-   "salario_max": 11670,
-   "fecha_publicacion": "2026-09-12",
+   "salario_min": 11000,
+   "salario_max": 11000,
+   "fecha_publicacion": "2026-10-15",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5881199360"
+   "url": "https://www.adzuna.com.mx/details/5929280383"
   },
   {
-   "titulo": "Técnicoa en Fibra de Vidrio Parque xoximilco",
-   "empresa": "Xcaret",
+   "titulo": "Supervisor de Albercas Mantto Costa Mujeres",
+   "empresa": "Majestic Resorts",
    "ubicacion": "Benito Juárez, Quintana Roo",
    "habilidades_tecnicas": [
-    "(inferida del título)"
+    "Gestión operativa y supervisión de equipos"
    ],
    "habilidades_blandas": [
-    "Adaptabilidad"
+    "Liderazgo",
+    "Toma de decisiones"
    ],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-09-12",
+   "salario_min": 16000,
+   "salario_max": 16000,
+   "fecha_publicacion": "2026-10-15",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5881199507"
+   "url": "https://www.adzuna.com.mx/details/5929279762"
   },
   {
-   "titulo": "Técnicoa en Carpintería Parque xoximilco",
-   "empresa": "Xcaret",
-   "ubicacion": "Benito Juárez, Quintana Roo",
+   "titulo": "Personal de limpieza Contratación Directa",
+   "empresa": "Medica Sur",
+   "ubicacion": "Tlalpan, Ciudad de México",
    "habilidades_tecnicas": [
-    "(inferida del título)"
+    "Mantenimiento general e instalaciones"
    ],
    "habilidades_blandas": [
-    "Adaptabilidad"
+    "Responsabilidad",
+    "Trabajo en equipo"
    ],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-09-12",
+   "salario_min": 9582,
+   "salario_max": 9582,
+   "fecha_publicacion": "2026-10-15",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5881199555"
+   "url": "https://www.adzuna.com.mx/details/5929280121"
   },
   {
-   "titulo": "Carpintero Con experiencia",
-   "empresa": "Grupo Pueblo Bonito",
-   "ubicacion": "Los Cabos, Baja California Sur",
-   "habilidades_tecnicas": [
-    "(inferida del título)"
-   ],
-   "habilidades_blandas": [
-    "Adaptabilidad"
-   ],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-09-12",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5881190269"
-  },
-  {
-   "titulo": "Camarista, Recepcionista, Mesero, Chofer, Seguridad Hoteles City Guadalajara",
-   "empresa": "OPERADORA DE HOTELES NORTE 19 S.A DE C.V",
-   "ubicacion": "Guadalajara, Jalisco",
-   "habilidades_tecnicas": [
-    "Sistemas de reservaciones hoteleras (PMS)"
-   ],
-   "habilidades_blandas": [
-    "Atención al cliente",
-    "Organización"
-   ],
-   "salario_min": 11451,
-   "salario_max": 11451,
-   "fecha_publicacion": "2026-09-12",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5881190388"
-  },
-  {
-   "titulo": "Becario Empresas Turísticas- Turismo/Polanco",
-   "empresa": "Sociedad Nacional Promotora de Becarios S.C.",
-   "ubicacion": "Miguel Hidalgo, Ciudad de México",
-   "habilidades_tecnicas": [
-    "Apoyo administrativo básico"
-   ],
-   "habilidades_blandas": [
-    "Disposición a aprender",
-    "Organización"
-   ],
-   "salario_min": 60000,
-   "salario_max": 60000,
-   "fecha_publicacion": "2026-09-17",
-   "fuente": "OCC",
-   "url": "https://www.occ.com.mx/empleo/oferta/21332506/"
-  },
-  {
-   "titulo": "Practicante Comercial",
-   "empresa": "CAMARA NACIONAL DE COMERCIO SERVICIO Y TURISMO DE MONTERREY",
-   "ubicacion": "Centro, Tabasco",
-   "habilidades_tecnicas": [
-    "Apoyo administrativo básico"
-   ],
-   "habilidades_blandas": [
-    "Disposición a aprender",
-    "Organización"
-   ],
-   "salario_min": 108000,
-   "salario_max": 135600,
-   "fecha_publicacion": "2026-09-17",
-   "fuente": "OCC",
-   "url": "https://www.occ.com.mx/empleo/oferta/21331866/"
-  },
-  {
-   "titulo": "Técnico en refrigeración",
-   "empresa": "CR SANTA FE",
+   "titulo": "Capitan de meseros Patio Santa Fe",
+   "empresa": "BigBola Casinos",
    "ubicacion": "Álvaro Obregón, Ciudad de México",
-   "habilidades_tecnicas": [
-    "(inferida del título)"
-   ],
-   "habilidades_blandas": [
-    "Adaptabilidad"
-   ],
-   "salario_min": 156000,
-   "salario_max": 162000,
-   "fecha_publicacion": "2026-09-16",
-   "fuente": "OCC",
-   "url": "https://www.occ.com.mx/empleo/oferta/21331587/"
-  },
-  {
-   "titulo": "Chef Ejecutivo",
-   "empresa": "Desarrollo en Competencia Laboral Ikal S.C.",
-   "ubicacion": "Nayarit",
    "habilidades_tecnicas": [
     "Preparación de alimentos y bebidas",
     "Estándares de higiene y seguridad alimentaria (A&B)"
@@ -1307,12 +561,773 @@
     "Trabajo en equipo",
     "Trabajo bajo presión"
    ],
-   "salario_min": 540000,
-   "salario_max": 600000,
-   "fecha_publicacion": "2026-09-16",
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-10-15",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5929280027"
+  },
+  {
+   "titulo": "Auxiliar de Ropería y Lavandería Disponibilidad para rolar turnos",
+   "empresa": "Medica Sur",
+   "ubicacion": "Tlalpan, Ciudad de México",
+   "habilidades_tecnicas": [
+    "Mantenimiento general e instalaciones"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad",
+    "Trabajo en equipo"
+   ],
+   "salario_min": 10000,
+   "salario_max": 10000,
+   "fecha_publicacion": "2026-10-15",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5929279849"
+  },
+  {
+   "titulo": "Capitan De Meseros En Casino - Big Bola San Luis Potosi",
+   "empresa": "BigBola Casinos",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "Preparación de alimentos y bebidas",
+    "Estándares de higiene y seguridad alimentaria (A&B)"
+   ],
+   "habilidades_blandas": [
+    "Trabajo en equipo",
+    "Trabajo bajo presión"
+   ],
+   "salario_min": 11700,
+   "salario_max": 12000,
+   "fecha_publicacion": "2026-10-15",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5929210952"
+  },
+  {
+   "titulo": "Subgerente de restaurante aprendiz / Licenciatura concluida / poca experiencia en restaurante",
+   "empresa": "Wingstop",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "Preparación de alimentos y bebidas",
+    "Estándares de higiene y seguridad alimentaria (A&B)"
+   ],
+   "habilidades_blandas": [
+    "Trabajo en equipo",
+    "Trabajo bajo presión"
+   ],
+   "salario_min": 12500,
+   "salario_max": 125001,
+   "fecha_publicacion": "2026-10-15",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5929218505"
+  },
+  {
+   "titulo": "Subgerente Starbucks Zona Santa Fe",
+   "empresa": "Alsea",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "Preparación de alimentos y bebidas",
+    "Estándares de higiene y seguridad alimentaria (A&B)"
+   ],
+   "habilidades_blandas": [
+    "Trabajo en equipo",
+    "Trabajo bajo presión"
+   ],
+   "salario_min": 18200,
+   "salario_max": 18200,
+   "fecha_publicacion": "2026-10-15",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5929225687"
+  },
+  {
+   "titulo": "Guest Service Con experiencia",
+   "empresa": "BARCELÓ MAYA GRAND RESORT",
+   "ubicacion": "Solidaridad, Quintana Roo",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Adaptabilidad"
+   ],
+   "salario_min": 14799,
+   "salario_max": 14799,
+   "fecha_publicacion": "2026-10-15",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5929277162"
+  },
+  {
+   "titulo": "Concierge Eventos Con Experiencia",
+   "empresa": "Palace Resorts",
+   "ubicacion": "Benito Juárez, Quintana Roo",
+   "habilidades_tecnicas": [
+    "Coordinación de eventos"
+   ],
+   "habilidades_blandas": [
+    "Organización",
+    "Comunicación"
+   ],
+   "salario_min": 24300,
+   "salario_max": 24300,
+   "fecha_publicacion": "2026-10-15",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5929278937"
+  },
+  {
+   "titulo": "Sous Chef Ejecutivo Con Experiencia en Hoteles de 1000 habitaciones",
+   "empresa": "Palace Resorts",
+   "ubicacion": "Benito Juárez, Quintana Roo",
+   "habilidades_tecnicas": [
+    "Sistemas de reservaciones hoteleras (PMS)"
+   ],
+   "habilidades_blandas": [
+    "Atención al cliente",
+    "Organización"
+   ],
+   "salario_min": 62300,
+   "salario_max": 62300,
+   "fecha_publicacion": "2026-10-15",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5929279137"
+  },
+  {
+   "titulo": "Agente de Reservaciones Majestic Costa Mujeres",
+   "empresa": "Majestic Resorts",
+   "ubicacion": "Benito Juárez, Quintana Roo",
+   "habilidades_tecnicas": [
+    "Sistemas de reservación (GDS/OTA)",
+    "Armado de paquetes turísticos"
+   ],
+   "habilidades_blandas": [
+    "Atención al cliente",
+    "Organización"
+   ],
+   "salario_min": 18350,
+   "salario_max": 18350,
+   "fecha_publicacion": "2026-10-15",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5929279714"
+  },
+  {
+   "titulo": "Ayudante General En Restaurante",
+   "empresa": "La Casa De Toño",
+   "ubicacion": "Benito Juárez, Ciudad de México",
+   "habilidades_tecnicas": [
+    "Preparación de alimentos y bebidas",
+    "Estándares de higiene y seguridad alimentaria (A&B)"
+   ],
+   "habilidades_blandas": [
+    "Trabajo en equipo",
+    "Trabajo bajo presión"
+   ],
+   "salario_min": 14000,
+   "salario_max": 14000,
+   "fecha_publicacion": "2026-10-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5927742814"
+  },
+  {
+   "titulo": "Ejecutivo de emisiones LCC Turismo",
+   "empresa": "Grupo Euromundo",
+   "ubicacion": "Benito Juárez, Ciudad de México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Adaptabilidad"
+   ],
+   "salario_min": 11000,
+   "salario_max": 11000,
+   "fecha_publicacion": "2026-10-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5927825895"
+  },
+  {
+   "titulo": "Promotor de ventas en campo",
+   "empresa": "Megacable",
+   "ubicacion": "Zapopan, Jalisco",
+   "habilidades_tecnicas": [
+    "Ventas y prospección comercial"
+   ],
+   "habilidades_blandas": [
+    "Orientación a resultados",
+    "Negociación"
+   ],
+   "salario_min": 9451,
+   "salario_max": 9451,
+   "fecha_publicacion": "2026-10-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5927826601"
+  },
+  {
+   "titulo": "Subgerente Operativo Starbucks Mérida, disponibilidad de horario",
+   "empresa": "Alsea",
+   "ubicacion": "Mérida, Yucatán",
+   "habilidades_tecnicas": [
+    "Preparación de alimentos y bebidas",
+    "Estándares de higiene y seguridad alimentaria (A&B)"
+   ],
+   "habilidades_blandas": [
+    "Trabajo en equipo",
+    "Trabajo bajo presión"
+   ],
+   "salario_min": 17500,
+   "salario_max": 17500,
+   "fecha_publicacion": "2026-10-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5927827660"
+  },
+  {
+   "titulo": "Agente de ventas San José del Cabo Aeropuerto",
+   "empresa": "AVIS renta de autos México",
+   "ubicacion": "Los Cabos, Baja California Sur",
+   "habilidades_tecnicas": [
+    "Ventas y prospección comercial"
+   ],
+   "habilidades_blandas": [
+    "Orientación a resultados",
+    "Negociación"
+   ],
+   "salario_min": 12000,
+   "salario_max": 12000,
+   "fecha_publicacion": "2026-10-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5927826635"
+  },
+  {
+   "titulo": "Panadero encargado para comisariato",
+   "empresa": "Amarone",
+   "ubicacion": "Guadalajara, Jalisco",
+   "habilidades_tecnicas": [
+    "Preparación de alimentos y bebidas",
+    "Estándares de higiene y seguridad alimentaria (A&B)"
+   ],
+   "habilidades_blandas": [
+    "Trabajo en equipo",
+    "Trabajo bajo presión"
+   ],
+   "salario_min": 14000,
+   "salario_max": 14000,
+   "fecha_publicacion": "2026-10-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5927826723"
+  },
+  {
+   "titulo": "Cocineroa B Cocineroa B",
+   "empresa": "Grupo Presidente",
+   "ubicacion": "Miguel Hidalgo, Ciudad de México",
+   "habilidades_tecnicas": [
+    "Preparación de alimentos y bebidas",
+    "Estándares de higiene y seguridad alimentaria (A&B)"
+   ],
+   "habilidades_blandas": [
+    "Trabajo en equipo",
+    "Trabajo bajo presión"
+   ],
+   "salario_min": 11800,
+   "salario_max": 11800,
+   "fecha_publicacion": "2026-10-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5927823115"
+  },
+  {
+   "titulo": "Barista Starbucks Masaryk",
+   "empresa": "Alsea",
+   "ubicacion": "Miguel Hidalgo, Ciudad de México",
+   "habilidades_tecnicas": [
+    "Preparación de alimentos y bebidas",
+    "Estándares de higiene y seguridad alimentaria (A&B)"
+   ],
+   "habilidades_blandas": [
+    "Trabajo en equipo",
+    "Trabajo bajo presión"
+   ],
+   "salario_min": 7800,
+   "salario_max": 7800,
+   "fecha_publicacion": "2026-10-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5927826527"
+  },
+  {
+   "titulo": "Cajera Sport Book Cajera",
+   "empresa": "BigBola Casinos",
+   "ubicacion": "Tuxpan, Veracruz",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Adaptabilidad"
+   ],
+   "salario_min": 10048,
+   "salario_max": 10048,
+   "fecha_publicacion": "2026-10-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5927824387"
+  },
+  {
+   "titulo": "Cociners, Sub cheff, Jefe de Cocina Campestre, Coyoacan",
+   "empresa": "CMR",
+   "ubicacion": "Coyoacán, Ciudad de México",
+   "habilidades_tecnicas": [
+    "Preparación de alimentos y bebidas",
+    "Estándares de higiene y seguridad alimentaria (A&B)"
+   ],
+   "habilidades_blandas": [
+    "Trabajo en equipo",
+    "Trabajo bajo presión"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-10-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5927824251"
+  },
+  {
+   "titulo": "Cocinero a jornada reducida Vips Av Central",
+   "empresa": "Alsea",
+   "ubicacion": "Venustiano Carranza, Ciudad de México",
+   "habilidades_tecnicas": [
+    "Preparación de alimentos y bebidas",
+    "Estándares de higiene y seguridad alimentaria (A&B)"
+   ],
+   "habilidades_blandas": [
+    "Trabajo en equipo",
+    "Trabajo bajo presión"
+   ],
+   "salario_min": 8000,
+   "salario_max": 8000,
+   "fecha_publicacion": "2026-10-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5927823819"
+  },
+  {
+   "titulo": "Jefe de piso, capitán de meseros Parque Lindavista",
+   "empresa": "CMR",
+   "ubicacion": "Gustavo A. Madero, Ciudad de México",
+   "habilidades_tecnicas": [
+    "Preparación de alimentos y bebidas",
+    "Estándares de higiene y seguridad alimentaria (A&B)"
+   ],
+   "habilidades_blandas": [
+    "Trabajo en equipo",
+    "Trabajo bajo presión"
+   ],
+   "salario_min": 13000,
+   "salario_max": 13000,
+   "fecha_publicacion": "2026-10-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5927823593"
+  },
+  {
+   "titulo": "Operador telefónico / Recepción",
+   "empresa": "Hotel Marquis Reforma",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "Sistemas de reservaciones hoteleras (PMS)"
+   ],
+   "habilidades_blandas": [
+    "Atención al cliente",
+    "Organización"
+   ],
+   "salario_min": 13545,
+   "salario_max": 13545,
+   "fecha_publicacion": "2026-10-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5927700835"
+  },
+  {
+   "titulo": "Agente de Call Center Ingles Intermedio",
+   "empresa": "BARCELÓ MAYA GRAND RESORT",
+   "ubicacion": "Solidaridad, Quintana Roo",
+   "habilidades_tecnicas": [
+    "Atención telefónica"
+   ],
+   "habilidades_blandas": [
+    "Comunicación",
+    "Empatía"
+   ],
+   "salario_min": 12650,
+   "salario_max": 12650,
+   "fecha_publicacion": "2026-10-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5927786713"
+  },
+  {
+   "titulo": "Cocinero a A Cocinero a A",
+   "empresa": "Grupo Presidente",
+   "ubicacion": "Miguel Hidalgo, Ciudad de México",
+   "habilidades_tecnicas": [
+    "Preparación de alimentos y bebidas",
+    "Estándares de higiene y seguridad alimentaria (A&B)"
+   ],
+   "habilidades_blandas": [
+    "Trabajo en equipo",
+    "Trabajo bajo presión"
+   ],
+   "salario_min": 14800,
+   "salario_max": 14800,
+   "fecha_publicacion": "2026-10-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5927823119"
+  },
+  {
+   "titulo": "Gerente de Restaurante Burger King Central de Autobuses de Mexicali",
+   "empresa": "Grupo Estrella Blanca",
+   "ubicacion": "Mexicali, Baja California",
+   "habilidades_tecnicas": [
+    "Preparación de alimentos y bebidas",
+    "Estándares de higiene y seguridad alimentaria (A&B)"
+   ],
+   "habilidades_blandas": [
+    "Trabajo en equipo",
+    "Trabajo bajo presión"
+   ],
+   "salario_min": 20000,
+   "salario_max": 20000,
+   "fecha_publicacion": "2026-10-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5927823566"
+  },
+  {
+   "titulo": "Subgerente de Restaurante Chilis",
+   "empresa": "CMR",
+   "ubicacion": "Celaya, Guanajuato",
+   "habilidades_tecnicas": [
+    "Preparación de alimentos y bebidas",
+    "Estándares de higiene y seguridad alimentaria (A&B)"
+   ],
+   "habilidades_blandas": [
+    "Trabajo en equipo",
+    "Trabajo bajo presión"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-10-14",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5927826811"
+  },
+  {
+   "titulo": "Repartidor en moto Dominos Toreo",
+   "empresa": "Alsea",
+   "ubicacion": "Naucalpan de Juárez, Estado de México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Adaptabilidad"
+   ],
+   "salario_min": 9000,
+   "salario_max": 9000,
+   "fecha_publicacion": "2026-10-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5926060811"
+  },
+  {
+   "titulo": "Auxiliar de Tienda Subway Turno rolado",
+   "empresa": "El Fogoncito",
+   "ubicacion": "Miguel Hidalgo, Ciudad de México",
+   "habilidades_tecnicas": [
+    "Gestión administrativa y manejo de Excel"
+   ],
+   "habilidades_blandas": [
+    "Atención al detalle",
+    "Organización"
+   ],
+   "salario_min": 9857,
+   "salario_max": 9857,
+   "fecha_publicacion": "2026-10-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5926064838"
+  },
+  {
+   "titulo": "Jefe de cocina, Vips Puebla Outlet Turno vespertino",
+   "empresa": "Alsea",
+   "ubicacion": "Coronango, Puebla",
+   "habilidades_tecnicas": [
+    "Preparación de alimentos y bebidas",
+    "Estándares de higiene y seguridad alimentaria (A&B)"
+   ],
+   "habilidades_blandas": [
+    "Trabajo en equipo",
+    "Trabajo bajo presión"
+   ],
+   "salario_min": 15000,
+   "salario_max": 15000,
+   "fecha_publicacion": "2026-10-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5926064876"
+  },
+  {
+   "titulo": "Supervisor a de turno Starbucks Items Puebla",
+   "empresa": "Alsea",
+   "ubicacion": "Puebla",
+   "habilidades_tecnicas": [
+    "Preparación de alimentos y bebidas",
+    "Estándares de higiene y seguridad alimentaria (A&B)"
+   ],
+   "habilidades_blandas": [
+    "Trabajo en equipo",
+    "Trabajo bajo presión"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-10-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5926064140"
+  },
+  {
+   "titulo": "Sub gerente Starbucks zapopan Sub gerente Starbucks",
+   "empresa": "Alsea",
+   "ubicacion": "Zapopan, Jalisco",
+   "habilidades_tecnicas": [
+    "Preparación de alimentos y bebidas",
+    "Estándares de higiene y seguridad alimentaria (A&B)"
+   ],
+   "habilidades_blandas": [
+    "Trabajo en equipo",
+    "Trabajo bajo presión"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-10-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5926063387"
+  },
+  {
+   "titulo": "Cocineros con experiencia the cheesecake factory Mitikah",
+   "empresa": "Alsea",
+   "ubicacion": "Cuauhtémoc, Ciudad de México",
+   "habilidades_tecnicas": [
+    "Preparación de alimentos y bebidas",
+    "Estándares de higiene y seguridad alimentaria (A&B)"
+   ],
+   "habilidades_blandas": [
+    "Trabajo en equipo",
+    "Trabajo bajo presión"
+   ],
+   "salario_min": 13000,
+   "salario_max": 13000,
+   "fecha_publicacion": "2026-10-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5926063125"
+  },
+  {
+   "titulo": "Mesero a Wingstop Cosmopol",
+   "empresa": "Wingstop",
+   "ubicacion": "Coacalco de Berriozabal, Estado de México",
+   "habilidades_tecnicas": [
+    "Preparación de alimentos y bebidas",
+    "Estándares de higiene y seguridad alimentaria (A&B)"
+   ],
+   "habilidades_blandas": [
+    "Trabajo en equipo",
+    "Trabajo bajo presión"
+   ],
+   "salario_min": 10000,
+   "salario_max": 10000,
+   "fecha_publicacion": "2026-10-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5926061979"
+  },
+  {
+   "titulo": "Repartidora Dominos Via Morelos",
+   "empresa": "Alsea",
+   "ubicacion": "Ecatepec, Estado de México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Adaptabilidad"
+   ],
+   "salario_min": 72000,
+   "salario_max": 72000,
+   "fecha_publicacion": "2026-10-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5926061684"
+  },
+  {
+   "titulo": "Repartidora Dominos Plaza Aragón",
+   "empresa": "Alsea",
+   "ubicacion": "Ecatepec, Estado de México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Adaptabilidad"
+   ],
+   "salario_min": 72000,
+   "salario_max": 72000,
+   "fecha_publicacion": "2026-10-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5926061614"
+  },
+  {
+   "titulo": "Repartidora Dominos Xalostoc",
+   "empresa": "Alsea",
+   "ubicacion": "Ecatepec, Estado de México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Adaptabilidad"
+   ],
+   "salario_min": 72000,
+   "salario_max": 72000,
+   "fecha_publicacion": "2026-10-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5926061595"
+  },
+  {
+   "titulo": "Repartidora Dominos Cd azteca",
+   "empresa": "Alsea",
+   "ubicacion": "Venustiano Carranza, Ciudad de México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Adaptabilidad"
+   ],
+   "salario_min": 72000,
+   "salario_max": 72000,
+   "fecha_publicacion": "2026-10-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5926060844"
+  },
+  {
+   "titulo": "Cocinero a Chilis Plaza Aragon",
+   "empresa": "Alsea",
+   "ubicacion": "Ecatepec, Estado de México",
+   "habilidades_tecnicas": [
+    "Preparación de alimentos y bebidas",
+    "Estándares de higiene y seguridad alimentaria (A&B)"
+   ],
+   "habilidades_blandas": [
+    "Trabajo en equipo",
+    "Trabajo bajo presión"
+   ],
+   "salario_min": 8000,
+   "salario_max": 8000,
+   "fecha_publicacion": "2026-10-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5926060767"
+  },
+  {
+   "titulo": "Camarista Turno matutino",
+   "empresa": "Grupo Presidente",
+   "ubicacion": "Guadalajara, Jalisco",
+   "habilidades_tecnicas": [
+    "Sistemas de reservaciones hoteleras (PMS)"
+   ],
+   "habilidades_blandas": [
+    "Atención al cliente",
+    "Organización"
+   ],
+   "salario_min": 9994,
+   "salario_max": 9994,
+   "fecha_publicacion": "2026-10-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5926061263"
+  },
+  {
+   "titulo": "Subgerente de Alimentos y Bebidas Hotell all inclusive 1000 habitaciones",
+   "empresa": "Palace Resorts",
+   "ubicacion": "Benito Juárez, Quintana Roo",
+   "habilidades_tecnicas": [
+    "Sistemas de reservaciones hoteleras (PMS)"
+   ],
+   "habilidades_blandas": [
+    "Atención al cliente",
+    "Organización"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-10-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5926040980"
+  },
+  {
+   "titulo": "Valet parking",
+   "empresa": "Grupo Bafar",
+   "ubicacion": "Chihuahua, Chihuahua",
+   "habilidades_tecnicas": [
+    "Sistemas de reservaciones hoteleras (PMS)"
+   ],
+   "habilidades_blandas": [
+    "Atención al cliente",
+    "Organización"
+   ],
+   "salario_min": 11000,
+   "salario_max": 12500,
+   "fecha_publicacion": "2026-10-16",
    "fuente": "OCC",
-   "url": "https://www.occ.com.mx/empleo/oferta/21336970/"
+   "url": "https://www.occ.com.mx/empleo/oferta/21369321/"
+  },
+  {
+   "titulo": "Mayordomo",
+   "empresa": "Grupo Bafar",
+   "ubicacion": "Chihuahua, Chihuahua",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Adaptabilidad"
+   ],
+   "salario_min": 11000,
+   "salario_max": 12500,
+   "fecha_publicacion": "2026-10-16",
+   "fuente": "OCC",
+   "url": "https://www.occ.com.mx/empleo/oferta/21369373/"
+  },
+  {
+   "titulo": "Ejecutivo de ventas de campo",
+   "empresa": "GRUPO HOSTECH TURISMO TECNOLOGIA Y HOSPEDAJE",
+   "ubicacion": "Mérida, Yucatán",
+   "habilidades_tecnicas": [
+    "Ventas y prospección comercial"
+   ],
+   "habilidades_blandas": [
+    "Orientación a resultados",
+    "Negociación"
+   ],
+   "salario_min": 15000,
+   "salario_max": 15000,
+   "fecha_publicacion": "2026-10-15",
+   "fuente": "OCC",
+   "url": "https://www.occ.com.mx/empleo/oferta/21377004/"
+  },
+  {
+   "titulo": "EJECUTIVO DE VENTAS VIP (Servicios Clínicos)",
+   "empresa": "INGENES",
+   "ubicacion": "Hermosillo, Sonora",
+   "habilidades_tecnicas": [
+    "Ventas y prospección comercial"
+   ],
+   "habilidades_blandas": [
+    "Orientación a resultados",
+    "Negociación"
+   ],
+   "salario_min": 12000,
+   "salario_max": 17000,
+   "fecha_publicacion": "2026-10-15",
+   "fuente": "OCC",
+   "url": "https://www.occ.com.mx/empleo/oferta/21376243/"
+  },
+  {
+   "titulo": "Coordinador de viajes (sector salud)",
+   "empresa": "INGENES",
+   "ubicacion": "Cuajimalpa de Morelos, Ciudad de México",
+   "habilidades_tecnicas": [
+    "Sistemas de reservación (GDS/OTA)",
+    "Armado de paquetes turísticos"
+   ],
+   "habilidades_blandas": [
+    "Atención al cliente",
+    "Organización"
+   ],
+   "salario_min": 26000,
+   "salario_max": 28000,
+   "fecha_publicacion": "2026-10-14",
+   "fuente": "OCC",
+   "url": "https://www.occ.com.mx/empleo/oferta/21374443/"
   }
  ],
- "vacantes_detalle_nota": "Generado programáticamente (2026-09-14) por etapa4_sector_json.py sobre 268 vacantes verificadas (vacantes_turismo_verificadas_auto.csv). Todos los conteos son exactos (pandas, sin estimaciones). Salario normalizado a MXN mensual (Adzuna >90,000/año se dividió entre 12). vacantes_con_habilidades cuenta solo habilidades EXPLÍCITAS en el CSV fuente. Muestra vacantes_detalle: filtro de recencia Adzuna<=10d / Indeed<=15d / OCC<=20d desde hoy, muestreo proporcional por fuente, máx. 60; habilidades faltantes inferidas por categoría de puesto."
+ "vacantes_detalle_nota": "Generado programáticamente (2026-10-16) por etapa4_sector_json.py sobre 124 vacantes verificadas (vacantes_turismo_verificadas_auto.csv). Todos los conteos son exactos (pandas, sin estimaciones). Salario normalizado a MXN mensual (Adzuna >90,000/año se dividió entre 12; OCC llega anualizado desde la Etapa 1 y se dividió entre 12 siempre). vacantes_con_habilidades cuenta solo habilidades EXPLÍCITAS en el CSV fuente. Muestra vacantes_detalle: filtro de recencia Adzuna<=10d / Indeed<=15d / OCC<=20d desde hoy, muestreo proporcional por fuente, máx. 60; habilidades faltantes inferidas por categoría de puesto."
 }

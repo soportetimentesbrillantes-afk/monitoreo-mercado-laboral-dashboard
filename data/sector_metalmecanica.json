@@ -1,284 +1,182 @@
 {
  "nombre": "Metalmecánica",
- "vacantes_verificadas": 132,
- "vacantes_descartadas": 43,
+ "vacantes_verificadas": 22,
+ "vacantes_descartadas": 62,
  "vacantes_con_habilidades": 0,
  "pct_con_habilidades": 0.0,
  "fuentes": {
-  "Adzuna": 110,
-  "OCC": 22
+  "Adzuna": 13,
+  "OCC": 9
  },
  "categorias_puesto": [
   {
-   "categoria": "Otro",
-   "vacantes": 42,
-   "pct": 31.8
+   "categoria": "Ventas técnicas / comercial industrial",
+   "vacantes": 8,
+   "pct": 36.4
   },
   {
    "categoria": "Mantenimiento industrial",
-   "vacantes": 25,
-   "pct": 18.9
+   "vacantes": 5,
+   "pct": 22.7
   },
   {
    "categoria": "Ingeniería industrial y de manufactura",
-   "vacantes": 19,
-   "pct": 14.4
+   "vacantes": 3,
+   "pct": 13.6
   },
   {
-   "categoria": "Soldadura y maquinado",
-   "vacantes": 13,
-   "pct": 9.8
-  },
-  {
-   "categoria": "Calidad",
-   "vacantes": 10,
-   "pct": 7.6
+   "categoria": "Otro",
+   "vacantes": 3,
+   "pct": 13.6
   },
   {
    "categoria": "Producción y operación",
-   "vacantes": 9,
-   "pct": 6.8
-  },
-  {
-   "categoria": "Ventas técnicas / comercial industrial",
-   "vacantes": 5,
-   "pct": 3.8
+   "vacantes": 2,
+   "pct": 9.1
   },
   {
    "categoria": "Gerencia y dirección industrial",
-   "vacantes": 3,
-   "pct": 2.3
-  },
-  {
-   "categoria": "Logística y almacén",
-   "vacantes": 2,
-   "pct": 1.5
-  },
-  {
-   "categoria": "Administración",
-   "vacantes": 2,
-   "pct": 1.5
-  },
-  {
-   "categoria": "Compras y cadena de suministro",
    "vacantes": 1,
-   "pct": 0.8
-  },
-  {
-   "categoria": "Seguridad industrial (EHS)",
-   "vacantes": 1,
-   "pct": 0.8
+   "pct": 4.5
   }
  ],
  "habilidades_tecnicas": [
   {
    "skill": "mantenimiento industrial",
-   "menciones": 27
-  },
-  {
-   "skill": "soldadura",
-   "menciones": 15
-  },
-  {
-   "skill": "control de calidad",
-   "menciones": 13
+   "menciones": 4
   },
   {
    "skill": "manufactura / producción",
-   "menciones": 8
-  },
-  {
-   "skill": "maquinado cnc",
-   "menciones": 3
-  },
-  {
-   "skill": "diseño CAD/CAM",
-   "menciones": 2
-  },
-  {
-   "skill": "logistica",
    "menciones": 2
   }
  ],
  "habilidades_blandas": [
   {
    "skill": "resolucion de problemas",
-   "menciones": 35
-  },
-  {
-   "skill": "trabajo en equipo",
-   "menciones": 18
-  },
-  {
-   "skill": "liderazgo",
-   "menciones": 15
-  },
-  {
-   "skill": "seguridad y disciplina",
-   "menciones": 13
-  },
-  {
-   "skill": "organizacion",
-   "menciones": 8
-  },
-  {
-   "skill": "responsabilidad",
    "menciones": 8
   },
   {
    "skill": "negociacion",
-   "menciones": 7
+   "menciones": 8
   },
   {
-   "skill": "atencion al detalle",
-   "menciones": 5
+   "skill": "trabajo en equipo",
+   "menciones": 4
+  },
+  {
+   "skill": "liderazgo",
+   "menciones": 2
   },
   {
    "skill": "toma de decisiones",
-   "menciones": 2
+   "menciones": 1
   }
  ],
  "top_empresas": [
   {
-   "empresa": "Magna International, Inc",
-   "vacantes": 29
-  },
-  {
-   "empresa": "Caterpillar",
-   "vacantes": 12
-  },
-  {
-   "empresa": "GEPP",
-   "vacantes": 6
-  },
-  {
-   "empresa": "Grupo Eulen México",
-   "vacantes": 4
-  },
-  {
-   "empresa": "Grupo Aceros Ocotlan SA de CV",
-   "vacantes": 4
-  },
-  {
-   "empresa": "Cummins",
-   "vacantes": 4
-  },
-  {
-   "empresa": "Grupo Collado",
-   "vacantes": 4
-  },
-  {
-   "empresa": "Transportes Castores de Baja California S.A. de C.V.",
-   "vacantes": 3
-  },
-  {
-   "empresa": "Extrusiones Metálicas, S.A. de C.V.",
-   "vacantes": 2
-  },
-  {
-   "empresa": "Advanced Technology Services",
-   "vacantes": 2
-  },
-  {
-   "empresa": "Conalum",
-   "vacantes": 2
-  },
-  {
-   "empresa": "Grupo Castillo",
-   "vacantes": 2
-  },
-  {
-   "empresa": "Casa Diaz de Maquinas de Coser",
-   "vacantes": 2
-  },
-  {
    "empresa": "WURTH MEXICO, SA DE CV",
+   "vacantes": 8
+  },
+  {
+   "empresa": "Magna International, Inc",
+   "vacantes": 5
+  },
+  {
+   "empresa": "Human Staff",
    "vacantes": 2
+  },
+  {
+   "empresa": "BigBola Casinos",
+   "vacantes": 2
+  },
+  {
+   "empresa": "Taylors",
+   "vacantes": 1
+  },
+  {
+   "empresa": "Eaton Corporation",
+   "vacantes": 1
+  },
+  {
+   "empresa": "Nach",
+   "vacantes": 1
+  },
+  {
+   "empresa": "Grupo Calidra",
+   "vacantes": 1
+  },
+  {
+   "empresa": "?Organización Reynera",
+   "vacantes": 1
   }
  ],
  "cobertura_geografica": {
   "top_estados": [
    {
-    "estado": "Nuevo León",
-    "vacantes": 17
-   },
-   {
-    "estado": "Estado de México",
-    "vacantes": 16
-   },
-   {
-    "estado": "Coahuila",
-    "vacantes": 15
-   },
-   {
-    "estado": "Ciudad de México",
-    "vacantes": 12
-   },
-   {
     "estado": "Guanajuato",
-    "vacantes": 8
-   },
-   {
-    "estado": "Jalisco",
-    "vacantes": 8
-   },
-   {
-    "estado": "Baja California",
-    "vacantes": 4
-   },
-   {
-    "estado": "San Luis Potosí",
     "vacantes": 3
    },
    {
-    "estado": "Puebla",
+    "estado": "Coahuila",
+    "vacantes": 3
+   },
+   {
+    "estado": "Estado de México",
     "vacantes": 2
    },
    {
+    "estado": "Chiapas",
+    "vacantes": 1
+   },
+   {
+    "estado": "Veracruz",
+    "vacantes": 1
+   },
+   {
+    "estado": "Nuevo León",
+    "vacantes": 1
+   },
+   {
+    "estado": "Durango",
+    "vacantes": 1
+   },
+   {
     "estado": "Morelos",
+    "vacantes": 1
+   },
+   {
+    "estado": "Nayarit",
+    "vacantes": 1
+   },
+   {
+    "estado": "Chihuahua",
     "vacantes": 1
    }
   ],
   "estados_unicos": 12
  },
  "salario": {
-  "vacantes_con_dato": 50,
-  "pct_con_dato": 37.9,
-  "mediana_mensual_mxn": 16350,
-  "p25_mensual_mxn": 13790,
-  "p75_mensual_mxn": 168450
+  "vacantes_con_dato": 14,
+  "pct_con_dato": 63.6,
+  "mediana_mensual_mxn": 17500,
+  "p25_mensual_mxn": 17500,
+  "p75_mensual_mxn": 18250
  },
  "evolucion_semanal": [
   {
-   "semana": "07 Sep",
-   "vacantes": 120
+   "semana": "05 Oct",
+   "vacantes": 12
   },
   {
-   "semana": "14 Sep",
-   "vacantes": 6
+   "semana": "12 Oct",
+   "vacantes": 10
   }
  ],
- "total_empresas_unicas": 61,
- "ultima_semana_vacantes": 6,
+ "total_empresas_unicas": 9,
+ "ultima_semana_vacantes": 10,
  "vacantes_detalle": [
   {
-   "titulo": "Técnico de Mantenimiento Tratamiento Térmico",
-   "empresa": "Magna International, Inc",
-   "ubicacion": "Ramos Arizpe, Coahuila de Zaragoza",
-   "habilidades_tecnicas": [
-    "Mantenimiento electromecánico"
-   ],
-   "habilidades_blandas": [
-    "Resolución de problemas"
-   ],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-09-14",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5884151533"
-  },
-  {
-   "titulo": "Ingeniero de Soldadura (Calidad)",
+   "titulo": "Ingeniero de Procesos",
    "empresa": "Magna International, Inc",
    "ubicacion": "México",
    "habilidades_tecnicas": [
@@ -289,141 +187,13 @@
    ],
    "salario_min": null,
    "salario_max": null,
-   "fecha_publicacion": "2026-09-14",
+   "fecha_publicacion": "2026-10-15",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5884151576"
+   "url": "https://www.adzuna.com.mx/details/5929770484"
   },
   {
-   "titulo": "ESPECIALISTA EN SOLDADURA",
-   "empresa": "Magna International, Inc",
-   "ubicacion": "Ramos Arizpe, Coahuila de Zaragoza",
-   "habilidades_tecnicas": [
-    "Soldadura y maquinado CNC"
-   ],
-   "habilidades_blandas": [
-    "Atención al detalle"
-   ],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-09-14",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5884151549"
-  },
-  {
-   "titulo": "Planeadora / Planeador de Mantenimiento",
-   "empresa": "Caterpillar",
-   "ubicacion": "Santa Catarina, Nuevo León",
-   "habilidades_tecnicas": [
-    "Mantenimiento electromecánico"
-   ],
-   "habilidades_blandas": [
-    "Resolución de problemas"
-   ],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-09-14",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5883742246"
-  },
-  {
-   "titulo": "Jefe de Producción",
-   "empresa": "Magna International, Inc",
-   "ubicacion": "México",
-   "habilidades_tecnicas": [
-    "Gestión de planta"
-   ],
-   "habilidades_blandas": [
-    "Liderazgo"
-   ],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-09-14",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5884151601"
-  },
-  {
-   "titulo": "Gerente de Mantenimiento",
-   "empresa": "LHH",
-   "ubicacion": "Puebla, México",
-   "habilidades_tecnicas": [
-    "Gestión de planta"
-   ],
-   "habilidades_blandas": [
-    "Liderazgo"
-   ],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-09-13",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5882451799"
-  },
-  {
-   "titulo": "Electromecánico/a - Farmacéutica",
-   "empresa": "Neolpharma",
-   "ubicacion": "México",
-   "habilidades_tecnicas": [
-    "Mantenimiento electromecánico"
-   ],
-   "habilidades_blandas": [
-    "Resolución de problemas"
-   ],
-   "salario_min": 14000,
-   "salario_max": 140001,
-   "fecha_publicacion": "2026-09-13",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5882733608"
-  },
-  {
-   "titulo": "Analista de Calidad",
-   "empresa": "Caterpillar",
-   "ubicacion": "Santa Catarina, Nuevo León",
-   "habilidades_tecnicas": [
-    "Control de calidad / ISO"
-   ],
-   "habilidades_blandas": [
-    "Atención al detalle"
-   ],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-09-13",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5882734887"
-  },
-  {
-   "titulo": "Quality Manager",
-   "empresa": "Emerson",
-   "ubicacion": "Nuevo León, México",
-   "habilidades_tecnicas": [
-    "Control de calidad / ISO"
-   ],
-   "habilidades_blandas": [
-    "Atención al detalle"
-   ],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-09-13",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5882739214"
-  },
-  {
-   "titulo": "Técnico en Mantenimiento Refrigeración",
-   "empresa": "Linde México",
-   "ubicacion": "México",
-   "habilidades_tecnicas": [
-    "Mantenimiento electromecánico"
-   ],
-   "habilidades_blandas": [
-    "Resolución de problemas"
-   ],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-09-13",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5882764147"
-  },
-  {
-   "titulo": "Ingeniero de equipos SMT JR",
-   "empresa": "Foxconn Gdl",
+   "titulo": "Tecnico de Procesos Tipo C",
+   "empresa": "Human Staff",
    "ubicacion": "México",
    "habilidades_tecnicas": [
     "Ingeniería de manufactura"
@@ -431,796 +201,334 @@
    "habilidades_blandas": [
     "Resolución de problemas"
    ],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-09-13",
+   "salario_min": 20000,
+   "salario_max": 22000,
+   "fecha_publicacion": "2026-10-15",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5882765657"
+   "url": "https://www.adzuna.com.mx/details/5929202304"
   },
   {
-   "titulo": "Técnico en aire acondicionado / Apoyo de vivienda compartida",
-   "empresa": "Grupo Castillo",
-   "ubicacion": "México",
-   "habilidades_tecnicas": [
-    "(inferida del título)"
-   ],
-   "habilidades_blandas": [
-    "Responsabilidad"
-   ],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-09-13",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5882770346"
-  },
-  {
-   "titulo": "Reparador critico",
-   "empresa": "Staffbridge Group",
-   "ubicacion": "México",
-   "habilidades_tecnicas": [
-    "(inferida del título)"
-   ],
-   "habilidades_blandas": [
-    "Responsabilidad"
-   ],
-   "salario_min": 10800,
-   "salario_max": 13260,
-   "fecha_publicacion": "2026-09-13",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5882777100"
-  },
-  {
-   "titulo": "Ingeniero de Control",
-   "empresa": "Magna International, Inc",
-   "ubicacion": "México",
-   "habilidades_tecnicas": [
-    "Ingeniería de manufactura"
-   ],
-   "habilidades_blandas": [
-    "Resolución de problemas"
-   ],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-09-13",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5883092113"
-  },
-  {
-   "titulo": "Ingeniero de Robotica",
-   "empresa": "Magna International, Inc",
-   "ubicacion": "México",
-   "habilidades_tecnicas": [
-    "Ingeniería de manufactura"
-   ],
-   "habilidades_blandas": [
-    "Resolución de problemas"
-   ],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-09-13",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5883092104"
-  },
-  {
-   "titulo": "MATRICERO C",
-   "empresa": "Magna International, Inc",
-   "ubicacion": "México",
-   "habilidades_tecnicas": [
-    "(inferida del título)"
-   ],
-   "habilidades_blandas": [
-    "Responsabilidad"
-   ],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-09-13",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5883092146"
-  },
-  {
-   "titulo": "Técnico de Procesos",
-   "empresa": "Jabil",
-   "ubicacion": "México",
-   "habilidades_tecnicas": [
-    "Ingeniería de manufactura"
-   ],
-   "habilidades_blandas": [
-    "Resolución de problemas"
-   ],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-09-12",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5881148696"
-  },
-  {
-   "titulo": "Técnico en refrigeración",
-   "empresa": "GEPP",
-   "ubicacion": "México",
-   "habilidades_tecnicas": [
-    "(inferida del título)"
-   ],
-   "habilidades_blandas": [
-    "Responsabilidad"
-   ],
-   "salario_min": 11000,
-   "salario_max": 14000,
-   "fecha_publicacion": "2026-09-12",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5881115361"
-  },
-  {
-   "titulo": "Operador Técnico EL (FAB) – Rotativo (1er y 2do turno) - En sitio - Aeroestructuras",
-   "empresa": "RTX",
-   "ubicacion": "México",
-   "habilidades_tecnicas": [
-    "Operación de línea de producción"
-   ],
-   "habilidades_blandas": [
-    "Trabajo en equipo"
-   ],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-09-12",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5881145467"
-  },
-  {
-   "titulo": "Multitécnico - Con Experiencia en Sector Industrial",
-   "empresa": "Grupo Eulen México",
-   "ubicacion": "México",
-   "habilidades_tecnicas": [
-    "(inferida del título)"
-   ],
-   "habilidades_blandas": [
-    "Responsabilidad"
-   ],
-   "salario_min": 13000,
-   "salario_max": 15000,
-   "fecha_publicacion": "2026-09-12",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5881146635"
-  },
-  {
-   "titulo": "Técnico en aire acondicionado Apoyo de vivienda compartida",
-   "empresa": "Grupo Castillo",
+   "titulo": "Gerente General de Planta Autopartes",
+   "empresa": "Taylors",
    "ubicacion": "Ecatepec, Estado de México",
    "habilidades_tecnicas": [
-    "(inferida del título)"
+    "Gestión de planta"
    ],
    "habilidades_blandas": [
-    "Responsabilidad"
+    "Liderazgo"
    ],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-09-12",
+   "salario_min": 145000,
+   "salario_max": 160000,
+   "fecha_publicacion": "2026-10-14",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5881201008"
+   "url": "https://www.adzuna.com.mx/details/5927716126"
   },
   {
-   "titulo": "Auxiliar de mantenimiento",
-   "empresa": "Transportes Castores de Baja California S.A. de C.V.",
-   "ubicacion": "León, Guanajuato",
-   "habilidades_tecnicas": [
-    "Mantenimiento electromecánico"
-   ],
-   "habilidades_blandas": [
-    "Resolución de problemas"
-   ],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-09-12",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5881198986"
-  },
-  {
-   "titulo": "AME Machining Engineer",
-   "empresa": "Magna International, Inc",
-   "ubicacion": "Ramos Arizpe, Coahuila de Zaragoza",
-   "habilidades_tecnicas": [
-    "Ingeniería de manufactura"
-   ],
-   "habilidades_blandas": [
-    "Resolución de problemas"
-   ],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-09-12",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5882084440"
-  },
-  {
-   "titulo": "Operador Tcnico EL (FAB) - Rotativo (1er y 2do turno) - En sitio - Aeroestructuras",
-   "empresa": "RTX Corporation",
-   "ubicacion": "Mexicali, Baja California",
-   "habilidades_tecnicas": [
-    "Operación de línea de producción"
-   ],
-   "habilidades_blandas": [
-    "Trabajo en equipo"
-   ],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-09-12",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5882284202"
-  },
-  {
-   "titulo": "Analista de Calidad",
-   "empresa": "Caterpillar, Inc.",
-   "ubicacion": "Santa Catarina, Guanajuato",
-   "habilidades_tecnicas": [
-    "Control de calidad / ISO"
-   ],
-   "habilidades_blandas": [
-    "Atención al detalle"
-   ],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-09-12",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5882282647"
-  },
-  {
-   "titulo": "Planeadora / Planeador de Mantenimiento",
-   "empresa": "Caterpillar, Inc.",
-   "ubicacion": "Santa Catarina, Guanajuato",
-   "habilidades_tecnicas": [
-    "Mantenimiento electromecánico"
-   ],
-   "habilidades_blandas": [
-    "Resolución de problemas"
-   ],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-09-12",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5882282656"
-  },
-  {
-   "titulo": "MATRICERO",
-   "empresa": "Magna International, Inc",
-   "ubicacion": "Ramos Arizpe, Coahuila de Zaragoza",
-   "habilidades_tecnicas": [
-    "(inferida del título)"
-   ],
-   "habilidades_blandas": [
-    "Responsabilidad"
-   ],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-09-12",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5882084430"
-  },
-  {
-   "titulo": "Especialista en Soldadura",
-   "empresa": "Magna International, Inc",
-   "ubicacion": "México",
-   "habilidades_tecnicas": [
-    "Soldadura y maquinado CNC"
-   ],
-   "habilidades_blandas": [
-    "Atención al detalle"
-   ],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-09-12",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5882084404"
-  },
-  {
-   "titulo": "Técnico en Mantenimiento Refrigeración",
-   "empresa": "Linde México",
-   "ubicacion": "Cuernavaca, Morelos",
-   "habilidades_tecnicas": [
-    "Mantenimiento electromecánico"
-   ],
-   "habilidades_blandas": [
-    "Resolución de problemas"
-   ],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-09-12",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5881199057"
-  },
-  {
-   "titulo": "Tecnico en Soldadura",
-   "empresa": "Magna International, Inc",
-   "ubicacion": "México",
-   "habilidades_tecnicas": [
-    "Soldadura y maquinado CNC"
-   ],
-   "habilidades_blandas": [
-    "Atención al detalle"
-   ],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-09-12",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5882084405"
-  },
-  {
-   "titulo": "Ingeniero de Contol",
-   "empresa": "Magna International, Inc",
-   "ubicacion": "México",
-   "habilidades_tecnicas": [
-    "Ingeniería de manufactura"
-   ],
-   "habilidades_blandas": [
-    "Resolución de problemas"
-   ],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-09-12",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5882084414"
-  },
-  {
-   "titulo": "SQE",
-   "empresa": "Magna International, Inc",
-   "ubicacion": "México",
-   "habilidades_tecnicas": [
-    "(inferida del título)"
-   ],
-   "habilidades_blandas": [
-    "Responsabilidad"
-   ],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-09-12",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5882084393"
-  },
-  {
-   "titulo": "Programador y Operador de CNC",
-   "empresa": "HUBBELL PRODUCTS MEXICO",
-   "ubicacion": "Toluca, Estado de México",
-   "habilidades_tecnicas": [
-    "Soldadura y maquinado CNC"
-   ],
-   "habilidades_blandas": [
-    "Atención al detalle"
-   ],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-09-12",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5881199971"
-  },
-  {
-   "titulo": "Coordinador mantenimiento Zona norte",
-   "empresa": "Grupo Truper",
-   "ubicacion": "Miguel Hidalgo, Ciudad de México",
-   "habilidades_tecnicas": [
-    "Mantenimiento electromecánico"
-   ],
-   "habilidades_blandas": [
-    "Resolución de problemas"
-   ],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-09-12",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5881199269"
-  },
-  {
-   "titulo": "Agente de ventas",
-   "empresa": "Grupo Cuprum",
-   "ubicacion": "México",
-   "habilidades_tecnicas": [
-    "Ventas técnicas"
-   ],
-   "habilidades_blandas": [
-    "Negociación"
-   ],
-   "salario_min": 9442,
-   "salario_max": 18000,
-   "fecha_publicacion": "2026-09-11",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5879908125"
-  },
-  {
-   "titulo": "Representante Comercial",
-   "empresa": "Serviacero Especiales",
-   "ubicacion": "Monterrey, Nuevo León",
-   "habilidades_tecnicas": [
-    "(inferida del título)"
-   ],
-   "habilidades_blandas": [
-    "Responsabilidad"
-   ],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-09-11",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5879659827"
-  },
-  {
-   "titulo": "Operador de producción C",
-   "empresa": "Cummins",
-   "ubicacion": "San Luis Potosí, México",
-   "habilidades_tecnicas": [
-    "Operación de línea de producción"
-   ],
-   "habilidades_blandas": [
-    "Trabajo en equipo"
-   ],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-09-11",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5879873600"
-  },
-  {
-   "titulo": "Value Stream Manager",
-   "empresa": "Emerson",
-   "ubicacion": "Juanacatlán, Jalisco",
-   "habilidades_tecnicas": [
-    "(inferida del título)"
-   ],
-   "habilidades_blandas": [
-    "Responsabilidad"
-   ],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-09-11",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5879895174"
-  },
-  {
-   "titulo": "Supervisor de Producción Prensas",
+   "titulo": "Mould Maker",
    "empresa": "Magna International",
-   "ubicacion": "Arteaga, Coahuila de Zaragoza",
-   "habilidades_tecnicas": [
-    "Operación de línea de producción"
-   ],
-   "habilidades_blandas": [
-    "Trabajo en equipo"
-   ],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-09-11",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5879903518"
-  },
-  {
-   "titulo": "Operador de Troquelados - San Juan de Aragón",
-   "empresa": "Casa Diaz de Maquinas de Coser",
-   "ubicacion": "México",
-   "habilidades_tecnicas": [
-    "Operación de línea de producción"
-   ],
-   "habilidades_blandas": [
-    "Trabajo en equipo"
-   ],
-   "salario_min": 10442,
-   "salario_max": 10442,
-   "fecha_publicacion": "2026-09-11",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5879925962"
-  },
-  {
-   "titulo": "Hojalatero/a",
-   "empresa": "Grupo Geisha",
-   "ubicacion": "México",
+   "ubicacion": "Apaseo el Grande, Guanajuato",
    "habilidades_tecnicas": [
     "(inferida del título)"
    ],
-   "habilidades_blandas": [
-    "Responsabilidad"
-   ],
-   "salario_min": 8400,
-   "salario_max": 25000,
-   "fecha_publicacion": "2026-09-11",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5879936859"
-  },
-  {
-   "titulo": "Ing. Electromecánico",
-   "empresa": "Real Clean Distribuciones S.A. de C.V.",
-   "ubicacion": "Tlalnepantla de Baz, Estado de México",
-   "habilidades_tecnicas": [
-    "Mantenimiento electromecánico"
-   ],
-   "habilidades_blandas": [
-    "Resolución de problemas"
-   ],
+   "habilidades_blandas": [],
    "salario_min": null,
    "salario_max": null,
-   "fecha_publicacion": "2026-09-11",
+   "fecha_publicacion": "2026-10-14",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5879989389"
+   "url": "https://www.adzuna.com.mx/details/5927694128"
   },
   {
-   "titulo": "Técnico en refrigeración",
-   "empresa": "GEPP",
-   "ubicacion": "Chimalhuacán, Estado de México",
+   "titulo": "Mould Maker",
+   "empresa": "Magna International, Inc",
+   "ubicacion": "Celaya, Guanajuato",
    "habilidades_tecnicas": [
     "(inferida del título)"
    ],
-   "habilidades_blandas": [
-    "Responsabilidad"
-   ],
-   "salario_min": 11000,
-   "salario_max": 11000,
-   "fecha_publicacion": "2026-09-11",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5879991175"
-  },
-  {
-   "titulo": "MATRICERO CLASE A",
-   "empresa": "Magna International, Inc",
-   "ubicacion": "México",
-   "habilidades_tecnicas": [
-    "(inferida del título)"
-   ],
-   "habilidades_blandas": [
-    "Responsabilidad"
-   ],
+   "habilidades_blandas": [],
    "salario_min": null,
    "salario_max": null,
-   "fecha_publicacion": "2026-09-11",
+   "fecha_publicacion": "2026-10-13",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5880439212"
-  },
-  {
-   "titulo": "Ingeniero de Calidad",
-   "empresa": "Magna International, Inc",
-   "ubicacion": "México",
-   "habilidades_tecnicas": [
-    "Ingeniería de manufactura"
-   ],
-   "habilidades_blandas": [
-    "Resolución de problemas"
-   ],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-09-11",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5880439277"
-  },
-  {
-   "titulo": "Técnico Metalúrgico",
-   "empresa": "Magna International, Inc",
-   "ubicacion": "Ramos Arizpe, Coahuila de Zaragoza",
-   "habilidades_tecnicas": [
-    "(inferida del título)"
-   ],
-   "habilidades_blandas": [
-    "Responsabilidad"
-   ],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-09-11",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5880439280"
-  },
-  {
-   "titulo": "Launch Manager",
-   "empresa": "Magna International, Inc",
-   "ubicacion": "Ramos Arizpe, Coahuila de Zaragoza",
-   "habilidades_tecnicas": [
-    "(inferida del título)"
-   ],
-   "habilidades_blandas": [
-    "Responsabilidad"
-   ],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-09-11",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5880439251"
-  },
-  {
-   "titulo": "AME Assembly Engineer",
-   "empresa": "Magna International, Inc",
-   "ubicacion": "Ramos Arizpe, Coahuila de Zaragoza",
-   "habilidades_tecnicas": [
-    "Ingeniería de manufactura"
-   ],
-   "habilidades_blandas": [
-    "Resolución de problemas"
-   ],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-09-11",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5880439308"
-  },
-  {
-   "titulo": "Ingeniero de Calidad Procesos",
-   "empresa": "Magna International, Inc",
-   "ubicacion": "Saltillo, Coahuila de Zaragoza",
-   "habilidades_tecnicas": [
-    "Ingeniería de manufactura"
-   ],
-   "habilidades_blandas": [
-    "Resolución de problemas"
-   ],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-09-11",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5880439311"
-  },
-  {
-   "titulo": "Técnico de moldes e inyección de plásticos",
-   "empresa": "ManpowerGroup",
-   "ubicacion": "Lerma, Estado de México",
-   "habilidades_tecnicas": [
-    "(inferida del título)"
-   ],
-   "habilidades_blandas": [
-    "Responsabilidad"
-   ],
-   "salario_min": 22000,
-   "salario_max": 22000,
-   "fecha_publicacion": "2026-09-11",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5879988772"
+   "url": "https://www.adzuna.com.mx/details/5926641682"
   },
   {
    "titulo": "Técnico Electromecánico",
-   "empresa": "PROACEL",
-   "ubicacion": "General Escobedo, Nuevo León",
+   "empresa": "Magna International, Inc",
+   "ubicacion": "Celaya, Guanajuato",
    "habilidades_tecnicas": [
     "Mantenimiento electromecánico"
    ],
    "habilidades_blandas": [
     "Resolución de problemas"
    ],
-   "salario_min": 240000,
-   "salario_max": 300000,
-   "fecha_publicacion": "2026-09-16",
-   "fuente": "OCC",
-   "url": "https://www.occ.com.mx/empleo/oferta/21331645/"
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-10-13",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5926641676"
   },
   {
-   "titulo": "SEGURIDAD DE HIGIENE",
-   "empresa": "MINCER HD SA DE CV",
-   "ubicacion": "Mineral de la Reforma, Hidalgo",
+   "titulo": "Operador Corte Laser",
+   "empresa": "Human Staff",
+   "ubicacion": "México",
    "habilidades_tecnicas": [
-    "(inferida del título)"
+    "Operación de línea de producción"
    ],
    "habilidades_blandas": [
-    "Responsabilidad"
+    "Trabajo en equipo"
+   ],
+   "salario_min": 10500,
+   "salario_max": 11250,
+   "fecha_publicacion": "2026-10-11",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5923466077"
+  },
+  {
+   "titulo": "Ingeniero de Manufactura Sr.",
+   "empresa": "Eaton Corporation",
+   "ubicacion": "Juárez, Chiapas",
+   "habilidades_tecnicas": [
+    "Ingeniería de manufactura"
+   ],
+   "habilidades_blandas": [
+    "Resolución de problemas"
    ],
    "salario_min": null,
    "salario_max": null,
-   "fecha_publicacion": "2026-09-16",
-   "fuente": "OCC",
-   "url": "https://www.occ.com.mx/empleo/oferta/21338728/"
+   "fecha_publicacion": "2026-10-11",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5923978585"
   },
   {
-   "titulo": "Coordinador de Sistema de Gestión Ambiental",
-   "empresa": "Connectingology SC",
-   "ubicacion": "Ciénega de Flores, Nuevo León",
+   "titulo": "Ayudante de Mantenimiento - Ayudante de mantenimiento",
+   "empresa": "BigBola Casinos",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "Mantenimiento electromecánico"
+   ],
+   "habilidades_blandas": [
+    "Resolución de problemas"
+   ],
+   "salario_min": 10500,
+   "salario_max": 12500,
+   "fecha_publicacion": "2026-10-10",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5922372725"
+  },
+  {
+   "titulo": "Técnico instalador aire acondicionado contratación inmediata",
+   "empresa": "Nach",
+   "ubicacion": "Tlalnepantla de Baz, Estado de México",
    "habilidades_tecnicas": [
     "(inferida del título)"
    ],
-   "habilidades_blandas": [
-    "Responsabilidad"
-   ],
-   "salario_min": 420000,
-   "salario_max": 480000,
-   "fecha_publicacion": "2026-09-16",
-   "fuente": "OCC",
-   "url": "https://www.occ.com.mx/empleo/oferta/21338652/"
+   "habilidades_blandas": [],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-10-10",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5922447015"
   },
   {
-   "titulo": "Programador y Operador de CNC",
-   "empresa": "Hubbell Products México S de RL de CV",
-   "ubicacion": "Toluca, Estado de México",
+   "titulo": "Tecnico Electromecanico",
+   "empresa": "Magna International, Inc",
+   "ubicacion": "México",
    "habilidades_tecnicas": [
-    "Soldadura y maquinado CNC"
+    "Mantenimiento electromecánico"
    ],
    "habilidades_blandas": [
-    "Atención al detalle"
+    "Resolución de problemas"
    ],
    "salario_min": null,
    "salario_max": null,
-   "fecha_publicacion": "2026-09-15",
-   "fuente": "OCC",
-   "url": "https://www.occ.com.mx/empleo/oferta/21334030/"
+   "fecha_publicacion": "2026-10-10",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5922765386"
   },
   {
-   "titulo": "COMPRADOR JR. (INSUMOS ESENCIALES)",
-   "empresa": "Grupo Collado",
-   "ubicacion": "Iztapalapa, Ciudad de México",
+   "titulo": "Ayudante de Mantenimiento Ayudante de mantenimiento",
+   "empresa": "BigBola Casinos",
+   "ubicacion": "Xalapa, Veracruz",
    "habilidades_tecnicas": [
-    "(inferida del título)"
+    "Mantenimiento electromecánico"
    ],
    "habilidades_blandas": [
-    "Responsabilidad"
+    "Resolución de problemas"
    ],
-   "salario_min": 156000,
-   "salario_max": 180000,
-   "fecha_publicacion": "2026-09-15",
-   "fuente": "OCC",
-   "url": "https://www.occ.com.mx/empleo/oferta/21337568/"
+   "salario_min": 10500,
+   "salario_max": 10500,
+   "fecha_publicacion": "2026-10-09",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5921068018"
   },
   {
-   "titulo": "Montacargas",
-   "empresa": "FRISA FORJADOS SA DE CV",
-   "ubicacion": "García, Nuevo León",
+   "titulo": "mecanico mecanico industrial",
+   "empresa": "Grupo Calidra",
+   "ubicacion": "Torreón, Coahuila de Zaragoza",
    "habilidades_tecnicas": [
-    "(inferida del título)"
+    "Mantenimiento electromecánico"
    ],
    "habilidades_blandas": [
-    "Responsabilidad"
+    "Resolución de problemas"
    ],
-   "salario_min": 156000,
-   "salario_max": 180000,
-   "fecha_publicacion": "2026-09-15",
-   "fuente": "OCC",
-   "url": "https://www.occ.com.mx/empleo/oferta/21329192/"
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-10-09",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5921070646"
   },
   {
-   "titulo": "Agente de Ventas con Auto Propio en La Huerta - Sin límite de Comisiones",
+   "titulo": "Representante de Ventas con Auto Propio en Gómez Palacio, Durango - Atractivas comisiones",
    "empresa": "WURTH MEXICO, SA DE CV",
-   "ubicacion": "La Huerta, Jalisco",
+   "ubicacion": "Gómez Palacio, Durango",
    "habilidades_tecnicas": [
     "Ventas técnicas"
    ],
    "habilidades_blandas": [
-    "Negociación"
+    "Negociación",
+    "Responsabilidad"
    ],
-   "salario_min": 180000,
-   "salario_max": 240000,
-   "fecha_publicacion": "2026-09-14",
+   "salario_min": 15000,
+   "salario_max": 20000,
+   "fecha_publicacion": "2026-10-14",
    "fuente": "OCC",
-   "url": "https://www.occ.com.mx/empleo/oferta/21336165/"
+   "url": "https://www.occ.com.mx/empleo/oferta/21374664/"
   },
   {
-   "titulo": "ingeniero de procesos de soldadura",
-   "empresa": "PHRAC INTERNATIONAL",
-   "ubicacion": "Marín, Nuevo León",
-   "habilidades_tecnicas": [
-    "Ingeniería de manufactura"
-   ],
-   "habilidades_blandas": [
-    "Resolución de problemas"
-   ],
-   "salario_min": 360000,
-   "salario_max": 456000,
-   "fecha_publicacion": "2026-09-13",
-   "fuente": "OCC",
-   "url": "https://www.occ.com.mx/empleo/oferta/21329855/"
-  },
-  {
-   "titulo": "Ingeniero de Ventas Industriales",
-   "empresa": "Adecco",
-   "ubicacion": "Benito Juárez, Ciudad de México",
-   "habilidades_tecnicas": [
-    "Ingeniería de manufactura"
-   ],
-   "habilidades_blandas": [
-    "Resolución de problemas"
-   ],
-   "salario_min": 288000,
-   "salario_max": 300000,
-   "fecha_publicacion": "2026-09-12",
-   "fuente": "OCC",
-   "url": "https://www.occ.com.mx/empleo/oferta/21332011/"
-  },
-  {
-   "titulo": "Vendedor Industrial - sectores Automotriz, Alimenticio, Metalmecánica",
-   "empresa": "ZUVI FIRMA LEGAL Y EMPRESARIAL",
-   "ubicacion": "Arteaga, Coahuila",
+   "titulo": "Ejecutivo de Ventas con Auto Propio en Saltillo, Coahuila - Comisiones sin Tope",
+   "empresa": "WURTH MEXICO, SA DE CV",
+   "ubicacion": "Saltillo, Coahuila",
    "habilidades_tecnicas": [
     "Ventas técnicas"
    ],
    "habilidades_blandas": [
-    "Negociación"
+    "Negociación",
+    "Responsabilidad"
    ],
-   "salario_min": 144000,
-   "salario_max": 156000,
-   "fecha_publicacion": "2026-09-11",
+   "salario_min": 17000,
+   "salario_max": 20000,
+   "fecha_publicacion": "2026-10-14",
    "fuente": "OCC",
-   "url": "https://www.occ.com.mx/empleo/oferta/21330350/"
+   "url": "https://www.occ.com.mx/empleo/oferta/21374566/"
+  },
+  {
+   "titulo": "Agente de Ventas con Auto Propio en Jojutla Morelos atractivas comisiones",
+   "empresa": "WURTH MEXICO, SA DE CV",
+   "ubicacion": "Jojutla, Morelos",
+   "habilidades_tecnicas": [
+    "Ventas técnicas"
+   ],
+   "habilidades_blandas": [
+    "Negociación",
+    "Responsabilidad"
+   ],
+   "salario_min": 15000,
+   "salario_max": 20000,
+   "fecha_publicacion": "2026-10-13",
+   "fuente": "OCC",
+   "url": "https://www.occ.com.mx/empleo/oferta/21373369/"
+  },
+  {
+   "titulo": "Coordinador de Produccion - Inyección plastico o metalmecanico",
+   "empresa": "?Organización Reynera",
+   "ubicacion": "Cadereyta Jiménez, Nuevo León",
+   "habilidades_tecnicas": [
+    "Operación de línea de producción"
+   ],
+   "habilidades_blandas": [
+    "Trabajo en equipo"
+   ],
+   "salario_min": 45000,
+   "salario_max": 50000,
+   "fecha_publicacion": "2026-10-12",
+   "fuente": "OCC",
+   "url": "https://www.occ.com.mx/empleo/oferta/21372110/"
+  },
+  {
+   "titulo": "Representante de Ventas con Auto Propio en Ciudad Juárez - Comisiones sin límite",
+   "empresa": "WURTH MEXICO, SA DE CV",
+   "ubicacion": "Juárez, Chihuahua",
+   "habilidades_tecnicas": [
+    "Ventas técnicas"
+   ],
+   "habilidades_blandas": [
+    "Negociación",
+    "Responsabilidad"
+   ],
+   "salario_min": 15000,
+   "salario_max": 20000,
+   "fecha_publicacion": "2026-10-11",
+   "fuente": "OCC",
+   "url": "https://www.occ.com.mx/empleo/oferta/21370501/"
+  },
+  {
+   "titulo": "Agente de Ventas con Auto Propio en Compostela - Altas y atractivas comisiones",
+   "empresa": "WURTH MEXICO, SA DE CV",
+   "ubicacion": "Compostela, Nayarit",
+   "habilidades_tecnicas": [
+    "Ventas técnicas"
+   ],
+   "habilidades_blandas": [
+    "Negociación",
+    "Responsabilidad"
+   ],
+   "salario_min": 15000,
+   "salario_max": 20000,
+   "fecha_publicacion": "2026-10-11",
+   "fuente": "OCC",
+   "url": "https://www.occ.com.mx/empleo/oferta/21370503/"
+  },
+  {
+   "titulo": "Agente de Ventas con Auto Propio en Tehuacán - Sin límite de comisión",
+   "empresa": "WURTH MEXICO, SA DE CV",
+   "ubicacion": "Tehuacán, Puebla",
+   "habilidades_tecnicas": [
+    "Ventas técnicas"
+   ],
+   "habilidades_blandas": [
+    "Negociación",
+    "Responsabilidad"
+   ],
+   "salario_min": 15000,
+   "salario_max": 20000,
+   "fecha_publicacion": "2026-10-10",
+   "fuente": "OCC",
+   "url": "https://www.occ.com.mx/empleo/oferta/21370327/"
+  },
+  {
+   "titulo": "Agente de Ventas con Auto Propio en Monclova - Sin límite de comisión",
+   "empresa": "WURTH MEXICO, SA DE CV",
+   "ubicacion": "Monclova, Coahuila",
+   "habilidades_tecnicas": [
+    "Ventas técnicas"
+   ],
+   "habilidades_blandas": [
+    "Negociación",
+    "Responsabilidad"
+   ],
+   "salario_min": 15000,
+   "salario_max": 20000,
+   "fecha_publicacion": "2026-10-10",
+   "fuente": "OCC",
+   "url": "https://www.occ.com.mx/empleo/oferta/21370329/"
+  },
+  {
+   "titulo": "Representante de Ventas con Auto Propio en Hermosillo - Comisiones sin límite",
+   "empresa": "WURTH MEXICO, SA DE CV",
+   "ubicacion": "Hermosillo, Sonora",
+   "habilidades_tecnicas": [
+    "Ventas técnicas"
+   ],
+   "habilidades_blandas": [
+    "Negociación",
+    "Responsabilidad"
+   ],
+   "salario_min": 15000,
+   "salario_max": 20000,
+   "fecha_publicacion": "2026-10-10",
+   "fuente": "OCC",
+   "url": "https://www.occ.com.mx/empleo/oferta/21370326/"
   }
  ],
- "vacantes_detalle_nota": "Generado programáticamente (2026-09-14) por etapa4_sector_json.py sobre 132 vacantes verificadas (vacantes_metalmecanica_verificadas_auto.csv). Todos los conteos son exactos (pandas, sin estimaciones). Salario normalizado a MXN mensual (Adzuna >90,000/año se dividió entre 12). vacantes_con_habilidades cuenta solo habilidades EXPLÍCITAS en el CSV fuente. Muestra vacantes_detalle: filtro de recencia Adzuna<=10d / Indeed<=15d / OCC<=20d desde hoy, muestreo proporcional por fuente, máx. 60; habilidades faltantes inferidas por categoría de puesto."
+ "vacantes_detalle_nota": "Generado programáticamente (2026-10-16) por etapa4_sector_json.py sobre 22 vacantes verificadas (vacantes_metalmecanica_verificadas_auto.csv). Todos los conteos son exactos (pandas, sin estimaciones). Salario normalizado a MXN mensual (Adzuna >90,000/año se dividió entre 12; OCC llega anualizado desde la Etapa 1 y se dividió entre 12 siempre). vacantes_con_habilidades cuenta solo habilidades EXPLÍCITAS en el CSV fuente. Muestra vacantes_detalle: filtro de recencia Adzuna<=10d / Indeed<=15d / OCC<=20d desde hoy, muestreo proporcional por fuente, máx. 60; habilidades faltantes inferidas por categoría de puesto."
 }
