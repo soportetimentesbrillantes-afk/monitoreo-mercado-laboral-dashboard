@@ -88,6 +88,18 @@ def primero(lista, campo_nombre, campo_valor):
     return e.get(campo_nombre), e.get(campo_valor)
 
 
+def categoria_principal(s):
+    """La categoría de puesto más grande que SÍ tiene nombre. "Otro" no es una
+    categoría del mercado: es lo que el diccionario no supo clasificar, y
+    reportarlo como "categoría top" (o peor, como hallazgo) confunde un hueco de
+    medición con una señal. Devuelve (nombre, pct) o (None, None)."""
+    for c in s.get('categorias_puesto', []):
+        nombre = (c.get('categoria') or '').strip()
+        if nombre and not nombre.lower().startswith('otro'):
+            return nombre, c.get('pct')
+    return None, None
+
+
 def fecha_mas_reciente(sectores):
     fechas = []
     for s in sectores:
@@ -108,7 +120,7 @@ def tarjeta(s):
     # Un 0 aquí significa que el campo no se calculó, no que no haya datos.
     cob_html = (f'{cob}%' if cob else '<span class="pendiente">dato pendiente</span>')
 
-    cat, pct = primero(s.get('categorias_puesto', []), 'categoria', 'pct')
+    cat, pct = categoria_principal(s)
     cat_txt = f'{cat} ({pct}%)' if cat else '<span class="pendiente">dato pendiente</span>'
 
     tec, tn = primero(s.get('habilidades_tecnicas', []), 'skill', 'menciones')
@@ -168,25 +180,52 @@ def filas_habilidades(sectores):
     return '\n'.join(filas)
 
 
+MIN_HALLAZGO = 50
+MAX_SIN_CLASIFICAR = 50
+
+
 def hallazgo(sectores):
     """Compara la concentración de la categoría principal entre el sector más
     concentrado y el más repartido. Es una lectura derivada de los datos, no
     una opinión: las dos cifras salen de categorias_puesto."""
     conc = []
     for s in sectores:
-        cat, pct = primero(s.get('categorias_puesto', []), 'categoria', 'pct')
+        # Con muy pocas vacantes un porcentaje se mueve con dos o tres plazas:
+        # no alcanza para decirle a alguien que se especialice.
+        if (s.get('vacantes_verificadas') or 0) < MIN_HALLAZGO:
+            continue
+        # Y si más de la mitad de las vacantes quedó sin clasificar, la
+        # "concentración" mide el diccionario, no el mercado: un sector con 78%
+        # sin categoría parece "repartido" cuando en realidad no lo sabemos.
+        sin_clasificar = sum(c.get('pct') or 0 for c in s.get('categorias_puesto', [])
+                             if (c.get('categoria') or '').lower().startswith('otro'))
+        if sin_clasificar > MAX_SIN_CLASIFICAR:
+            continue
+        cat, pct = categoria_principal(s)
         if pct is not None:
             conc.append((pct, s['nombre'], cat))
     if len(conc) < 2:
         return 'dato pendiente', 'dato pendiente', 'Dato pendiente para esta edición.'
     conc.sort(reverse=True)
     (pa, sa, _), (pb, sb, _) = conc[0], conc[-1]
-    txt = (f'En <strong>{sa}</strong>, una sola categoría de puesto concentra '
+    (_, _, ca), (_, _, cb) = conc[0], conc[-1]
+    txt = (f'En <strong>{sa}</strong>, una sola categoría de puesto ({ca}) concentra '
            f'{pa:.0f}% de las vacantes. En <strong>{sb}</strong>, la categoría más '
            f'demandada apenas llega a {pb:.0f}%. Quien busca empleo en {sa} compite por '
            f'un mismo tipo de puesto y conviene especializarse; en {sb} la demanda está '
            f'repartida y conviene un perfil más amplio.')
     return f'{pa:.0f}%', f'{pb:.0f}%', txt
+
+
+def aviso_metodo(texto):
+    """Aviso que se imprime cuando las cifras no son comparables con ediciones
+    anteriores (cambió cómo se buscaron o se verificaron las vacantes). Mismo
+    bloque visual que el de datos viejos. El texto lo da quien publica, con
+    lenguaje para el lector: el generador lo valida contra la jerga igual que
+    el resto."""
+    if not texto:
+        return ''
+    return f'<div class="aviso-datos"><b>Antes de comparar con otras semanas.</b>{texto}</div>'
 
 
 def aviso_datos(dias, fecha_dato):
@@ -263,6 +302,8 @@ def main():
     ap.add_argument('--patron', default=None, help='frase de lectura transversal; por omisión se deriva de los datos')
     ap.add_argument('--dias-frescura', type=int, default=10,
                     help='días a partir de los cuales se imprime el aviso de datos viejos')
+    ap.add_argument('--aviso-metodo', default='',
+                    help='texto para el lector cuando las cifras no se pueden comparar con ediciones anteriores')
     ap.add_argument('--sin-indice', action='store_true', help='no actualizar boletines.json')
     a = ap.parse_args()
 
@@ -297,7 +338,7 @@ def main():
 
     campos = {
         'PERIODO': periodo,
-        'AVISO_DATOS': aviso_datos(dias, reciente) if viejo else '',
+        'AVISO_DATOS': (aviso_datos(dias, reciente) if viejo else '') + aviso_metodo(a.aviso_metodo),
         'TOTAL': miles(total),
         'SECTORES_N': str(len(sectores)),
         'LIDER_N': miles(sectores[0]['vacantes_verificadas']),
@@ -356,6 +397,8 @@ def main():
         resumen = f'{miles(total)} vacantes verificadas en {len(sectores)} sectores. {sectores[0]["nombre"]} encabeza con {miles(sectores[0]["vacantes_verificadas"])}.'
         if viejo:
             resumen = 'Sin vacantes nuevas esta semana. ' + resumen
+        if a.aviso_metodo:
+            resumen += ' Las cifras no se pueden comparar con ediciones anteriores.'
         datos['ediciones'].insert(0, {
             'folio': fecha.isoformat(), 'fecha': fecha.isoformat(), 'periodo': periodo,
             'titulo': f'Boletín — {periodo}', 'resumen': resumen,
