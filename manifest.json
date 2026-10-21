@@ -1,8 +1,8 @@
 {
  "meta": {
-  "corrida": "2026-09-14",
+  "corrida": "2026-10-16",
   "fuente": "Dashboards y reportes de Etapa 4 (03 Sectores/[Sector]/Reportes) en la carpeta de Drive del proyecto",
-  "nota_corrida": "Corrida completa 2026-09-14 (Etapas 1-4) para los 9 sectores: Automotriz, Turismo, Gestión y Administración, Ventas, Finanzas, Legal, Metalmecánica, TI y Logística. Extracción vía Adzuna + OCC (Indeed no disponible en esta corrida). Verificación de empresa determinística (etapa2_verificar.py) contra el maestro y las listas de confiables por sector; las empresas nuevas sin match quedaron en listas empresas_nuevas_<sector>.csv pendientes de validación (DENUE/web) para incorporarse al maestro en una corrida futura — no bloquean esta publicación. Conteos, categorías, habilidades, salarios y 'Empleos recomendados' (vacantes_detalle) recalculados de forma exacta con etapa4_sector_json.py sobre las vacantes verificadas de esta corrida."
+  "nota_corrida": "Corrida 2026-10-16 (Etapas 1, 2 y 4) para los 9 sectores. Ventana de extracción: vacantes publicadas del 2026-10-09 al 2026-10-16 (Adzuna con max_days_old=7, hasta 50 páginas de 50 resultados por término; OCC con el filtro de 7 días, 5 páginas por sector desde el navegador de la computadora de Gael). Indeed no disponible en esta corrida. Las semanas del 2026-09-15 al 2026-10-08 no se extrajeron: no hubo corrida. Verificación de empresa determinística (etapa2_verificar.py) contra el maestro y las listas de confiables; Metalmecánica y TI no tienen lista de confiables en Drive, por lo que sus vacantes verificadas dependen solo del maestro. Los diccionarios de categorías y habilidades de Finanzas, Logística, Legal, Metalmecánica y TI se reconstruyeron en esta corrida porque no estaban guardados. Por estas diferencias de método, los conteos de esta corrida no son comparables con los del 2026-09-14."
  },
  "sectores": [
   {

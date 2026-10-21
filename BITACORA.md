@@ -10,6 +10,134 @@ después.
 corrigió un error, describe también cómo se detectó — eso es lo que evita
 repetirlo.
 
+## 2026-10-16 — Corrida de la semana del 9 al 16 de octubre, con boletín
+
+Primera corrida desde el 2026-09-14. Las cuatro semanas intermedias no tienen
+datos: faltaban las credenciales de Adzuna y la tarea programada se detenía al
+inicio (correctamente). Gael pegó las claves el 2026-10-16, pero en un Google Doc
+nuevo en "Mi unidad" en vez de en el `.md` de la carpeta raíz. Se movió a la
+carpeta raíz y la tarea semanal ahora apunta a ese Doc (id
+`1v9jxdr-MvRROC3xNEk6wEMef4CHLQk0v7eVsp5rJInw`). Las llaves nunca se escribieron
+en el chat, en el repositorio ni en los archivos de la corrida.
+
+**Resultado:** 3,252 vacantes verificadas en los 9 sectores, de 22,923
+entregadas por la Etapa 1 (Adzuna 22,232 · OCC 691 · Indeed 0).
+
+| Sector | Verificadas | Antes (09-14) | Mediana mensual |
+|---|---|---|---|
+| Ventas | 723 | 324 | $11,500 |
+| Finanzas | 583 | 227 | $15,000 |
+| Automotriz | 513 | 234 | $13,000 |
+| Gestión y Administración | 487 | 130 | $14,000 |
+| Logística | 406 | 189 | $13,000 |
+| Legal | 229 | 157 | $19,080 |
+| TI | 165 | 72 | $17,000 |
+| Turismo | 124 | 268 | $12,825 |
+| Metalmecánica | 22 | 132 | $17,500 |
+
+**No se puede comparar con el 2026-09-14, y eso quedó escrito en todos lados**
+(control de cada sector, `meta.nota_corrida`, boletín, índice de boletines):
+
+- Ventana fija de 7 días (2026-10-09 → 2026-10-16), Adzuna con `max_days_old=7`
+  y hasta 50 páginas por término. No se sabe con qué profundidad se extrajo el
+  09-14: en Drive sus crudos quedaron truncados a 600 filas.
+- Metalmecánica y TI no tienen lista de empresas confiables en Drive, así que
+  solo cuentan las empresas del maestro. Metalmecánica cae de 132 a 22 por eso,
+  no por el mercado.
+- Las listas de confiables de Automotriz, Logística y Legal tienen comas sin
+  comillas y `pandas` no las podía leer. Se usó solo la primera columna (el
+  nombre), que es la única que el script necesita. Hay que limpiar esos CSV en
+  Drive.
+- Los diccionarios de categorías y habilidades de Finanzas, Logística, Legal,
+  Metalmecánica y TI no existían en ningún lado: el 09-14 se usaron unos que
+  nunca se guardaron. Se reconstruyeron con los nombres exactos que publicó esa
+  corrida (para que las categorías se llamen igual) y las palabras clave se
+  escribieron de nuevo. La inferencia por categoría (`por_categoria`) se sacó de
+  las vacantes que publicó el 09-14. Ahora están en `herramientas/` y en
+  "05 Scripts pipeline" de Drive.
+- Indeed: no hay conector en la sesión. 0 vacantes.
+
+**Arreglo de paso: la mediana de TI del sitio estaba mal.** Lo publicado el 09-14
+decía 141,000 MXN al mes. Con esta corrida es 17,000.
+
+**OCC desde el navegador integrado de la app en la Mac de Gael.** Funciona igual
+que Chrome: `fetch()` del mismo origen más `DOMParser`. Dos cosas nuevas: el
+javascript corta a los 45 segundos (se lanza en segundo plano y se consulta
+después), y para sacar los datos conviene devolver un JSON grande de una vez,
+porque la herramienta lo guarda en un archivo legible desde el sandbox.
+
+**Dónde quedaron los crudos.** Pesan 6 MB y por el conector de Drive se truncan
+(eso pasó el 09-14). Se guardaron comprimidos en `datos/crudos/` del repositorio,
+junto con los verificados en `datos/`. En Drive quedaron los controles de cada
+sector y los diccionarios.
+
+**Boletín.** Se generó con dos cambios al generador:
+
+1. "Categoría top" y el hallazgo ya no cuentan "Otro". Es lo que el diccionario
+   no supo clasificar, no una categoría del mercado. El primer borrador decía
+   "en Legal una sola categoría concentra 78%", y era "Otro".
+2. El hallazgo deja fuera sectores con menos de 50 vacantes, o con más de la
+   mitad sin clasificar. La concentración de una categoría mide el diccionario
+   si el diccionario no clasificó casi nada.
+
+También tiene una opción nueva `--aviso-metodo`, que imprime arriba un aviso
+para el lector cuando las cifras no se pueden comparar con otras ediciones.
+
+**Pendiente para que esto corra solo:** la tarea `actualizar-dashboard-web` (en
+la nube, lunes 9:03) busca los crudos en Drive, y desde esta corrida ya no
+están ahí. Ver la propuesta en el reporte de la corrida.
+
+## 2026-10-15 — DISC y FODA se pueden compartir con el Club, a una hoja interna
+
+Pedido de Gael: "que los datos del llenado de DISC y FODA se guarden en un
+excel para uso interno". Hasta hoy las tres páginas prometían que nada salía
+del navegador, así que guardar implicaba pedir permiso. Gael eligió casilla
+para aceptar, sin marcar, y una hoja nueva solo para esto.
+
+**Cómo quedó.** Al final del DISC (las dos versiones) y del FODA hay una
+tarjeta "Compartir con el Club (opcional)" con nombre, correo, la casilla
+"Acepto compartir estos datos con el Club…" y el botón "Enviar al Club". Solo
+se envía si la casilla está marcada y se toca el botón; terminar el
+cuestionario o escribir en el FODA no manda nada, y hay una prueba para cada
+caso. La tarjeta dice qué se manda, que no se comparte con empresas, que la
+herramienta sirve igual sin compartir y a qué correo pedir el borrado.
+
+Lo recibe un Apps Script nuevo (`cuentas/apps-script-autoconocimiento.gs`)
+ligado a la hoja [Autoconocimiento DISC y FODA (uso interno)](https://docs.google.com/spreadsheets/d/1QRybfvknJWvmEgQWd5bBdl5jvr48aezxmZS90h2_GTU/edit),
+creada en la carpeta raíz del proyecto con pestañas Léeme, DISC y FODA. Es un
+script aparte del de CVs a propósito: así la hoja se puede compartir con
+orientadores sin darles los CVs, y un error en uno no tumba al otro.
+
+**Decisiones:**
+
+- **Mismo id, misma fila.** Un DISC terminado tiene su id: reenviarlo actualiza
+  la fila; contestarlo otra vez es otra fila. El FODA tiene un id por
+  dispositivo: corregirlo y reenviarlo actualiza la fila y conserva "Primer
+  envío"; "Borrar todo" suelta el id.
+- **Se guardan las respuestas crudas del DISC**, no solo los puntajes. La clave
+  de colores de Ágora tiene tres supuestos por confirmar; con las respuestas se
+  puede volver a puntuar a todos si cambian. La columna "Versión de la clave"
+  dice con cuál se calculó cada fila.
+- **El script solo escribe.** La clave está a la vista en `compartir-club.js`
+  y no protege nada; lo que protege la hoja es que no hay forma de leerla a
+  través del script.
+- **Inerte hasta publicar el script.** Con `COMPARTIR_ENDPOINT` vacío la
+  tarjeta no aparece. Se puede subir el código hoy y activarlo después.
+
+**Aviso de privacidad.** Se agregó la finalidad secundaria de orientación a
+partir de las herramientas de autoconocimiento y un párrafo en la sección 2
+que explica que funcionan en el navegador y qué se recibe solo si la persona
+lo comparte. Última actualización: octubre de 2026. **Conviene que lo revise
+quien lleve lo legal del Club**: lo redacté siguiendo la estructura del aviso
+existente, pero no soy abogado.
+
+Pruebas nuevas: `test_compartir.mjs` (10, en navegador, con un servidor falso
+que registra todo lo que sale) y `test_apps_script_autoconocimiento.mjs` (9,
+el script corriendo en Node con imitaciones de SpreadsheetApp). Las de DISC,
+FODA y Ágora siguen en verde.
+
+Pasos de instalación en `cuentas/LEEME-autoconocimiento.md`.
+
 ## 2026-10-12 — El DISC se alinea con Ágora: dos cuestionarios, una interpretación y el informe
 
 Gael trajo el material de Ágora Internacional —el cuestionario "DISC As de

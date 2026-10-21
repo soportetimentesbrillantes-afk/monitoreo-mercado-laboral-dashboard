@@ -1,6 +1,15 @@
 {
  "ediciones": [
   {
+   "folio": "2026-10-16",
+   "fecha": "2026-10-16",
+   "periodo": "Del 9 al 16 de octubre de 2026",
+   "titulo": "Boletín — Del 9 al 16 de octubre de 2026",
+   "resumen": "3,252 vacantes verificadas en 9 sectores. Ventas encabeza con 723. Las cifras no se pueden comparar con ediciones anteriores.",
+   "html": "boletines/newsletter-2026-10-16.html",
+   "pdf": "boletines/newsletter-2026-10-16.pdf"
+  },
+  {
    "folio": "2026-10-03",
    "fecha": "2026-10-03",
    "periodo": "Semana del 28 de septiembre al 4 de octubre de 2026",

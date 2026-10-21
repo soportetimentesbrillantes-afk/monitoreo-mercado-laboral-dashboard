@@ -6,7 +6,7 @@ Este archivo existe para que cualquiera (persona o asistente) entienda el estado
 del proyecto sin rebuscar en conversaciones pasadas. Si algo aquí ya no es
 cierto, corrígelo: un contexto desactualizado es peor que no tenerlo.
 
-**Última revisión:** 12 de octubre de 2026
+**Última revisión:** 16 de octubre de 2026
 
 ---
 
@@ -33,7 +33,8 @@ El sitio se sirve con GitHub Pages desde este repositorio:
 | `disc-agora.html` | Tu estilo de trabajo, cuestionario de Ágora Internacional: 5 secciones, 75 reactivos, puntuación por colores. |
 | `foda.html` | Tu FODA. Cuatro cuadros libres que se guardan solo en el navegador; imprimible. |
 | `informe.html` | Documento ejecutivo integral: DISC + FODA + plan de acción; lo del orientador se escribe, no se calcula. |
-| `disc-interpretacion.js` | La interpretación DISC de Ágora, compartida por las tres páginas anteriores. Única excepción a "páginas autocontenidas". |
+| `disc-interpretacion.js` | La interpretación DISC de Ágora, compartida por las tres páginas anteriores. Excepción a "páginas autocontenidas". |
+| `compartir-club.js` | La opción de compartir DISC y FODA con el Club (casilla sin marcar). Inerte mientras no tenga la URL del Apps Script. |
 
 Todas son archivos HTML autocontenidos: la lógica, los estilos y el marcado van
 en el mismo archivo. No hay compilación ni empaquetador. Lo que está en el repo
@@ -41,7 +42,10 @@ es exactamente lo que corre en el navegador.
 
 Las herramientas de autoconocimiento (DISC, FODA, informe) guardan todo en el
 navegador de la persona (`localStorage`: `cmb_disc`, `cmb_foda`, `cmb_informe`)
-y no mandan nada a ningún servidor. El resultado DISC se guarda con el mismo
+y no mandan nada a ningún servidor, salvo que la persona marque la casilla
+de compartir y toque "Enviar al Club": entonces el DISC o el FODA llegan a la
+hoja interna "Autoconocimiento DISC y FODA (uso interno)" (ver
+`cuentas/LEEME-autoconocimiento.md`). El resultado DISC se guarda con el mismo
 formato venga del cuestionario que venga (`instrumento: 'bloques' | 'agora'`,
 `escala`), y `index.html` lo lee para la afinidad de vacantes.
 
@@ -157,8 +161,17 @@ Indeed solo estaba anotada en la bitácora y no en los datos.
 Las horas no son en punto a propósito: ahí se amontona el tráfico y las corridas
 se retrasan.
 
-Las credenciales de Adzuna viven en `credenciales_adzuna.md`, en la carpeta raíz
-del proyecto en Drive. **Nunca en este repositorio**, que es público.
+Las credenciales de Adzuna viven en el Google Doc `credenciales_adzuna.md`
+(id `1v9jxdr-MvRROC3xNEk6wEMef4CHLQk0v7eVsp5rJInw`), en la carpeta raíz del
+proyecto en Drive. Hay otros archivos con el mismo nombre que solo traen la
+plantilla. **Nunca en este repositorio**, que es público.
+
+**Dónde vive cada cosa en Drive.** La carpeta raíz `1S4Ol…` guarda credenciales,
+reportes y salidas. Las carpetas de sector (con sus `Vacantes`, `Fuentes`,
+`Reportes`) y el maestro de empresas cuelgan de otra raíz, "06 agente
+habilidades ver1" (`1LuguvNTKHpw4i_ByBUCuVNEfAdcIWDgy`). Los crudos completos de
+la Etapa 1 no caben por el conector de Drive y viven en `datos/crudos/` del
+repositorio.
 
 ## 9. Pendientes conocidos
 
@@ -172,7 +185,7 @@ del proyecto en Drive. **Nunca en este repositorio**, que es público.
 - Ninguna de las herramientas se ha probado con usuarios finales fuera del equipo.
 - La clave de colores del cuestionario de Ágora tiene tres supuestos por confirmar
   con Ágora (secciones a, c y d). Están marcados en `CLAVE`, en `disc-agora.html`.
-- El aviso de privacidad no menciona cuentas, DISC, FODA ni informe.
+- El aviso de privacidad ya cubre DISC y FODA (octubre de 2026) pero no las cuentas; falta que lo revise quien lleve lo legal.
 
 ## 10. Dónde está el resto de la documentación
 
