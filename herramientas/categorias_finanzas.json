@@ -1,0 +1,80 @@
+{
+  "Becarios y practicantes": [
+    "becari",
+    "practicante",
+    "trainee",
+    "intern"
+  ],
+  "Gerencia y jefatura financiera": [
+    "gerente",
+    "director",
+    "jefe",
+    "jefa",
+    "head of",
+    "cfo",
+    "controller"
+  ],
+  "Coordinación financiera": [
+    "coordinador",
+    "coordinadora",
+    "supervisor",
+    "supervisora",
+    "lider",
+    "líder"
+  ],
+  "Sistemas y tecnología financiera": [
+    " sap",
+    " erp",
+    "sistemas",
+    "fintech",
+    "oracle",
+    " data",
+    "datos"
+  ],
+  "Contabilidad y cumplimiento fiscal": [
+    "contab",
+    "contador",
+    "contadora",
+    "fiscal",
+    "impuest",
+    "auditor",
+    "auditoria",
+    "tax",
+    "accounting",
+    "accountant",
+    "nomina",
+    "nómina"
+  ],
+  "Tesorería, crédito y cobranza": [
+    "tesorer",
+    "credito",
+    "crédito",
+    "cobranza",
+    "cuentas por cobrar",
+    "cuentas por pagar",
+    "cartera",
+    "treasury",
+    "collections"
+  ],
+  "Análisis financiero y planeación": [
+    "analista financ",
+    "financial analyst",
+    "planeacion",
+    "planeación",
+    "fp&a",
+    "presupuest",
+    "costos",
+    "finanzas",
+    "finance",
+    "financier"
+  ],
+  "Auxiliares y asistentes": [
+    "auxiliar",
+    "asistente",
+    "assistant"
+  ],
+  "Otro / administración general": [
+    "administra",
+    "administrativ"
+  ]
+}

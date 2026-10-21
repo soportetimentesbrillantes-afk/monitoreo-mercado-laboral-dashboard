@@ -1,0 +1,46 @@
+{
+  "Paralegal / Auxiliar legal": [
+    "paralegal",
+    "auxiliar legal",
+    "auxiliar juridico",
+    "auxiliar jurídico",
+    "pasante",
+    "asistente legal",
+    "asistente juridic",
+    "asistente jurídic"
+  ],
+  "Cobranza judicial/extrajudicial": [
+    "cobranza",
+    "extrajudicial",
+    "recuperacion",
+    "recuperación",
+    "litigante de cobranza"
+  ],
+  "Cumplimiento normativo / Compliance": [
+    "compliance",
+    "cumplimiento",
+    "normativ",
+    "regulator"
+  ],
+  "Derecho corporativo": [
+    "corporativ",
+    "societari",
+    "corporate"
+  ],
+  "Derecho laboral": [
+    "laboral"
+  ],
+  "Derecho de seguros": [
+    "seguro",
+    "siniestro",
+    "insurance"
+  ],
+  "Abogado general": [
+    "abogad",
+    "juridic",
+    "jurídic",
+    "legal",
+    "lawyer",
+    "litig"
+  ]
+}

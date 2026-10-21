@@ -1,0 +1,76 @@
+{
+  "Gerencia/Jefatura/Dirección de logística y almacén": [
+    "gerente",
+    "director",
+    "jefe",
+    "jefa",
+    "head of"
+  ],
+  "Comercio exterior, aduanas e importación/exportación": [
+    "comercio exterior",
+    "aduan",
+    "importa",
+    "exporta",
+    "trafico",
+    "tráfico",
+    "customs"
+  ],
+  "Analista, planeación, compras y supply chain": [
+    "analista",
+    "planeacion",
+    "planeación",
+    "planner",
+    "compras",
+    "comprador",
+    "supply chain",
+    "cadena de suministro",
+    "demand"
+  ],
+  "Mantenimiento de flota": [
+    "mantenimiento",
+    "mecanic",
+    "mecánic",
+    "flota",
+    "taller"
+  ],
+  "Transporte, reparto y distribución": [
+    "chofer",
+    "conductor",
+    "operador de",
+    "reparto",
+    "repartidor",
+    "transport",
+    "distribu",
+    "ruta",
+    "trailer",
+    "tracto",
+    "driver"
+  ],
+  "Almacén, CEDIS y manejo de materiales": [
+    "almacen",
+    "almacén",
+    "cedis",
+    "montacarg",
+    "inventari",
+    "bodega",
+    "picking",
+    "surtidor",
+    "materiales",
+    "warehouse"
+  ],
+  "Coordinación y operación logística": [
+    "logistic",
+    "logístic",
+    "coordinador",
+    "coordinadora",
+    "supervisor",
+    "operacion",
+    "operación"
+  ],
+  "Administración y soporte administrativo": [
+    "administra",
+    "auxiliar",
+    "asistente",
+    "capturista"
+  ]
+}

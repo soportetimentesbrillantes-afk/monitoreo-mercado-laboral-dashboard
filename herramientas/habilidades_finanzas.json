@@ -1,0 +1,170 @@
+{
+  "tecnicas": {
+    "Cuentas por cobrar/pagar": [
+      "cuentas por cobrar",
+      "cuentas por pagar",
+      "cobranza",
+      "cxc",
+      "cxp",
+      "accounts receivable",
+      "accounts payable"
+    ],
+    "Contabilidad general": [
+      "contab",
+      "contador",
+      "contadora",
+      "accounting",
+      "accountant"
+    ],
+    "Cumplimiento fiscal (SAT/IVA/ISR)": [
+      "fiscal",
+      "impuest",
+      " sat",
+      " iva",
+      "isr",
+      "tax"
+    ],
+    "SAP / ERP": [
+      "sap",
+      " erp",
+      "oracle"
+    ],
+    "Auditoría": [
+      "auditor",
+      "auditoria",
+      "auditoría",
+      "audit"
+    ],
+    "Presupuestos y forecast": [
+      "presupuest",
+      "forecast",
+      "budget",
+      "fp&a"
+    ],
+    "Análisis financiero": [
+      "analisis financ",
+      "análisis financ",
+      "analista financ",
+      "financial analyst"
+    ],
+    "Nómina": [
+      "nomina",
+      "nómina",
+      "payroll"
+    ]
+  },
+  "blandas": {
+    "Orientación a resultados": [
+      "ejecutiv",
+      "ventas",
+      "comercial",
+      "promotor",
+      "asesor"
+    ],
+    "Organización": [
+      "administra",
+      "coordinador",
+      "coordinadora",
+      "control"
+    ],
+    "Pensamiento analítico": [
+      "analista",
+      "analyst",
+      "analisis",
+      "análisis"
+    ],
+    "Liderazgo": [
+      "gerente",
+      "director",
+      "jefe",
+      "jefa",
+      "lider",
+      "líder",
+      "supervisor",
+      "head"
+    ],
+    "Toma de decisiones": [
+      "gerente",
+      "director",
+      "controller"
+    ],
+    "Proactividad": [
+      "becari",
+      "practicante",
+      "trainee"
+    ],
+    "Atención al detalle": [
+      "auditor",
+      "contab",
+      "fiscal"
+    ],
+    "Visión estratégica": [
+      "planeacion",
+      "planeación",
+      "estrateg",
+      "director"
+    ]
+  },
+  "por_categoria": {
+    "Becarios y practicantes": {
+      "tecnicas": [
+        "Excel (básico-intermedio)",
+        "Conciliaciones bancarias"
+      ],
+      "blandas": [
+        "Atención al detalle",
+        "Proactividad"
+      ]
+    },
+    "Gerencia y jefatura financiera": {
+      "tecnicas": [
+        "Liderazgo de equipos financieros"
+      ],
+      "blandas": [
+        "Liderazgo",
+        "Toma de decisiones"
+      ]
+    },
+    "Coordinación financiera": {
+      "tecnicas": [
+        "Presupuestos y forecast"
+      ],
+      "blandas": [
+        "Organización"
+      ]
+    },
+    "Contabilidad y cumplimiento fiscal": {
+      "tecnicas": [
+        "Contabilidad general",
+        "Cumplimiento fiscal (SAT/IVA/ISR)"
+      ],
+      "blandas": [
+        "Atención al detalle"
+      ]
+    },
+    "Tesorería, crédito y cobranza": {
+      "tecnicas": [
+        "Gestión de tesorería",
+        "Cuentas por cobrar/pagar"
+      ],
+      "blandas": [
+        "Orientación a resultados"
+      ]
+    },
+    "Análisis financiero y planeación": {
+      "tecnicas": [
+        "Análisis financiero",
+        "Presupuestos y forecast"
+      ],
+      "blandas": [
+        "Pensamiento analítico"
+      ]
+    },
+    "Otro / administración general": {
+      "tecnicas": [],
+      "blandas": [
+        "Responsabilidad"
+      ]
+    }
+  }
+}

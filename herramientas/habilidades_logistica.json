@@ -1,0 +1,112 @@
+{
+  "tecnicas": {
+    "gestion de almacenes (WMS)": [
+      "almacen",
+      "almacén",
+      "cedis",
+      "inventari",
+      "wms",
+      "bodega",
+      "warehouse",
+      "picking"
+    ],
+    "manejo de montacargas": [
+      "montacarg",
+      "forklift"
+    ],
+    "ruteo y distribucion": [
+      "ruta",
+      "ruteo",
+      "reparto",
+      "distribu"
+    ],
+    "comercio exterior y aduanas": [
+      "comercio exterior",
+      "aduan",
+      "importa",
+      "exporta"
+    ],
+    "excel y erp": [
+      "excel",
+      " erp",
+      " sap"
+    ],
+    "mantenimiento de flota": [
+      "mantenimiento",
+      "flota",
+      "mecanic",
+      "mecánic"
+    ],
+    "supply chain y planeacion": [
+      "supply chain",
+      "planeacion",
+      "planeación",
+      "planner",
+      "cadena de suministro"
+    ],
+    "normatividad de transporte": [
+      " sct",
+      "licencia federal",
+      "normatividad",
+      "nom-"
+    ]
+  },
+  "blandas": {
+    "comunicacion efectiva": [
+      "comunicacion",
+      "comunicación"
+    ]
+  },
+  "por_categoria": {
+    "Gerencia/Jefatura/Dirección de logística y almacén": {
+      "tecnicas": [
+        "gestion de almacenes (WMS)",
+        "manejo de montacargas"
+      ],
+      "blandas": [
+        "organizacion y planeacion del tiempo",
+        "trabajo en equipo"
+      ]
+    },
+    "Comercio exterior, aduanas e importación/exportación": {
+      "tecnicas": [
+        "comercio exterior y aduanas",
+        "excel y erp"
+      ],
+      "blandas": [
+        "atencion al detalle",
+        "organizacion y planeacion del tiempo"
+      ]
+    },
+    "Transporte, reparto y distribución": {
+      "tecnicas": [
+        "ruteo y distribucion",
+        "normatividad de transporte"
+      ],
+      "blandas": [
+        "orientacion a resultados",
+        "adaptabilidad"
+      ]
+    },
+    "Almacén, CEDIS y manejo de materiales": {
+      "tecnicas": [
+        "gestion de almacenes (WMS)",
+        "manejo de montacargas"
+      ],
+      "blandas": [
+        "organizacion y planeacion del tiempo",
+        "trabajo en equipo"
+      ]
+    },
+    "Coordinación y operación logística": {
+      "tecnicas": [
+        "gestion de almacenes (WMS)",
+        "ruteo y distribucion"
+      ],
+      "blandas": [
+        "trabajo en equipo",
+        "resolucion de problemas"
+      ]
+    }
+  }
+}

@@ -1,0 +1,95 @@
+{
+  "Becarios y practicantes": [
+    "becari",
+    "practicante",
+    "trainee",
+    "intern"
+  ],
+  "Gerencia y dirección TI": [
+    "gerente",
+    "director",
+    "head of",
+    "cto",
+    "jefe",
+    "jefa"
+  ],
+  "Inteligencia artificial y automatización": [
+    " ia ",
+    "inteligencia artificial",
+    "machine learning",
+    "automatiza",
+    "rpa",
+    " ml ",
+    "llm",
+    "genai"
+  ],
+  "Ciberseguridad": [
+    "ciberseg",
+    "seguridad informatica",
+    "seguridad informática",
+    "security"
+  ],
+  "Datos y business intelligence": [
+    "datos",
+    " data",
+    " bi ",
+    "business intelligence",
+    "power bi",
+    "analytics",
+    "sql"
+  ],
+  "QA y testing": [
+    " qa",
+    "tester",
+    "testing",
+    "pruebas",
+    "quality assurance"
+  ],
+  "Consultoría y ERP": [
+    "sap",
+    "erp",
+    "consultor",
+    "oracle",
+    "salesforce",
+    "dynamics"
+  ],
+  "Redes y telecomunicaciones": [
+    "redes",
+    "network",
+    "telecom",
+    "cisco"
+  ],
+  "Infraestructura y soporte técnico": [
+    "soporte",
+    "support",
+    "help desk",
+    "mesa de ayuda",
+    "infraestructura",
+    "sysadmin",
+    "cloud",
+    "devops",
+    "tecnico",
+    "técnico"
+  ],
+  "Gestión de proyectos TI": [
+    "project manager",
+    "scrum",
+    "proyecto",
+    "pmo",
+    "product owner"
+  ],
+  "Desarrollo de software": [
+    "desarroll",
+    "developer",
+    "programador",
+    "software",
+    "frontend",
+    "backend",
+    "full stack",
+    "fullstack",
+    "java",
+    "python",
+    ".net",
+    "react"
+  ]
+}

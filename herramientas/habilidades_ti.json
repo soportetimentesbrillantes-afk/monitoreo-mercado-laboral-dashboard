@@ -1,0 +1,197 @@
+{
+  "tecnicas": {
+    "inteligencia artificial": [
+      "inteligencia artificial",
+      " ia ",
+      "machine learning",
+      "llm",
+      "genai",
+      "automatiza"
+    ],
+    "desarrollo de software": [
+      "desarroll",
+      "developer",
+      "programador",
+      "software",
+      "java",
+      "python",
+      ".net",
+      "react"
+    ],
+    "business intelligence": [
+      "business intelligence",
+      "power bi",
+      " bi ",
+      "datos",
+      " data",
+      "analytics"
+    ],
+    "soporte tecnico": [
+      "soporte",
+      "support",
+      "help desk",
+      "mesa de ayuda"
+    ],
+    "bases de datos": [
+      "base de datos",
+      "bases de datos",
+      "sql",
+      "dba",
+      "database"
+    ],
+    "redes": [
+      "redes",
+      "network",
+      "telecom"
+    ],
+    "ciberseguridad": [
+      "ciberseg",
+      "security",
+      "seguridad informatica",
+      "seguridad informática"
+    ],
+    "gestion de proyectos": [
+      "project manager",
+      "scrum",
+      "pmo",
+      "proyecto"
+    ]
+  },
+  "blandas": {
+    "pensamiento analitico": [
+      "analista",
+      "analyst",
+      "datos",
+      " data"
+    ],
+    "resolucion de problemas": [
+      "soporte",
+      "support",
+      "ingenier",
+      "engineer"
+    ],
+    "liderazgo": [
+      "gerente",
+      "director",
+      "lider",
+      "líder",
+      "lead",
+      "jefe",
+      "head"
+    ],
+    "organizacion": [
+      "project",
+      "proyecto",
+      "coordinador",
+      "scrum"
+    ],
+    "adaptabilidad": [
+      "consultor",
+      "freelance"
+    ],
+    "atencion al detalle": [
+      " qa",
+      "tester",
+      "testing",
+      "pruebas"
+    ],
+    "aprendizaje continuo": [
+      "becari",
+      "practicante",
+      "trainee",
+      "junior",
+      "jr"
+    ]
+  },
+  "por_categoria": {
+    "Becarios y practicantes": {
+      "tecnicas": [
+        "Apoyo técnico",
+        "IA / Automatización"
+      ],
+      "blandas": [
+        "Aprendizaje continuo",
+        "Pensamiento analítico"
+      ]
+    },
+    "Gerencia y dirección TI": {
+      "tecnicas": [
+        "Gestión de TI",
+        "Soporte técnico"
+      ],
+      "blandas": [
+        "Resolución de problemas",
+        "Liderazgo"
+      ]
+    },
+    "Inteligencia artificial y automatización": {
+      "tecnicas": [
+        "IA / Automatización"
+      ],
+      "blandas": [
+        "Pensamiento analítico"
+      ]
+    },
+    "Ciberseguridad": {
+      "tecnicas": [
+        "Ciberseguridad"
+      ],
+      "blandas": [
+        "Atención al detalle"
+      ]
+    },
+    "Datos y business intelligence": {
+      "tecnicas": [
+        "Análisis de datos",
+        "Desarrollo de software"
+      ],
+      "blandas": [
+        "Pensamiento analítico",
+        "Resolución de problemas"
+      ]
+    },
+    "QA y testing": {
+      "tecnicas": [
+        "QA / Testing"
+      ],
+      "blandas": [
+        "Atención al detalle"
+      ]
+    },
+    "Consultoría y ERP": {
+      "tecnicas": [
+        "Consultoría ERP"
+      ],
+      "blandas": [
+        "Comunicación"
+      ]
+    },
+    "Infraestructura y soporte técnico": {
+      "tecnicas": [
+        "Soporte técnico"
+      ],
+      "blandas": [
+        "Resolución de problemas",
+        "Responsabilidad"
+      ]
+    },
+    "Gestión de proyectos TI": {
+      "tecnicas": [
+        "Gestión de proyectos"
+      ],
+      "blandas": [
+        "Liderazgo"
+      ]
+    },
+    "Desarrollo de software": {
+      "tecnicas": [
+        "Desarrollo de software",
+        "IA / Automatización"
+      ],
+      "blandas": [
+        "Resolución de problemas",
+        "Pensamiento analítico"
+      ]
+    }
+  }
+}

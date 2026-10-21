@@ -1,0 +1,182 @@
+{
+  "tecnicas": {
+    "mantenimiento industrial": [
+      "mantenimiento",
+      "maintenance",
+      "electromec"
+    ],
+    "soldadura": [
+      "soldad",
+      "welder",
+      "welding"
+    ],
+    "control de calidad": [
+      "calidad",
+      "quality",
+      "inspector",
+      "metrolog"
+    ],
+    "manufactura / producción": [
+      "manufactura",
+      "produccion",
+      "producción",
+      "production"
+    ],
+    "maquinado cnc": [
+      "cnc",
+      "maquin",
+      "torner",
+      "fresad"
+    ],
+    "diseño CAD/CAM": [
+      "autocad",
+      " cad",
+      "cad/cam",
+      "solidworks",
+      "autocad",
+      "diseñ",
+      "disen"
+    ],
+    "logistica": [
+      "logistic",
+      "logístic",
+      "almacen",
+      "almacén"
+    ]
+  },
+  "blandas": {
+    "resolucion de problemas": [
+      "ingenier",
+      "engineer",
+      "mantenimiento",
+      "tecnico",
+      "técnico"
+    ],
+    "trabajo en equipo": [
+      "operador",
+      "operario",
+      "ayudante",
+      "auxiliar",
+      "produccion",
+      "producción"
+    ],
+    "liderazgo": [
+      "gerente",
+      "director",
+      "jefe",
+      "jefa",
+      "supervisor",
+      "lider",
+      "líder",
+      "coordinador"
+    ],
+    "seguridad y disciplina": [
+      "seguridad",
+      "ehs",
+      "hse",
+      "soldad"
+    ],
+    "organizacion": [
+      "planeacion",
+      "planeación",
+      "planner",
+      "almacen",
+      "almacén",
+      "administra"
+    ],
+    "responsabilidad": [
+      "calidad",
+      "inspector"
+    ],
+    "negociacion": [
+      "ventas",
+      "comercial",
+      "compras",
+      "comprador"
+    ],
+    "atencion al detalle": [
+      "calidad",
+      "metrolog",
+      "cnc"
+    ],
+    "toma de decisiones": [
+      "gerente",
+      "director"
+    ]
+  },
+  "por_categoria": {
+    "Gerencia y dirección industrial": {
+      "tecnicas": [
+        "Gestión de planta"
+      ],
+      "blandas": [
+        "Liderazgo"
+      ]
+    },
+    "Seguridad industrial (EHS)": {
+      "tecnicas": [],
+      "blandas": [
+        "Responsabilidad"
+      ]
+    },
+    "Calidad": {
+      "tecnicas": [
+        "Ingeniería de manufactura",
+        "Control de calidad / ISO"
+      ],
+      "blandas": [
+        "Resolución de problemas",
+        "Atención al detalle"
+      ]
+    },
+    "Soldadura y maquinado": {
+      "tecnicas": [
+        "Soldadura y maquinado CNC",
+        "Ingeniería de manufactura"
+      ],
+      "blandas": [
+        "Atención al detalle",
+        "Resolución de problemas"
+      ]
+    },
+    "Mantenimiento industrial": {
+      "tecnicas": [
+        "Mantenimiento electromecánico"
+      ],
+      "blandas": [
+        "Resolución de problemas"
+      ]
+    },
+    "Ingeniería industrial y de manufactura": {
+      "tecnicas": [
+        "Ingeniería de manufactura"
+      ],
+      "blandas": [
+        "Resolución de problemas"
+      ]
+    },
+    "Producción y operación": {
+      "tecnicas": [
+        "Operación de línea de producción"
+      ],
+      "blandas": [
+        "Trabajo en equipo"
+      ]
+    },
+    "Ventas técnicas / comercial industrial": {
+      "tecnicas": [
+        "Ventas técnicas"
+      ],
+      "blandas": [
+        "Negociación",
+        "Responsabilidad"
+      ]
+    },
+    "Compras y cadena de suministro": {
+      "tecnicas": [],
+      "blandas": [
+        "Responsabilidad"
+      ]
+    }
+  }
+}

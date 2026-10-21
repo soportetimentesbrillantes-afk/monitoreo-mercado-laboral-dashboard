@@ -1,0 +1,83 @@
+{
+  "Gerencia y dirección industrial": [
+    "gerente",
+    "director",
+    "jefe",
+    "jefa",
+    "head of",
+    "superintendente"
+  ],
+  "Seguridad industrial (EHS)": [
+    "seguridad",
+    "ehs",
+    "hse",
+    "higiene",
+    "safety"
+  ],
+  "Calidad": [
+    "calidad",
+    "quality",
+    "metrolog",
+    "inspector",
+    "inspeccion",
+    "inspección"
+  ],
+  "Soldadura y maquinado": [
+    "soldad",
+    "welder",
+    "maquin",
+    "cnc",
+    "torner",
+    "fresad",
+    "pailer"
+  ],
+  "Mantenimiento industrial": [
+    "mantenimiento",
+    "maintenance",
+    "electromec",
+    "electricista",
+    "mecanico industrial",
+    "mecánico industrial"
+  ],
+  "Ingeniería industrial y de manufactura": [
+    "ingenier",
+    "engineer",
+    "manufactura",
+    "procesos",
+    "proceso"
+  ],
+  "Producción y operación": [
+    "produccion",
+    "producción",
+    "operador",
+    "operario",
+    "ensambl",
+    "production"
+  ],
+  "Ventas técnicas / comercial industrial": [
+    "ventas",
+    "vendedor",
+    "comercial",
+    "sales",
+    "ejecutivo"
+  ],
+  "Compras y cadena de suministro": [
+    "compras",
+    "comprador",
+    "buyer",
+    "supply"
+  ],
+  "Logística y almacén": [
+    "almacen",
+    "almacén",
+    "logistic",
+    "logístic",
+    "embarque"
+  ],
+  "Administración": [
+    "administra",
+    "auxiliar",
+    "asistente",
+    "contab"
+  ]
+}

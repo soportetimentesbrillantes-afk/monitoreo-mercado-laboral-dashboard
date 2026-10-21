@@ -1,0 +1,143 @@
+{
+  "tecnicas": {
+    "Cobranza judicial/extrajudicial": [
+      "cobranza",
+      "extrajudicial",
+      "recuperacion",
+      "recuperación"
+    ],
+    "Asesoría jurídica": [
+      "abogad",
+      "asesor juridic",
+      "asesor jurídic",
+      "asesoria juridica",
+      "asesoría jurídica",
+      "juridic",
+      "jurídic"
+    ],
+    "Cumplimiento normativo": [
+      "compliance",
+      "cumplimiento",
+      "normativ"
+    ],
+    "Derecho administrativo": [
+      "administrativ"
+    ],
+    "Derecho corporativo": [
+      "corporativ",
+      "societari"
+    ],
+    "Derecho laboral": [
+      "laboral"
+    ],
+    "Apoyo paralegal": [
+      "paralegal",
+      "pasante",
+      "auxiliar legal"
+    ],
+    "Gestión documental": [
+      "documental",
+      "archivo",
+      "contratos"
+    ],
+    "Derecho de seguros": [
+      "seguro",
+      "siniestro"
+    ],
+    "Derecho mercantil": [
+      "mercantil"
+    ]
+  },
+  "blandas": {
+    "Análisis": [
+      "analista",
+      "analisis",
+      "análisis",
+      "juridic",
+      "jurídic"
+    ],
+    "Liderazgo": [
+      "gerente",
+      "director",
+      "jefe",
+      "jefa",
+      "lider",
+      "líder",
+      "coordinador",
+      "head"
+    ],
+    "Disposición para aprender": [
+      "becari",
+      "practicante",
+      "pasante",
+      "trainee",
+      "junior",
+      "jr"
+    ],
+    "Organización": [
+      "coordinador",
+      "administra",
+      "control"
+    ],
+    "Visión estratégica": [
+      "estrateg",
+      "director"
+    ],
+    "Argumentación oral": [
+      "litig",
+      "litigante"
+    ],
+    "Atención al cliente": [
+      "atencion",
+      "atención",
+      "cliente"
+    ],
+    "Manejo de conflictos": [
+      "conflict",
+      "negociac"
+    ],
+    "Atención al detalle": [
+      "auditor",
+      "revision",
+      "revisión"
+    ]
+  },
+  "por_categoria": {
+    "Paralegal / Auxiliar legal": {
+      "tecnicas": [
+        "Apoyo paralegal",
+        "Gestión documental"
+      ],
+      "blandas": [
+        "Organización",
+        "Disposición para aprender"
+      ]
+    },
+    "Cobranza judicial/extrajudicial": {
+      "tecnicas": [
+        "Cobranza judicial/extrajudicial"
+      ],
+      "blandas": [
+        "Orientación a resultados"
+      ]
+    },
+    "Cumplimiento normativo / Compliance": {
+      "tecnicas": [
+        "Cumplimiento normativo"
+      ],
+      "blandas": [
+        "Análisis"
+      ]
+    },
+    "Abogado general": {
+      "tecnicas": [
+        "Asesoría jurídica",
+        "Derecho corporativo"
+      ],
+      "blandas": [
+        "Comunicación",
+        "Visión estratégica"
+      ]
+    }
+  }
+}
