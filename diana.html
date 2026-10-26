@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tu proceso DIANA — Club de Mentes Brillantes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --azul:#b89a57; --azul-osc:#8b7440; --naranja:#c2703d; --verde:#4f8f5b;
+    --hero-bg:#faf8f2; --hero-bg2:#f3efe5; --hero-sub:#5a5346; --hero-line:rgba(31,31,28,.1);
+    --accent:#b89a57; --gold-light:#d0b06a;
+    --gris-bg:#faf8f2; --gris-borde:#e7ddc9; --texto:#1f1f1c; --texto-suave:#6b6459;
+    --font-serif:'Cormorant Garamond',Georgia,'Times New Roman',serif;
+    --font-sans:'Source Sans 3',ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;
+    --sombra:rgba(53,42,21,.1) 0px 10px 25px 0px;
+  }
+  *{box-sizing:border-box;}
+  body{font-family:var(--font-sans);margin:0;background:linear-gradient(180deg,var(--hero-bg) 0%,var(--hero-bg2) 100%) fixed;color:var(--texto);}
+  .topbar{max-width:1180px;margin:0 auto;padding:16px 32px 0;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+  .topbar .logo-link img{height:34px;width:auto;display:block;}
+  .topbar a{color:var(--texto-suave);font-size:.82rem;font-weight:700;text-decoration:none;}
+  .topbar a:hover{color:var(--azul-osc);}
+  header{padding:30px 32px 0;border-bottom:1px solid var(--hero-line);}
+  .hero-inner{max-width:1180px;margin:0 auto;padding-bottom:26px;}
+  header .eyebrow{display:inline-block;font-size:.76rem;color:#fff;background:linear-gradient(135deg,var(--azul),var(--gold-light));padding:6px 16px;border-radius:999px;margin:0 0 14px;font-weight:700;box-shadow:var(--sombra);}
+  header h1{font-family:var(--font-serif);margin:0 0 10px;font-size:2.4rem;line-height:1.15;font-weight:700;}
+  header p{margin:0;font-size:.98rem;color:var(--hero-sub);max-width:680px;line-height:1.6;}
+  p{line-height:1.6;}
+  .note{font-size:.8rem;color:var(--texto-suave);margin-top:8px;line-height:1.5;}
+
+  /* ---- Distribución: fases a la izquierda, herramienta a la derecha ---- */
+  .proceso{max-width:1180px;margin:0 auto;padding:26px 20px 60px;display:grid;grid-template-columns:300px 1fr;gap:24px;align-items:start;}
+  .ruta{position:sticky;top:14px;background:#fff;border:1px solid var(--gris-borde);border-radius:16px;padding:18px 16px;box-shadow:var(--sombra);}
+  .avance .cifra{font-family:var(--font-serif);font-size:2rem;font-weight:700;line-height:1;}
+  .avance .txt{font-size:.8rem;color:var(--texto-suave);margin:4px 0 8px;}
+  .barra{height:8px;background:var(--gris-borde);border-radius:999px;overflow:hidden;}
+  .barra .relleno{height:100%;background:linear-gradient(90deg,var(--azul),var(--gold-light));width:0;transition:width .3s ease;}
+  .fase{margin-top:18px;}
+  .fase h2{font-family:var(--font-serif);font-size:1.25rem;margin:0 0 2px;display:flex;justify-content:space-between;align-items:baseline;}
+  .fase h2 span{font-family:var(--font-sans);font-size:.74rem;color:var(--texto-suave);font-weight:600;}
+  .fase .desc{font-size:.76rem;color:var(--texto-suave);margin:0 0 6px;}
+  .paso{display:grid;grid-template-columns:26px 1fr auto;gap:8px;align-items:center;width:100%;text-align:left;background:none;border:none;border-radius:10px;padding:7px 6px;font-family:var(--font-sans);font-size:.88rem;color:var(--texto);cursor:pointer;}
+  .paso:hover{background:var(--gris-bg);}
+  .paso[aria-current="step"]{background:#fbf6e8;font-weight:700;}
+  .paso:disabled{cursor:default;color:#a79f91;}
+  .paso:disabled:hover{background:none;}
+  .paso .num{width:24px;height:24px;border-radius:50%;border:1.5px solid var(--gris-borde);display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;color:var(--texto-suave);background:#fff;}
+  .paso.completo .num{background:var(--verde);border-color:var(--verde);color:#fff;}
+  .paso.en-curso .num{border-color:var(--azul);color:var(--azul-osc);}
+  .estado{font-size:.68rem;font-weight:700;border-radius:999px;padding:2px 8px;white-space:nowrap;}
+  .estado.completo{background:#eef6ef;color:#2f6b3b;}
+  .estado.en-curso{background:#fbf6e8;color:var(--azul-osc);}
+  .estado.pendiente{background:var(--gris-bg);color:var(--texto-suave);}
+  .estado.proximamente{background:none;color:#a79f91;font-weight:600;}
+
+  /* ---- Herramienta ---- */
+  .card{background:#fff;border:1px solid var(--gris-borde);border-radius:16px;padding:24px 26px;margin-bottom:18px;box-shadow:var(--sombra);}
+  .card h2{font-family:var(--font-serif);margin:0 0 6px;font-size:1.6rem;}
+  .card h3{font-family:var(--font-serif);margin:20px 0 4px;font-size:1.25rem;color:var(--azul-osc);}
+  .card h3:first-of-type{margin-top:6px;}
+  .cabecera-paso .fase-label{font-size:.74rem;font-weight:700;color:var(--texto-suave);letter-spacing:.06em;text-transform:uppercase;}
+  .cabecera-paso .entrega{background:var(--gris-bg);border:1px solid var(--gris-borde);border-radius:10px;padding:10px 14px;font-size:.88rem;margin-top:10px;}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px 14px;}
+  .grid.dos{grid-template-columns:repeat(2,1fr);}
+  .campo label{display:block;font-size:.8rem;font-weight:700;color:var(--texto-suave);margin-bottom:4px;}
+  .campo label .req{color:var(--naranja);}
+  .campo input,.campo select,.campo textarea{width:100%;padding:10px 12px;border:1px solid var(--gris-borde);border-radius:10px;font-family:var(--font-sans);font-size:.93rem;background:#fff;color:var(--texto);}
+  .campo textarea{min-height:72px;resize:vertical;line-height:1.5;}
+  .campo input:focus,.campo select:focus,.campo textarea:focus{outline:2px solid var(--gold-light);border-color:var(--azul);}
+  .campo.falta input,.campo.falta select{border-color:#e0a98f;background:#fffaf7;}
+  .ancho{grid-column:1 / -1;}
+  .check{display:flex;gap:10px;align-items:flex-start;font-size:.9rem;line-height:1.45;margin:8px 0;cursor:pointer;}
+  .check input{width:19px;height:19px;flex:none;margin-top:1px;accent-color:var(--azul-osc);}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;}
+  .campo .chips label{margin:0;color:var(--texto);font-weight:600;display:flex;gap:6px;align-items:center;border:1.5px solid var(--gris-borde);border-radius:999px;padding:6px 12px;font-size:.86rem;cursor:pointer;background:#fff;}
+  .campo .chips label:has(input:checked){border-color:var(--azul-osc);background:#fbf6e8;font-weight:700;}
+  .campo .chips input{accent-color:var(--azul-osc);width:auto;padding:0;}
+  .campo .check input{width:19px;padding:0;}
+  .lista-item{border:1px solid var(--gris-borde);border-radius:12px;padding:12px 14px;margin:10px 0;background:var(--gris-bg);position:relative;}
+  .lista-item .quitar{position:absolute;top:8px;right:10px;background:none;border:none;color:#8a3d1c;font-size:.8rem;font-weight:700;cursor:pointer;}
+  button.primary{background:linear-gradient(135deg,var(--azul),var(--gold-light));color:#fff;border:none;padding:12px 28px;border-radius:999px;font-size:.95rem;font-weight:700;cursor:pointer;font-family:var(--font-sans);box-shadow:var(--sombra);}
+  button.primary:disabled{opacity:.45;cursor:not-allowed;}
+  button.secondary{background:#fff;color:var(--azul-osc);border:1.5px solid var(--azul);padding:8px 18px;border-radius:999px;font-size:.86rem;font-weight:700;cursor:pointer;font-family:var(--font-sans);}
+  .aviso{border-radius:10px;padding:12px 15px;font-size:.87rem;line-height:1.55;margin:12px 0;}
+  .aviso.limites{background:#fdfaf1;border:1px solid var(--gris-borde);}
+  .aviso.malo{background:#fdf1ec;border:1px solid #f0d2c4;color:#8a3d1c;}
+  .aviso.bien{background:#eef6ef;border:1px solid #cfe3d3;color:#2f6b3b;}
+  .acciones{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:8px;}
+  .guardado{font-size:.8rem;color:var(--texto-suave);}
+  .proximamente-card{text-align:center;padding:40px 26px;}
+  .proximamente-card .icono{font-size:2rem;color:var(--azul);}
+
+  #plegable summary{display:none;}
+  @media(max-width:900px){
+    .proceso{grid-template-columns:1fr;}
+    .ruta{position:static;}
+    #plegable summary{display:block;cursor:pointer;margin-top:12px;font-size:.86rem;font-weight:700;color:var(--azul-osc);}
+    .grid,.grid.dos{grid-template-columns:1fr;}
+  }
+  @media(max-width:600px){
+    .topbar{padding:14px 20px 0;} .topbar .logo-link img{height:28px;}
+    header{padding:24px 20px 0;} header h1{font-size:1.85rem;}
+    .proceso{padding:18px 14px 48px;} .card{padding:18px 16px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a class="logo-link" href="https://www.clubmentesbrillantes.com.mx/index.html" aria-label="Club de Mentes Brillantes"><img src="logo-cmb.svg" alt="Club de Mentes Brillantes"></a>
+  <a href="index.html">← Volver a tu CV frente al mercado</a>
+</div>
+
+<header>
+  <div class="hero-inner">
+    <p class="eyebrow">Autoconocimiento para la construcción de tu plan de vida</p>
+    <h1>Tu proceso DIANA</h1>
+    <p>Dos fases. En <strong>Descubrir</strong> te conoces: quién eres, cómo trabajas, qué te mueve y hacia dónde quieres ir. En <strong>Iniciar</strong> conviertes eso en una ruta: carrera, formación, marca personal y un plan de acción. Avanza un paso a la vez; tu avance se guarda solo.</p>
+  </div>
+</header>
+
+<div class="proceso">
+  <nav class="ruta" aria-label="Pasos del proceso">
+    <div class="avance">
+      <div class="cifra" id="avancePct">0%</div>
+      <div class="txt" id="avanceTxt">0 de 14 pasos completos</div>
+      <div class="barra"><div class="relleno" id="avanceBarra"></div></div>
+    </div>
+    <details id="plegable" open>
+      <summary id="resumenPaso"></summary>
+      <div id="listaFases"></div>
+    </details>
+  </nav>
+
+  <main id="contenido"></main>
+</div>
+
+<script src="compartir-club.js"></script>
+<script>
+/* ============================== PROCESO DIANA ==============================
+
+   Una sola página con las herramientas del proceso DIANA, por fases. Cada
+   herramienta se construye y se aprueba por separado; las que todavía no están
+   listas aparecen como "Próximamente" y no se pueden abrir.
+
+   El avance vive en el navegador (localStorage, llave cmb_diana). Si la persona
+   aceptó en el paso 1 que el Club guarde su expediente, cada paso que completa
+   se envía también a la hoja interna (cuentas/apps-script-autoconocimiento.gs,
+   tipo "diana"). Sin esa casilla, nada sale del navegador.
+
+   La fase Alinear del documento de Ágora no se trabaja todavía.             */
+
+const LLAVE = 'cmb_diana';
+const VERSION = 1;
+
+const FASES = [
+  {id:'descubrir', nombre:'Descubrir', desc:'Conocerte: quién eres, cómo trabajas y qué te mueve.'},
+  {id:'iniciar', nombre:'Iniciar', desc:'Convertirlo en una ruta: carrera, formación y plan.'}
+];
+
+/* Los 14 pasos, en el orden del documento. `listo` dice si la herramienta ya
+   está construida; las demás se muestran pero no se abren. */
+const PASOS = [
+  {id:'informacion', fase:'descubrir', nombre:'Información inicial', listo:true,
+   objetivo:'Reunir tu información personal: estudios actuales, experiencia, certificaciones e idiomas.',
+   entrega:'Tus datos capturados, que las siguientes herramientas usan para no preguntarte lo mismo dos veces.'},
+  {id:'disc', fase:'descubrir', nombre:'Perfil DISC', objetivo:'Identificar tus preferencias conductuales.', entrega:'Tu evaluación DISC.'},
+  {id:'foda', fase:'descubrir', nombre:'Análisis FODA', objetivo:'Identificar tus fortalezas, oportunidades, debilidades y amenazas.', entrega:'Tu FODA personal.'},
+  {id:'estilo', fase:'descubrir', nombre:'Estilo de trabajo', objetivo:'Identificar tus estilos de trabajo.', entrega:'Tu estilo de trabajo personalizado.'},
+  {id:'relacion', fase:'descubrir', nombre:'Forma de relacionamiento', objetivo:'Identificar cómo te relacionas con los demás.', entrega:'Tus formas de relacionamiento.'},
+  {id:'crecimiento', fase:'descubrir', nombre:'Crecimiento personal', objetivo:'Identificar tus áreas de crecimiento, valores, intereses y motivaciones.', entrega:'Tus áreas de crecimiento personal.'},
+  {id:'escenarios', fase:'descubrir', nombre:'Escenarios de vida', objetivo:'Proponer escenarios de vida a 5, 10 y 15 años, con espacio para ti y tu mentor.', entrega:'Tu escenario de vida.'},
+  {id:'reporte_descubrir', fase:'descubrir', nombre:'Reporte de Descubrir', objetivo:'Resumir la primera fase.', entrega:'El reporte de tu fase Descubrir.'},
+  {id:'mapa', fase:'iniciar', nombre:'Mapa de carrera', objetivo:'Cruzar tu preparación académica y lo que descubriste con los roles posibles en tu industria objetivo.', entrega:'Tu mapa de carrera.'},
+  {id:'tendencias', fase:'iniciar', nombre:'Tendencias de la industria', objetivo:'Identificar las tendencias de tu industria objetivo.', entrega:'Las tendencias que te conviene seguir.'},
+  {id:'formacion', fase:'iniciar', nombre:'Plan de formación', objetivo:'Identificar cursos técnicos, de habilidades blandas y certificaciones relevantes.', entrega:'Tu plan de formación.'},
+  {id:'marca', fase:'iniciar', nombre:'Marca personal y profesional', objetivo:'Definir las características personales y profesionales que quieres desarrollar.', entrega:'Tu marca personal y profesional.'},
+  {id:'plan', fase:'iniciar', nombre:'Plan de acción 30-60-90', objetivo:'Armar un plan con objetivos de educación, experiencia y conexión.', entrega:'Tu plan de acción.'},
+  {id:'resumen', fase:'iniciar', nombre:'Resumen ejecutivo', objetivo:'Resumir todo el proceso.', entrega:'Tu reporte final.'}
+];
+
+const MX_ESTADOS = ['Aguascalientes','Baja California','Baja California Sur','Campeche','Chiapas','Chihuahua','Ciudad de México','Coahuila','Colima','Durango','Estado de México','Guanajuato','Guerrero','Hidalgo','Jalisco','Michoacán','Morelos','Nayarit','Nuevo León','Oaxaca','Puebla','Querétaro','Quintana Roo','San Luis Potosí','Sinaloa','Sonora','Tabasco','Tamaulipas','Tlaxcala','Veracruz','Yucatán','Zacatecas','Fuera de México'];
+const NIVELES = ['Secundaria','Preparatoria o bachillerato','Carrera técnica','Licenciatura o ingeniería','Posgrado'];
+const SITUACIONES = ['Estudiando','Egresado','En pausa','No terminé'];
+const TIPOS_EXP = ['Empleo','Prácticas profesionales','Servicio social','Voluntariado','Proyecto escolar','Negocio propio'];
+const NIVELES_IDIOMA = ['Básico','Intermedio','Avanzado','Nativo'];
+// Los sectores del monitoreo. Se leen de manifest.json; esta lista es el respaldo.
+let SECTORES = ['Automotriz','Turismo','Gestión y Administración','Ventas','Finanzas','Logística','Legal','Metalmecánica','TI'];
+
+function esc(v){
+  return String(v == null ? '' : v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+function fechaLegible(d){
+  try{ return (d ? new Date(d) : new Date()).toLocaleDateString('es-MX', {day:'numeric', month:'long', year:'numeric'}); }
+  catch(e){ return ''; }
+}
+
+/* ------------------------------ Estado ------------------------------ */
+function estadoVacio(){
+  return {version: VERSION, id: null, consentimiento: {acepta: false, fecha: null}, pasos: {}};
+}
+let E = leer();
+function leer(){
+  try{
+    const g = JSON.parse(localStorage.getItem(LLAVE) || 'null');
+    if(g && g.version === VERSION && g.pasos) return g;
+  }catch(e){}
+  return estadoVacio();
+}
+function guardar(){
+  try{ localStorage.setItem(LLAVE, JSON.stringify(E)); return true; }catch(e){ return false; }
+}
+function idExpediente(){
+  if(!E.id) E.id = (typeof COMPARTIR !== 'undefined') ? COMPARTIR.nuevoId() : String(Date.now());
+  return E.id;
+}
+function estadoPaso(p){
+  if(!p.listo) return 'proximamente';
+  const s = E.pasos[p.id];
+  if(s && s.completo) return 'completo';
+  if(s && s.datos) return 'en-curso';
+  return 'pendiente';
+}
+const ETIQUETA = {completo:'Completo', 'en-curso':'En curso', pendiente:'Pendiente', proximamente:'Próximamente'};
+
+/* ------------------------------ Ruta ------------------------------ */
+let pasoActual = 'informacion';
+
+function pintarRuta(){
+  const completos = PASOS.filter(p => estadoPaso(p) === 'completo').length;
+  const pct = Math.round(100 * completos / PASOS.length);
+  document.getElementById('avancePct').textContent = pct + '%';
+  document.getElementById('avanceTxt').textContent = completos + ' de ' + PASOS.length + ' pasos completos';
+  document.getElementById('avanceBarra').style.width = pct + '%';
+  document.getElementById('listaFases').innerHTML = FASES.map(f => {
+    const pasos = PASOS.filter(p => p.fase === f.id);
+    const hechos = pasos.filter(p => estadoPaso(p) === 'completo').length;
+    return '<div class="fase"><h2>' + f.nombre + ' <span>' + hechos + ' de ' + pasos.length + '</span></h2>' +
+      '<p class="desc">' + esc(f.desc) + '</p>' +
+      pasos.map(p => {
+        const st = estadoPaso(p), n = PASOS.indexOf(p) + 1;
+        return '<button type="button" class="paso ' + st + '" data-paso="' + p.id + '"' +
+          (p.id === pasoActual ? ' aria-current="step"' : '') + (st === 'proximamente' ? ' disabled' : '') + '>' +
+          '<span class="num">' + (st === 'completo' ? '✓' : n) + '</span><span>' + esc(p.nombre) + '</span>' +
+          '<span class="estado ' + st + '">' + ETIQUETA[st] + '</span></button>';
+      }).join('') + '</div>';
+  }).join('');
+  document.querySelectorAll('#listaFases .paso').forEach(b => {
+    b.onclick = () => abrir(b.dataset.paso);
+  });
+  const p = PASOS.find(x => x.id === pasoActual);
+  document.getElementById('resumenPaso').textContent = 'Paso ' + (PASOS.indexOf(p) + 1) + ': ' + p.nombre + ' · ver todos los pasos';
+}
+
+function abrir(id){
+  const p = PASOS.find(x => x.id === id);
+  if(!p || !p.listo) return;
+  pasoActual = id;
+  pintarRuta();
+  HERRAMIENTAS[id]();
+  document.getElementById('contenido').scrollIntoView({behavior: 'smooth', block: 'start'});
+}
+
+function cabecera(p){
+  const n = PASOS.indexOf(p) + 1;
+  const f = FASES.find(x => x.id === p.fase);
+  return '<div class="cabecera-paso"><div class="fase-label">Fase ' + f.nombre + ' · Paso ' + n + ' de ' + PASOS.length + '</div>' +
+    '<h2>' + esc(p.nombre) + '</h2><p style="margin:0;">' + esc(p.objetivo) + '</p>' +
+    '<div class="entrega"><strong>Lo que te llevas:</strong> ' + esc(p.entrega) + '</div></div>';
+}
+
+/* ============================ PASO 1: INFORMACIÓN INICIAL ============================ */
+
+const D0 = () => ({
+  nombres:'', apellidoPaterno:'', apellidoMaterno:'', correo:'', telefono:'', edad:'', estado:'', ciudad:'',
+  tutorNombre:'', tutorCorreo:'', tutorParentesco:'', tutorAutoriza:false,
+  nivel:'', situacion:'', institucion:'', carrera:'', grado:'', anioEgreso:'',
+  sinExperiencia:false, experiencia:[],
+  sinCertificaciones:false, certificaciones:[],
+  idiomas:[{idioma:'Español', nivel:'Nativo'}],
+  sectores:[], sectorOtro:'', aspiracion:''
+});
+
+function datosInfo(){
+  const s = E.pasos.informacion;
+  return Object.assign(D0(), s && s.datos ? s.datos : {});
+}
+const correoValido = c => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(String(c || '').trim());
+const esMenor = d => { const n = parseInt(d.edad, 10); return !isNaN(n) && n < 18; };
+
+/* Qué falta para dar el paso por completo. Devuelve [ [campo, texto] ]. */
+function faltantesInfo(d){
+  const f = [];
+  const req = (campo, txt, ok) => { if(!ok) f.push([campo, txt]); };
+  req('nombres', 'tu nombre', d.nombres.trim());
+  req('apellidoPaterno', 'tu primer apellido', d.apellidoPaterno.trim());
+  req('correo', 'un correo válido', correoValido(d.correo));
+  const edad = parseInt(d.edad, 10);
+  req('edad', 'tu edad (entre 12 y 99)', !isNaN(edad) && edad >= 12 && edad <= 99);
+  req('estado', 'el estado donde vives', d.estado);
+  if(esMenor(d)){
+    req('tutorNombre', 'el nombre de tu madre, padre o tutor', d.tutorNombre.trim());
+    req('tutorCorreo', 'el correo de tu madre, padre o tutor', correoValido(d.tutorCorreo));
+    if(E.consentimiento.acepta) req('tutorAutoriza', 'que tu madre, padre o tutor esté de acuerdo con guardar tu expediente', d.tutorAutoriza);
+  }
+  req('nivel', 'tu nivel de estudios', d.nivel);
+  req('situacion', 'si estás estudiando o ya egresaste', d.situacion);
+  req('institucion', 'tu escuela o institución', d.institucion.trim());
+  if(['Carrera técnica','Licenciatura o ingeniería','Posgrado'].includes(d.nivel)) req('carrera', 'tu carrera o programa', d.carrera.trim());
+  const expOk = d.sinExperiencia || d.experiencia.some(x => (x.rol || '').trim() && (x.organizacion || '').trim());
+  req('experiencia', 'al menos una experiencia (o marcar que todavía no tienes)', expOk);
+  const certOk = d.sinCertificaciones || d.certificaciones.some(x => (x.nombre || '').trim());
+  req('certificaciones', 'al menos un curso o certificación (o marcar que todavía no tienes)', certOk);
+  req('idiomas', 'al menos un idioma con su nivel', d.idiomas.some(x => (x.idioma || '').trim() && x.nivel));
+  req('sectores', 'al menos un sector que te interese', d.sectores.length > 0);
+  return f;
+}
+
+function opciones(lista, actual, vacio){
+  return '<option value="">' + (vacio || 'Elige…') + '</option>' +
+    lista.map(o => '<option' + (o === actual ? ' selected' : '') + '>' + esc(o) + '</option>').join('');
+}
+function campo(id, etiqueta, html, req, clase){
+  return '<div class="campo ' + (clase || '') + '" data-campo="' + id + '"><label for="f_' + id + '">' + etiqueta +
+    (req ? ' <span class="req">*</span>' : '') + '</label>' + html + '</div>';
+}
+function inp(id, valor, tipo, extra){
+  return '<input id="f_' + id + '" name="' + id + '" type="' + (tipo || 'text') + '" value="' + esc(valor) + '" ' + (extra || '') + '>';
+}
+
+function pintarInformacion(){
+  const p = PASOS[0];
+  const d = datosInfo();
+  const s = E.pasos.informacion || {};
+  const cont = document.getElementById('contenido');
+  cont.innerHTML =
+    '<div class="card">' + cabecera(p) + '</div>' +
+
+    '<div class="card" id="cardConsentimiento">' +
+      '<h3>Tu expediente en el Club</h3>' +
+      '<p style="margin-top:0;">Cada paso que completes se guarda en este dispositivo. Si aceptas, también se guarda en tu expediente del Club, para que tu orientador vea tu avance y te acompañe en el proceso. Se guarda tu información de este proceso con tu nombre y correo; no se publica, no se comparte con empresas y no se usa para descartarte de nada.</p>' +
+      '<label class="check"><input type="checkbox" id="consiente"' + (E.consentimiento.acepta ? ' checked' : '') + '> <span>Acepto que el Club de Mentes Brillantes guarde mi expediente del proceso DIANA, según el <a href="aviso-privacidad.html" target="_blank" rel="noopener">Aviso de Privacidad</a>.</span></label>' +
+      '<p class="note" id="notaConsentimiento">' + (E.consentimiento.acepta ? 'Aceptado el ' + esc(fechaLegible(E.consentimiento.fecha)) + '. Puedes retirarlo cuando quieras desmarcando la casilla; para que borremos lo ya guardado, escribe a clubmentesbrillantesla@gmail.com.' : 'Si no lo aceptas, el proceso te sirve igual y nada sale de tu navegador.') + '</p>' +
+    '</div>' +
+
+    '<form class="card" id="formInfo" autocomplete="on" novalidate>' +
+      '<h3>Datos personales</h3>' +
+      '<div class="grid">' +
+        campo('nombres', 'Nombre(s)', inp('nombres', d.nombres, 'text', 'autocomplete="given-name"'), true) +
+        campo('apellidoPaterno', 'Primer apellido', inp('apellidoPaterno', d.apellidoPaterno, 'text', 'autocomplete="family-name"'), true) +
+        campo('apellidoMaterno', 'Segundo apellido', inp('apellidoMaterno', d.apellidoMaterno)) +
+        campo('correo', 'Correo', inp('correo', d.correo, 'email', 'autocomplete="email" inputmode="email"'), true) +
+        campo('telefono', 'Teléfono (opcional)', inp('telefono', d.telefono, 'tel', 'autocomplete="tel"')) +
+        campo('edad', 'Edad', inp('edad', d.edad, 'number', 'min="12" max="99" inputmode="numeric"'), true) +
+        campo('estado', 'Estado donde vives', '<select id="f_estado" name="estado">' + opciones(MX_ESTADOS, d.estado) + '</select>', true) +
+        campo('ciudad', 'Ciudad o municipio', inp('ciudad', d.ciudad)) +
+      '</div>' +
+
+      '<div id="bloqueTutor"' + (esMenor(d) ? '' : ' hidden') + '>' +
+        '<h3>Tu madre, padre o tutor</h3>' +
+        '<p class="note" style="margin-top:0;">Como eres menor de edad, necesitamos saber quién te acompaña en el proceso.</p>' +
+        '<div class="grid">' +
+          campo('tutorNombre', 'Nombre', inp('tutorNombre', d.tutorNombre), true) +
+          campo('tutorCorreo', 'Correo', inp('tutorCorreo', d.tutorCorreo, 'email', 'inputmode="email"'), true) +
+          campo('tutorParentesco', 'Parentesco', '<select id="f_tutorParentesco" name="tutorParentesco">' + opciones(['Madre','Padre','Tutor o tutora'], d.tutorParentesco) + '</select>') +
+        '</div>' +
+        '<div class="campo" data-campo="tutorAutoriza" id="campoTutorAutoriza"' + (E.consentimiento.acepta ? '' : ' hidden') + '><label class="check"><input type="checkbox" id="f_tutorAutoriza" name="tutorAutoriza"' + (d.tutorAutoriza ? ' checked' : '') + '> <span>Mi madre, padre o tutor está de acuerdo con que el Club guarde mi expediente.</span></label></div>' +
+      '</div>' +
+
+      '<h3>Estudios actuales</h3>' +
+      '<div class="grid">' +
+        campo('nivel', 'Nivel de estudios', '<select id="f_nivel" name="nivel">' + opciones(NIVELES, d.nivel) + '</select>', true) +
+        campo('situacion', 'Situación', '<select id="f_situacion" name="situacion">' + opciones(SITUACIONES, d.situacion) + '</select>', true) +
+        campo('institucion', 'Escuela o institución', inp('institucion', d.institucion), true) +
+        campo('carrera', 'Carrera o programa', inp('carrera', d.carrera), ['Carrera técnica','Licenciatura o ingeniería','Posgrado'].includes(d.nivel)) +
+        campo('grado', 'Semestre o año que cursas', inp('grado', d.grado, 'text', 'placeholder="Ej. 6.º semestre"')) +
+        campo('anioEgreso', 'Año de egreso (o esperado)', inp('anioEgreso', d.anioEgreso, 'number', 'min="1980" max="2045" inputmode="numeric"')) +
+      '</div>' +
+
+      '<h3>Experiencia</h3>' +
+      '<p class="note" style="margin-top:0;">Cuenta todo: empleos, prácticas, servicio social, voluntariado, proyectos escolares o un negocio propio. Escribe lo que hiciste, no lo que suena bien.</p>' +
+      '<div data-campo="experiencia"><div id="listaExp"></div>' +
+      '<div class="acciones"><button type="button" class="secondary" id="agregarExp">+ Agregar experiencia</button>' +
+      '<label class="check" style="margin:0;"><input type="checkbox" id="f_sinExperiencia"' + (d.sinExperiencia ? ' checked' : '') + '> <span>Todavía no tengo experiencia</span></label></div></div>' +
+
+      '<h3>Cursos y certificaciones</h3>' +
+      '<div data-campo="certificaciones"><div id="listaCert"></div>' +
+      '<div class="acciones"><button type="button" class="secondary" id="agregarCert">+ Agregar curso o certificación</button>' +
+      '<label class="check" style="margin:0;"><input type="checkbox" id="f_sinCertificaciones"' + (d.sinCertificaciones ? ' checked' : '') + '> <span>Todavía no tengo</span></label></div></div>' +
+
+      '<h3>Idiomas</h3>' +
+      '<div data-campo="idiomas"><div id="listaIdiomas"></div>' +
+      '<div class="acciones"><button type="button" class="secondary" id="agregarIdioma">+ Agregar idioma</button></div></div>' +
+
+      '<h3>Lo que te interesa</h3>' +
+      '<div class="campo" data-campo="sectores"><label>¿Qué sectores te interesan? <span class="req">*</span></label>' +
+        '<div class="chips" id="chipsSectores">' + SECTORES.map(sec =>
+          '<label><input type="checkbox" value="' + esc(sec) + '"' + (d.sectores.includes(sec) ? ' checked' : '') + '> ' + esc(sec) + '</label>').join('') +
+          '<label><input type="checkbox" value="Otro"' + (d.sectores.includes('Otro') ? ' checked' : '') + '> Otro</label>' +
+        '</div></div>' +
+      '<div class="grid dos" style="margin-top:12px;">' +
+        campo('sectorOtro', '¿Cuál otro?', inp('sectorOtro', d.sectorOtro), false, d.sectores.includes('Otro') ? '' : 'oculto') +
+        campo('aspiracion', '¿Qué te gustaría estudiar o en qué te gustaría trabajar? (opcional)', '<textarea id="f_aspiracion" name="aspiracion">' + esc(d.aspiracion) + '</textarea>', false, 'ancho') +
+      '</div>' +
+
+      '<div id="avisoInfo"></div>' +
+      '<div class="acciones" style="margin-top:16px;">' +
+        '<button type="submit" class="primary" id="btnCompletarInfo">' + (s.completo ? 'Guardar cambios' : 'Guardar y marcar como completo') + '</button>' +
+        '<span class="guardado" id="estadoGuardado">' + (s.actualizado ? 'Guardado en este dispositivo.' : '') + '</span>' +
+      '</div>' +
+    '</form>';
+
+  document.querySelectorAll('.campo.oculto').forEach(el => { el.hidden = true; });
+  pintarLista('exp'); pintarLista('cert'); pintarLista('idiomas');
+
+  const form = document.getElementById('formInfo');
+  form.addEventListener('input', alEditarInfo);
+  form.addEventListener('change', alEditarInfo);
+  form.addEventListener('submit', ev => { ev.preventDefault(); completarInfo(); });
+  document.getElementById('agregarExp').onclick = () => { agregar('exp'); };
+  document.getElementById('agregarCert').onclick = () => { agregar('cert'); };
+  document.getElementById('agregarIdioma').onclick = () => { agregar('idiomas'); };
+  document.getElementById('consiente').onchange = ev => {
+    E.consentimiento = ev.target.checked ? {acepta: true, fecha: new Date().toISOString()} : {acepta: false, fecha: null};
+    guardar();
+    document.getElementById('campoTutorAutoriza').hidden = !ev.target.checked;
+    document.getElementById('notaConsentimiento').textContent = ev.target.checked
+      ? 'Aceptado hoy. Tu expediente se guarda cuando completes cada paso.'
+      : 'Si no lo aceptas, el proceso te sirve igual y nada sale de tu navegador.';
+  };
+}
+
+/* ---- Listas repetibles: experiencia, certificaciones, idiomas ---- */
+const LISTAS = {
+  exp: {clave:'experiencia', cont:'listaExp', nuevo:() => ({tipo:'', rol:'', organizacion:'', desde:'', hasta:'', descripcion:''}),
+    html:(x, i) =>
+      '<div class="grid">' +
+        campo('exp_tipo_' + i, 'Tipo', '<select id="f_exp_tipo_' + i + '" data-lista="exp" data-i="' + i + '" data-k="tipo">' + opciones(TIPOS_EXP, x.tipo) + '</select>') +
+        campo('exp_rol_' + i, 'Puesto o rol', '<input id="f_exp_rol_' + i + '" data-lista="exp" data-i="' + i + '" data-k="rol" value="' + esc(x.rol) + '">') +
+        campo('exp_org_' + i, 'Organización', '<input id="f_exp_org_' + i + '" data-lista="exp" data-i="' + i + '" data-k="organizacion" value="' + esc(x.organizacion) + '">') +
+        campo('exp_desde_' + i, 'Desde', '<input type="month" id="f_exp_desde_' + i + '" data-lista="exp" data-i="' + i + '" data-k="desde" value="' + esc(x.desde) + '">') +
+        campo('exp_hasta_' + i, 'Hasta (vacío si sigues ahí)', '<input type="month" id="f_exp_hasta_' + i + '" data-lista="exp" data-i="' + i + '" data-k="hasta" value="' + esc(x.hasta) + '">') +
+        campo('exp_desc_' + i, 'Qué hiciste', '<textarea id="f_exp_desc_' + i + '" data-lista="exp" data-i="' + i + '" data-k="descripcion">' + esc(x.descripcion) + '</textarea>', false, 'ancho') +
+      '</div>'},
+  cert: {clave:'certificaciones', cont:'listaCert', nuevo:() => ({nombre:'', institucion:'', anio:''}),
+    html:(x, i) =>
+      '<div class="grid">' +
+        campo('cert_nombre_' + i, 'Nombre del curso o certificación', '<input id="f_cert_nombre_' + i + '" data-lista="cert" data-i="' + i + '" data-k="nombre" value="' + esc(x.nombre) + '">') +
+        campo('cert_inst_' + i, 'Quién lo otorga', '<input id="f_cert_inst_' + i + '" data-lista="cert" data-i="' + i + '" data-k="institucion" value="' + esc(x.institucion) + '">') +
+        campo('cert_anio_' + i, 'Año', '<input type="number" min="1980" max="2045" id="f_cert_anio_' + i + '" data-lista="cert" data-i="' + i + '" data-k="anio" value="' + esc(x.anio) + '">') +
+      '</div>'},
+  idiomas: {clave:'idiomas', cont:'listaIdiomas', nuevo:() => ({idioma:'', nivel:''}),
+    html:(x, i) =>
+      '<div class="grid dos">' +
+        campo('id_idioma_' + i, 'Idioma', '<input id="f_id_idioma_' + i + '" data-lista="idiomas" data-i="' + i + '" data-k="idioma" value="' + esc(x.idioma) + '">') +
+        campo('id_nivel_' + i, 'Nivel', '<select id="f_id_nivel_' + i + '" data-lista="idiomas" data-i="' + i + '" data-k="nivel">' + opciones(NIVELES_IDIOMA, x.nivel) + '</select>') +
+      '</div>'}
+};
+
+function pintarLista(nombre){
+  const L = LISTAS[nombre]; const d = datosInfo(); const items = d[L.clave];
+  document.getElementById(L.cont).innerHTML = items.map((x, i) =>
+    '<div class="lista-item">' + (items.length > (nombre === 'idiomas' ? 1 : 0) ? '<button type="button" class="quitar" data-quitar="' + nombre + '" data-i="' + i + '">Quitar</button>' : '') + L.html(x, i) + '</div>').join('');
+  document.querySelectorAll('[data-quitar="' + nombre + '"]').forEach(b => {
+    b.onclick = () => { const dd = datosInfo(); dd[L.clave].splice(Number(b.dataset.i), 1); fijarDatosInfo(dd); pintarLista(nombre); };
+  });
+}
+function agregar(nombre){
+  const L = LISTAS[nombre]; const d = datosInfo();
+  d[L.clave].push(L.nuevo());
+  if(nombre === 'exp') d.sinExperiencia = false;
+  if(nombre === 'cert') d.sinCertificaciones = false;
+  fijarDatosInfo(d); pintarLista(nombre);
+  if(nombre === 'exp') document.getElementById('f_sinExperiencia').checked = false;
+  if(nombre === 'cert') document.getElementById('f_sinCertificaciones').checked = false;
+}
+
+function fijarDatosInfo(d){
+  const s = E.pasos.informacion || {};
+  E.pasos.informacion = Object.assign(s, {datos: d, actualizado: new Date().toISOString()});
+  const ok = guardar();
+  const g = document.getElementById('estadoGuardado');
+  if(g) g.textContent = ok ? 'Guardado en este dispositivo.' : 'No se pudo guardar en este navegador: no cierres la página hasta terminar.';
+  pintarRuta();
+}
+
+/* Lee todo el formulario al estado. Más simple y más seguro que seguir cada
+   campo por separado: lo que está en pantalla es lo que se guarda. */
+function alEditarInfo(ev){
+  const d = datosInfo();
+  const t = ev && ev.target;
+  if(t && t.dataset && t.dataset.lista){
+    const L = LISTAS[t.dataset.lista];
+    d[L.clave][Number(t.dataset.i)][t.dataset.k] = t.value;
+  }
+  ['nombres','apellidoPaterno','apellidoMaterno','correo','telefono','edad','estado','ciudad','tutorNombre','tutorCorreo','tutorParentesco',
+   'nivel','situacion','institucion','carrera','grado','anioEgreso','sectorOtro','aspiracion'].forEach(k => {
+    const el = document.getElementById('f_' + k); if(el) d[k] = el.value;
+  });
+  d.tutorAutoriza = !!(document.getElementById('f_tutorAutoriza') || {}).checked;
+  d.sinExperiencia = document.getElementById('f_sinExperiencia').checked;
+  d.sinCertificaciones = document.getElementById('f_sinCertificaciones').checked;
+  d.sectores = [...document.querySelectorAll('#chipsSectores input:checked')].map(x => x.value);
+  fijarDatosInfo(d);
+
+  document.getElementById('bloqueTutor').hidden = !esMenor(d);
+  const otro = document.querySelector('[data-campo="sectorOtro"]'); if(otro) otro.hidden = !d.sectores.includes('Otro');
+  const carreraReq = ['Carrera técnica','Licenciatura o ingeniería','Posgrado'].includes(d.nivel);
+  const lbl = document.querySelector('[data-campo="carrera"] label');
+  if(lbl) lbl.innerHTML = 'Carrera o programa' + (carreraReq ? ' <span class="req">*</span>' : '');
+  // Al corregir un campo marcado como faltante, se le quita la marca.
+  if(t){ const c = t.closest('.campo'); if(c) c.classList.remove('falta'); }
+}
+
+async function completarInfo(){
+  alEditarInfo();
+  const d = datosInfo();
+  const faltan = faltantesInfo(d);
+  const aviso = document.getElementById('avisoInfo');
+  document.querySelectorAll('.campo.falta').forEach(el => el.classList.remove('falta'));
+  if(faltan.length){
+    faltan.forEach(([c]) => { const el = document.querySelector('[data-campo="' + c + '"]'); if(el) el.classList.add('falta'); });
+    aviso.innerHTML = '<div class="aviso malo"><strong>Te falta:</strong> ' + faltan.map(x => esc(x[1])).join('; ') + '.</div>';
+    const primero = document.querySelector('[data-campo="' + faltan[0][0] + '"]');
+    if(primero) primero.scrollIntoView({behavior: 'smooth', block: 'center'});
+    return;
+  }
+  const s = E.pasos.informacion;
+  s.completo = true; s.completadoEn = s.completadoEn || new Date().toISOString();
+  guardar(); pintarRuta();
+  document.getElementById('btnCompletarInfo').textContent = 'Guardar cambios';
+
+  let msg = '<div class="aviso bien"><strong>Listo, completaste tu información inicial.</strong> El siguiente paso es tu Perfil DISC';
+  const sig = PASOS.find(p => p.id === 'disc');
+  msg += sig && sig.listo ? '.' : ', que estará disponible muy pronto.';
+  if(E.consentimiento.acepta){
+    const r = await enviarPaso('informacion', d);
+    msg += r.ok ? ' Tu expediente en el Club quedó actualizado.' :
+      (r.error === 'sin endpoint' ? '' : ' <br>No pudimos actualizar tu expediente en el Club ahora; tus datos siguen guardados aquí y se enviarán la próxima vez que guardes.');
+  }
+  aviso.innerHTML = msg + '</div>';
+}
+
+/* ---- Envío al expediente (solo con consentimiento) ---- */
+function nombreCompleto(d){ return [d.nombres, d.apellidoPaterno, d.apellidoMaterno].map(x => (x || '').trim()).filter(Boolean).join(' '); }
+async function enviarPaso(paso, datos){
+  if(!E.consentimiento.acepta) return {ok:false, error:'sin consentimiento'};
+  if(typeof COMPARTIR === 'undefined' || !COMPARTIR.activo()) return {ok:false, error:'sin endpoint'};
+  const info = datosInfo();
+  try{
+    const r = await COMPARTIR.enviar({
+      acepta: true, tipo: 'diana', paso, id: idExpediente(),
+      nombre: nombreCompleto(info), correo: info.correo.trim(),
+      completos: PASOS.filter(p => estadoPaso(p) === 'completo').map(p => p.id),
+      total: PASOS.length, datos
+    });
+    guardar();
+    if(r && r.ok){ E.pasos[paso].enviadoEn = new Date().toISOString(); guardar(); }
+    return r || {ok:false};
+  }catch(e){ return {ok:false, error:String(e)}; }
+}
+
+/* ---- Pasos todavía no construidos ---- */
+function pintarProximamente(id){
+  const p = PASOS.find(x => x.id === id);
+  document.getElementById('contenido').innerHTML = '<div class="card">' + cabecera(p) + '</div>' +
+    '<div class="card proximamente-card"><div class="icono">◷</div><h2>Próximamente</h2><p>Esta herramienta todavía se está construyendo.</p></div>';
+}
+
+const HERRAMIENTAS = {informacion: pintarInformacion};
+PASOS.forEach(p => { if(!HERRAMIENTAS[p.id]) HERRAMIENTAS[p.id] = () => pintarProximamente(p.id); });
+
+/* ---- Arranque ---- */
+(async function iniciar(){
+  try{
+    const m = await fetch('manifest.json', {cache: 'no-store'}).then(r => r.json());
+    if(m && Array.isArray(m.sectores) && m.sectores.length) SECTORES = m.sectores.map(s => s.nombre);
+  }catch(e){ /* sin manifiesto se usa la lista de respaldo */ }
+  // Abre el primer paso disponible que no esté completo.
+  const siguiente = PASOS.find(p => p.listo && estadoPaso(p) !== 'completo') || PASOS[0];
+  pasoActual = siguiente.id;
+  // En pantallas angostas la lista de pasos empieza plegada para que la
+  // herramienta quede a la vista.
+  if(window.matchMedia && window.matchMedia('(max-width: 900px)').matches) document.getElementById('plegable').open = false;
+  pintarRuta();
+  HERRAMIENTAS[pasoActual]();
+})();
+</script>
+</body>
+</html>

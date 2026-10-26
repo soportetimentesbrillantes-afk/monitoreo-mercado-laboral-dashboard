@@ -32,6 +32,7 @@ El sitio se sirve con GitHub Pages desde este repositorio:
 | `disc.html` | Tu estilo de trabajo, versión corta: cuestionario DISC propio de 24 bloques. |
 | `disc-agora.html` | Tu estilo de trabajo, cuestionario de Ágora Internacional: 5 secciones, 75 reactivos, puntuación por colores. |
 | `foda.html` | Tu FODA. Cuatro cuadros libres que se guardan solo en el navegador; imprimible. |
+| `diana.html` | Tu proceso DIANA: las herramientas de orientación en una sola página, por fases (Descubrir, Iniciar) y con avance. Se construye un paso a la vez. |
 | `informe.html` | Documento ejecutivo integral: DISC + FODA + plan de acción; lo del orientador se escribe, no se calcula. |
 | `disc-interpretacion.js` | La interpretación DISC de Ágora, compartida por las tres páginas anteriores. Excepción a "páginas autocontenidas". |
 | `compartir-club.js` | La opción de compartir DISC y FODA con el Club (casilla sin marcar). Inerte mientras no tenga la URL del Apps Script. |
@@ -136,9 +137,15 @@ weasyprint no descarga nada de internet.
 
 | Tarea | Cuándo | Dónde corre |
 |---|---|---|
-| `busqueda-vacantes-semanal` | Lunes 7:51 | **Requiere la computadora de Gael** |
-| `actualizar-dashboard-web` | Lunes 9:03 | En la nube |
+| `corrida-semanal-completa` | Lunes 7:51 | **Requiere la computadora de Gael.** Etapas 1, 2 y 4 y boletín en una sola sesión; entrega un zip para subir. |
+| `actualizar-dashboard-web` | — | **Desactivada** desde el 2026-10-21: buscaba los crudos en Drive y ya no están ahí. |
 | `tendencias-mensuales-sector` | Día 1 de cada mes, 7:49 | En la nube |
+
+**Hay dos copias del sitio.** La que sale de este repositorio
+(GitHub Pages, `soportetimentesbrillantes-afk.github.io/...`) y la que está en
+`clubmentesbrillantes.com.mx/dashboard/`, detrás del registro de miembros. La del
+Club es una copia aparte que no se actualiza sola: al 2026-10-21 seguía con los
+datos del 2026-08-28. Publicar aquí no la cambia.
 
 La tarea semanal copia el catálogo de cursos tal cual desde el manifiesto
 publicado, así que el catálogo real sobrevive a cada corrida.

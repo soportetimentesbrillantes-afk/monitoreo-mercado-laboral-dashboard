@@ -10,6 +10,59 @@ después.
 corrigió un error, describe también cómo se detectó — eso es lo que evita
 repetirlo.
 
+## 2026-10-26 — Nueva página: Tu proceso DIANA (paso 1, Información inicial)
+
+Gael compartió el documento "herramientas Ágora y DIANA" con los dos procesos
+de orientación. Pidió sacar las herramientas sueltas de la página principal y
+reunirlas en una sola página, por fases y mostrando el avance, construyendo una
+herramienta a la vez para darle el visto bueno. Eligió el proceso **DIANA**
+(fases Descubrir e Iniciar; Alinear no se trabaja por ahora) y que el
+expediente de cada persona se guarde en la hoja interna del Club.
+
+**`diana.html`.** A la izquierda, la ruta: avance general (pasos completos de
+14), las dos fases con sus pasos y el estado de cada uno (Completo, En curso,
+Pendiente, Próximamente). En teléfono la lista se pliega para que la herramienta
+quede a la vista. A la derecha, la herramienta del paso abierto. Solo se pueden
+abrir las que ya están construidas; hoy es una.
+
+Los pasos se numeraron del 1 al 14 en el orden del documento, que repetía
+números (dos "8"). El avance se guarda en el navegador (`cmb_diana`) con cada
+cambio.
+
+**Paso 1 — Información inicial.** Datos personales, estudios actuales,
+experiencia (empleo, prácticas, servicio social, voluntariado, proyecto
+escolar, negocio propio), cursos y certificaciones, idiomas y sectores de
+interés. Condición de cumplimiento del documento: "información personal
+completa". El botón no da el paso por completo con huecos: lista qué falta y
+marca los campos. Experiencia y cursos aceptan "todavía no tengo", porque a un
+estudiante no se le puede exigir lo que no tiene.
+
+**Menores de edad.** El documento de Ágora habla de enviar resultados a los
+padres. Si la edad es menor de 18 se piden nombre y correo de la madre, padre o
+tutor, y para guardar el expediente hace falta además que esa persona esté de
+acuerdo. El Apps Script lo vuelve a revisar y rechaza al menor sin esa
+autorización.
+
+**Expediente.** Al inicio hay una casilla, sin marcar, para que el Club guarde
+el expediente. Con ella, cada paso completo se envía (`tipo: "diana"`) y el
+Apps Script escribe dos pestañas nuevas en la hoja interna: **Expediente
+DIANA**, una fila por persona con avance y pasos completos (el tablero del
+orientador), y **DIANA · Información inicial**, con los datos del paso. Sin la
+casilla, nada sale del navegador. Mientras el script no esté publicado, la
+página funciona igual y no envía.
+
+**La página principal** ya no enlaza DISC, FODA e informe en la barra de
+arriba: ahora hay un solo enlace, "Tu proceso DIANA". `disc.html`, `foda.html`,
+`informe.html` y `disc-agora.html` siguen existiendo hasta que cada uno se pase
+a DIANA como su paso. La nota de afinidad de las vacantes todavía manda a
+`disc.html`; cambia cuando el DISC sea el paso 2.
+
+Aviso de privacidad: se agregó un párrafo sobre el expediente DIANA y los
+menores. Igual que el anterior, conviene que lo revise quien lleve lo legal.
+
+Pruebas nuevas: `cuentas/pruebas/test_diana.mjs`, 12 (9 de la página y 3 del
+Apps Script). Las demás suites siguen en verde.
+
 ## 2026-10-16 — Corrida de la semana del 9 al 16 de octubre, con boletín
 
 Primera corrida desde el 2026-09-14. Las cuatro semanas intermedias no tienen
