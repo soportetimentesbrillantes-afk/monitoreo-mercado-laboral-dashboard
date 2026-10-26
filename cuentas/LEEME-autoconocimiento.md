@@ -82,14 +82,14 @@ Puedes agregar columnas tuyas a la derecha (notas del orientador, fecha de
 seguimiento). El script busca las columnas por nombre: no renombres ni borres
 las originales.
 
-## Proceso DIANA
+## Proceso Ágora
 
-`diana.html` usa el mismo script y la misma URL. Con la casilla del expediente
-marcada, cada paso completo llega con `tipo: "diana"` y el script escribe en dos
-pestañas que crea solo la primera vez: **Expediente DIANA** (una fila por
-persona, con su avance) y **DIANA · Información inicial**. Si ya publicaste el
-script antes de este cambio, pega la versión nueva y haz *Gestionar
-implementaciones → editar → Versión nueva* para que la URL no cambie.
+`agora.html` usa el mismo script y la misma URL. Con la casilla del expediente
+marcada, cada fase completa llega con `tipo: "agora"` y el script escribe en dos
+pestañas que crea solo la primera vez: **Expediente Ágora** (una fila por
+persona, con su avance de 10 fases) y **Ágora · Información inicial**. Si ya
+publicaste el script antes de este cambio, pega la versión nueva y haz
+*Gestionar implementaciones → editar → Versión nueva* para que la URL no cambie.
 
 ## Cosas que conviene saber
 

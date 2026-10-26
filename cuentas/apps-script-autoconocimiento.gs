@@ -34,7 +34,7 @@
 
 var CLAVE = 'cmb-autoconocimiento-2026';
 
-var PESTANAS = { disc: 'DISC', foda: 'FODA', expediente: 'Expediente DIANA', informacion: 'DIANA · Información inicial' };
+var PESTANAS = { disc: 'DISC', foda: 'FODA', expediente: 'Expediente Ágora', informacion: 'Ágora · Información inicial' };
 
 /* Los encabezados son el contrato con la hoja. El script busca cada columna
    por su nombre, así que puedes reordenarlas o agregar columnas tuyas a la
@@ -50,9 +50,9 @@ var ENCABEZADOS = {
          'Siguiente paso', 'Estilo DISC dominante', 'Dispositivo'],
   // Una fila por persona: el tablero del orientador.
   expediente: ['ID de envío', 'Alta', 'Última actividad', 'Nombre', 'Correo', 'Edad',
-               'Avance', 'Pasos completos', 'Último paso guardado', 'Tutor', 'Correo del tutor',
+               'Avance', 'Fases completas', 'Última fase guardada', 'Tutor', 'Correo del tutor',
                'Tutor autoriza', 'Dispositivo'],
-  // Paso 1 del proceso DIANA.
+  // Fase 1 del proceso Ágora.
   informacion: ['ID de envío', 'Primer envío', 'Último envío', 'Nombre', 'Correo', 'Teléfono',
                 'Edad', 'Estado', 'Ciudad', 'Tutor', 'Correo del tutor', 'Parentesco', 'Tutor autoriza',
                 'Nivel de estudios', 'Situación', 'Institución', 'Carrera', 'Semestre o año',
@@ -60,14 +60,13 @@ var ENCABEZADOS = {
                 'Sectores de interés', 'Aspiración']
 };
 
-/* Nombres legibles de los pasos del proceso DIANA, para la columna
-   "Pasos completos" del expediente. Deben coincidir con los id de diana.html. */
-var PASOS_DIANA = {
+/* Nombres legibles de las fases del proceso Ágora, para la columna
+   "Fases completas" del expediente. Deben coincidir con los id de agora.html. */
+var FASES_AGORA = {
   informacion: 'Información inicial', disc: 'Perfil DISC', foda: 'Análisis FODA',
   estilo: 'Estilo de trabajo', relacion: 'Forma de relacionamiento', crecimiento: 'Crecimiento personal',
-  escenarios: 'Escenarios de vida', reporte_descubrir: 'Reporte de Descubrir', mapa: 'Mapa de carrera',
-  tendencias: 'Tendencias de la industria', formacion: 'Plan de formación', marca: 'Marca personal y profesional',
-  plan: 'Plan de acción 30-60-90', resumen: 'Resumen ejecutivo'
+  escenarios: 'Escenarios de vida', ruta: 'Ruta profesional', plan: 'Plan de acción',
+  resumen: 'Resumen ejecutivo'
 };
 
 var MAX_TEXTO = 4000;     // por celda; un FODA real cabe de sobra
@@ -93,7 +92,7 @@ function doPost(e) {
 
     if (d.tipo === 'disc') return responder(conCandado(function () { return guardarDisc(d, id, nombre, correo); }));
     if (d.tipo === 'foda') return responder(conCandado(function () { return guardarFoda(d, id, nombre, correo); }));
-    if (d.tipo === 'diana') return responder(conCandado(function () { return guardarDiana(d, id, nombre, correo); }));
+    if (d.tipo === 'agora') return responder(conCandado(function () { return guardarAgora(d, id, nombre, correo); }));
     return responder({ ok: false, error: 'tipo' });
   } catch (err) {
     return responder({ ok: false, error: 'petición no válida' });
@@ -192,18 +191,18 @@ function guardarFoda(d, id, nombre, correo) {
   return { ok: true };
 }
 
-// ─────────────────────────── PROCESO DIANA ───────────────────────────
+// ─────────────────────────── PROCESO ÁGORA ───────────────────────────
 
-/* Cada paso que la persona completa llega aquí. Se actualiza su fila del
-   expediente (avance) y la pestaña del paso. Un paso que todavía no tiene
+/* Cada fase que la persona completa llega aquí. Se actualiza su fila del
+   expediente (avance) y la pestaña de la fase. Una fase que todavía no tiene
    pestaña propia solo mueve el avance. */
-function guardarDiana(d, id, nombre, correo) {
+function guardarAgora(d, id, nombre, correo) {
   var paso = limpiar(d.paso, 40);
-  if (!PASOS_DIANA[paso]) return { ok: false, error: 'paso' };
+  if (!FASES_AGORA[paso]) return { ok: false, error: 'paso' };
   var datos = d.datos || {};
   var completos = (Array.isArray(d.completos) ? d.completos : [])
-    .filter(function (p) { return PASOS_DIANA[p]; });
-  var total = Math.min(Math.max(parseInt(d.total, 10) || 14, 1), 50);
+    .filter(function (p) { return FASES_AGORA[p]; });
+  var total = Math.min(Math.max(parseInt(d.total, 10) || 10, 1), 50);
 
   if (paso === 'informacion') {
     var edad = parseInt(datos.edad, 10);
@@ -252,8 +251,8 @@ function guardarDiana(d, id, nombre, correo) {
     'ID de envío': id, 'Última actividad': new Date(),
     'Nombre': textoSeguro(nombre), 'Correo': textoSeguro(correo),
     'Avance': completos.length + ' de ' + total,
-    'Pasos completos': completos.map(function (p) { return PASOS_DIANA[p]; }).join(', '),
-    'Último paso guardado': PASOS_DIANA[paso],
+    'Fases completas': completos.map(function (p) { return FASES_AGORA[p]; }).join(', '),
+    'Última fase guardada': FASES_AGORA[paso],
     'Dispositivo': limpiar(d.dispositivo, 64)
   };
   if (info) {
