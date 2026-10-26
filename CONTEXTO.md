@@ -32,7 +32,7 @@ El sitio se sirve con GitHub Pages desde este repositorio:
 | `disc.html` | Tu estilo de trabajo, versión corta: cuestionario DISC propio de 24 bloques. |
 | `disc-agora.html` | Tu estilo de trabajo, cuestionario de Ágora Internacional: 5 secciones, 75 reactivos, puntuación por colores. |
 | `foda.html` | Tu FODA. Cuatro cuadros libres que se guardan solo en el navegador; imprimible. |
-| `diana.html` | Tu proceso DIANA: las herramientas de orientación en una sola página, por fases (Descubrir, Iniciar) y con avance. Se construye un paso a la vez. |
+| `agora.html` | Tu proceso Ágora: las 10 fases de orientación en una sola página, una herramienta por fase, con avance (llave `cmb_agora`). Se construye una fase a la vez; las que faltan dicen "Próximamente". DIANA (Descubrir, Iniciar, Alinear) no se trabaja por ahora. |
 | `informe.html` | Documento ejecutivo integral: DISC + FODA + plan de acción; lo del orientador se escribe, no se calcula. |
 | `disc-interpretacion.js` | La interpretación DISC de Ágora, compartida por las tres páginas anteriores. Excepción a "páginas autocontenidas". |
 | `compartir-club.js` | La opción de compartir DISC y FODA con el Club (casilla sin marcar). Inerte mientras no tenga la URL del Apps Script. |

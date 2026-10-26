@@ -157,7 +157,7 @@ const CSS = `
   document.head.appendChild(s);
 })();
 
-/* Envío genérico para otras páginas (el proceso DIANA). Mismo endpoint, misma
+/* Envío genérico para otras páginas (el proceso Ágora). Mismo endpoint, misma
    clave, misma regla: quien llama es responsable de no mandar nada sin
    consentimiento; el Apps Script vuelve a revisar acepta === true. */
 async function enviar(cuerpo){
