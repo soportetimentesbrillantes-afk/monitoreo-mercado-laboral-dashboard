@@ -16,6 +16,8 @@
     --font-serif:'Cormorant Garamond',Georgia,'Times New Roman',serif;
     --font-sans:'Source Sans 3',ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;
     --sombra:rgba(53,42,21,.1) 0px 10px 25px 0px;
+    --d:#b8452f; --i:#c9a227; --s:#4f8f5b; --c:#3f6f94;
+    --f:#4f8f5b; --o:#b89a57; --de:#c2703d; --a:#4a7a9b;
   }
   *{box-sizing:border-box;}
   body{font-family:var(--font-sans);margin:0;background:linear-gradient(180deg,var(--hero-bg) 0%,var(--hero-bg2) 100%) fixed;color:var(--texto);}
@@ -33,6 +35,8 @@
 
   /* ---- Distribución: fases a la izquierda, herramienta a la derecha ---- */
   .proceso{max-width:1180px;margin:0 auto;padding:26px 20px 60px;display:grid;grid-template-columns:300px 1fr;gap:24px;align-items:start;}
+  /* min-width:0: sin esto una tabla ancha estira la columna y la página se sale de la pantalla. */
+  #contenido{min-width:0;}
   .ruta{position:sticky;top:14px;background:#fff;border:1px solid var(--gris-borde);border-radius:16px;padding:18px 16px;box-shadow:var(--sombra);}
   .avance .cifra{font-family:var(--font-serif);font-size:2rem;font-weight:700;line-height:1;}
   .avance .txt{font-size:.8rem;color:var(--texto-suave);margin:4px 0 8px;}
@@ -86,6 +90,8 @@
   .lista-item .quitar{position:absolute;top:8px;right:10px;background:none;border:none;color:#8a3d1c;font-size:.8rem;font-weight:700;cursor:pointer;}
   button.primary{background:linear-gradient(135deg,var(--azul),var(--gold-light));color:#fff;border:none;padding:12px 28px;border-radius:999px;font-size:.95rem;font-weight:700;cursor:pointer;font-family:var(--font-sans);box-shadow:var(--sombra);}
   button.primary:disabled{opacity:.45;cursor:not-allowed;}
+  a.secondary{display:inline-block;text-decoration:none;background:#fff;color:var(--azul-osc);border:1.5px solid var(--azul);padding:8px 18px;border-radius:999px;font-size:.86rem;font-weight:700;font-family:var(--font-sans);}
+  button.secondary:disabled{opacity:.5;cursor:default;}
   button.secondary{background:#fff;color:var(--azul-osc);border:1.5px solid var(--azul);padding:8px 18px;border-radius:999px;font-size:.86rem;font-weight:700;cursor:pointer;font-family:var(--font-sans);}
   .aviso{border-radius:10px;padding:12px 15px;font-size:.87rem;line-height:1.55;margin:12px 0;}
   .aviso.limites{background:#fdfaf1;border:1px solid var(--gris-borde);}
@@ -96,12 +102,90 @@
   .proximamente-card{text-align:center;padding:40px 26px;}
   .proximamente-card .icono{font-size:2rem;color:var(--azul);}
 
+  /* ---- Fases 4 a 10 (agora/*.js) ---- */
+  .opciones{display:grid;grid-template-columns:1fr 1fr;gap:6px 16px;margin:6px 0 4px;}
+  .opciones .check{margin:0;padding:8px 10px;border:1px solid var(--gris-borde);border-radius:10px;background:#fff;}
+  .opciones .check:has(input:checked){border-color:var(--azul-osc);background:#fbf6e8;}
+  .opciones .check small{display:block;color:var(--texto-suave);font-size:.74rem;}
+  .radios{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0;}
+  .radios label{display:flex;gap:6px;align-items:center;border:1.5px solid var(--gris-borde);border-radius:999px;padding:6px 12px;font-size:.86rem;font-weight:600;cursor:pointer;background:#fff;}
+  .radios label:has(input:checked){border-color:var(--azul-osc);background:#fbf6e8;font-weight:700;}
+  .radios input{accent-color:var(--azul-osc);}
+  .pill{display:inline-block;padding:4px 12px;border-radius:999px;font-size:.78rem;font-weight:700;margin:0 6px 6px 0;background:var(--gris-bg);border:1px solid var(--gris-borde);color:var(--azul-osc);}
+  .sugerencia{display:flex;gap:10px;align-items:flex-start;justify-content:space-between;border:1px dashed var(--gris-borde);border-radius:10px;padding:8px 12px;margin:6px 0;background:var(--gris-bg);font-size:.88rem;line-height:1.45;}
+  .sugerencia button{flex:none;}
+  button.mini{padding:4px 12px;font-size:.78rem;}
+  .horizonte{border:1px solid var(--gris-borde);border-radius:14px;padding:14px 16px;margin:12px 0;background:#fff;}
+  .horizonte > summary{cursor:pointer;font-family:var(--font-serif);font-size:1.3rem;font-weight:700;list-style:none;display:flex;justify-content:space-between;gap:10px;align-items:baseline;}
+  .horizonte > summary::-webkit-details-marker{display:none;}
+  .horizonte > summary .sub{font-family:var(--font-sans);font-size:.8rem;font-weight:600;color:var(--texto-suave);}
+  .tabla{width:100%;border-collapse:collapse;font-size:.88rem;margin:8px 0;}
+  .tabla th{font-size:.72rem;text-transform:uppercase;letter-spacing:.04em;color:var(--texto-suave);text-align:left;padding:6px 8px;border-bottom:1px solid var(--gris-borde);}
+  .tabla td{padding:7px 8px;border-bottom:1px solid var(--gris-bg);vertical-align:top;}
+  .tabla td,.tabla th{overflow-wrap:break-word;}
+  .nivel{font-weight:700;font-size:.78rem;border-radius:999px;padding:2px 9px;white-space:nowrap;}
+  .nivel.alta{background:#eef6ef;color:#2f6b3b;} .nivel.media{background:#fbf6e8;color:var(--azul-osc);} .nivel.baja{background:var(--gris-bg);color:var(--texto-suave);}
+  .tres-col{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+  .columna{border:1px solid var(--gris-borde);border-radius:14px;padding:12px 14px;background:#fff;}
+  .columna h4{margin:0 0 6px;font-size:1rem;}
+  .accion{display:grid;grid-template-columns:1fr auto;gap:6px;align-items:start;border:1px solid var(--gris-borde);border-radius:10px;padding:8px 10px;margin:6px 0;background:var(--gris-bg);font-size:.86rem;}
+  .accion .tipo{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--azul-osc);}
+  .accion .quitar{background:none;border:none;color:#8a3d1c;font-size:.76rem;font-weight:700;cursor:pointer;}
+  .mercado{border:1px solid var(--gris-borde);border-radius:12px;padding:12px 14px;margin:10px 0;background:var(--gris-bg);font-size:.88rem;}
+  .mercado .cifras{display:flex;gap:18px;flex-wrap:wrap;margin:6px 0;}
+  .mercado .cifras b{display:block;font-family:var(--font-serif);font-size:1.4rem;}
+
+  /* ---- Fase 10: el documento ---- */
+  #documento{font-size:.95rem;}
+  #documento .lema{font-family:var(--font-serif);font-style:italic;color:var(--texto-suave);margin:0 0 6px;font-size:1.05rem;}
+  #documento .titulo{font-family:var(--font-serif);font-size:1.9rem;margin:0;line-height:1.15;}
+  #documento .subtitulo{color:var(--texto-suave);margin:4px 0 14px;font-size:.95rem;}
+  #documento .ficha{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px 18px;border:1px solid var(--gris-borde);border-radius:10px;padding:10px 14px;margin-bottom:18px;font-size:.88rem;}
+  #documento .ficha b{color:var(--texto-suave);font-weight:600;display:block;font-size:.74rem;text-transform:uppercase;letter-spacing:.04em;}
+  #documento h2{font-family:var(--font-serif);font-size:1.35rem;margin:26px 0 8px;padding-bottom:4px;border-bottom:1px solid var(--gris-borde);}
+  #documento h3{font-family:var(--font-sans);font-size:.95rem;font-weight:700;margin:14px 0 4px;color:var(--azul-osc);}
+  #documento ul{margin:4px 0 8px;padding-left:20px;line-height:1.5;}
+  #documento .cuadros{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  #documento .q{border:1px solid var(--gris-borde);border-top:4px solid var(--qc);border-radius:10px;padding:8px 12px;break-inside:avoid;}
+  #documento .q h3{margin:0 0 4px;color:var(--qc);}
+  #documento .vacio{color:var(--texto-suave);font-style:italic;}
+  #documento .pendiente{border:1px dashed #c9a227;background:#fdfaf1;border-radius:10px;padding:10px 14px;font-size:.88rem;}
+  #documento .lineas{margin:4px 0 10px;}
+  #documento .lineas div{height:28px;border-bottom:1px solid #cfc4ae;}
+  #documento .pie{margin-top:24px;padding-top:10px;border-top:1px solid var(--gris-borde);font-size:.78rem;color:var(--texto-suave);line-height:1.5;}
+  #documento .dos-col{display:grid;grid-template-columns:1fr 1fr;gap:0 24px;}
+  #documento .bloque{break-inside:avoid;}
+  #documento .tablero{max-width:460px;}
+  @media print{
+    @page{size:letter;margin:16mm 16mm 18mm;}
+    body.con-documento{background:#fff;}
+    body.con-documento .topbar, body.con-documento header, body.con-documento .ruta,
+    body.con-documento #contenido > .card, body.con-documento .no-imprimir{display:none !important;}
+    body.con-documento .proceso{display:block;padding:0;max-width:none;}
+    body.con-documento #documento{border:none;box-shadow:none;border-radius:0;padding:0;font-size:10.5pt;}
+    body.con-documento #documento h2{break-after:avoid;}
+    body.con-documento #documento h2.salto{break-before:page;}
+    body.con-documento a{color:inherit;text-decoration:none;}
+    /* La hoja carta mide menos de 900px: sin esto se imprimiría en una columna. */
+    body.con-documento #documento .dos-col, body.con-documento #documento .cuadros{grid-template-columns:1fr 1fr !important;}
+    body.con-documento #documento .ficha{grid-template-columns:1fr 1fr 1fr !important;}
+    body.con-documento #documento .q{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  }
+
   #plegable summary{display:none;}
   @media(max-width:900px){
     .proceso{grid-template-columns:1fr;}
     .ruta{position:static;}
     #plegable summary{display:block;cursor:pointer;margin-top:12px;font-size:.86rem;font-weight:700;color:var(--azul-osc);}
     .grid,.grid.dos{grid-template-columns:1fr;}
+    .opciones,.tres-col,#documento .dos-col,#documento .cuadros{grid-template-columns:1fr;}
+    /* En teléfono, el mapa de carreras se lee como tarjetas, no como tabla. */
+    .tabla.tarjetas, .tabla.tarjetas tbody, .tabla.tarjetas tr, .tabla.tarjetas td{display:block;width:auto;}
+    .tabla.tarjetas tr:first-child{display:none;}
+    .tabla.tarjetas tr{border:1px solid var(--gris-borde);border-radius:12px;padding:10px 12px;margin:8px 0;background:#fff;}
+    .tabla.tarjetas td{border:none;padding:3px 0;}
+    .tabla.tarjetas td[data-l]::before{content:attr(data-l) ': ';font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--texto-suave);}
+    #documento .ficha{grid-template-columns:1fr 1fr;}
   }
   @media(max-width:600px){
     .topbar{padding:14px 20px 0;} .topbar .logo-link img{height:28px;}
@@ -142,6 +226,17 @@
 </div>
 
 <script src="compartir-club.js"></script>
+<script src="disc-interpretacion.js"></script>
+<!-- Las fases 4 a 10: una herramienta por archivo. Cada una se registra en
+     window.FASES_AGORA y usa las piezas comunes de AG (más abajo). -->
+<script src="agora/carreras.js"></script>
+<script src="agora/fase4-estilo.js"></script>
+<script src="agora/fase5-relacion.js"></script>
+<script src="agora/fase6-crecimiento.js"></script>
+<script src="agora/fase7-escenarios.js"></script>
+<script src="agora/fase8-ruta.js"></script>
+<script src="agora/fase9-plan.js"></script>
+<script src="agora/fase10-resumen.js"></script>
 <script>
 /* ============================== PROCESO ÁGORA ==============================
 
@@ -170,14 +265,32 @@ const PASOS = [
   {id:'foda', nombre:'Análisis FODA', listo:true, marco:'foda.html',
    objetivo:'Identificar tus fortalezas, oportunidades, debilidades y amenazas.',
    entrega:'Tu FODA personal, que puedes imprimir o copiar, y tu siguiente paso.'},
-  {id:'estilo', nombre:'Estilo de trabajo', objetivo:'Identificar tus estilos de trabajo.', entrega:'Tu estilo de trabajo personalizado.'},
-  {id:'relacion', nombre:'Forma de relacionamiento', objetivo:'Identificar cómo te relacionas con los demás, a partir de lo que ya contestaste.', entrega:'Tus formas de relacionamiento.'},
-  {id:'crecimiento', nombre:'Crecimiento personal', objetivo:'Identificar tus áreas de crecimiento personal frente a lo que esperas desarrollar.', entrega:'Tus áreas de crecimiento. Se envían también a tu madre, padre o tutor.'},
-  {id:'escenarios', nombre:'Escenarios de vida', objetivo:'Proponer escenarios de vida a 5, 10 y 15 años, que completas con lo tuyo.', entrega:'Tu escenario de vida.'},
-  {id:'ruta', nombre:'Ruta profesional', objetivo:'Armar tu mapa profesional: qué tan compatible eres con las carreras que estás considerando y con otras afines.', entrega:'Tu ruta profesional.'},
-  {id:'plan', nombre:'Plan de acción', objetivo:'Armar un plan de trabajo a 30, 60 y 90 días, con acciones sugeridas que completas con lo tuyo.', entrega:'Tu plan de acción.'},
-  {id:'resumen', nombre:'Resumen ejecutivo', objetivo:'Resumir todo el proceso en un reporte.', entrega:'Tu reporte final. Se envía también a tu madre, padre o tutor.'}
+  {id:'estilo', nombre:'Estilo de trabajo',
+   objetivo:'Identificar tu estilo de trabajo a partir de tu Perfil DISC: tu orientación frente a la tarea, cómo trabajas, dónde rindes más y qué te mueve.',
+   entrega:'Tu estilo de trabajo personalizado: solo lo que tú marcas como tuyo, contado con un ejemplo.'},
+  {id:'relacion', nombre:'Forma de relacionamiento',
+   objetivo:'Identificar cómo te relacionas con los demás: cómo te gusta que te traten, tu papel en un equipo y cómo trabajar con estilos distintos al tuyo.',
+   entrega:'Tus formas de relacionamiento personalizadas.'},
+  {id:'crecimiento', nombre:'Crecimiento personal',
+   objetivo:'Poner frente a frente lo que esperas desarrollar y lo que tu perfil sugiere trabajar, y elegir tu primera prioridad.',
+   entrega:'Tus áreas de crecimiento personalizadas, para compartir con tu madre, padre o tutor.'},
+  {id:'escenarios', nombre:'Escenarios de vida',
+   objetivo:'Imaginar tu vida a 5, 10 y 15 años: estudios, trabajo, independencia y vida personal, con propuestas que completas con lo tuyo.',
+   entrega:'Tu escenario de vida personalizado.'},
+  {id:'ruta', nombre:'Ruta profesional',
+   objetivo:'Armar tu mapa profesional: qué tan compatibles son contigo las carreras que estás considerando y otras afines, y qué pide hoy el mercado.',
+   entrega:'Tu ruta profesional personalizada: tu ruta principal y por qué.'},
+  {id:'plan', nombre:'Plan de acción',
+   objetivo:'Armar un plan a 30, 60 y 90 días con acciones de educación, experiencia y conexión: sugeridas por lo que hiciste y escritas por ti.',
+   entrega:'Tu plan de acción personalizado.'},
+  {id:'resumen', nombre:'Resumen ejecutivo',
+   objetivo:'Reunir las diez fases en un documento ejecutivo para ti, tu familia y tu orientador.',
+   entrega:'Tu reporte final, para imprimir, guardar como PDF y compartir con tu madre, padre o tutor.'}
 ];
+
+// Las fases que traen su archivo en agora/ quedan disponibles.
+const FASES_EXT = window.FASES_AGORA || {};
+PASOS.forEach(p => { if(FASES_EXT[p.id]) p.listo = true; });
 
 const MX_ESTADOS = ['Aguascalientes','Baja California','Baja California Sur','Campeche','Chiapas','Chihuahua','Ciudad de México','Coahuila','Colima','Durango','Estado de México','Guanajuato','Guerrero','Hidalgo','Jalisco','Michoacán','Morelos','Nayarit','Nuevo León','Oaxaca','Puebla','Querétaro','Quintana Roo','San Luis Potosí','Sinaloa','Sonora','Tabasco','Tamaulipas','Tlaxcala','Veracruz','Yucatán','Zacatecas','Fuera de México'];
 const NIVELES = ['Secundaria','Preparatoria o bachillerato','Carrera técnica','Licenciatura o ingeniería','Posgrado'];
@@ -347,6 +460,7 @@ function inp(id, valor, tipo, extra){
 
 function pintarInformacion(){
   const p = PASOS[0];
+  document.body.classList.remove('con-documento');
   const d = datosInfo();
   const s = E.pasos.informacion || {};
   const cont = document.getElementById('contenido');
@@ -605,6 +719,7 @@ async function enviarPendientes(){
      borrado    borró lo suyo          ir        quiere abrir otra fase       */
 function pintarMarco(id){
   const p = PASOS.find(x => x.id === id);
+  document.body.classList.remove('con-documento');
   document.getElementById('contenido').innerHTML =
     '<div class="card">' + cabecera(p) + '</div>' +
     '<div id="avisoFase" aria-live="polite"></div>' +
@@ -623,7 +738,9 @@ async function alTerminarFase(id, envio){
     else if(r.error === 'falta información inicial') msg += ' Se agregará a tu expediente cuando completes tu información inicial.';
     else if(r.error !== 'sin endpoint') msg += ' No pudimos actualizar tu expediente ahora; lo intentaremos la próxima vez.';
   }
-  const av = document.getElementById('avisoFase'); if(av) av.innerHTML = msg + '</div>';
+  if(sig && sig.listo) msg += '<br><button class="primary" type="button" data-abrir="' + sig.id + '" style="margin-top:12px;">Seguir con ' + esc(sig.nombre) + ' →</button>';
+  const av = document.getElementById('avisoFase');
+  if(av){ av.innerHTML = msg + '</div>'; AG.conectar(av); }
 }
 
 window.addEventListener('message', ev => {
@@ -655,6 +772,96 @@ window.addEventListener('message', ev => {
   }
 });
 
+/* ============================ FASES 4 A 10: PIEZAS COMUNES ============================
+   Cada fase vive en su archivo (agora/fase4-estilo.js …) y recibe AG: lo que
+   necesita saber de las fases anteriores y cómo guardar, completar y avisar.
+   Ninguna fase escribe en localStorage por su cuenta ni manda nada al Club:
+   eso pasa por AG.fijar y AG.terminar, con las mismas reglas que las fases 1 a 3. */
+const cacheJSON = {};
+function traerJSON(url){
+  if(!cacheJSON[url]) cacheJSON[url] = fetch(url, {cache: 'no-store'}).then(r => r.ok ? r.json() : null).catch(() => null);
+  return cacheJSON[url];
+}
+const AG = {
+  esc, fechaLegible, lineas, leerLS,
+  PASOS,
+  paso: id => PASOS.find(p => p.id === id),
+  info: () => datosInfo(),
+  infoCompleta: () => !!(E.pasos.informacion && E.pasos.informacion.completo),
+  nombre: () => nombreCompleto(datosInfo()),
+  edad(){ const n = parseInt(datosInfo().edad, 10); return isNaN(n) ? null : n; },
+  esMenor: () => esMenor(datosInfo()),
+  /* El Perfil DISC de la fase 2, ya analizado. null si no está. */
+  disc(){
+    const r = leerLS('cmb_disc');
+    if(!r || !r.puntajes || r.instrumento !== 'agora' || typeof DISC === 'undefined') return null;
+    const escala = r.escala || {min: 0, max: 82};
+    const a = DISC.analizar(r.puntajes, escala);
+    return Object.assign({r, p: r.puntajes, escala}, a);
+  },
+  foda(){ const f = leerLS('cmb_foda'); return f && ['F','D','O','A'].some(k => lineas(f[k]).length) ? f : null; },
+  estado: id => estadoPaso(AG.paso(id)),
+  completa: id => estadoPaso(AG.paso(id)) === 'completo',
+  datos(id){ const s = E.pasos[id]; return s && s.datos ? JSON.parse(JSON.stringify(s.datos)) : null; },
+  fijar(id, datos){
+    E.pasos[id] = Object.assign(E.pasos[id] || {}, {datos, actualizado: new Date().toISOString()});
+    const ok = guardar(); pintarRuta(); return ok;
+  },
+  terminar: (id, envio) => alTerminarFase(id, envio),
+  /* Lista de lo que falta, en el aviso de la fase. */
+  faltan(lista){
+    const av = document.getElementById('avisoFase');
+    if(av) av.innerHTML = '<div class="aviso malo"><strong>Te falta:</strong> ' + lista.map(esc).join('; ') + '.</div>';
+  },
+  /* Si a la fase le falta algo de las anteriores, devuelve el aviso (html). */
+  requiere(ids){
+    const faltan = ids.filter(id => !AG.completa(id)).map(id => AG.paso(id));
+    if(!faltan.length) return '';
+    return '<div class="card"><h3>Antes de esta fase</h3><p style="margin-top:0;">Esta herramienta se arma con lo que contestaste antes. Te falta completar: ' +
+      faltan.map(p => '<strong>' + esc(p.nombre) + '</strong>').join(', ') + '.</p><div class="acciones">' +
+      faltan.map(p => '<button class="primary" type="button" data-abrir="' + p.id + '">Ir a ' + esc(p.nombre) + ' →</button>').join('') + '</div></div>';
+  },
+  conectar(raiz){ (raiz || document).querySelectorAll('[data-abrir]').forEach(b => { b.onclick = () => abrir(b.dataset.abrir); }); },
+  abrir: id => abrir(id),
+  /* Casillas: una lista de frases que la persona marca como suyas. */
+  checks(grupo, items, marcados, nota){
+    const m = marcados || [];
+    return '<div class="opciones" data-grupo="' + grupo + '">' + items.map(t => {
+      const txt = typeof t === 'string' ? t : t.texto, sub = typeof t === 'string' ? '' : (t.nota || '');
+      return '<label class="check"><input type="checkbox" data-grupo="' + grupo + '" value="' + esc(txt) + '"' + (m.includes(txt) ? ' checked' : '') + '> <span>' + esc(txt) +
+        (sub ? '<small>' + esc(sub) + '</small>' : '') + '</span></label>';
+    }).join('') + '</div>' + (nota ? '<p class="note">' + nota + '</p>' : '');
+  },
+  marcados: (raiz, grupo) => [...raiz.querySelectorAll('input[data-grupo="' + grupo + '"]:checked')].map(x => x.value),
+  radios(nombre, opciones, actual){
+    return '<div class="radios">' + opciones.map(o => '<label><input type="radio" name="' + nombre + '" value="' + esc(o) + '"' + (o === actual ? ' checked' : '') + '> ' + esc(o) + '</label>').join('') + '</div>';
+  },
+  radio: (raiz, nombre) => { const r = raiz.querySelector('input[name="' + nombre + '"]:checked'); return r ? r.value : ''; },
+  lista: items => items && items.length ? '<ul>' + items.map(x => '<li>' + esc(x) + '</li>').join('') + '</ul>' : '',
+  vinetas: items => (items || []).map(x => '• ' + x).join('\n'),
+  boton: (fase, completo, texto) => '<div id="avisoFase" aria-live="polite"></div><div class="acciones" style="margin-top:14px;">' +
+    '<button type="button" class="primary" id="btnCompletar">' + (completo ? 'Guardar cambios' : (texto || 'Guardar y marcar como completa')) + '</button>' +
+    '<span class="guardado" id="estadoGuardado"></span></div>',
+  guardadoTxt(ok){ const g = document.getElementById('estadoGuardado'); if(g) g.textContent = ok ? 'Guardado en este dispositivo.' : 'No se pudo guardar en este navegador.'; },
+  manifest: () => traerJSON('manifest.json'),
+  sector: clave => traerJSON('data/sector_' + clave + '.json'),
+  /* Correo armado por la persona misma (se abre su programa de correo). */
+  mailto(para, asunto, cuerpo){
+    const b = String(cuerpo || '').slice(0, 1800);
+    return 'mailto:' + String(para || '').replace(/[^A-Za-z0-9._%+@-]/g, '') + '?subject=' + encodeURIComponent(asunto) + '&body=' + encodeURIComponent(b);
+  },
+  tutor(){ const d = datosInfo(); return {nombre: d.tutorNombre.trim(), correo: correoValido(d.tutorCorreo) ? d.tutorCorreo.trim() : '', parentesco: d.tutorParentesco}; }
+};
+
+function pintarFaseExt(id){
+  const p = AG.paso(id);
+  document.body.classList.remove('con-documento');
+  document.getElementById('contenido').innerHTML = '<div class="card">' + cabecera(p) + '</div><div id="cuerpoFase"></div>';
+  const cuerpo = document.getElementById('cuerpoFase');
+  FASES_EXT[id].pintar(cuerpo, AG);
+  AG.conectar(cuerpo);
+}
+
 /* ---- Pasos todavía no construidos ---- */
 function pintarProximamente(id){
   const p = PASOS.find(x => x.id === id);
@@ -663,6 +870,7 @@ function pintarProximamente(id){
 }
 
 const HERRAMIENTAS = {informacion: pintarInformacion, disc: () => pintarMarco('disc'), foda: () => pintarMarco('foda')};
+Object.keys(FASES_EXT).forEach(id => { HERRAMIENTAS[id] = () => pintarFaseExt(id); });
 PASOS.forEach(p => { if(!HERRAMIENTAS[p.id]) HERRAMIENTAS[p.id] = () => pintarProximamente(p.id); });
 
 /* ---- Arranque ---- */

@@ -10,6 +10,69 @@ después.
 corrigió un error, describe también cómo se detectó — eso es lo que evita
 repetirlo.
 
+## 2026-10-26 — Proceso Ágora: fases 4 a 10, el proceso completo
+
+Gael pidió hacer de una vez todas las fases que faltaban para revisarlas
+juntas. Cada una es un archivo en `agora/` (`fase4-estilo.js` …
+`fase10-resumen.js`) que se registra en `window.FASES_AGORA` y usa las piezas
+comunes que le da `agora.html` (objeto `AG`: leer las fases anteriores,
+guardar, completar, avisar qué falta, mandar al expediente). Ninguna escribe en
+el navegador ni manda nada por su cuenta. Ninguna pide un cuestionario nuevo:
+se arman con lo que la persona ya contestó y lo dicen.
+
+- **4 Estilo de trabajo.** Orientación frente a la tarea con los cuadrantes de
+  la presentación de Ágora (D tareas, I ideas, S procesos, C información) y
+  las descripciones de Ágora de su estilo. La persona marca solo lo que le
+  describe (mínimo 3) y lo cuenta con un ejemplo.
+- **5 Forma de relacionamiento.** Recomendaciones de Ágora para relacionarse:
+  lo que le funciona y lo que no, su papel real en un equipo (el de su perfil
+  se sugiere) y con qué estilo le cuesta más trabajar.
+- **6 Crecimiento personal.** Frente a frente lo que espera desarrollar y lo
+  que su perfil sugiere (áreas de crecimiento de Ágora y debilidades de su
+  FODA); marca coincidencias y pide una primera prioridad. Cursos solo del
+  catálogo del Club.
+- **7 Escenarios de vida.** 5, 10 y 15 años (Construcción, Consolidación,
+  Expansión, como el informe de ejemplo) en cuatro áreas, con una propuesta
+  armada con sus datos que puede usar o cambiar. Mínimo dos áreas por
+  horizonte.
+- **8 Ruta profesional.** Mapa con las carreras que considera (prellenado con
+  lo que escribió en la fase 1) y afines: afinidad con su estilo (alta, media,
+  baja), si está en un sector que marcó y lo que el monitoreo del Club ve en
+  el sector relacionado. Ella elige ruta principal y explica por qué. La lista
+  de carreras (`agora/carreras.js`, 55) y sus estilos afines son **de trabajo,
+  por revisar con Ágora**.
+- **9 Plan de acción 30-60-90.** Acciones de educación, experiencia y conexión
+  sugeridas desde las fases anteriores (siguiente paso del FODA, prioridad,
+  ruta, habilidad que más pide el sector, curso del catálogo) más las suyas.
+  Mínimo una por plazo.
+- **10 Resumen ejecutivo.** El documento ejecutivo integral con la estructura
+  del ejemplo de Ágora, solo con lo que se sostiene; lo que falta sale como
+  pendiente y "Principal reto" y "Conclusiones" quedan con renglones para el
+  orientador. Se imprime o guarda como PDF (solo el documento). "Terminar mi
+  proceso" se habilita con las nueve fases completas.
+
+**Envío a madre, padre o tutor (fases 6 y 10).** La página no manda correos.
+La persona lo manda desde su propio correo (se abre con el mensaje listo), y
+el orientador desde la hoja: menú **Proceso Ágora → Mandar resultados al tutor
+(fila seleccionada)** en *Expediente Ágora*, que confirma antes, no manda a un
+menor sin autorización del tutor y anota la fecha. Así el URL público sigue sin
+poder hacer nada más que escribir, y no se puede usar para mandar correos a
+terceros.
+
+**Apps Script.** Una pestaña por fase (`Ágora · Estilo de trabajo` …
+`Ágora · Resumen`) con el ID del expediente; solo se aceptan columnas
+conocidas. El expediente suma *Proceso terminado* y *Resultados enviados al
+tutor*. `revisarPestanas` crea todas.
+
+**Detalles.** En teléfono el mapa de carreras se lee como tarjetas; las
+tablas anchas se desplazan dentro de su caja en vez de sacar la página de la
+pantalla. Al imprimir el reporte, carta a dos columnas y la sección del
+orientador en hoja aparte.
+
+Pruebas nuevas: `cuentas/pruebas/test_fases_agora.mjs`, 15 (11 de la página,
+incluido el proceso completo de punta a punta, y 4 del Apps Script con el
+correo al tutor). Todas las suites pasan.
+
 ## 2026-10-26 — Proceso Ágora: fases 2 (Perfil DISC) y 3 (Análisis FODA)
 
 Gael aprobó la fase 1 y pidió seguir. Las fases 2 y 3 son herramientas que ya
