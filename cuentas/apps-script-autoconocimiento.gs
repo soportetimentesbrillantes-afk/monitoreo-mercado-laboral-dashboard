@@ -27,6 +27,12 @@
  *      compartir-club.js. Hasta que no esté ahí, las páginas no muestran la
  *      opción de compartir y siguen funcionando igual que siempre.
  *
+ * PROCESO ÁGORA. Las fases de agora.html llegan con tipo "agora": una fila por
+ * persona en "Expediente Ágora" y una pestaña por fase. El menú "Proceso
+ * Ágora" (aparece al abrir la hoja) le deja al orientador mandar los
+ * resultados al tutor de una persona; la primera vez Google pide permiso para
+ * enviar correo con la cuenta del Club.
+ *
  * Si algún día cambias este archivo, vuelve a Implementar → Gestionar
  * implementaciones → editar → Versión nueva. Si creas una implementación
  * nueva cambia la URL y hay que volver a pegarla.
@@ -51,7 +57,7 @@ var ENCABEZADOS = {
   // Una fila por persona: el tablero del orientador.
   expediente: ['ID de envío', 'Alta', 'Última actividad', 'Nombre', 'Correo', 'Edad',
                'Avance', 'Fases completas', 'Última fase guardada', 'Tutor', 'Correo del tutor',
-               'Tutor autoriza', 'Dispositivo'],
+               'Tutor autoriza', 'Proceso terminado', 'Resultados enviados al tutor', 'Dispositivo'],
   // Fase 1 del proceso Ágora.
   informacion: ['ID de envío', 'Primer envío', 'Último envío', 'Nombre', 'Correo', 'Teléfono',
                 'Edad', 'Estado', 'Ciudad', 'Tutor', 'Correo del tutor', 'Parentesco', 'Tutor autoriza',
@@ -69,6 +75,22 @@ var FASES_AGORA = {
   resumen: 'Resumen ejecutivo'
 };
 
+/* Fases 4 a 10: una pestaña cada una. La página manda en `datos.hoja` un texto
+   por columna; aquí solo se aceptan las columnas de esta lista, y cada valor se
+   limpia y se desactiva como fórmula. Lo estructurado (lo que marcó, sus
+   listas) se queda en el navegador de la persona. */
+var PESTANAS_FASE = {
+  estilo:      { pestana: 'Ágora · Estilo de trabajo', columnas: ['Orientación', 'Estilo DISC', 'Cómo trabajo', 'Dónde rindo más', 'Qué me mueve', 'Lo que me puede frenar', 'En mis palabras'] },
+  relacion:    { pestana: 'Ágora · Relacionamiento', columnas: ['Me funciona', 'No me funciona', 'Mi papel en equipo', 'Estilo con el que me cuesta', 'Qué haré distinto'] },
+  crecimiento: { pestana: 'Ágora · Crecimiento personal', columnas: ['Lo que espero desarrollar', 'Áreas de crecimiento', 'Primera prioridad', 'Habilidades a reforzar'] },
+  escenarios:  { pestana: 'Ágora · Escenarios de vida', columnas: ['A 5 años', 'A 10 años', 'A 15 años'] },
+  ruta:        { pestana: 'Ágora · Ruta profesional', columnas: ['Carreras consideradas', 'Compatibilidad', 'Carreras afines sugeridas', 'Ruta principal', 'Segunda ruta', 'Por qué'] },
+  plan:        { pestana: 'Ágora · Plan de acción', columnas: ['30 días', '60 días', '90 días'] },
+  resumen:     { pestana: 'Ágora · Resumen', columnas: ['Proceso terminado', 'Estilo dominante', 'Ruta principal', 'Segunda ruta', 'Primera prioridad de crecimiento'] }
+};
+function encabezadosFase(f) { return ['ID de envío', 'Primer envío', 'Último envío', 'Nombre', 'Correo'].concat(PESTANAS_FASE[f].columnas); }
+
+var CORREO_CLUB = 'clubmentesbrillantesla@gmail.com';
 var MAX_TEXTO = 4000;     // por celda; un FODA real cabe de sobra
 var MAX_CUERPO = 60000;   // por petición
 var NOMBRES = { D: 'Dominancia', I: 'Influencia', S: 'Estabilidad', C: 'Cumplimiento' };
@@ -218,6 +240,21 @@ function guardarAgora(d, id, nombre, correo) {
     if (!r.ok) return r;
   }
 
+  var terminado = '';
+  if (PESTANAS_FASE[paso]) {
+    var hoja = datos.hoja || {};
+    var fila = { 'ID de envío': id, 'Último envío': new Date(), 'Nombre': textoSeguro(nombre), 'Correo': textoSeguro(correo) };
+    var hay = false;
+    PESTANAS_FASE[paso].columnas.forEach(function (c) {
+      var v = limpiar(hoja[c], MAX_TEXTO);
+      if (v) hay = true;
+      fila[c] = textoSeguro(v);
+    });
+    if (!hay) return { ok: false, error: 'sin datos' };
+    escribir(PESTANAS_FASE[paso].pestana, encabezadosFase(paso), id, fila, true, 'Primer envío');
+    if (paso === 'resumen') terminado = limpiar(hoja['Proceso terminado'], 10) || 'Sí';
+  }
+
   if (paso === 'informacion') {
     var edad = parseInt(datos.edad, 10);
     if (isNaN(edad) || edad < 12 || edad > 99) return { ok: false, error: 'edad' };
@@ -269,6 +306,7 @@ function guardarAgora(d, id, nombre, correo) {
     'Última fase guardada': FASES_AGORA[paso],
     'Dispositivo': limpiar(d.dispositivo, 64)
   };
+  if (terminado) expediente['Proceso terminado'] = terminado;
   if (info) {
     var e = parseInt(info.edad, 10);
     expediente['Edad'] = e;
@@ -337,6 +375,82 @@ function revisarPestanas() {
   pestana(PESTANAS.foda, ENCABEZADOS.foda);
   pestana(PESTANAS.expediente, ENCABEZADOS.expediente);
   pestana(PESTANAS.informacion, ENCABEZADOS.informacion);
+  Object.keys(PESTANAS_FASE).forEach(function (f) { pestana(PESTANAS_FASE[f].pestana, encabezadosFase(f)); });
+}
+
+// ─────────────── para el orientador: mandar resultados al tutor ───────────────
+
+/* El proceso Ágora manda a la madre, padre o tutor los resultados de
+   Crecimiento personal y el reporte final. Las páginas no mandan correos: lo
+   hace el orientador desde esta hoja, con el menú "Proceso Ágora", para que
+   siempre haya una persona del Club que revisa antes. Esto corre con la cuenta
+   de quien tiene la hoja abierta, no a través del URL público: el URL sigue
+   sin poder leer nada. La primera vez Google pide permiso para enviar correo. */
+function onOpen() {
+  SpreadsheetApp.getUi().createMenu('Proceso Ágora')
+    .addItem('Mandar resultados al tutor (fila seleccionada)', 'enviarResultadosAlTutor')
+    .addToUi();
+}
+
+/** La fila de un ID en una pestaña, como {encabezado: valor}. null si no está. */
+function filaPorId(nombrePestana, id) {
+  var h = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(nombrePestana);
+  if (!h || h.getLastRow() < 2) return null;
+  var cab = h.getRange(1, 1, 1, h.getLastColumn()).getValues()[0].map(String);
+  var c = cab.indexOf('ID de envío');
+  if (c < 0) return null;
+  var filas = h.getRange(2, 1, h.getLastRow() - 1, cab.length).getValues();
+  for (var i = 0; i < filas.length; i++) {
+    if (String(filas[i][c]) === id) {
+      var o = {}; cab.forEach(function (k, j) { o[k] = filas[i][j]; }); o._fila = i + 2; return o;
+    }
+  }
+  return null;
+}
+
+/** El correo para el tutor, armado con lo que hay en la hoja para ese ID. */
+function textoParaTutor(id, nombre, tutor) {
+  var t = function (v) { return String(v == null ? '' : v).replace(/^'/, '').trim(); };
+  var disc = filaPorId(PESTANAS.disc, id) || {};
+  var cre = filaPorId(PESTANAS_FASE.crecimiento.pestana, id) || {};
+  var ruta = filaPorId(PESTANAS_FASE.ruta.pestana, id) || {};
+  var plan = filaPorId(PESTANAS_FASE.plan.pestana, id) || {};
+  var fin = filaPorId(PESTANAS_FASE.resumen.pestana, id);
+  var partes = ['Hola' + (tutor ? ' ' + tutor : '') + ':', '',
+    'Le compartimos los resultados de ' + nombre + ' en el proceso Ágora del Club de Mentes Brillantes' + (fin ? ', que terminó' : ', que va en curso') + '.', ''];
+  if (t(disc['Estilo dominante'])) partes.push('Perfil DISC: ' + t(disc['Estilo dominante']) + (t(disc['Segundo estilo']) ? ', con ' + t(disc['Segundo estilo']) + ' como segundo estilo' : '') + '.', '');
+  if (t(cre['Áreas de crecimiento'])) {
+    partes.push('CRECIMIENTO PERSONAL', 'Lo que espera desarrollar:', t(cre['Lo que espero desarrollar']), '',
+      'Áreas en las que va a trabajar:', t(cre['Áreas de crecimiento']), '',
+      'Primera prioridad: ' + t(cre['Primera prioridad']), 'Habilidades que le conviene reforzar: ' + t(cre['Habilidades a reforzar']), '');
+  }
+  if (t(ruta['Ruta principal'])) partes.push('RUTA PROFESIONAL', 'Ruta principal: ' + t(ruta['Ruta principal']) + (t(ruta['Segunda ruta']) ? '. Segunda ruta: ' + t(ruta['Segunda ruta']) : '') + '.', 'Por qué: ' + t(ruta['Por qué']), '');
+  if (t(plan['30 días'])) partes.push('PLAN DE ACCIÓN', 'Primeros 30 días:', t(plan['30 días']), '', 'A 60 días:', t(plan['60 días']), '', 'A 90 días:', t(plan['90 días']), '');
+  partes.push('Son resultados de herramientas de autoconocimiento para orientar, no una evaluación: describen preferencias, no capacidades.',
+    'Para cualquier duda, responda a este correo.', '', 'Club de Mentes Brillantes');
+  return partes.join('\n');
+}
+
+function enviarResultadosAlTutor() {
+  var ui = SpreadsheetApp.getUi();
+  var h = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  if (h.getName() !== PESTANAS.expediente) { ui.alert('Abre la pestaña "' + PESTANAS.expediente + '" y selecciona la fila de la persona.'); return; }
+  var fila = h.getActiveRange().getRow();
+  if (fila < 2) { ui.alert('Selecciona la fila de una persona (no los encabezados).'); return; }
+  var cab = h.getRange(1, 1, 1, h.getLastColumn()).getValues()[0].map(String);
+  var v = h.getRange(fila, 1, 1, cab.length).getValues()[0];
+  var c = function (n) { var i = cab.indexOf(n); return i < 0 ? '' : String(v[i] == null ? '' : v[i]).replace(/^'/, '').trim(); };
+  var id = c('ID de envío'), nombre = c('Nombre'), para = c('Correo del tutor').toLowerCase();
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(para)) { ui.alert(nombre + ' no tiene correo de madre, padre o tutor en su expediente.'); return; }
+  var edad = parseInt(c('Edad'), 10);
+  if (!isNaN(edad) && edad < 18 && c('Tutor autoriza') !== 'Sí') { ui.alert('El tutor de ' + nombre + ' no ha autorizado el expediente. No se manda nada.'); return; }
+  var cuerpo = textoParaTutor(id, nombre, c('Tutor'));
+  var r = ui.alert('Mandar resultados a ' + para, 'Se mandará al tutor de ' + nombre + ' un correo con su perfil, su crecimiento personal, su ruta y su plan (lo que haya en la hoja). ¿Mandarlo?', ui.ButtonSet.YES_NO);
+  if (r !== ui.Button.YES) return;
+  MailApp.sendEmail({ to: para, subject: 'Resultados del proceso Ágora de ' + nombre, body: cuerpo, name: 'Club de Mentes Brillantes', replyTo: CORREO_CLUB });
+  var col = cab.indexOf('Resultados enviados al tutor');
+  if (col >= 0) h.getRange(fila, col + 1).setValue(new Date());
+  ui.alert('Listo: se mandó a ' + para + '.');
 }
 
 /* Dos envíos al mismo tiempo podrían buscar el mismo ID, no encontrarlo y

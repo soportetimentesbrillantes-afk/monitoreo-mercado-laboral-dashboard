@@ -85,15 +85,15 @@ async function llenarAdulto(p) {
 
 console.log('\nProceso Ágora');
 
-await prueba('la ruta muestra las 10 fases de Ágora; solo se abren las tres que ya están construidas', async () => {
+await prueba('la ruta muestra las 10 fases de Ágora; las diez se pueden abrir', async () => {
   const { p, ctx } = await abrir();
   const t = await p.textContent('#listaFases');
   for (const f of ['Perfil DISC', 'Análisis FODA', 'Crecimiento personal', 'Escenarios de vida', 'Ruta profesional', 'Plan de acción', 'Resumen ejecutivo'])
     cierto(t.includes(f), 'falta la fase ' + f);
   cierto(!t.includes('Descubrir') && !t.includes('Alinear'), 'no deben aparecer fases de DIANA');
   igual(await p.locator('#listaFases .paso').count(), 10);
-  igual(await p.locator('#listaFases .paso:not([disabled])').count(), 3, 'Información inicial, Perfil DISC y FODA');
-  igual(await p.locator('#listaFases .paso[data-paso="estilo"][disabled]').count(), 1, 'Estilo de trabajo todavía no');
+  igual(await p.locator('#listaFases .paso:not([disabled])').count(), 10, 'las diez fases');
+
   cierto(!t.includes('Alinear'), 'Alinear no se trabaja todavía');
   igual(await p.textContent('#avancePct'), '0%');
   await ctx.close();
@@ -326,7 +326,7 @@ await prueba('fase 3: no se completa con cuadros vacíos, y borrar regresa la fa
   await g.click('#btnCompletarAgora');
   const aviso = await g.textContent('#avisoAgora');
   cierto(aviso.includes('Oportunidades') && aviso.includes('Amenazas') && !aviso.includes('Fortalezas'), 'dice cuáles faltan');
-  cierto((await estadoDe(p, 'foda')).includes('En curso'));
+  await p.waitForFunction(() => document.querySelector('#listaFases .paso[data-paso="foda"] .estado').textContent.includes('En curso'));
   await g.fill('#O', 'Cursos del Club');
   await g.fill('#A', 'Competencia');
   await g.click('#btnCompletarAgora');

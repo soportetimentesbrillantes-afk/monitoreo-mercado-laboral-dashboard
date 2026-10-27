@@ -96,6 +96,31 @@ pestañas **DISC** y **FODA** de siempre, con el mismo *ID de envío* que el
 expediente: así se cruza a la persona entre pestañas. Ninguna fase se acepta
 si ese ID no tiene antes su fila en *Expediente Ágora* (la fase 1).
 
+Las fases 4 a 10 escriben cada una su pestaña (*Ágora · Estilo de trabajo*,
+*Ágora · Relacionamiento*, *Ágora · Crecimiento personal*, *Ágora · Escenarios
+de vida*, *Ágora · Ruta profesional*, *Ágora · Plan de acción*, *Ágora ·
+Resumen*), también con el mismo ID. Cuando alguien termina, el expediente
+marca *Proceso terminado*.
+
+### Mandar resultados al tutor
+
+El proceso Ágora comparte con la madre, padre o tutor el Crecimiento personal
+y el reporte final. La página no manda correos; lo hace el orientador:
+
+1. Abre la hoja. Arriba aparece el menú **Proceso Ágora** (si no, recarga).
+2. En *Expediente Ágora*, haz clic en cualquier celda de la fila de la persona.
+3. **Proceso Ágora → Mandar resultados al tutor (fila seleccionada)**.
+   La primera vez Google pide permiso para enviar correo desde la cuenta del
+   Club: es el mismo aviso de "no verificado" de la instalación.
+4. Confirma. Se manda al *Correo del tutor* lo que haya en la hoja para esa
+   persona (perfil, crecimiento, ruta y plan), con respuesta a
+   clubmentesbrillantesla@gmail.com, y se anota la fecha en *Resultados
+   enviados al tutor*.
+
+No manda nada si no hay correo de tutor o si es menor y su tutor no autorizó
+el expediente. Las cuentas de Gmail gratuitas tienen un límite diario de
+correos desde Apps Script (alrededor de 100); para un grupo no se nota.
+
 ## Cosas que conviene saber
 
 **La clave no es un secreto.** `cmb-autoconocimiento-2026` está escrita en
