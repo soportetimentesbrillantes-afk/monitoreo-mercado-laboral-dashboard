@@ -1707,7 +1707,7 @@ function descargarCVMejorado(i){
 
 /* ================= AFINIDAD DE ESTILO (DISC) =================
 
-   Si la persona contestó el cuestionario de disc.html, cada vacante muestra
+   Si la persona contestó su Perfil DISC (fase 2 de agora.html), cada vacante muestra
    qué tanto se parece su estilo al que ese tipo de puesto suele pedir.
 
    Tres reglas que NO se rompen:
@@ -1783,11 +1783,11 @@ function etiquetaAfinidad(a){
 
 function avisoDisc(hayPerfil){
   if(hayPerfil){
-    return '<p class="note">Las vacantes traen una etiqueta de <strong>afinidad de estilo</strong> según tu resultado de <a href="disc.html">Tu estilo de trabajo</a>. Es orientación, no un requisito: la afinidad baja no te descarta de nada. ' +
+    return '<p class="note">Las vacantes traen una etiqueta de <strong>afinidad de estilo</strong> según tu <a href="agora.html#disc">Perfil DISC</a>. Es orientación, no un requisito: la afinidad baja no te descarta de nada. ' +
       '<label style="display:inline-flex;gap:6px;align-items:center;margin-left:4px;cursor:pointer;">' +
       '<input type="checkbox" id="ordenarPorAfinidad" ' + (ordenarPorAfinidad ? 'checked' : '') + '> ordenar por afinidad</label></p>';
   }
-  return '<p class="note">¿Quieres saber qué puestos van con tu forma de trabajar? Contesta <a href="disc.html">Tu estilo de trabajo</a> — son 7 minutos y después estas vacantes te muestran la afinidad.</p>';
+  return '<p class="note">¿Quieres saber qué puestos van con tu forma de trabajar? Contesta tu <a href="agora.html#disc">Perfil DISC</a>, la fase 2 de tu proceso Ágora, y después estas vacantes te muestran la afinidad.</p>';
 }
 
 let ordenarPorAfinidad = false;

@@ -10,6 +10,47 @@ después.
 corrigió un error, describe también cómo se detectó — eso es lo que evita
 repetirlo.
 
+## 2026-10-26 — Proceso Ágora: fases 2 (Perfil DISC) y 3 (Análisis FODA)
+
+Gael aprobó la fase 1 y pidió seguir. Las fases 2 y 3 son herramientas que ya
+existían, así que se pasaron juntas.
+
+**Cómo entran al proceso.** `agora.html` abre `disc-agora.html` y `foda.html`
+dentro de un marco, con `?en=agora`. Son las mismas páginas que funcionan
+solas: con ese parámetro, `agora-embebido.js` esconde su encabezado, sus
+enlaces a otras herramientas y su tarjeta de "Compartir con el Club" (en el
+proceso, lo que llega al Club es el expediente de Ágora), y le avisa a
+`agora.html` su alto, cuándo hay avance, cuándo se termina y cuándo se borra.
+Así hay un solo código por herramienta y lo probado antes sigue valiendo.
+Los enlaces entre herramientas (por ejemplo "Seguir con mi FODA") abren la
+fase correspondiente en vez de salir del proceso.
+
+**Perfil DISC.** Se usa el cuestionario de Ágora (5 secciones), no la versión
+de 24 bloques, que en el proceso ya no se ofrece. La fase queda completa al
+ver el resultado. Siguen pendientes de confirmar con Ágora los tres supuestos
+de la clave (secciones a, c y d).
+
+**Análisis FODA.** La fase queda completa con al menos una idea en cada uno de
+los cuatro cuadros, con el botón "Completar mi FODA"; si falta algo, dice qué
+cuadro. El nombre se toma de la fase 1. Borrar el FODA regresa la fase a
+pendiente.
+
+**Expediente.** Con la casilla aceptada, el DISC y el FODA se escriben en sus
+pestañas de siempre (DISC, FODA) con el **mismo ID** del expediente, y el
+expediente suma la fase. Ninguna fase se manda antes de completar la
+información inicial (ahí están la edad y la autorización del tutor): se
+guardan como pendientes y se mandan al completar la fase 1. El Apps Script
+también lo revisa y rechaza una fase sin expediente.
+
+**Otros cambios.** `agora.html#disc` abre directo esa fase. Las notas de
+afinidad de las vacantes en la página principal ahora llevan ahí, en vez de a
+`disc.html`. Al reabrir el proceso se abre la primera fase sin terminar.
+
+Pruebas: `test_proceso_agora.mjs` pasa de 12 a 18 (las fases dentro del marco,
+el envío pendiente, el FODA incompleto, las páginas sueltas sin cambios y el
+Apps Script de DISC y FODA). `test_disc.mjs` revisa el enlace nuevo de la
+afinidad. Todas las suites pasan.
+
 ## 2026-10-26 — Nueva página: Tu proceso Ágora (fase 1, Información inicial)
 
 Gael compartió el documento "herramientas Ágora y DIANA" con los dos procesos

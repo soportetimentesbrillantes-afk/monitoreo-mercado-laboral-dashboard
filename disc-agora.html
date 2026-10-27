@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="agora-embebido.js"></script>
 <title>Tu estilo de trabajo (cuestionario Ágora) — Club de Mentes Brillantes</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -136,11 +137,13 @@
   <div class="card" id="intro">
     <h2>Antes de empezar</h2>
     <p>Este cuestionario está orientado a definir tus preferencias, tu sensibilidad y tu forma de aprender. Simplemente indica la palabra o afirmación con la que más te identificas; cada sección trae sus propias instrucciones. Los resultados son exclusivamente para tu uso personal, para conocerte mejor y facilitar la interacción con los demás. De la sinceridad con la que contestes dependerá lo útil que te resulte.</p>
-    <p>Si ya lo contestaste en papel, aquí puedes capturar tus respuestas para ver la interpretación y llevarla a tu informe. Si prefieres una versión más corta, está la de <a href="disc.html">24 bloques</a>; las dos llevan a la misma interpretación.</p>
+    <p class="solo-agora">Toma unos 20 minutos y son cinco secciones, cada una con sus instrucciones. Si ya lo contestaste en papel, aquí puedes capturar tus respuestas.</p>
+    <p class="solo-suelto">Si ya lo contestaste en papel, aquí puedes capturar tus respuestas para ver la interpretación y llevarla a tu informe. Si prefieres una versión más corta, está la de <a href="disc.html">24 bloques</a>; las dos llevan a la misma interpretación.</p>
     <div class="aviso limites">
       <strong>Qué es y qué no es.</strong> Esto es una herramienta de autoconocimiento, no una prueba psicométrica validada. Describe <em>preferencias</em>, no capacidades: no mide inteligencia, no predice qué tan bien harías un trabajo y no dice si eres apto para un puesto. El resultado cambia según el momento y el contexto. Nadie debería usarlo para descartar a una persona de un proceso de selección — tampoco nosotros.
     </div>
-    <p class="note">Tus respuestas se guardan en este dispositivo conforme avanzas, por si cierras la página a medio camino. No se mandan a ningún lado.</p>
+    <p class="note solo-suelto">Tus respuestas se guardan en este dispositivo conforme avanzas, por si cierras la página a medio camino. No se mandan a ningún lado, salvo que al final decidas compartir tu resultado con el Club.</p>
+    <p class="note solo-agora">Tus respuestas se guardan en este dispositivo conforme avanzas, por si cierras la página a medio camino. Tu resultado solo llega al Club si aceptaste guardar tu expediente en la fase 1.</p>
     <button class="primary" type="button" onclick="empezar()">Empezar →</button>
   </div>
 
@@ -203,6 +206,7 @@
 </main>
 
 <script src="disc-interpretacion.js"></script>
+<script src="compartir-club.js"></script>
 <script>
 /* ======================= EL CUESTIONARIO DE ÁGORA =======================
 
@@ -484,6 +488,7 @@ const TOTAL_RESPUESTAS = 16 + 8 + 28 + 12 + 16;
 
 function despues(){
   guardarProgreso();
+  if(window.CMB_AGORA) CMB_AGORA.avisar('progreso', {herramienta: 'disc'});
   const n = contestadas();
   document.getElementById('relleno').style.width = (n / TOTAL_RESPUESTAS * 100) + '%';
   document.getElementById('progresoTxt').textContent = n + ' de ' + TOTAL_RESPUESTAS + ' respuestas';
@@ -563,14 +568,28 @@ function calcular(){
   const p = puntuar();
   guardar(p);
   pintarResultado(p);
+  // Dentro del proceso Ágora: la fase 2 queda completa.
+  if(window.CMB_AGORA && resultadoActual){
+    const {empate, plano} = DISC.analizar(p, ESCALA);
+    CMB_AGORA.avisar('resultado', {herramienta: 'disc', resultado: resultadoActual,
+      lectura: plano ? 'parejo' : (empate ? 'empate' : 'dominante claro')});
+  }
 }
 
+/* El resultado que se está mostrando, entero. Las respuestas crudas van
+   incluidas: si Ágora corrige la clave de colores, permiten volver a puntuar. */
+let resultadoActual = null;
+const VERSION_CLAVE = 'agora-2026-10-12 (a, c y d por confirmar)';
+
 function guardar(p){
+  resultadoActual = {
+    puntajes: p, fecha: new Date().toISOString().slice(0,10), version: 2,
+    instrumento: 'agora', escala: ESCALA,
+    id: (typeof COMPARTIR !== 'undefined') ? COMPARTIR.nuevoId() : String(Date.now()),
+    versionClave: VERSION_CLAVE, respuestas: JSON.parse(JSON.stringify(R))
+  };
   try{
-    localStorage.setItem(LLAVE, JSON.stringify({
-      puntajes: p, fecha: new Date().toISOString().slice(0,10), version: 2,
-      instrumento: 'agora', escala: ESCALA
-    }));
+    localStorage.setItem(LLAVE, JSON.stringify(resultadoActual));
     localStorage.removeItem(LLAVE_PROGRESO);
   }catch(e){ console.warn('No se pudo guardar el resultado:', e); }
 }
@@ -582,6 +601,7 @@ function borrar(){
   document.getElementById('intro').style.display = 'block';
   const viejo = document.getElementById('avisoGuardado'); if(viejo) viejo.remove();
   window.scrollTo({top:0, behavior:'smooth'});
+  if(window.CMB_AGORA) CMB_AGORA.avisar('borrado', {herramienta: 'disc'});
 }
 
 function tablaSecciones(p){
@@ -608,7 +628,15 @@ function pintarResultado(p){
     escala: ESCALA,
     notaEscala: 'La cifra es la suma de las cinco secciones para ese color, con la misma clave que la hoja de Ágora. Un color puede juntar hasta 82 puntos. Lo que importa no es el número en sí, sino cuáles salen más altos y qué tan lejos quedan de los demás.',
     alRepetir: empezar,
-    alBorrar: borrar
+    alBorrar: borrar,
+    compartir: {
+      id: () => resultadoActual && resultadoActual.id,
+      datos: () => {
+        const r = resultadoActual || {};
+        return {puntajes: r.puntajes, instrumento: 'agora', escala: r.escala || ESCALA,
+                respuestas: r.respuestas || null, versionClave: r.versionClave || VERSION_CLAVE, fecha: r.fecha};
+      }
+    }
   });
   // La tabla por sección va después de las barras, antes del tablero.
   const primera = cont.querySelector('.card');
@@ -625,7 +653,14 @@ function pintarResultado(p){
   const intro = document.getElementById('intro');
   const guardado = DISC.leerGuardado();
   const progreso = leerProgreso();
-  if(guardado && guardado.puntajes){
+  if(guardado && guardado.puntajes && guardado.instrumento === 'bloques' && window.AGORA_EMBEBIDO){
+    // En el proceso Ágora se usa este cuestionario, no la versión corta.
+    const aviso = document.createElement('div');
+    aviso.className = 'aviso limites'; aviso.id = 'avisoGuardado';
+    aviso.innerHTML = 'Tienes un resultado de la versión corta (24 bloques) del ' + esc(DISC.fechaLegible(guardado.fecha)) +
+      '. En el proceso Ágora se usa este cuestionario: al terminarlo, su resultado reemplaza al de la versión corta.';
+    intro.appendChild(aviso);
+  }else if(guardado && guardado.puntajes){
     const aviso = document.createElement('div');
     aviso.className = 'aviso limites'; aviso.id = 'avisoGuardado';
     aviso.innerHTML = 'Ya tienes un resultado del ' + esc(DISC.fechaLegible(guardado.fecha)) +
@@ -633,7 +668,11 @@ function pintarResultado(p){
       '<button class="secondary" type="button" id="btnVerGuardado" style="margin-top:8px;">Ver mi resultado</button>';
     intro.appendChild(aviso);
     document.getElementById('btnVerGuardado').onclick = () => {
-      if(guardado.instrumento === 'agora'){ pintarResultado(guardado.puntajes); }
+      if(guardado.instrumento === 'agora'){
+        if(!guardado.id){ guardado.id = (typeof COMPARTIR !== 'undefined') ? COMPARTIR.nuevoId() : String(Date.now()); try{ localStorage.setItem(LLAVE, JSON.stringify(guardado)); }catch(e){} }
+        resultadoActual = guardado;
+        pintarResultado(guardado.puntajes);
+      }
       else{ location.href = 'disc.html'; }
     };
   }else if(progreso && Object.keys(progreso.a).length + progreso.b.marcados.length + Object.keys(progreso.d).length + Object.keys(progreso.e).length + Object.keys(progreso.c).length > 0){

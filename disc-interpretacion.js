@@ -533,18 +533,41 @@ function pintarResultado(contenedor, p, opciones){
       '<div id="cursosSugeridos"><p class="note">Buscando en el catálogo del Club…</p></div>' +
     '</div>' +
 
-    '<div class="card">' +
-      '<h2>Y ahora</h2>' +
-      '<p>Tu resultado quedó guardado en este dispositivo. El siguiente paso es tu <a href="foda.html">FODA</a>, y con los dos armas tu <a href="informe.html">informe</a>: ahí va tu plan de acción a 60–90 días y las secciones que trabajas con tu orientador. Si vuelves a <a href="index.html">Tu CV frente al mercado</a>, las vacantes te muestran qué tanto se parecen a tu estilo.</p>' +
-      '<a class="secondary" href="informe.html">Armar mi informe →</a>' +
-      '<a class="secondary" href="foda.html">Llevar esto a mi FODA →</a>' +
-      '<a class="secondary" href="index.html">Ir a mi CV frente al mercado →</a>' +
-      '<button class="secondary" type="button" id="btnRepetir">Volver a contestar</button>' +
-      '<button class="secondary" type="button" id="btnBorrarDisc">Borrar mi resultado</button>' +
-    '</div>';
+    '<div id="compartirDisc"></div>' +
 
+    (window.AGORA_EMBEBIDO
+      ? '<div class="card">' +
+          '<h2>Y ahora</h2>' +
+          '<p>Tu resultado quedó guardado y la fase 2 de tu proceso está completa. Sigue con la fase 3, tu Análisis FODA: ahí este resultado te da pistas para tus fortalezas y debilidades.</p>' +
+          '<button class="primary" type="button" id="btnSeguirAgora">Seguir con mi FODA →</button> ' +
+          '<button class="secondary" type="button" id="btnRepetir">Volver a contestar</button>' +
+          '<button class="secondary" type="button" id="btnBorrarDisc">Borrar mi resultado</button>' +
+        '</div>'
+      : '<div class="card">' +
+        '<h2>Y ahora</h2>' +
+        '<p>Tu resultado quedó guardado en este dispositivo. El siguiente paso es tu <a href="foda.html">FODA</a>, y con los dos armas tu <a href="informe.html">informe</a>: ahí va tu plan de acción a 60–90 días y las secciones que trabajas con tu orientador. Si vuelves a <a href="index.html">Tu CV frente al mercado</a>, las vacantes te muestran qué tanto se parecen a tu estilo.</p>' +
+        '<a class="secondary" href="informe.html">Armar mi informe →</a>' +
+        '<a class="secondary" href="foda.html">Llevar esto a mi FODA →</a>' +
+        '<a class="secondary" href="index.html">Ir a mi CV frente al mercado →</a>' +
+        '<button class="secondary" type="button" id="btnRepetir">Volver a contestar</button>' +
+        '<button class="secondary" type="button" id="btnBorrarDisc">Borrar mi resultado</button>' +
+      '</div>');
+
+  // Compartir con el Club: solo si la página cargó compartir-club.js y el
+  // envío está activado. La lectura (dominante claro, empate o parejo) va
+  // con los datos para que la hoja interna diga lo mismo que vio la persona.
+  if(typeof COMPARTIR !== 'undefined' && o.compartir){
+    const lectura = plano ? 'parejo' : (empate ? 'empate' : 'dominante claro');
+    COMPARTIR.pintar(contenedor.querySelector('#compartirDisc'), {
+      tipo: 'disc',
+      id: o.compartir.id,
+      datos: () => Object.assign({lectura}, o.compartir.datos())
+    });
+  }
   if(o.alRepetir) contenedor.querySelector('#btnRepetir').onclick = o.alRepetir;
   if(o.alBorrar)  contenedor.querySelector('#btnBorrarDisc').onclick = o.alBorrar;
+  const seguir = contenedor.querySelector('#btnSeguirAgora');
+  if(seguir && window.CMB_AGORA) seguir.onclick = () => CMB_AGORA.avisar('ir', {fase: 'foda'});
   sugerirCursos(dom);
 }
 

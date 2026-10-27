@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="agora-embebido.js"></script>
 <title>Tu FODA — Club de Mentes Brillantes</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -44,6 +45,9 @@
   button.secondary.peligro{color:#8a3d1c;border-color:#e0a98f;}
   .aviso{border-radius:10px;padding:13px 15px;font-size:.87rem;line-height:1.55;margin:14px 0;}
   .aviso.limites{background:#fdfaf1;border:1px solid var(--gris-borde);}
+  .aviso.malo{background:#fdf1ec;border:1px solid #f0d2c4;color:#8a3d1c;}
+  .aviso.bien{background:#eef6ef;border:1px solid #cfe3d3;color:#2f6b3b;}
+  .cuadrante.falta{box-shadow:0 0 0 2px #e0a98f;}
   .pill{display:inline-block;padding:4px 12px;border-radius:999px;font-size:.78rem;font-weight:700;margin:0 6px 6px 0;background:var(--gris-bg);border:1px solid var(--gris-borde);color:var(--azul-osc);}
 
   /* ---- Encabezado del FODA ---- */
@@ -142,7 +146,8 @@
     <div class="aviso limites">
       <strong>La prueba del ejemplo.</strong> Si no puedes dar un caso concreto, no va. "Soy proactivo" no es una fortaleza; "organicé el evento de fin de curso para 80 personas" sí. Lo mismo para las debilidades: "me falta experiencia" dice poco; "no he usado Power BI y lo piden en las vacantes de mi carrera" ya dice qué hacer.
     </div>
-    <p class="note">Nada de lo que escribas sale de tu navegador. Puedes imprimirlo, copiarlo o borrarlo cuando quieras.</p>
+    <p class="note solo-suelto">Lo que escribas se queda en tu navegador. Puedes imprimirlo, copiarlo o borrarlo cuando quieras, y al final, si quieres, compartirlo con el Club para que un orientador te dé seguimiento.</p>
+    <p class="note solo-agora">Lo que escribas se guarda en este dispositivo mientras escribes. Puedes imprimirlo, copiarlo o borrarlo cuando quieras. Llega a tu expediente del Club solo si lo aceptaste en la fase 1, cuando completes esta fase.</p>
   </div>
 
   <div class="card">
@@ -196,7 +201,8 @@
 
   <div class="card" id="pistasDisc" style="display:none;">
     <h2>Pistas de tu estilo de trabajo</h2>
-    <p class="note" style="margin-top:0;">Salen de lo que contestaste en <a href="disc.html">Tu estilo de trabajo</a>. Son un punto de partida, no un veredicto: agrega solo las que te describan y cámbialas con tus palabras.</p>
+    <p class="note solo-agora" style="margin-top:0;">Salen de tu Perfil DISC (fase 2). Son un punto de partida, no un veredicto: agrega solo las que te describan y cámbialas con tus palabras.</p>
+    <p class="note solo-suelto" style="margin-top:0;">Salen de lo que contestaste en <a href="disc.html">Tu estilo de trabajo</a>. Son un punto de partida, no un veredicto: agrega solo las que te describan y cámbialas con tus palabras.</p>
     <div id="listaPistas"></div>
   </div>
 
@@ -214,6 +220,13 @@
     <textarea id="siguientePaso" placeholder="Agregar cifras a las tres experiencias de mi CV y revisar el curso de Excel del Club"></textarea>
   </div>
 
+  <div class="card solo-agora no-imprimir" id="terminarAgora">
+    <h2>Completar esta fase</h2>
+    <p style="margin-top:0;">Tu FODA queda completo cuando cada cuadro tiene al menos una idea. Puedes seguir corrigiéndolo después; si lo haces, vuelve a tocar el botón para que tu expediente tenga la versión nueva.</p>
+    <div id="avisoAgora" aria-live="polite"></div>
+    <button class="primary" type="button" id="btnCompletarAgora" onclick="completarAgora()">Completar mi FODA</button>
+  </div>
+
   <div class="card no-imprimir">
     <h2>Guardar o llevarlo contigo</h2>
     <div class="acciones">
@@ -222,9 +235,11 @@
       <button class="secondary" type="button" onclick="descargar()">Descargar .txt</button>
       <button class="secondary peligro" type="button" id="btnBorrar" onclick="borrar()">Borrar todo</button>
     </div>
-    <a class="secondary" href="informe.html">Armar mi informe →</a>
-    <p class="note">Tu FODA entra tal cual en <a href="informe.html">tu informe</a>, junto con tu perfil DISC y tu plan de acción. Si lo llevas a <a href="index.html">Tu CV frente al mercado</a>, usa las fortalezas con ejemplo concreto para los logros del CV, y las debilidades que sean habilidades para buscar un curso del catálogo del Club.</p>
+    <a class="secondary solo-suelto" href="informe.html">Armar mi informe →</a>
+    <p class="note solo-suelto">Tu FODA entra tal cual en <a href="informe.html">tu informe</a>, junto con tu perfil DISC y tu plan de acción. Si lo llevas a <a href="index.html">Tu CV frente al mercado</a>, usa las fortalezas con ejemplo concreto para los logros del CV, y las debilidades que sean habilidades para buscar un curso del catálogo del Club.</p>
   </div>
+
+  <div id="compartirFoda" class="no-imprimir"></div>
 
   <div id="impresion" aria-hidden="true">
     <h1>FODA <span id="impNombre"></span></h1>
@@ -241,11 +256,13 @@
 
 </main>
 
+<script src="compartir-club.js"></script>
 <script>
 /* =============================== EL FODA ===============================
 
    Cuatro cajas de texto, una idea por renglón. Todo vive en el navegador:
-   se guarda en localStorage con cada tecla y nunca se manda a ningún lado.
+   se guarda en localStorage con cada tecla. Solo sale del navegador si la
+   persona marca la casilla de compartir y toca "Enviar al Club" (compartir-club.js).
    No hay cuenta, no hay servidor, no hay IA. Lo que escribe la persona es
    suyo y es lo único que aparece.                                          */
 
@@ -300,6 +317,7 @@ function guardar(){
     })));
     estado.textContent = 'Guardado en este dispositivo.';
     estado.classList.add('ok');
+    if(window.CMB_AGORA) CMB_AGORA.avisar('progreso', {herramienta: 'foda'});
   }catch(e){
     // Modo privado o almacenamiento bloqueado. La página sigue sirviendo,
     // solo que no sobrevive a cerrar la pestaña, y eso se dice.
@@ -400,10 +418,32 @@ function borrar(){
   for(const k of CUADROS) document.getElementById(k).value = '';
   document.getElementById('nombre').value = '';
   document.getElementById('siguientePaso').value = '';
-  try{ localStorage.removeItem(LLAVE); }catch(e){}
+  try{ localStorage.removeItem(LLAVE); localStorage.removeItem('cmb_foda_id'); }catch(e){}
   btn.textContent = 'Borrar todo';
   contar(); pintarImpresion(); guardar();
   pintarPistas();
+  if(window.CMB_AGORA){ CMB_AGORA.avisar('borrado', {herramienta: 'foda'}); const av = document.getElementById('avisoAgora'); if(av) av.innerHTML = ''; }
+}
+
+/* ---- Dentro del proceso Ágora: completar la fase 3 ----
+   Condición: al menos una idea en cada cuadro. El siguiente paso ayuda, pero
+   no se exige. Quien avisa al expediente es agora.html, no esta página.    */
+function completarAgora(){
+  clearTimeout(temporizadorGuardado); guardar();
+  const d = leer();
+  const faltan = CUADROS.filter(k => !renglones(d[k]).length);
+  const av = document.getElementById('avisoAgora');
+  if(faltan.length){
+    av.innerHTML = '<div class="aviso malo">Te falta escribir al menos una idea en: ' + faltan.map(k => NOMBRES[k]).join(', ') + '.</div>';
+    faltan.forEach(k => document.getElementById('cuad' + k).classList.add('falta'));
+    return false;
+  }
+  CUADROS.forEach(k => document.getElementById('cuad' + k).classList.remove('falta'));
+  av.innerHTML = '<div class="aviso bien"><strong>Listo, tu FODA quedó completo.</strong> Si lo corriges, vuelve a tocar el botón.</div>';
+  document.getElementById('btnCompletarAgora').textContent = 'Guardar cambios';
+  CMB_AGORA.avisar('completo', {herramienta: 'foda',
+    foda: {F: d.F, D: d.D, O: d.O, A: d.A, paso: d.paso, estiloDisc: estiloDominante() || ''}});
+  return true;
 }
 
 /* ---- Pistas del estilo de trabajo (disc.html) ----
@@ -472,13 +512,49 @@ function pintarPistas(){
   ['nombre', 'F', 'D', 'O', 'A', 'siguientePaso'].forEach(id => {
     document.getElementById(id).addEventListener('input', alEscribir);
   });
+  // Dentro del proceso Ágora: el nombre ya se capturó en la fase 1.
+  if(window.AGORA_EMBEBIDO){
+    let ag = null;
+    try{ ag = JSON.parse(localStorage.getItem('cmb_agora') || 'null'); }catch(e){}
+    const info = ag && ag.pasos && ag.pasos.informacion && ag.pasos.informacion.datos;
+    if(info && !document.getElementById('nombre').value.trim())
+      document.getElementById('nombre').value = [info.nombres, info.apellidoPaterno, info.apellidoMaterno].map(x => (x || '').trim()).filter(Boolean).join(' ');
+    if(ag && ag.pasos && ag.pasos.foda && ag.pasos.foda.completo)
+      document.getElementById('btnCompletarAgora').textContent = 'Guardar cambios';
+  }
   contar(); pintarImpresion(); pintarPistas();
   if(g && hayAlgo(g)){
     const e = document.getElementById('estado');
     e.textContent = 'Recuperado de este dispositivo.'; e.classList.add('ok');
   }
   window.addEventListener('beforeprint', pintarImpresion);
+  pintarCompartir();
 })();
+
+/* ---- Compartir con el Club (opcional) ----
+   Un FODA por dispositivo: el id se queda fijo para que, si la persona lo
+   corrige y vuelve a enviarlo, se actualice su fila en la hoja interna en vez
+   de duplicarse. "Borrar todo" lo suelta, y el siguiente FODA es otra fila. */
+function idFoda(){
+  let id = null;
+  try{ id = localStorage.getItem('cmb_foda_id'); }catch(e){}
+  if(!id){
+    id = (typeof COMPARTIR !== 'undefined') ? COMPARTIR.nuevoId() : String(Date.now());
+    try{ localStorage.setItem('cmb_foda_id', id); }catch(e){}
+  }
+  return id;
+}
+function pintarCompartir(){
+  if(typeof COMPARTIR === 'undefined') return;
+  COMPARTIR.pintar(document.getElementById('compartirFoda'), {
+    tipo: 'foda',
+    id: idFoda,
+    datos: () => {
+      const d = leer();
+      return {F: d.F, D: d.D, O: d.O, A: d.A, paso: d.paso, estiloDisc: estiloDominante() || ''};
+    }
+  });
+}
 </script>
 </body>
 </html>

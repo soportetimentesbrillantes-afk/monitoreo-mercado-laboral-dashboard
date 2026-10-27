@@ -57,6 +57,9 @@
   .estado.proximamente{background:none;color:#a79f91;font-weight:600;}
 
   /* ---- Herramienta ---- */
+  /* Las fases 2 en adelante son páginas propias (disc-agora.html, foda.html)
+     que se abren aquí dentro; su alto lo avisa la propia página. */
+  .marco{display:block;width:100%;height:640px;border:0;background:transparent;overflow:hidden;}
   .card{background:#fff;border:1px solid var(--gris-borde);border-radius:16px;padding:24px 26px;margin-bottom:18px;box-shadow:var(--sombra);}
   .card h2{font-family:var(--font-serif);margin:0 0 6px;font-size:1.6rem;}
   .card h3{font-family:var(--font-serif);margin:20px 0 4px;font-size:1.25rem;color:var(--azul-osc);}
@@ -161,8 +164,12 @@ const PASOS = [
   {id:'informacion', nombre:'Información inicial', listo:true,
    objetivo:'Reunir tu información personal: estudios actuales, experiencia, certificaciones e idiomas.',
    entrega:'Tus datos capturados, que las siguientes herramientas usan para no preguntarte lo mismo dos veces.'},
-  {id:'disc', nombre:'Perfil DISC', objetivo:'Identificar tus preferencias conductuales.', entrega:'Tu evaluación DISC.'},
-  {id:'foda', nombre:'Análisis FODA', objetivo:'Identificar tus fortalezas, oportunidades, debilidades y amenazas.', entrega:'Tu FODA personal.'},
+  {id:'disc', nombre:'Perfil DISC', listo:true, marco:'disc-agora.html',
+   objetivo:'Identificar tus preferencias conductuales con el cuestionario de Ágora Internacional.',
+   entrega:'Tu evaluación DISC: tu estilo dominante, cómo se combina con los otros y qué te conviene reforzar.'},
+  {id:'foda', nombre:'Análisis FODA', listo:true, marco:'foda.html',
+   objetivo:'Identificar tus fortalezas, oportunidades, debilidades y amenazas.',
+   entrega:'Tu FODA personal, que puedes imprimir o copiar, y tu siguiente paso.'},
   {id:'estilo', nombre:'Estilo de trabajo', objetivo:'Identificar tus estilos de trabajo.', entrega:'Tu estilo de trabajo personalizado.'},
   {id:'relacion', nombre:'Forma de relacionamiento', objetivo:'Identificar cómo te relacionas con los demás, a partir de lo que ya contestaste.', entrega:'Tus formas de relacionamiento.'},
   {id:'crecimiento', nombre:'Crecimiento personal', objetivo:'Identificar tus áreas de crecimiento personal frente a lo que esperas desarrollar.', entrega:'Tus áreas de crecimiento. Se envían también a tu madre, padre o tutor.'},
@@ -207,8 +214,31 @@ function idExpediente(){
   if(!E.id) E.id = (typeof COMPARTIR !== 'undefined') ? COMPARTIR.nuevoId() : String(Date.now());
   return E.id;
 }
+/* Las herramientas de las fases 2 y 3 guardan lo suyo en sus propias llaves
+   (las mismas que usan como páginas sueltas). El estado se lee de ahí, para
+   que la ruta diga la verdad aunque la persona haya borrado algo allá. */
+function leerLS(llave){ try{ return JSON.parse(localStorage.getItem(llave) || 'null'); }catch(e){ return null; } }
+const lineas = t => String(t || '').split('\n').map(x => x.trim()).filter(Boolean);
+const ESTADO_HERRAMIENTA = {
+  disc(){
+    const r = leerLS('cmb_disc');
+    if(r && r.puntajes && r.instrumento === 'agora') return 'completo';
+    const g = leerLS('cmb_disc_agora_progreso');
+    const hay = g && ((g.a && Object.keys(g.a).length) || (g.b && g.b.marcados && g.b.marcados.length) ||
+      (g.c && Object.keys(g.c).length) || (g.d && Object.keys(g.d).length) || (g.e && Object.keys(g.e).length));
+    return hay ? 'en-curso' : 'pendiente';
+  },
+  foda(){
+    const f = leerLS('cmb_foda');
+    const llenos = f ? ['F','D','O','A'].filter(k => lineas(f[k]).length).length : 0;
+    const s = E.pasos.foda;
+    if(s && s.completo && llenos === 4) return 'completo';
+    return f && (llenos || lineas(f.paso).length) ? 'en-curso' : 'pendiente';
+  }
+};
 function estadoPaso(p){
   if(!p.listo) return 'proximamente';
+  if(ESTADO_HERRAMIENTA[p.id]) return ESTADO_HERRAMIENTA[p.id]();
   const s = E.pasos[p.id];
   if(s && s.completo) return 'completo';
   if(s && s.datos) return 'en-curso';
@@ -524,14 +554,21 @@ async function completarInfo(){
     const r = await enviarPaso('informacion', d);
     msg += r.ok ? ' Tu expediente en el Club quedó actualizado.' :
       (r.error === 'sin endpoint' ? '' : ' <br>No pudimos actualizar tu expediente en el Club ahora; tus datos siguen guardados aquí y se enviarán la próxima vez que guardes.');
+    if(r.ok) await enviarPendientes();
   }
+  if(sig && sig.listo) msg += '<br><button class="primary" type="button" id="btnIrDisc" style="margin-top:12px;">Seguir con mi Perfil DISC →</button>';
   aviso.innerHTML = msg + '</div>';
+  const ir = document.getElementById('btnIrDisc'); if(ir) ir.onclick = () => abrir('disc');
 }
 
 /* ---- Envío al expediente (solo con consentimiento) ---- */
 function nombreCompleto(d){ return [d.nombres, d.apellidoPaterno, d.apellidoMaterno].map(x => (x || '').trim()).filter(Boolean).join(' '); }
 async function enviarPaso(paso, datos){
   if(!E.consentimiento.acepta) return {ok:false, error:'sin consentimiento'};
+  // El expediente empieza con la fase 1: ahí están la edad y, si es menor, la
+  // autorización de su tutor. Antes de eso no se manda ninguna otra fase; se
+  // mandan después, al completar la fase 1 (ver enviarPendientes).
+  if(paso !== 'informacion' && !(E.pasos.informacion && E.pasos.informacion.completo)) return {ok:false, error:'falta información inicial'};
   if(typeof COMPARTIR === 'undefined' || !COMPARTIR.activo()) return {ok:false, error:'sin endpoint'};
   const info = datosInfo();
   try{
@@ -542,10 +579,81 @@ async function enviarPaso(paso, datos){
       total: PASOS.length, datos
     });
     guardar();
-    if(r && r.ok){ E.pasos[paso].enviadoEn = new Date().toISOString(); guardar(); }
+    if(r && r.ok){ E.pasos[paso].enviadoEn = new Date().toISOString(); E.pasos[paso].pendienteEnvio = false; guardar(); }
     return r || {ok:false};
   }catch(e){ return {ok:false, error:String(e)}; }
 }
+
+/* Fases que se completaron sin poder mandarse (antes de la fase 1, sin
+   conexión, o antes de aceptar el expediente). */
+async function enviarPendientes(){
+  for(const p of PASOS){
+    const s = E.pasos[p.id];
+    if(p.id === 'informacion' || !s || !s.completo || !s.envio || estadoPaso(p) !== 'completo') continue;
+    if(s.pendienteEnvio || !s.enviadoEn) await enviarPaso(p.id, s.envio);
+  }
+}
+
+/* ============================ FASES 2 Y 3: DENTRO DE UN MARCO ============================
+   Perfil DISC (disc-agora.html) y Análisis FODA (foda.html) son las mismas
+   páginas que funcionan solas. Con ?en=agora se esconden su encabezado y sus
+   enlaces sueltos, y le avisan a esta página (agora-embebido.js):
+     altura     cuánto miden, para que el marco no tenga barra propia
+     arriba     cambiaron de sección: subir al inicio del marco
+     progreso   la persona contestó algo: refrescar la ruta
+     resultado  terminó el DISC        completo  completó el FODA
+     borrado    borró lo suyo          ir        quiere abrir otra fase       */
+function pintarMarco(id){
+  const p = PASOS.find(x => x.id === id);
+  document.getElementById('contenido').innerHTML =
+    '<div class="card">' + cabecera(p) + '</div>' +
+    '<div id="avisoFase" aria-live="polite"></div>' +
+    '<iframe class="marco" id="marcoHerramienta" title="' + esc(p.nombre) + '" src="' + p.marco + '?en=agora"></iframe>';
+}
+
+async function alTerminarFase(id, envio){
+  E.pasos[id] = Object.assign(E.pasos[id] || {}, {completo: true, completadoEn: new Date().toISOString(), envio, pendienteEnvio: true});
+  guardar(); pintarRuta();
+  const sig = PASOS[PASOS.findIndex(p => p.id === id) + 1];
+  let msg = '<div class="aviso bien"><strong>Fase completa.</strong> ';
+  msg += sig ? (sig.listo ? 'La siguiente es ' + esc(sig.nombre) + '.' : 'La siguiente, ' + esc(sig.nombre) + ', estará disponible muy pronto.') : '';
+  if(E.consentimiento.acepta){
+    const r = await enviarPaso(id, envio);
+    if(r.ok) msg += ' Tu expediente en el Club quedó actualizado.';
+    else if(r.error === 'falta información inicial') msg += ' Se agregará a tu expediente cuando completes tu información inicial.';
+    else if(r.error !== 'sin endpoint') msg += ' No pudimos actualizar tu expediente ahora; lo intentaremos la próxima vez.';
+  }
+  const av = document.getElementById('avisoFase'); if(av) av.innerHTML = msg + '</div>';
+}
+
+window.addEventListener('message', ev => {
+  const marco = document.getElementById('marcoHerramienta');
+  if(ev.origin !== location.origin || !marco || ev.source !== marco.contentWindow) return;
+  const m = ev.data || {}, d = m.datos || {};
+  if(m.cmbAgora === 'altura'){ marco.style.height = Math.max(200, Math.min(d.h || 0, 30000)) + 'px'; }
+  else if(m.cmbAgora === 'arriba'){
+    const y = marco.getBoundingClientRect().top + window.scrollY - 12;
+    if(marco.getBoundingClientRect().top < 0) window.scrollTo({top: y, behavior: 'smooth'});
+  }
+  else if(m.cmbAgora === 'progreso'){ pintarRuta(); }
+  else if(m.cmbAgora === 'resultado' && d.herramienta === 'disc' && pasoActual === 'disc'){
+    const r = d.resultado || {};
+    alTerminarFase('disc', {puntajes: r.puntajes, instrumento: 'agora', escala: r.escala, respuestas: r.respuestas || null,
+      versionClave: r.versionClave, fecha: r.fecha, lectura: d.lectura, resultadoId: r.id});
+  }
+  else if(m.cmbAgora === 'completo' && d.herramienta === 'foda' && pasoActual === 'foda'){
+    alTerminarFase('foda', d.foda || {});
+  }
+  else if(m.cmbAgora === 'borrado' && (d.herramienta === 'disc' || d.herramienta === 'foda')){
+    if(E.pasos[d.herramienta]){ E.pasos[d.herramienta].completo = false; guardar(); }
+    const av = document.getElementById('avisoFase'); if(av) av.innerHTML = '';
+    pintarRuta();
+  }
+  else if(m.cmbAgora === 'ir'){
+    const p = PASOS.find(x => x.id === d.fase);
+    if(p && p.listo) abrir(p.id);
+  }
+});
 
 /* ---- Pasos todavía no construidos ---- */
 function pintarProximamente(id){
@@ -554,7 +662,7 @@ function pintarProximamente(id){
     '<div class="card proximamente-card"><div class="icono">◷</div><h2>Próximamente</h2><p>Esta herramienta todavía se está construyendo.</p></div>';
 }
 
-const HERRAMIENTAS = {informacion: pintarInformacion};
+const HERRAMIENTAS = {informacion: pintarInformacion, disc: () => pintarMarco('disc'), foda: () => pintarMarco('foda')};
 PASOS.forEach(p => { if(!HERRAMIENTAS[p.id]) HERRAMIENTAS[p.id] = () => pintarProximamente(p.id); });
 
 /* ---- Arranque ---- */
@@ -564,7 +672,9 @@ PASOS.forEach(p => { if(!HERRAMIENTAS[p.id]) HERRAMIENTAS[p.id] = () => pintarPr
     if(m && Array.isArray(m.sectores) && m.sectores.length) SECTORES = m.sectores.map(s => s.nombre);
   }catch(e){ /* sin manifiesto se usa la lista de respaldo */ }
   // Abre la primera fase disponible que no esté completa.
-  const siguiente = PASOS.find(p => p.listo && estadoPaso(p) !== 'completo') || PASOS[0];
+  // agora.html#disc abre directo esa fase (así enlaza la página principal).
+  const pedido = PASOS.find(p => p.listo && '#' + p.id === location.hash);
+  const siguiente = pedido || PASOS.find(p => p.listo && estadoPaso(p) !== 'completo') || PASOS[0];
   pasoActual = siguiente.id;
   // En pantallas angostas la lista de fases empieza plegada para que la
   // herramienta quede a la vista.
