@@ -91,6 +91,11 @@ persona, con su avance de 10 fases) y **Ágora · Información inicial**. Si ya
 publicaste el script antes de este cambio, pega la versión nueva y haz
 *Gestionar implementaciones → editar → Versión nueva* para que la URL no cambie.
 
+El Perfil DISC (fase 2) y el FODA (fase 3) del proceso se escriben en las
+pestañas **DISC** y **FODA** de siempre, con el mismo *ID de envío* que el
+expediente: así se cruza a la persona entre pestañas. Ninguna fase se acepta
+si ese ID no tiene antes su fila en *Expediente Ágora* (la fase 1).
+
 ## Cosas que conviene saber
 
 **La clave no es un secreto.** `cmb-autoconocimiento-2026` está escrita en

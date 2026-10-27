@@ -204,6 +204,20 @@ function guardarAgora(d, id, nombre, correo) {
     .filter(function (p) { return FASES_AGORA[p]; });
   var total = Math.min(Math.max(parseInt(d.total, 10) || 10, 1), 50);
 
+  // Las fases 2 en adelante se agregan a un expediente que ya existe: la
+  // fase 1 trae la edad y, si es menor, la autorización de su tutor.
+  if (paso !== 'informacion' && !existeFila(PESTANAS.expediente, id)) return { ok: false, error: 'falta información inicial' };
+
+  // Perfil DISC y FODA se escriben en sus pestañas de siempre, con el mismo
+  // ID del expediente: rehacerlos actualiza la fila en vez de duplicarla.
+  if (paso === 'disc' || paso === 'foda') {
+    var cuerpo = {};
+    Object.keys(datos).forEach(function (k) { cuerpo[k] = datos[k]; });
+    cuerpo.dispositivo = d.dispositivo;
+    var r = paso === 'disc' ? guardarDisc(cuerpo, id, nombre, correo) : guardarFoda(cuerpo, id, nombre, correo);
+    if (!r.ok) return r;
+  }
+
   if (paso === 'informacion') {
     var edad = parseInt(datos.edad, 10);
     if (isNaN(edad) || edad < 12 || edad > 99) return { ok: false, error: 'edad' };
@@ -291,6 +305,18 @@ function escribir(nombrePestana, encabezados, id, valores, actualizar, columnaPr
 
   if (fila > 0) h.getRange(fila, 1, 1, cab.length).setValues([actual]);
   else h.appendRow(actual);
+}
+
+/** ¿Hay una fila con ese ID? */
+function existeFila(nombrePestana, id) {
+  var h = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(nombrePestana);
+  if (!h || h.getLastRow() < 2) return false;
+  var cab = h.getRange(1, 1, 1, h.getLastColumn()).getValues()[0].map(String);
+  var c = cab.indexOf('ID de envío');
+  if (c < 0) return false;
+  var ids = h.getRange(2, c + 1, h.getLastRow() - 1, 1).getValues();
+  for (var i = 0; i < ids.length; i++) if (String(ids[i][0]) === id) return true;
+  return false;
 }
 
 /** La pestaña, creándola con sus encabezados si no existe o está vacía. */
