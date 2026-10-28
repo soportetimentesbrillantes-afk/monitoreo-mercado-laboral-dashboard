@@ -205,7 +205,7 @@
   <div class="hero-inner">
     <p class="eyebrow">Autoconocimiento para la construcción de tu plan de vida</p>
     <h1>Tu proceso Ágora</h1>
-    <p>Diez fases, una herramienta en cada una. Empiezas por conocerte: cómo trabajas, cómo te relacionas y dónde puedes crecer. Terminas con escenarios de vida, una ruta profesional y un plan de acción. Avanza una fase a la vez; tu avance se guarda solo.</p>
+    <p>Once fases, una herramienta en cada una. Empiezas por conocerte: cómo trabajas, cómo te relacionas y dónde puedes crecer. Terminas con escenarios de vida, tu presupuesto, una ruta profesional y un plan de acción. Avanza una fase a la vez; tu avance se guarda solo.</p>
   </div>
 </header>
 
@@ -213,7 +213,7 @@
   <nav class="ruta" aria-label="Fases del proceso">
     <div class="avance">
       <div class="cifra" id="avancePct">0%</div>
-      <div class="txt" id="avanceTxt">0 de 10 fases completas</div>
+      <div class="txt" id="avanceTxt">0 de 11 fases completas</div>
       <div class="barra"><div class="relleno" id="avanceBarra"></div></div>
     </div>
     <details id="plegable" open>
@@ -234,6 +234,7 @@
 <script src="agora/fase5-relacion.js"></script>
 <script src="agora/fase6-crecimiento.js"></script>
 <script src="agora/fase7-escenarios.js"></script>
+<script src="agora/fase7b-presupuesto.js"></script>
 <script src="agora/fase8-ruta.js"></script>
 <script src="agora/fase9-plan.js"></script>
 <script src="agora/fase10-resumen.js"></script>
@@ -253,7 +254,8 @@
 const LLAVE = 'cmb_agora';
 const VERSION = 1;
 
-/* Las 10 fases, en el orden del documento de Ágora. `listo` dice si la
+/* Las 11 fases: las 10 del documento de Ágora, en su orden, más el presupuesto
+   (pedido por el Club el 2026-10-28) entre Escenarios de vida y Ruta profesional. `listo` dice si la
    herramienta ya está construida; las demás se muestran pero no se abren. */
 const PASOS = [
   {id:'informacion', nombre:'Información inicial', listo:true,
@@ -277,8 +279,11 @@ const PASOS = [
   {id:'escenarios', nombre:'Escenarios de vida',
    objetivo:'Imaginar tu vida a 5, 10 y 15 años: estudios, trabajo, independencia y vida personal, con propuestas que completas con lo tuyo.',
    entrega:'Tu escenario de vida personalizado.'},
+  {id:'presupuesto', nombre:'Tu presupuesto',
+   objetivo:'Calcular cuánto cuesta al mes la vida que imaginas cuando vivas por tu cuenta, para compararlo después con lo que paga la profesión que elijas.',
+   entrega:'Tu costo de vida mensual: el ingreso que necesitas para sostener la vida que imaginas.'},
   {id:'ruta', nombre:'Ruta profesional',
-   objetivo:'Armar tu mapa profesional: qué tan compatibles son contigo las carreras que estás considerando y otras afines, y qué pide hoy el mercado.',
+   objetivo:'Armar tu mapa profesional: qué tan compatibles son contigo las carreras que estás considerando y otras afines, qué pide hoy el mercado y si lo que paga alcanza para tu presupuesto.',
    entrega:'Tu ruta profesional personalizada: tu ruta principal y por qué.'},
   {id:'plan', nombre:'Plan de acción',
    objetivo:'Armar un plan a 30, 60 y 90 días con acciones de educación, experiencia y conexión: sugeridas por lo que hiciste y escritas por ti.',
@@ -298,6 +303,11 @@ const SITUACIONES = ['Estudiando','Egresado','En pausa','No terminé'];
 const TIPOS_EXP = ['Empleo','Prácticas profesionales','Servicio social','Voluntariado','Proyecto escolar','Negocio propio'];
 const NIVELES_IDIOMA = ['Básico','Intermedio','Avanzado','Nativo'];
 // Los sectores del monitoreo. Se leen de manifest.json; esta lista es el respaldo.
+// Además de los sectores del monitoreo, en la fase 1 se puede elegir:
+const NO_SE = 'No lo sé aún';
+const SECTORES_EXTRA = ['Negocios', 'Otro', NO_SE];
+// Etapa: sirve para segmentar en la hoja y decide si se ofrecen los cuestionarios para papás.
+const ETAPAS = ['Secundaria o bachillerato', 'Universidad', 'Ya egresé'];
 let SECTORES = ['Automotriz','Turismo','Gestión y Administración','Ventas','Finanzas','Logística','Legal','Metalmecánica','TI'];
 
 function esc(v){
@@ -408,7 +418,7 @@ const D0 = () => ({
   sinExperiencia:false, experiencia:[],
   sinCertificaciones:false, certificaciones:[],
   idiomas:[{idioma:'Español', nivel:'Nativo'}],
-  sectores:[], sectorOtro:'', aspiracion:''
+  sectores:[], sectorOtro:'', aspiracion:'', etapa:''
 });
 
 function datosInfo(){
@@ -433,6 +443,7 @@ function faltantesInfo(d){
     req('tutorCorreo', 'el correo de tu madre, padre o tutor', correoValido(d.tutorCorreo));
     if(E.consentimiento.acepta) req('tutorAutoriza', 'que tu madre, padre o tutor esté de acuerdo con guardar tu expediente', d.tutorAutoriza);
   }
+  req('etapa', 'en qué etapa estás (secundaria o bachillerato, universidad, o egresado)', d.etapa);
   req('nivel', 'tu nivel de estudios', d.nivel);
   req('situacion', 'si estás estudiando o ya egresaste', d.situacion);
   req('institucion', 'tu escuela o institución', d.institucion.trim());
@@ -499,7 +510,9 @@ function pintarInformacion(){
       '</div>' +
 
       '<h3>Estudios actuales</h3>' +
-      '<div class="grid">' +
+      '<div class="campo" data-campo="etapa"><label>¿En qué etapa estás? <span class="req">*</span></label>' +
+        '<div class="chips" id="chipsEtapa">' + ETAPAS.map(e => '<label><input type="radio" name="etapa" value="' + esc(e) + '"' + (d.etapa === e ? ' checked' : '') + '> ' + esc(e) + '</label>').join('') + '</div></div>' +
+      '<div class="grid" style="margin-top:12px;">' +
         campo('nivel', 'Nivel de estudios', '<select id="f_nivel" name="nivel">' + opciones(NIVELES, d.nivel) + '</select>', true) +
         campo('situacion', 'Situación', '<select id="f_situacion" name="situacion">' + opciones(SITUACIONES, d.situacion) + '</select>', true) +
         campo('institucion', 'Escuela o institución', inp('institucion', d.institucion), true) +
@@ -527,7 +540,7 @@ function pintarInformacion(){
       '<div class="campo" data-campo="sectores"><label>¿Qué sectores te interesan? <span class="req">*</span></label>' +
         '<div class="chips" id="chipsSectores">' + SECTORES.map(sec =>
           '<label><input type="checkbox" value="' + esc(sec) + '"' + (d.sectores.includes(sec) ? ' checked' : '') + '> ' + esc(sec) + '</label>').join('') +
-          '<label><input type="checkbox" value="Otro"' + (d.sectores.includes('Otro') ? ' checked' : '') + '> Otro</label>' +
+          SECTORES_EXTRA.map(x => '<label><input type="checkbox" value="' + esc(x) + '"' + (d.sectores.includes(x) ? ' checked' : '') + '> ' + esc(x) + '</label>').join('') +
         '</div></div>' +
       '<div class="grid dos" style="margin-top:12px;">' +
         campo('sectorOtro', '¿Cuál otro?', inp('sectorOtro', d.sectorOtro), false, d.sectores.includes('Otro') ? '' : 'oculto') +
@@ -631,7 +644,12 @@ function alEditarInfo(ev){
   d.tutorAutoriza = !!(document.getElementById('f_tutorAutoriza') || {}).checked;
   d.sinExperiencia = document.getElementById('f_sinExperiencia').checked;
   d.sinCertificaciones = document.getElementById('f_sinCertificaciones').checked;
+  // "No lo sé aún" no se combina con otros: si elige un sector, se quita; si lo elige, se quitan los demás.
+  if(t && t.closest && t.closest('#chipsSectores') && t.checked){
+    document.querySelectorAll('#chipsSectores input').forEach(x => { if(x !== t && (x.value === NO_SE || t.value === NO_SE)) x.checked = false; });
+  }
   d.sectores = [...document.querySelectorAll('#chipsSectores input:checked')].map(x => x.value);
+  const etapa = document.querySelector('#chipsEtapa input:checked'); d.etapa = etapa ? etapa.value : '';
   fijarDatosInfo(d);
 
   document.getElementById('bloqueTutor').hidden = !esMenor(d);
@@ -739,8 +757,44 @@ async function alTerminarFase(id, envio){
     else if(r.error !== 'sin endpoint') msg += ' No pudimos actualizar tu expediente ahora; lo intentaremos la próxima vez.';
   }
   if(sig && sig.listo) msg += '<br><button class="primary" type="button" data-abrir="' + sig.id + '" style="margin-top:12px;">Seguir con ' + esc(sig.nombre) + ' →</button>';
+  msg += '</div>' + tarjetaPapas(id);
   const av = document.getElementById('avisoFase');
-  if(av){ av.innerHTML = msg + '</div>'; AG.conectar(av); }
+  if(av){
+    av.innerHTML = msg; AG.conectar(av);
+    // En el DISC y el FODA el aviso queda arriba del marco: se sube para verlo.
+    if(PASOS.find(p => p.id === id).marco) av.scrollIntoView({behavior: 'smooth', block: 'start'});
+  }
+}
+
+/* ---- Cuestionarios para papás (modelo de bachillerato) ----
+   Ágora manda a la madre, padre o tutor un formulario después de ciertos
+   módulos. Se ofrecen al terminar esa fase, solo a quien está en secundaria o
+   bachillerato. La página no los manda: abre el formulario o el correo de la
+   persona con el enlace listo. */
+const FORMULARIOS_PAPAS = {
+  foda: {nombre: 'OV1 4x4 papás', url: 'https://docs.google.com/forms/d/e/1FAIpQLSc-_mHyCq0BnKyetn36ACfCkKI4mUEyGKp9d7sCw_CEDr7DWw/viewform?usp=sharing'},
+  disc: {nombre: 'OV2 4x4 papás', url: 'https://docs.google.com/forms/d/e/1FAIpQLSdT6pgFjY2k9auP_QK5o42NvM7wJKsN6IPpeOeAVFlN4tD4jQ/viewform?usp=sharing'},
+  ruta: {nombre: 'Cuestionario para papás: ruta profesional', url: 'https://docs.google.com/forms/d/e/1FAIpQLSeJ6-_rk0YAQvLJ7XEryvg5Xxgobg-sdx9ju0sE9xRlvZwjjg/viewform?usp=sharing'}
+};
+function esBachillerato(){
+  const d = datosInfo();
+  if(d.etapa) return d.etapa === ETAPAS[0];
+  return ['Secundaria', 'Preparatoria o bachillerato'].includes(d.nivel);
+}
+function tarjetaPapas(id){
+  const f = FORMULARIOS_PAPAS[id];
+  if(!f || !esBachillerato()) return '';
+  const d = datosInfo();
+  const tutor = d.tutorNombre.trim();
+  const p = PASOS.find(x => x.id === id);
+  const cuerpo = 'Hola' + (tutor ? ' ' + tutor : '') + ':\n\nTerminé la fase de ' + p.nombre + ' de mi proceso Ágora en el Club de Mentes Brillantes. ' +
+    '¿Me ayudas a contestar este cuestionario para papás? Es corto:\n\n' + f.url + '\n\nGracias.\n— ' + nombreCompleto(d);
+  return '<div class="card" data-papas="' + id + '"><h3>Cuestionario para tu mamá, papá o tutor</h3>' +
+    '<p style="margin-top:0;">Después de esta fase, el proceso Ágora le pide a tu familia contestar el cuestionario <strong>' + esc(f.nombre) + '</strong>. Mándaselo o ábranlo juntos.</p>' +
+    '<div class="acciones">' +
+      '<a class="secondary" href="' + esc(AG.mailto(correoValido(d.tutorCorreo) ? d.tutorCorreo.trim() : '', 'Cuestionario del proceso Ágora: ' + f.nombre, cuerpo)) + '">' + (tutor ? 'Mandárselo a ' + esc(tutor) : 'Mandarlo por correo') + '</a>' +
+      '<a class="secondary" href="' + esc(f.url) + '" target="_blank" rel="noopener">Abrir el cuestionario</a>' +
+    '</div></div>';
 }
 
 window.addEventListener('message', ev => {
@@ -850,7 +904,11 @@ const AG = {
     const b = String(cuerpo || '').slice(0, 1800);
     return 'mailto:' + String(para || '').replace(/[^A-Za-z0-9._%+@-]/g, '') + '?subject=' + encodeURIComponent(asunto) + '&body=' + encodeURIComponent(b);
   },
-  tutor(){ const d = datosInfo(); return {nombre: d.tutorNombre.trim(), correo: correoValido(d.tutorCorreo) ? d.tutorCorreo.trim() : '', parentesco: d.tutorParentesco}; }
+  tutor(){ const d = datosInfo(); return {nombre: d.tutorNombre.trim(), correo: correoValido(d.tutorCorreo) ? d.tutorCorreo.trim() : '', parentesco: d.tutorParentesco}; },
+  esBachillerato: () => esBachillerato(),
+  tarjetaPapas: id => tarjetaPapas(id),
+  FORMULARIOS_PAPAS,
+  NO_SE
 };
 
 function pintarFaseExt(id){

@@ -10,6 +10,75 @@ después.
 corrigió un error, describe también cómo se detectó — eso es lo que evita
 repetirlo.
 
+## 2026-10-28 — Cambios pedidos por Gael: presupuesto, cuestionarios para papás y textos
+
+- **DISC, "Qué te conviene reforzar".** Va directo a los cursos: "Puedes
+  reforzar con algunos de los siguientes cursos que se encuentran en nuestro
+  catálogo". Se quitaron la nota y las etiquetas de habilidades; si el
+  catálogo no tiene curso, lo dice nombrando las habilidades.
+- **FODA.** Debilidades: "¿Qué te cuesta trabajo hacer, evades e incluso
+  prefieres que los demás lo hagan por ti?". Amenazas: "Aquello externo que
+  puede afectar tu presente, la forma en la que estás o vives" (Gael la
+  escribió en primera persona; se pasó a "tú" como los otros tres cuadros).
+  Al completar el FODA aparece ahí mismo un botón **Seguir**, y la página sube
+  al aviso de "Fase completa".
+- **DISC, sección c (factores de aprendizaje).** Cada una de las 28 palabras
+  muestra qué significa al pasar el mouse o al tocarla. Las definiciones son
+  del Club, por revisar con Ágora.
+- **Nueva fase 8, Tu presupuesto** (archivo `agora/fase7b-presupuesto.js`),
+  entre Escenarios de vida y Ruta profesional: el proceso pasa a 11 fases. La
+  persona calcula un mes de su vida independiente en 12 rubros. En la Ruta
+  profesional se contrasta con los sueldos del sector de la ruta elegida
+  (25% más bajo y mediana del monitoreo) y sale una **estrategia de vida**:
+  empleabilidad, empleabilidad con crecimiento, o emprendimiento en servicios
+  mediante outsourcing. El reporte la muestra en su sección 10.
+- **Reporte.** Sección "Para el Orientador/Mentor DIANA"; frase final
+  cambiada por la de Ágora Educación Internacional (proceso Ágora OV 4x4,
+  Modelo DISC de dominio público).
+- **Cuestionarios para papás** (modelo de bachillerato): OV1 después del
+  FODA, OV2 después del DISC y el tercero después de la Ruta profesional. Se
+  ofrecen al terminar esa fase solo a quien está en secundaria o bachillerato:
+  abrir el formulario o mandarlo por correo al tutor. También aparecen en el
+  Resumen ejecutivo.
+- **Información inicial.** Nueva pregunta obligatoria, "¿En qué etapa
+  estás?" (Secundaria o bachillerato / Universidad / Ya egresé), que llega a
+  la hoja como columna **Etapa** en el expediente para segmentar. En "Lo que
+  te interesa" se agregaron **Negocios** (cuenta para las carreras del área
+  de negocios en la Ruta) y **No lo sé aún** (no se combina con otros).
+
+Apps Script: pestaña nueva *Ágora · Presupuesto*; en *Ruta profesional*,
+columnas *Costo de vida vs salario* y *Estrategia de vida*; *Etapa* en
+información inicial y expediente. Como las pestañas ya existían, `pestana()`
+ahora agrega al final las columnas que falten, para que esos datos no se
+pierdan.
+
+Pruebas: 22 en `test_proceso_agora.mjs` y 20 en `test_fases_agora.mjs`. Todas
+las suites pasan.
+
+## 2026-10-28 — Expediente activado: Apps Script publicado
+
+Se publicó el Apps Script en la hoja interna desde la cuenta del Club
+(soportetimentesbrillantes@gmail.com), con el navegador de la app y la
+autorización de permisos hecha por Gael. Proyecto "Expediente Ágora y
+autoconocimiento"; implementación "Expediente del proceso Ágora", versión 1,
+aplicación web, ejecuta como la cuenta del Club, acceso "Cualquiera".
+`revisarPestanas` creó las 12 pestañas. Comprobado: el URL contesta a GET y
+rechaza una fase sin expediente ("falta información inicial") sin escribir
+nada.
+
+`compartir-club.js` ya trae la URL (`URL_CLUB`), así que desde hoy lo que la
+persona acepta mandar llega a la hoja. Para que ninguna prueba escriba datos
+inventados en la hoja real, en localhost/127.0.0.1 la URL no se usa (las
+pruebas siguen usando su servidor falso).
+
+Cambio menor en el script: `revisarPestanas` es la primera función del archivo
+(y `encabezadosFase` pasó a ser la tabla `ENCABEZADOS_FASE`), porque el editor
+de Apps Script elige la primera al abrir y su selector no respondía en el
+navegador de la app. Mismo comportamiento.
+
+Lo de "Próximamente" en las fases 4 a 10 que vio Gael era caché: el sitio en
+vivo ya carga las siete fases.
+
 ## 2026-10-26 — Proceso Ágora: fases 4 a 10, el proceso completo
 
 Gael pidió hacer de una vez todas las fases que faltaban para revisarlas

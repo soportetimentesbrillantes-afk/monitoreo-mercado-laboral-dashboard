@@ -23,9 +23,18 @@
 
 const COMPARTIR = (function(){
 
+// La aplicación web del Apps Script, publicada desde la cuenta del Club
+// (implementación "Expediente del proceso Ágora", 2026-10-28).
+const URL_CLUB = 'https://script.google.com/macros/s/AKfycbwZ7_MkqDTWdSfOnFoviCYA7LSyxQtOzzSeQtv5Z9vQ9JIFK-_v-nSVpXoz-aQArc3v/exec';
 // Para las pruebas automáticas se puede apuntar a un servidor falso con
-// window.__CMB_ENDPOINT_PRUEBA; en el sitio real esa variable no existe.
-const COMPARTIR_ENDPOINT = (typeof window !== 'undefined' && window.__CMB_ENDPOINT_PRUEBA) || '';
+// window.__CMB_ENDPOINT_PRUEBA. Y en una copia local (localhost, 127.0.0.1) no
+// se manda nada a la hoja real: así una prueba nunca escribe datos inventados.
+const COMPARTIR_ENDPOINT = (function(){
+  if(typeof window === 'undefined') return '';
+  if(window.__CMB_ENDPOINT_PRUEBA) return window.__CMB_ENDPOINT_PRUEBA;
+  const local = /^(localhost|127\.0\.0\.1|\[::1\]|)$/.test(location.hostname) || location.protocol === 'file:';
+  return local ? '' : URL_CLUB;
+})();
 const CLAVE = 'cmb-autoconocimiento-2026';
 const CORREO_CLUB = 'clubmentesbrillantesla@gmail.com';
 

@@ -177,7 +177,7 @@
 
       <section class="cuadrante" id="cuadD">
         <h2>Debilidades <span class="n" id="nD"></span></h2>
-        <p class="que">Lo que te falta o te cuesta, y también depende de ti. No es para castigarte: es para saber qué atender primero.</p>
+        <p class="que">¿Qué te cuesta trabajo hacer, evades e incluso prefieres que los demás lo hagan por ti?</p>
         <textarea id="D" placeholder="No tengo experiencia formal con contrato&#10;Me pongo nervioso en entrevistas y hablo rápido&#10;Mi CV no tiene cifras ni resultados&#10;No sé usar Power BI"></textarea>
         <p class="pista">Pregúntate: ¿qué piden las vacantes que me interesan y todavía no tengo?</p>
       </section>
@@ -191,7 +191,7 @@
 
       <section class="cuadrante" id="cuadA">
         <h2>Amenazas <span class="n" id="nA"></span></h2>
-        <p class="que">Lo que hay afuera y te puede estorbar: competencia, requisitos que no controlas, dónde están las vacantes.</p>
+        <p class="que">Aquello externo que puede afectar tu presente, la forma en la que estás o vives.</p>
         <textarea id="A" placeholder="Muchos egresados compiten por las mismas vacantes&#10;Las empresas piden un año de experiencia&#10;La mayoría de las vacantes están en otra ciudad&#10;Piden certificación y cuesta"></textarea>
         <p class="pista">Pregúntate: ¿qué no depende de mí pero me puede cerrar puertas?</p>
       </section>
@@ -439,7 +439,9 @@ function completarAgora(){
     return false;
   }
   CUADROS.forEach(k => document.getElementById('cuad' + k).classList.remove('falta'));
-  av.innerHTML = '<div class="aviso bien"><strong>Listo, tu FODA quedó completo.</strong> Si lo corriges, vuelve a tocar el botón.</div>';
+  av.innerHTML = '<div class="aviso bien"><strong>Listo, tu FODA quedó completo.</strong> Si lo corriges, vuelve a tocar el botón.' +
+    '<br><button class="primary" type="button" id="btnSeguirAgora" style="margin-top:10px;">Seguir →</button></div>';
+  document.getElementById('btnSeguirAgora').onclick = () => CMB_AGORA.avisar('ir', {fase: 'estilo'});
   document.getElementById('btnCompletarAgora').textContent = 'Guardar cambios';
   CMB_AGORA.avisar('completo', {herramienta: 'foda',
     foda: {F: d.F, D: d.D, O: d.O, A: d.A, paso: d.paso, estiloDisc: estiloDominante() || ''}});

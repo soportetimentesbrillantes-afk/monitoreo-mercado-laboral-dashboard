@@ -93,6 +93,14 @@
   .renglon.listo{border-color:#cfe3d3;}
   .renglon .num{font-size:.72rem;font-weight:700;color:var(--texto-suave);letter-spacing:.05em;text-transform:uppercase;}
   .renglon .fila{grid-template-columns:1fr repeat(4,44px);}
+  /* Significado de cada palabra (sección c): al pasar el mouse o al tocarla. */
+  .con-ayuda{position:relative;cursor:help;border-bottom:1px dotted var(--texto-suave);outline:none;}
+  .con-ayuda .i{font-size:.72rem;color:var(--azul-osc);}
+  .con-ayuda::after{content:attr(data-ayuda);position:absolute;left:0;bottom:calc(100% + 6px);z-index:20;width:max-content;max-width:240px;
+    background:#1f1f1c;color:#fff;font-size:.78rem;font-weight:400;line-height:1.4;padding:7px 10px;border-radius:8px;box-shadow:var(--sombra);
+    opacity:0;visibility:hidden;transform:translateY(4px);transition:opacity .12s ease, transform .12s ease;pointer-events:none;}
+  .con-ayuda:hover::after,.con-ayuda:focus::after{opacity:1;visibility:visible;transform:none;}
+  .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;}
   .op.activo.r4{background:var(--d);border-color:#a85c2e;}
   .op.activo.r1{background:var(--c);border-color:#3c647f;}
 
@@ -174,6 +182,7 @@
       <p class="encabezado">Sección c de 5</p>
       <h2>Factores de aprendizaje</h2>
       <div class="instrucciones">En cada renglón hay cuatro palabras. Dales un número distinto a cada una, sin repetir: <b>4</b> a la que mejor caracteriza tu aprendizaje, <b>3</b> a la que le sigue, <b>2</b> a la que no lo caracteriza tanto y <b>1</b> a la que no lo caracteriza para nada. Si pones un número que ya estaba en otra palabra del renglón, las dos se intercambian.</div>
+      <p class="note">¿Dudas con alguna palabra? Pasa el mouse sobre ella, o tócala en el celular, para ver qué significa.</p>
       <div id="renglonesC"></div>
     </div>
 
@@ -224,6 +233,40 @@
    otro lado.                                                               */
 
 const COLOR_A_FACTOR = {azul:'C', rojo:'D', amarillo:'I', verde:'S'};
+
+/* Qué quiere decir cada palabra de la sección c (factores de aprendizaje),
+   pensada en cómo aprendes. Aparece al pasar el mouse o al tocar la palabra.
+   Redacción del Club, por revisar con Ágora. */
+const AYUDA_C = {
+  'Selectivo': 'Eliges con cuidado qué aprender y en qué fijarte.',
+  'Práctico': 'Aprendes mejor lo que puedes usar o aplicar enseguida.',
+  'Comprometido': 'Te involucras a fondo y sigues hasta terminar.',
+  'Analítico': 'Separas la información en partes para entenderla.',
+  'Juicioso': 'Piensas con sensatez antes de sacar una conclusión.',
+  'Emprendedor': 'Te lanzas a empezar cosas nuevas por tu cuenta.',
+  'Sensitivo': 'Aprendes a través de lo que sientes y percibes.',
+  'Observador': 'Aprendes mirando con atención antes de actuar.',
+  'Evaluativo': 'Valoras y comparas la información antes de aceptarla.',
+  'Arriesgado': 'Te atreves a probar aunque no sepas cómo va a salir.',
+  'Receptivo': 'Estás abierto a escuchar y recibir ideas de otros.',
+  'Consciente': 'Te das cuenta de lo que haces y de cómo lo haces.',
+  'Abstracto': 'Te gustan las ideas y las teorías, aunque no se vean ni se toquen.',
+  'Activo': 'Aprendes haciendo, moviéndote y participando.',
+  'Concreto': 'Prefieres ejemplos reales y tangibles a las teorías.',
+  'Pasivo': 'Prefieres escuchar y recibir la información antes de participar.',
+  'Pragmático': 'Te importa que lo que aprendes sirva y dé resultados.',
+  'Prospectivo': 'Piensas en el futuro y en lo que puede pasar.',
+  'Realista': 'Ves las cosas como son, con los pies en la tierra.',
+  'Reflexivo': 'Le das vueltas a las cosas y piensas antes de actuar.',
+  'Conceptual': 'Te gusta entender la idea general y cómo se conecta todo.',
+  'Experimentador': 'Aprendes probando, ensayando y viendo qué pasa.',
+  'Empírico': 'Confías en lo que compruebas con tu propia experiencia.',
+  'Minucioso': 'Cuidas cada detalle y revisas con calma.',
+  'Racional': 'Decides con la lógica y los argumentos.',
+  'Apasionado': 'Le pones emoción y entusiasmo a lo que aprendes.',
+  'Imparcial': 'Juzgas de forma objetiva, sin favorecer a nadie.',
+  'Reservado': 'Te guardas lo que piensas; prefieres no mostrarte mucho.'
+};
 
 const SECCION_A = [
   [1,'Analizar'], [2,'Administrar'], [3,'Conceptualizar'], [4,'Expresar ideas'],
@@ -415,7 +458,9 @@ function pintarC(){
     return '<div class="renglon' + (listo ? ' listo' : '') + '" id="renglon' + n + '"><div class="num">Renglón ' + n + '</div>' +
       '<div class="cab"><span></span><span>1</span><span>2</span><span>3</span><span>4</span></div>' +
       palabras.map((p, i) =>
-        '<div class="fila"><span class="frase">' + esc(p) + '</span>' +
+        '<div class="fila"><span class="frase">' + (AYUDA_C[p]
+          ? '<span class="con-ayuda" tabindex="0" data-ayuda="' + esc(AYUDA_C[p]) + '">' + esc(p) + ' <span class="i" aria-hidden="true">ⓘ</span></span><span class="sr">' + esc(AYUDA_C[p]) + '</span>'
+          : esc(p)) + '</span>' +
         [1,2,3,4].map(v => '<button type="button" class="op' + (r[i] === v ? ' activo r' + v : '') + '" data-n="' + n + '" data-i="' + i + '" data-v="' + v + '">' + v + '</button>').join('') +
         '</div>').join('') + '</div>';
   }).join('');

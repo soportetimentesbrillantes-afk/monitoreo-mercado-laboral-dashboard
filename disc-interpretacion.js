@@ -528,8 +528,6 @@ function pintarResultado(contenedor, p, opciones){
 
     '<div class="card" id="cursosCard">' +
       '<h2>Qué te conviene reforzar</h2>' +
-      '<p class="note">Estas no son carencias. Son el lado que tu estilo ejercita menos por costumbre, y dónde puedes fortalecerte más.</p>' +
-      '<div>' + CRECIMIENTO_HABILIDADES[dom].map(h => '<span class="pill">' + esc(h) + '</span>').join('') + '</div>' +
       '<div id="cursosSugeridos"><p class="note">Buscando en el catálogo del Club…</p></div>' +
     '</div>' +
 
@@ -606,10 +604,10 @@ async function sugerirCursos(dom){
   }
   encontrados.sort((a,b) => b.cubre.length - a.cubre.length);
   if(!encontrados.length){
-    cont.innerHTML = '<p class="note">Hoy el catálogo del Club no tiene un curso que trabaje estas habilidades. Preferimos decírtelo a recomendarte algo de otra parte.</p>';
+    cont.innerHTML = '<p class="note">Hoy el catálogo del Club no tiene un curso de ' + esc(CRECIMIENTO_HABILIDADES[dom].join(', ')) + ', que es lo que tu estilo ejercita menos. Preferimos decírtelo a recomendarte algo de otra parte.</p>';
     return;
   }
-  cont.innerHTML = encontrados.slice(0,5).map(({c, cubre}) =>
+  cont.innerHTML = '<p style="margin-top:0;">Puedes reforzar con algunos de los siguientes cursos que se encuentran en nuestro catálogo:</p>' + encontrados.slice(0,5).map(({c, cubre}) =>
     '<div class="curso-item"><strong>' + esc(c.nombre) + '</strong>' +
     '<div class="sub">' + esc([c.institucion, c.modalidad].filter(v => v && !/^no especificado$/i.test(v)).join(' · ')) +
     (cubre.length ? ' — trabaja ' + esc(cubre.join(', ')) : '') + '</div></div>').join('');
