@@ -1,5 +1,5 @@
 /**
- * Pruebas de las fases 4 a 10 del proceso Ágora (agora/*.js) y de su parte
+ * Pruebas de las fases 4 a 11 del proceso Ágora (agora/*.js) y de su parte
  * del Apps Script (pestañas por fase y el correo al tutor).
  *
  *   node cuentas/pruebas/test_fases_agora.mjs
@@ -53,7 +53,7 @@ function igual(a, b, msg) { if (a !== b) throw new Error((msg || 'esperaba') + `
    (63) y Cumplimiento (51), los números del informe de ejemplo de Ágora. */
 const INFO = { nombres:'Ana', apellidoPaterno:'Pérez', apellidoMaterno:'', correo:'ana@ejemplo.com', telefono:'', edad:'16', estado:'Puebla', ciudad:'',
   tutorNombre:'María Pérez', tutorCorreo:'maria@ejemplo.com', tutorParentesco:'Madre', tutorAutoriza:true,
-  nivel:'Preparatoria o bachillerato', situacion:'Estudiando', institucion:'Prepa 5', carrera:'', grado:'', anioEgreso:'',
+  etapa:'Secundaria o bachillerato', nivel:'Preparatoria o bachillerato', situacion:'Estudiando', institucion:'Prepa 5', carrera:'', grado:'', anioEgreso:'',
   sinExperiencia:true, experiencia:[], sinCertificaciones:true, certificaciones:[], idiomas:[{ idioma:'Español', nivel:'Nativo' }],
   sectores:['Finanzas', 'TI'], sectorOtro:'', aspiracion:'Me gustaría estudiar arquitectura o algo de finanzas' };
 const DISC_R = { puntajes:{ D:{neto:31}, I:{neto:35}, S:{neto:63}, C:{neto:51} }, fecha:'2026-10-26', version:2, instrumento:'agora', escala:{min:0, max:82}, id:'r1' };
@@ -96,11 +96,11 @@ const aviso = (p) => p.textContent('#avisoFase');
 const completar = async (p) => { await p.click('#btnCompletar'); await p.waitForTimeout(150); };
 const ultimo = (env, paso) => env.filter(x => x.paso === paso).pop();
 
-console.log('\nFases 4 a 10 del proceso Ágora');
+console.log('\nFases 4 a 11 del proceso Ágora');
 
 await prueba('todas las fases están disponibles, y las que dependen del DISC lo piden si falta', async () => {
   const { p, ctx } = await abrir('estilo', { conDisc: false });
-  igual(await p.locator('#listaFases .paso:not([disabled])').count(), 10);
+  igual(await p.locator('#listaFases .paso:not([disabled])').count(), 11);
   cierto((await p.textContent('#cuerpoFase')).includes('Perfil DISC'), 'debe decir que falta el Perfil DISC');
   await p.click('#cuerpoFase [data-abrir="disc"]');
   await p.waitForSelector('#marcoHerramienta');
@@ -235,7 +235,58 @@ await prueba('fase 9: sugiere desde las fases anteriores, se agregan o se escrib
   await ctx.close();
 });
 
-await prueba('fase 10: con fases pendientes no deja terminar, y el reporte lo dice sin inventar', async () => {
+await prueba('presupuesto: pide al menos 3 rubros con vivienda o comida, suma y lo manda', async () => {
+  const { p, ctx, enviados } = await abrir('presupuesto');
+  cierto((await p.textContent('.cabecera-paso')).includes('Fase 8 de 11'));
+  await p.fill('#f_pre_diversion', '800');
+  await completar(p);
+  const a = await aviso(p);
+  cierto(a.includes('3 rubros') && a.includes('vivienda o comida'));
+  await p.fill('#f_pre_vivienda', '6,000'); await p.fill('#f_pre_comida', '4000');
+  igual(await p.textContent('#pre_total'), '$10,800');
+  await completar(p);
+  await p.waitForFunction(() => document.getElementById('avisoFase').textContent.includes('Fase completa'));
+  const e = ultimo(enviados, 'presupuesto');
+  igual(e.datos.hoja['Total mensual'], '10800');
+  cierto(e.datos.hoja['Detalle'].includes('Vivienda: $6,000'));
+  await ctx.close();
+});
+
+await prueba('ruta: contrasta el presupuesto con el sector y sugiere outsourcing si no alcanza', async () => {
+  const { p, ctx, enviados } = await abrir('presupuesto');
+  await p.fill('#f_pre_vivienda', '15000'); await p.fill('#f_pre_comida', '8000'); await p.fill('#f_pre_ahorro', '5000');
+  await completar(p);
+  await p.click('[data-paso="ruta"]');
+  await p.waitForSelector('#f_rut_principal');
+  await p.selectOption('#f_rut_principal', 'Finanzas');
+  await p.waitForFunction(() => document.querySelector('#rut_mercado').textContent.includes('outsourcing'));
+  cierto((await p.textContent('#rut_mercado')).includes('$28,000'), 'muestra su costo de vida');
+  await p.fill('#f_rut_porque', 'Me gustan los números');
+  await completar(p);
+  await p.waitForFunction(() => document.getElementById('avisoFase').textContent.includes('Fase completa'));
+  const e = ultimo(enviados, 'ruta');
+  igual(e.datos.hoja['Estrategia de vida'], 'Emprendimiento en servicios mediante outsourcing');
+  cierto(e.datos.hoja['Costo de vida vs salario'].includes('$28,000'));
+  await ctx.close();
+});
+
+await prueba('ruta sin presupuesto: lo pide en vez de inventar una estrategia', async () => {
+  const { p, ctx } = await abrir('ruta');
+  await p.selectOption('#f_rut_principal', 'Finanzas');
+  await p.waitForFunction(() => document.querySelector('#rut_mercado').textContent.includes('Completa tu presupuesto'));
+  await ctx.close();
+});
+
+await prueba('"Negocios" cuenta como interés para las carreras de esa área', async () => {
+  const { p, ctx } = await abrir('estilo');
+  await p.evaluate(() => { const s = JSON.parse(localStorage.getItem('cmb_agora')); s.pasos.informacion.datos.sectores = ['Negocios']; s.pasos.informacion.datos.aspiracion = ''; localStorage.setItem('cmb_agora', JSON.stringify(s)); });
+  await p.goto(BASE + '/agora.html#ruta', { waitUntil: 'domcontentloaded' });
+  await p.reload({ waitUntil: 'domcontentloaded' });
+  await p.waitForFunction(() => document.querySelector('#rut_afines') && document.querySelector('#rut_afines').textContent.includes('área de negocios'));
+  await ctx.close();
+});
+
+await prueba('resumen: con fases pendientes no deja terminar, y el reporte lo dice sin inventar', async () => {
   const { p, ctx } = await abrir('resumen');
   cierto(await p.isDisabled('#btnCompletar'));
   const doc = await p.textContent('#documento');
@@ -250,7 +301,7 @@ await prueba('fase 10: con fases pendientes no deja terminar, y el reporte lo di
   await ctx.close();
 });
 
-await prueba('el proceso completo: las diez fases, el reporte y el cierre en el expediente', async () => {
+await prueba('el proceso completo: las once fases, el reporte y el cierre en el expediente', async () => {
   const { p, ctx, enviados } = await abrir('estilo');
   await marcar(p, 'trabajo', 3); await completar(p);
   await p.click('[data-paso="relacion"]'); await marcar(p, 'funciona', 2);
@@ -260,26 +311,32 @@ await prueba('el proceso completo: las diez fases, el reporte y el cierre en el 
   await p.click('[data-paso="escenarios"]');
   for (const h of [5, 10, 15]) { await p.evaluate((h) => { document.querySelector('details[data-h="' + h + '"]').open = true; }, h); await p.click(`[data-usar="${h}_estudios"]`); await p.click(`[data-usar="${h}_dinero"]`); }
   await completar(p);
+  await p.click('[data-paso="presupuesto"]');
+  await p.fill('#f_pre_vivienda', '6000'); await p.fill('#f_pre_comida', '4000'); await p.fill('#f_pre_transporte', '1500'); await completar(p);
   await p.click('[data-paso="ruta"]'); await p.waitForTimeout(300);
   await p.selectOption('#f_rut_principal', 'Finanzas'); await p.fill('#f_rut_porque', 'Me gustan los números'); await completar(p);
+  await p.waitForFunction(() => document.getElementById('avisoFase').textContent.includes('Fase completa'));
+  cierto((await p.textContent('#avisoFase')).includes('Cuestionario para tu mamá'), 'ofrece el cuestionario 3 para papás');
   await p.click('[data-paso="plan"]');
   for (const pl of [30, 60, 90]) { await p.fill('#f_pln_txt_' + pl, 'Acción ' + pl); await p.click(`[data-propia="${pl}"]`); }
   await completar(p);
   await p.click('[data-paso="resumen"]');
   await p.waitForSelector('#documento');
-  igual(await p.textContent('#avanceTxt'), '9 de 10 fases completas');
+  igual(await p.textContent('#avanceTxt'), '10 de 11 fases completas');
   const doc = await p.textContent('#documento');
   cierto(!doc.includes('Pendiente:'), 'nada pendiente');
   cierto(doc.includes('Finanzas') && doc.includes('Acción 60') && doc.includes('Orientado a los procesos'));
   await p.waitForFunction(() => document.getElementById('documento').textContent.includes('El mercado hoy en Finanzas'));
+  await p.waitForFunction(() => document.getElementById('doc_estrategia').textContent.includes('Empleabilidad con crecimiento'));
+  cierto(doc.includes('Orientador/Mentor DIANA') && doc.includes('Ágora Educación Internacional'), 'texto final y sección del mentor');
   cierto(!(await p.isDisabled('#btnCompletar')));
   await completar(p);
   await p.waitForFunction(() => document.getElementById('avisoFase').textContent.includes('Fase completa'));
-  igual(await p.textContent('#avanceTxt'), '10 de 10 fases completas');
+  igual(await p.textContent('#avanceTxt'), '11 de 11 fases completas');
   const e = ultimo(enviados, 'resumen');
   cierto(/^\d{4}-\d{2}-\d{2}$/.test(e.datos.hoja['Proceso terminado']));
   igual(e.datos.hoja['Ruta principal'], 'Finanzas');
-  igual(e.completos.length, 10);
+  igual(e.completos.length, 11);
   const href = await p.evaluate(() => { const a = document.getElementById('res_correo'); a.dispatchEvent(new MouseEvent('click', { cancelable: true })); return a.href; });
   cierto(href.startsWith('mailto:maria@ejemplo.com?') && decodeURIComponent(href).includes('Mi ruta profesional: Finanzas'));
   await ctx.close();
@@ -311,7 +368,7 @@ await navegador.close();
 servidor.close();
 
 /* ------------------------------ Apps Script ------------------------------ */
-console.log('\nApps Script — fases 4 a 10 y correo al tutor');
+console.log('\nApps Script — fases 4 a 11 y correo al tutor');
 const codigo = await readFile(join(RAIZ, 'cuentas/apps-script-autoconocimiento.gs'), 'utf8');
 function cargar() {
   const pestanas = {}; const correos = []; const alertas = []; let activa = null, filaActiva = 2, respuesta = 'YES';
@@ -336,7 +393,7 @@ function cargar() {
   return { post: (d) => ctx.doPost({ postData: { contents: JSON.stringify(d) } }), pestanas, correos, alertas, ctx,
     activar: (n, fila) => { activa = pestanas[n]; filaActiva = fila || 2; }, responder: (r) => { respuesta = r; } };
 }
-const B = { clave: 'cmb-autoconocimiento-2026', acepta: true, tipo: 'agora', id: 'aaaaaaaaaaaaaaaaaaaaaaaa', nombre: 'Ana Pérez', correo: 'ana@ejemplo.com', total: 10, dispositivo: 'disp12345678' };
+const B = { clave: 'cmb-autoconocimiento-2026', acepta: true, tipo: 'agora', id: 'aaaaaaaaaaaaaaaaaaaaaaaa', nombre: 'Ana Pérez', correo: 'ana@ejemplo.com', total: 11, dispositivo: 'disp12345678' };
 const INFO_AS = Object.assign({}, B, { paso: 'informacion', completos: ['informacion'], datos: Object.assign({}, INFO, { tutorAutoriza: true }) });
 const fase = (paso, hoja, completos) => Object.assign({}, B, { paso, completos: completos || ['informacion', paso], datos: { hoja } });
 const col = (h, n) => h.filas[0].indexOf(n);
@@ -361,12 +418,25 @@ await prueba('cada fase escribe su pestaña con el ID del expediente, solo con l
 await prueba('el resumen marca el proceso como terminado en el expediente', async () => {
   const { post, pestanas, ctx } = cargar();
   post(INFO_AS);
-  igual(post(fase('resumen', { 'Proceso terminado': '2026-10-26', 'Ruta principal': 'Finanzas' }, ['informacion', 'disc', 'foda', 'estilo', 'relacion', 'crecimiento', 'escenarios', 'ruta', 'plan', 'resumen'])).ok, true);
+  igual(post(fase('resumen', { 'Proceso terminado': '2026-10-26', 'Ruta principal': 'Finanzas' }, ['informacion', 'disc', 'foda', 'estilo', 'relacion', 'crecimiento', 'escenarios', 'presupuesto', 'ruta', 'plan', 'resumen'])).ok, true);
   const ex = pestanas['Expediente Ágora'];
   igual(ex.filas[1][col(ex, 'Proceso terminado')], '2026-10-26');
-  igual(ex.filas[1][col(ex, 'Avance')], '10 de 10');
+  igual(ex.filas[1][col(ex, 'Avance')], '11 de 11');
   ctx.revisarPestanas();
-  for (const t of ['Ágora · Relacionamiento', 'Ágora · Crecimiento personal', 'Ágora · Escenarios de vida', 'Ágora · Ruta profesional', 'Ágora · Plan de acción']) cierto(pestanas[t], 'revisarPestanas crea ' + t);
+  for (const t of ['Ágora · Relacionamiento', 'Ágora · Crecimiento personal', 'Ágora · Escenarios de vida', 'Ágora · Presupuesto', 'Ágora · Ruta profesional', 'Ágora · Plan de acción']) cierto(pestanas[t], 'revisarPestanas crea ' + t);
+});
+
+await prueba('una columna nueva se agrega al final de una pestaña que ya existía', async () => {
+  const { post, pestanas } = cargar();
+  post(INFO_AS);
+  const inf = pestanas['Ágora · Información inicial'];
+  const sinEtapa = inf.filas[0].filter(c => c !== 'Etapa');
+  inf.filas.length = 0; inf.filas.push(sinEtapa);   // como quedó la pestaña antes de este cambio
+  igual(post(INFO_AS).ok, true);
+  cierto(inf.filas[0].indexOf('Etapa') === inf.filas[0].length - 1, 'Etapa queda al final');
+  igual(inf.filas[1][inf.filas[0].indexOf('Etapa')], 'Secundaria o bachillerato');
+  const ex = pestanas['Expediente Ágora'];
+  igual(ex.filas[1][col(ex, 'Etapa')], 'Secundaria o bachillerato');
 });
 
 await prueba('el orientador manda los resultados al tutor desde la hoja, con confirmación', async () => {

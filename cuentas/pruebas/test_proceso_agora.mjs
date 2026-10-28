@@ -3,7 +3,7 @@
  *
  *   node cuentas/pruebas/test_proceso_agora.mjs
  *
- * Lo que importa: que la ruta muestre las 10 fases con su
+ * Lo que importa: que la ruta muestre las 11 fases con su
  * estado; que solo se puedan abrir las herramientas listas; que el paso 1 no
  * se dé por completo con huecos y diga qué falta; que un menor necesite a su
  * tutor; que todo sobreviva a recargar; que el DISC y el FODA funcionen dentro
@@ -73,6 +73,7 @@ async function llenarAdulto(p) {
   await p.fill('#f_correo', 'ana@ejemplo.com');
   await p.fill('#f_edad', '21');
   await p.selectOption('#f_estado', 'Puebla');
+  await p.check('#chipsEtapa input[value="Universidad"]');
   await p.selectOption('#f_nivel', 'Licenciatura o ingeniería');
   await p.selectOption('#f_situacion', 'Estudiando');
   await p.fill('#f_institucion', 'BUAP');
@@ -85,14 +86,14 @@ async function llenarAdulto(p) {
 
 console.log('\nProceso Ágora');
 
-await prueba('la ruta muestra las 10 fases de Ágora; las diez se pueden abrir', async () => {
+await prueba('la ruta muestra las 11 fases (las 10 de Ágora y el presupuesto) y todas se pueden abrir', async () => {
   const { p, ctx } = await abrir();
   const t = await p.textContent('#listaFases');
   for (const f of ['Perfil DISC', 'Análisis FODA', 'Crecimiento personal', 'Escenarios de vida', 'Ruta profesional', 'Plan de acción', 'Resumen ejecutivo'])
     cierto(t.includes(f), 'falta la fase ' + f);
   cierto(!t.includes('Descubrir') && !t.includes('Alinear'), 'no deben aparecer fases de DIANA');
-  igual(await p.locator('#listaFases .paso').count(), 10);
-  igual(await p.locator('#listaFases .paso:not([disabled])').count(), 10, 'las diez fases');
+  igual(await p.locator('#listaFases .paso').count(), 11);
+  igual(await p.locator('#listaFases .paso:not([disabled])').count(), 11, 'las once fases');
 
   cierto(!t.includes('Alinear'), 'Alinear no se trabaja todavía');
   igual(await p.textContent('#avancePct'), '0%');
@@ -104,19 +105,37 @@ await prueba('no se marca como completo con huecos, y dice qué falta', async ()
   await p.fill('#f_nombres', 'Ana');
   await p.click('#btnCompletarInfo');
   const aviso = await p.textContent('#avisoInfo');
-  cierto(aviso.includes('Te falta') && aviso.includes('correo') && aviso.includes('sector'), 'debe listar lo que falta');
+  cierto(aviso.includes('Te falta') && aviso.includes('correo') && aviso.includes('sector') && aviso.includes('etapa'), 'debe listar lo que falta');
   cierto(await p.$('[data-campo="correo"].falta'), 'debe marcar el campo');
   igual(await p.textContent('#avancePct'), '0%');
   igual(enviados.length, 0);
   await ctx.close();
 });
 
-await prueba('completo con datos válidos: avanza 1 de 10 y sobrevive a recargar', async () => {
+await prueba('fase 1: pide la etapa, ofrece Negocios y "No lo sé aún", que no se combina con otros', async () => {
+  const { p, ctx, enviados } = await abrir();
+  for (const e of ['Secundaria o bachillerato', 'Universidad', 'Ya egresé']) cierto(await p.$(`#chipsEtapa input[value="${e}"]`), 'falta la etapa ' + e);
+  cierto(await p.$('#chipsSectores input[value="Negocios"]') && await p.$('#chipsSectores input[value="No lo sé aún"]'));
+  await p.check('#chipsSectores input[value="Finanzas"]');
+  await p.check('#chipsSectores input[value="No lo sé aún"]');
+  cierto(!(await p.isChecked('#chipsSectores input[value="Finanzas"]')), '"No lo sé aún" quita los demás');
+  await p.check('#chipsSectores input[value="Negocios"]');
+  cierto(!(await p.isChecked('#chipsSectores input[value="No lo sé aún"]')), 'elegir un sector quita "No lo sé aún"');
+  await p.check('#consiente');
+  await llenarAdulto(p);
+  await p.click('#btnCompletarInfo');
+  await p.waitForFunction(() => document.getElementById('avisoInfo').textContent.includes('Listo'));
+  igual(enviados[0].datos.etapa, 'Universidad');
+  cierto(enviados[0].datos.sectores.includes('Negocios'));
+  await ctx.close();
+});
+
+await prueba('completo con datos válidos: avanza 1 de 11 y sobrevive a recargar', async () => {
   const { p, ctx } = await abrir();
   await llenarAdulto(p);
   await p.click('#btnCompletarInfo');
   await p.waitForFunction(() => document.getElementById('avisoInfo').textContent.includes('Listo'));
-  igual(await p.textContent('#avanceTxt'), '1 de 10 fases completas');
+  igual(await p.textContent('#avanceTxt'), '1 de 11 fases completas');
   cierto((await p.textContent('#listaFases .paso[data-paso="informacion"] .estado')).includes('Completo'));
   await p.reload({ waitUntil: 'domcontentloaded' });
   await marco(p, 'disc-agora.html');   // con la fase 1 lista, abre la siguiente
@@ -125,7 +144,7 @@ await prueba('completo con datos válidos: avanza 1 de 10 y sobrevive a recargar
   igual(await p.inputValue('#f_nombres'), 'Ana');
   igual(await p.inputValue('#f_cert_nombre_0'), 'Excel intermedio');
   cierto(await p.isChecked('#chipsSectores input[value="Finanzas"]'));
-  igual(await p.textContent('#avancePct'), '10%');
+  igual(await p.textContent('#avancePct'), '9%');
   await ctx.close();
 });
 
@@ -168,7 +187,7 @@ await prueba('sin la casilla del expediente no se envía nada; con ella se enví
   const e = enviados[0];
   igual(e.tipo, 'agora'); igual(e.paso, 'informacion'); igual(e.acepta, true);
   igual(e.nombre, 'Ana Pérez'); igual(e.correo, 'ana@ejemplo.com');
-  igual(e.datos.institucion, 'BUAP'); igual(e.total, 10);
+  igual(e.datos.institucion, 'BUAP'); igual(e.total, 11);
   cierto(e.completos.includes('informacion'));
   cierto(/^[0-9a-f]{24}$/.test(e.id));
   await ctx.close();
@@ -248,7 +267,7 @@ const estadoDe = (p, id) => p.textContent(`#listaFases .paso[data-paso="${id}"] 
 await prueba('fase 2: el cuestionario de Ágora se abre dentro del proceso, sin su encabezado ni la versión corta', async () => {
   const { p, ctx } = await abrir();
   const f = await abrirFase(p, 'disc', 'disc-agora.html');
-  cierto((await p.textContent('.cabecera-paso')).includes('Fase 2 de 10'));
+  cierto((await p.textContent('.cabecera-paso')).includes('Fase 2 de 11'));
   cierto(!(await f.isVisible('.topbar')) && !(await f.isVisible('body > header')), 'el encabezado de la página suelta no aparece');
   cierto(await f.isVisible('#intro'), 'se ve el inicio del cuestionario');
   cierto(!(await f.isVisible('#intro a[href="disc.html"]')), 'no ofrece la versión de 24 bloques');
@@ -268,10 +287,14 @@ await prueba('fase 2: al terminar el DISC la fase queda completa, sin tarjeta de
   await p.waitForFunction(() => document.querySelector('#listaFases .paso[data-paso="disc"] .estado').textContent.includes('En curso'));
   await contestarDisc(f, RESPUESTAS);
   await p.waitForFunction(() => document.querySelector('#listaFases .paso[data-paso="disc"] .estado').textContent.includes('Completo'));
-  igual(await p.textContent('#avanceTxt'), '1 de 10 fases completas');
+  igual(await p.textContent('#avanceTxt'), '1 de 11 fases completas');
   cierto((await p.textContent('#avisoFase')).includes('Análisis FODA'), 'dice cuál sigue');
   cierto(await f.isVisible('#resultado'), 'muestra el resultado');
   cierto(!(await f.isVisible('#compartirDisc .compartir')), 'la tarjeta suelta de compartir no aparece: el expediente es de Ágora');
+  await f.waitForFunction(() => !document.getElementById('cursosSugeridos').textContent.includes('Buscando'));
+  const reforzar = await f.textContent('#cursosCard');
+  cierto(reforzar.includes('Puedes reforzar con algunos de los siguientes cursos que se encuentran en nuestro catálogo') || reforzar.includes('Hoy el catálogo del Club no tiene'), 'va directo a los cursos');
+  cierto(!reforzar.includes('Estas no son carencias'));
   igual(enviados.length, 0, 'nada sale sin la casilla del expediente');
   await f.click('#btnSeguirAgora');
   await marco(p, 'foda.html');
@@ -312,7 +335,50 @@ await prueba('fase 2 y 3 con expediente: esperan a la fase 1 y se envían al com
   igual(enviados.length, 3);
   igual(enviados[2].paso, 'foda'); igual(enviados[2].datos.F, 'Excel intermedio'); igual(enviados[2].datos.paso, 'Ponerle cifras a mi CV');
   igual(enviados[2].datos.estiloDisc, 'C');
-  igual(await p.textContent('#avanceTxt'), '3 de 10 fases completas');
+  igual(await p.textContent('#avanceTxt'), '3 de 11 fases completas');
+  await ctx.close();
+});
+
+await prueba('FODA: textos de Debilidades y Amenazas, botón Seguir y cuestionario para papás en bachillerato', async () => {
+  const { p, ctx } = await abrir();
+  await p.evaluate(() => { const s = JSON.parse(localStorage.getItem('cmb_agora')) || {version:1, pasos:{}, consentimiento:{acepta:false}}; s.pasos.informacion = {datos: {etapa: 'Secundaria o bachillerato', tutorNombre: 'María', tutorCorreo: 'maria@ejemplo.com', nombres: 'Ana'}}; localStorage.setItem('cmb_agora', JSON.stringify(s)); });
+  await p.reload({ waitUntil: 'domcontentloaded' });
+  await p.waitForSelector('#listaFases .paso');
+  const g = await abrirFase(p, 'foda', 'foda.html');
+  cierto((await g.textContent('#cuadD .que')).includes('prefieres que los demás lo hagan por ti'));
+  cierto((await g.textContent('#cuadA .que')).includes('Aquello externo que puede afectar tu presente'));
+  for (const [k, t] of [['F', 'Excel'], ['D', 'Hablar en público'], ['O', 'Cursos'], ['A', 'Competencia']]) await g.fill('#' + k, t);
+  await g.click('#btnCompletarAgora');
+  await p.waitForFunction(() => document.getElementById('avisoFase').textContent.includes('Fase completa'));
+  cierto((await p.textContent('#avisoFase')).includes('OV1 4x4 papás'), 'ofrece el formulario 1 después del FODA');
+  cierto(await p.$('#avisoFase a[href*="1FAIpQLSc-_mHyCq0BnKyetn36ACfCkKI4mUEyGKp9d7sCw_CEDr7DWw"]'));
+  cierto((await p.getAttribute('#avisoFase [data-papas] a.secondary', 'href')).startsWith('mailto:maria@ejemplo.com?'));
+  await g.click('#btnSeguirAgora');
+  await p.waitForFunction(() => pasoActual === 'estilo');
+  await ctx.close();
+});
+
+await prueba('el cuestionario para papás no se ofrece a quien está en la universidad', async () => {
+  const { p, ctx } = await abrir();
+  await llenarAdulto(p);
+  const g = await abrirFase(p, 'foda', 'foda.html');
+  for (const [k, t] of [['F', 'Excel'], ['D', 'Inglés'], ['O', 'Cursos'], ['A', 'Competencia']]) await g.fill('#' + k, t);
+  await g.click('#btnCompletarAgora');
+  await p.waitForFunction(() => document.getElementById('avisoFase').textContent.includes('Fase completa'));
+  cierto(!(await p.$('#avisoFase [data-papas]')));
+  await ctx.close();
+});
+
+await prueba('DISC: cada palabra de la sección c explica qué significa al pasar el mouse', async () => {
+  const { p, ctx } = await abrir();
+  const f = await abrirFase(p, 'disc', 'disc-agora.html');
+  await f.evaluate(() => { empezar(); irA(2); });
+  igual(await f.locator('#renglonesC .con-ayuda[data-ayuda]').count(), 28);
+  const ayuda = f.locator('#renglonesC .con-ayuda').first();
+  await ayuda.hover();
+  await f.waitForTimeout(300);
+  igual(await ayuda.evaluate(el => getComputedStyle(el, '::after').opacity), '1', 'se ve la explicación');
+  cierto((await ayuda.getAttribute('data-ayuda')).length > 10);
   await ctx.close();
 });
 
@@ -376,7 +442,7 @@ function cargar() {
   return { post: (d) => ctx.doPost({ postData: { contents: JSON.stringify(d) } }), pestanas };
 }
 const BASE_D = { clave: 'cmb-autoconocimiento-2026', acepta: true, tipo: 'agora', paso: 'informacion', id: 'aaaaaaaaaaaaaaaaaaaaaaaa',
-  nombre: 'Ana Pérez', correo: 'ana@ejemplo.com', completos: ['informacion'], total: 10, dispositivo: 'disp12345678',
+  nombre: 'Ana Pérez', correo: 'ana@ejemplo.com', completos: ['informacion'], total: 11, dispositivo: 'disp12345678',
   datos: { edad: '21', estado: 'Puebla', nivel: 'Licenciatura o ingeniería', situacion: 'Estudiando', institucion: 'BUAP', carrera: 'Administración',
     sinExperiencia: false, experiencia: [{ tipo: 'Prácticas profesionales', rol: 'Auxiliar contable', organizacion: 'Despacho X', desde: '2025-01', hasta: '', descripcion: 'Conciliaciones' }],
     certificaciones: [{ nombre: 'Excel intermedio', institucion: 'Club', anio: '2026' }], idiomas: [{ idioma: 'Español', nivel: 'Nativo' }],
@@ -391,7 +457,7 @@ await prueba('escribe la fila de la fase y la del expediente, con avance y lista
   cierto(String(f[col(inf, 'Experiencia')]).includes('Auxiliar contable — Despacho X (Prácticas profesionales), 2025-01 a actual: Conciliaciones'));
   igual(f[col(inf, 'Sectores de interés')], 'Finanzas, Otro: Energía');
   igual(f[col(inf, 'Teléfono')], "'+52 222 000 0000", 'el teléfono no debe volverse fórmula');
-  igual(ex.filas[1][col(ex, 'Avance')], '1 de 10');
+  igual(ex.filas[1][col(ex, 'Avance')], '1 de 11');
   igual(ex.filas[1][col(ex, 'Fases completas')], 'Información inicial');
 });
 
@@ -429,7 +495,7 @@ await prueba('Perfil DISC y FODA: solo con expediente, en sus pestañas de siemp
   igual(h.filas[1][col(h, 'Instrumento')], 'Ágora (5 secciones)');
   igual(h.filas[1][col(h, 'Estilo dominante')], 'Cumplimiento');
   const ex = pestanas['Expediente Ágora'];
-  igual(ex.filas[1][col(ex, 'Avance')], '2 de 10');
+  igual(ex.filas[1][col(ex, 'Avance')], '2 de 11');
   igual(ex.filas[1][col(ex, 'Fases completas')], 'Información inicial, Perfil DISC');
   post(disc);
   igual(h.filas.length, 2, 'rehacerlo actualiza la misma fila');
