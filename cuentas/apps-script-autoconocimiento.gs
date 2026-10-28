@@ -55,13 +55,13 @@ var ENCABEZADOS = {
          'Fortalezas', 'Debilidades', 'Oportunidades', 'Amenazas',
          'Siguiente paso', 'Estilo DISC dominante', 'Dispositivo'],
   // Una fila por persona: el tablero del orientador.
-  expediente: ['ID de envío', 'Alta', 'Última actividad', 'Nombre', 'Correo', 'Edad',
+  expediente: ['ID de envío', 'Alta', 'Última actividad', 'Nombre', 'Correo', 'Edad', 'Etapa',
                'Avance', 'Fases completas', 'Última fase guardada', 'Tutor', 'Correo del tutor',
                'Tutor autoriza', 'Proceso terminado', 'Resultados enviados al tutor', 'Dispositivo'],
   // Fase 1 del proceso Ágora.
   informacion: ['ID de envío', 'Primer envío', 'Último envío', 'Nombre', 'Correo', 'Teléfono',
                 'Edad', 'Estado', 'Ciudad', 'Tutor', 'Correo del tutor', 'Parentesco', 'Tutor autoriza',
-                'Nivel de estudios', 'Situación', 'Institución', 'Carrera', 'Semestre o año',
+                'Etapa', 'Nivel de estudios', 'Situación', 'Institución', 'Carrera', 'Semestre o año',
                 'Año de egreso', 'Experiencia', 'Cursos y certificaciones', 'Idiomas',
                 'Sectores de interés', 'Aspiración']
 };
@@ -71,11 +71,11 @@ var ENCABEZADOS = {
 var FASES_AGORA = {
   informacion: 'Información inicial', disc: 'Perfil DISC', foda: 'Análisis FODA',
   estilo: 'Estilo de trabajo', relacion: 'Forma de relacionamiento', crecimiento: 'Crecimiento personal',
-  escenarios: 'Escenarios de vida', ruta: 'Ruta profesional', plan: 'Plan de acción',
+  escenarios: 'Escenarios de vida', presupuesto: 'Tu presupuesto', ruta: 'Ruta profesional', plan: 'Plan de acción',
   resumen: 'Resumen ejecutivo'
 };
 
-/* Fases 4 a 10: una pestaña cada una. La página manda en `datos.hoja` un texto
+/* Fases 4 a 11: una pestaña cada una. La página manda en `datos.hoja` un texto
    por columna; aquí solo se aceptan las columnas de esta lista, y cada valor se
    limpia y se desactiva como fórmula. Lo estructurado (lo que marcó, sus
    listas) se queda en el navegador de la persona. */
@@ -84,16 +84,34 @@ var PESTANAS_FASE = {
   relacion:    { pestana: 'Ágora · Relacionamiento', columnas: ['Me funciona', 'No me funciona', 'Mi papel en equipo', 'Estilo con el que me cuesta', 'Qué haré distinto'] },
   crecimiento: { pestana: 'Ágora · Crecimiento personal', columnas: ['Lo que espero desarrollar', 'Áreas de crecimiento', 'Primera prioridad', 'Habilidades a reforzar'] },
   escenarios:  { pestana: 'Ágora · Escenarios de vida', columnas: ['A 5 años', 'A 10 años', 'A 15 años'] },
-  ruta:        { pestana: 'Ágora · Ruta profesional', columnas: ['Carreras consideradas', 'Compatibilidad', 'Carreras afines sugeridas', 'Ruta principal', 'Segunda ruta', 'Por qué'] },
+  presupuesto: { pestana: 'Ágora · Presupuesto', columnas: ['Total mensual', 'Detalle', 'Para cuándo', 'Dónde piensa vivir'] },
+  ruta:        { pestana: 'Ágora · Ruta profesional', columnas: ['Carreras consideradas', 'Compatibilidad', 'Carreras afines sugeridas', 'Ruta principal', 'Segunda ruta', 'Por qué', 'Costo de vida vs salario', 'Estrategia de vida'] },
   plan:        { pestana: 'Ágora · Plan de acción', columnas: ['30 días', '60 días', '90 días'] },
   resumen:     { pestana: 'Ágora · Resumen', columnas: ['Proceso terminado', 'Estilo dominante', 'Ruta principal', 'Segunda ruta', 'Primera prioridad de crecimiento'] }
 };
-function encabezadosFase(f) { return ['ID de envío', 'Primer envío', 'Último envío', 'Nombre', 'Correo'].concat(PESTANAS_FASE[f].columnas); }
+// Encabezados de cada pestaña de fase. Es una tabla y no una función a propósito:
+// así revisarPestanas es la primera función del archivo y el editor la elige al abrir.
+var ENCABEZADOS_FASE = {};
+Object.keys(PESTANAS_FASE).forEach(function (f) {
+  ENCABEZADOS_FASE[f] = ['ID de envío', 'Primer envío', 'Último envío', 'Nombre', 'Correo'].concat(PESTANAS_FASE[f].columnas);
+});
 
 var CORREO_CLUB = 'clubmentesbrillantesla@gmail.com';
 var MAX_TEXTO = 4000;     // por celda; un FODA real cabe de sobra
 var MAX_CUERPO = 60000;   // por petición
 var NOMBRES = { D: 'Dominancia', I: 'Influencia', S: 'Estabilidad', C: 'Cumplimiento' };
+
+// ─────────────────────────────── instalación ───────────────────────────────
+
+/** Para correr a mano una vez: da permisos y deja todas las pestañas listas.
+    Es la primera función del archivo para que el editor la tenga elegida al abrir. */
+function revisarPestanas() {
+  pestana(PESTANAS.disc, ENCABEZADOS.disc);
+  pestana(PESTANAS.foda, ENCABEZADOS.foda);
+  pestana(PESTANAS.expediente, ENCABEZADOS.expediente);
+  pestana(PESTANAS.informacion, ENCABEZADOS.informacion);
+  Object.keys(PESTANAS_FASE).forEach(function (f) { pestana(PESTANAS_FASE[f].pestana, ENCABEZADOS_FASE[f]); });
+}
 
 // ─────────────────────────────── entrada ───────────────────────────────
 
@@ -224,7 +242,7 @@ function guardarAgora(d, id, nombre, correo) {
   var datos = d.datos || {};
   var completos = (Array.isArray(d.completos) ? d.completos : [])
     .filter(function (p) { return FASES_AGORA[p]; });
-  var total = Math.min(Math.max(parseInt(d.total, 10) || 10, 1), 50);
+  var total = Math.min(Math.max(parseInt(d.total, 10) || 11, 1), 50);
 
   // Las fases 2 en adelante se agregan a un expediente que ya existe: la
   // fase 1 trae la edad y, si es menor, la autorización de su tutor.
@@ -251,7 +269,7 @@ function guardarAgora(d, id, nombre, correo) {
       fila[c] = textoSeguro(v);
     });
     if (!hay) return { ok: false, error: 'sin datos' };
-    escribir(PESTANAS_FASE[paso].pestana, encabezadosFase(paso), id, fila, true, 'Primer envío');
+    escribir(PESTANAS_FASE[paso].pestana, ENCABEZADOS_FASE[paso], id, fila, true, 'Primer envío');
     if (paso === 'resumen') terminado = limpiar(hoja['Proceso terminado'], 10) || 'Sí';
   }
 
@@ -289,6 +307,7 @@ function guardarAgora(d, id, nombre, correo) {
       'Tutor': textoSeguro(limpiar(datos.tutorNombre, 120)), 'Correo del tutor': textoSeguro(limpiar(datos.tutorCorreo, 160)),
       'Parentesco': textoSeguro(limpiar(datos.tutorParentesco, 30)),
       'Tutor autoriza': edad < 18 ? 'Sí' : 'No aplica',
+      'Etapa': textoSeguro(limpiar(datos.etapa, 40)),
       'Nivel de estudios': textoSeguro(limpiar(datos.nivel, 60)), 'Situación': textoSeguro(limpiar(datos.situacion, 30)),
       'Institución': textoSeguro(limpiar(datos.institucion, 160)), 'Carrera': textoSeguro(limpiar(datos.carrera, 160)),
       'Semestre o año': textoSeguro(limpiar(datos.grado, 40)), 'Año de egreso': textoSeguro(limpiar(datos.anioEgreso, 4)),
@@ -310,6 +329,7 @@ function guardarAgora(d, id, nombre, correo) {
   if (info) {
     var e = parseInt(info.edad, 10);
     expediente['Edad'] = e;
+    expediente['Etapa'] = textoSeguro(limpiar(info.etapa, 40));
     expediente['Tutor'] = textoSeguro(limpiar(info.tutorNombre, 120));
     expediente['Correo del tutor'] = textoSeguro(limpiar(info.tutorCorreo, 160));
     expediente['Tutor autoriza'] = e < 18 ? 'Sí' : 'No aplica';
@@ -365,17 +385,18 @@ function pestana(nombre, encabezados) {
     h.appendRow(encabezados);
     h.getRange(1, 1, 1, encabezados.length).setFontWeight('bold');
     h.setFrozenRows(1);
+  } else {
+    // Una columna nueva en este archivo se agrega al final de una pestaña que
+    // ya existía, para que su dato no se pierda.
+    var cab = h.getRange(1, 1, 1, h.getLastColumn()).getValues()[0].map(String);
+    var faltan = encabezados.filter(function (c) { return cab.indexOf(c) < 0; });
+    if (faltan.length) {
+      var r = h.getRange(1, cab.length + 1, 1, faltan.length);
+      r.setValues([faltan]);
+      r.setFontWeight('bold');
+    }
   }
   return h;
-}
-
-/** Para correr a mano una vez: da permisos y deja las dos pestañas listas. */
-function revisarPestanas() {
-  pestana(PESTANAS.disc, ENCABEZADOS.disc);
-  pestana(PESTANAS.foda, ENCABEZADOS.foda);
-  pestana(PESTANAS.expediente, ENCABEZADOS.expediente);
-  pestana(PESTANAS.informacion, ENCABEZADOS.informacion);
-  Object.keys(PESTANAS_FASE).forEach(function (f) { pestana(PESTANAS_FASE[f].pestana, encabezadosFase(f)); });
 }
 
 // ─────────────── para el orientador: mandar resultados al tutor ───────────────
@@ -424,7 +445,8 @@ function textoParaTutor(id, nombre, tutor) {
       'Áreas en las que va a trabajar:', t(cre['Áreas de crecimiento']), '',
       'Primera prioridad: ' + t(cre['Primera prioridad']), 'Habilidades que le conviene reforzar: ' + t(cre['Habilidades a reforzar']), '');
   }
-  if (t(ruta['Ruta principal'])) partes.push('RUTA PROFESIONAL', 'Ruta principal: ' + t(ruta['Ruta principal']) + (t(ruta['Segunda ruta']) ? '. Segunda ruta: ' + t(ruta['Segunda ruta']) : '') + '.', 'Por qué: ' + t(ruta['Por qué']), '');
+  if (t(ruta['Ruta principal'])) partes.push('RUTA PROFESIONAL', 'Ruta principal: ' + t(ruta['Ruta principal']) + (t(ruta['Segunda ruta']) ? '. Segunda ruta: ' + t(ruta['Segunda ruta']) : '') + '.', 'Por qué: ' + t(ruta['Por qué']),
+    t(ruta['Estrategia de vida']) ? 'Estrategia de vida sugerida: ' + t(ruta['Estrategia de vida']) + (t(ruta['Costo de vida vs salario']) ? ' (' + t(ruta['Costo de vida vs salario']) + ')' : '') + '.' : '', '');
   if (t(plan['30 días'])) partes.push('PLAN DE ACCIÓN', 'Primeros 30 días:', t(plan['30 días']), '', 'A 60 días:', t(plan['60 días']), '', 'A 90 días:', t(plan['90 días']), '');
   partes.push('Son resultados de herramientas de autoconocimiento para orientar, no una evaluación: describen preferencias, no capacidades.',
     'Para cualquier duda, responda a este correo.', '', 'Club de Mentes Brillantes');

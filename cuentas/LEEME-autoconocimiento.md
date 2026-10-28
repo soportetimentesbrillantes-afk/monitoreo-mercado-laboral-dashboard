@@ -25,6 +25,23 @@ en la carpeta raíz del proyecto en Drive.
 - **Se dice qué se manda, a quién, para qué y cómo pedir que se borre.** Y el
   [Aviso de Privacidad](../aviso-privacidad.html) lo dice en su sección 2.
 
+## Estado: instalado (2026-10-28)
+
+- Proyecto de Apps Script **"Expediente Ágora y autoconocimiento"**, ligado a la
+  hoja (Extensiones → Apps Script, con la cuenta soportetimentesbrillantes@gmail.com).
+- Implementación **"Expediente del proceso Ágora"**, versión 2 (2026-10-28: presupuesto,
+  etapa y estrategia de vida; la versión 1 fue la primera publicación), tipo Aplicación web,
+  *Ejecutar como:* la cuenta del Club, *Acceso:* Cualquiera.
+- URL (ya está en `compartir-club.js`, constante `URL_CLUB`):
+  `https://script.google.com/macros/s/AKfycbwZ7_MkqDTWdSfOnFoviCYA7LSyxQtOzzSeQtv5Z9vQ9JIFK-_v-nSVpXoz-aQArc3v/exec`
+- `revisarPestanas` ya corrió: la hoja tiene todas las pestañas.
+- En una copia local del sitio (localhost, 127.0.0.1) las páginas **no** usan esta
+  URL: así las pruebas nunca escriben en la hoja real.
+
+Para cambiar el script: pega la versión nueva del archivo, guarda, y
+*Implementar → Gestionar implementaciones → lápiz → Versión: nueva versión →
+Implementar*. La URL no cambia. No hagas una "Nueva implementación": esa da otra URL.
+
 ## Instalación (una vez, desde la cuenta de Google del Club)
 
 1. Abre la hoja *Autoconocimiento DISC y FODA (uso interno)*.
@@ -96,10 +113,15 @@ pestañas **DISC** y **FODA** de siempre, con el mismo *ID de envío* que el
 expediente: así se cruza a la persona entre pestañas. Ninguna fase se acepta
 si ese ID no tiene antes su fila en *Expediente Ágora* (la fase 1).
 
-Las fases 4 a 10 escriben cada una su pestaña (*Ágora · Estilo de trabajo*,
+Las fases 4 a 11 escriben cada una su pestaña (*Ágora · Estilo de trabajo*,
 *Ágora · Relacionamiento*, *Ágora · Crecimiento personal*, *Ágora · Escenarios
-de vida*, *Ágora · Ruta profesional*, *Ágora · Plan de acción*, *Ágora ·
-Resumen*), también con el mismo ID. Cuando alguien termina, el expediente
+de vida*, *Ágora · Presupuesto*, *Ágora · Ruta profesional* —con el contraste
+del presupuesto y la estrategia de vida—, *Ágora · Plan de acción*, *Ágora ·
+Resumen*), también con el mismo ID. La columna *Etapa* del expediente
+(Secundaria o bachillerato / Universidad / Ya egresé) sirve para filtrar.
+
+Si el script agrega columnas nuevas a una pestaña que ya existía, las pone al
+final, con encabezado en negritas. No las muevas de nombre. Cuando alguien termina, el expediente
 marca *Proceso terminado*.
 
 ### Mandar resultados al tutor
