@@ -12,7 +12,9 @@
    Lo que falta se imprime como pendiente; nada se inventa.
 
    La persona lo imprime o lo guarda como PDF, se lo manda a su familia desde
-   su correo, y lo da por terminado cuando las nueve fases están completas.
+   su correo, y lo da por terminado cuando las demás fases están completas.
+   La sección 10, Estrategia de vida, compara su presupuesto (fase 8) con los
+   salarios del sector de su ruta (fase 9); ver agora/fase7b-presupuesto.js.
    ===================================================================== */
 (function(){
 const F = window.FASES_AGORA = window.FASES_AGORA || {};
@@ -42,7 +44,7 @@ function documento(AG){
   if(disc){
     const {p, escala, ordenados, dom, seg, plano} = disc;
     resumen =
-      '<p>Este documento integra los resultados de ' + (nombre ? e(nombre) : 'la persona') + ' en las diez fases del proceso Ágora: su información inicial, su perfil conductual DISC, su análisis FODA, su estilo de trabajo y de relación, sus áreas de crecimiento, sus escenarios de vida, su ruta profesional y su plan de acción.</p>' +
+      '<p>Este documento integra los resultados de ' + (nombre ? e(nombre) : 'la persona') + ' en el proceso Ágora: su información inicial, su perfil conductual DISC, su análisis FODA, su estilo de trabajo y de relación, sus áreas de crecimiento, sus escenarios de vida, su presupuesto, su ruta profesional, su estrategia de vida y su plan de acción.</p>' +
       '<p>Los resultados muestran un perfil con predominancia:</p>' +
       '<ul>' + ordenados.map(k => '<li><strong style="color:' + NOM[k].color + '">' + NOM[k].nombre + ' (' + k + ')</strong>: ' + p[k].neto + '</li>').join('') + '</ul>' +
       (plano ? '<p>Los cuatro colores salieron parejos: no hay un estilo que domine claramente.</p>'
@@ -81,6 +83,15 @@ function documento(AG){
       (ruta.segunda ? '<h3>Segunda ruta</h3><p>' + e(ruta.segunda) + '</p>' : '') +
       '<div id="doc_mercado"></div>';
   }
+
+  const presu = D('presupuesto');
+  const P = F.presupuesto;
+  const presupuestoHtml = presu && P
+    ? '<table class="tabla"><tr><th>Rubro</th><th style="width:30%">Al mes</th></tr>' +
+      P.RUBROS.filter(r => parseFloat((presu.montos || {})[r.id]) > 0).map(r => '<tr><td>' + e(r.nombre) + '</td><td>' + P.pesos(parseFloat(presu.montos[r.id])) + '</td></tr>').join('') +
+      '<tr><td><strong>Total</strong></td><td><strong>' + P.pesos(P.total(presu)) + '</strong></td></tr></table>' +
+      (presu.cuando || presu.lugar ? '<p class="note" style="margin:0;">' + e([presu.cuando, presu.lugar].filter(x => (x || '').trim()).join(' · ')) + '</p>' : '')
+    : pend('presupuesto');
 
   const planHtml = plan
     ? '<table class="tabla"><tr><th style="width:16%">Plazo</th><th>Acciones</th></tr>' +
@@ -124,16 +135,18 @@ function documento(AG){
         (disc ? '<p><strong>Habilidades que le conviene reforzar:</strong> ' + e(DISC.CRECIMIENTO_HABILIDADES[disc.dom].join(', ')) + '.</p>' : '')
       : pend('crecimiento')) +
     '<h2>7. Escenarios de vida</h2>' + tablaEsc +
-    '<h2>8. Ruta profesional</h2>' + rutaHtml +
-    '<h2>9. Plan de acción a 30, 60 y 90 días</h2>' + planHtml +
-    '<h2 class="salto">10. Para el orientador</h2>' +
-    '<p class="note" style="margin:0 0 8px;">Esta sección la llena el orientador con la persona. La página no la calcula.</p>' +
+    '<h2>8. Presupuesto</h2>' + presupuestoHtml +
+    '<h2>9. Ruta profesional</h2>' + rutaHtml +
+    '<h2>10. Estrategia de vida</h2>' + (presu && ruta ? '<div id="doc_estrategia"><p class="vacio">Calculando…</p></div>' : pend(presu ? 'ruta' : 'presupuesto', 'La estrategia sale de comparar tu presupuesto con lo que paga la ruta que elijas')) +
+    '<h2>11. Plan de acción a 30, 60 y 90 días</h2>' + planHtml +
+    '<h2 class="salto">12. Para el Orientador/Mentor DIANA</h2>' +
+    '<p class="note" style="margin:0 0 8px;">Esta sección la llena el Orientador/Mentor DIANA con la persona. La página no la calcula.</p>' +
     '<h3>Principal reto del perfil</h3>' + lineas(84) +
     '<h3>Conclusiones y recomendaciones</h3>' + lineas(112) +
-    '<h3>Firma del orientador y fecha</h3>' + lineas(56) +
+    '<h3>Firma del Orientador/Mentor DIANA y fecha</h3>' + lineas(56) +
     '<div class="pie">' +
       '<p><strong>Qué es y qué no es este documento.</strong> El perfil DISC es una herramienta de autoconocimiento, no una prueba psicométrica validada: describe preferencias, no capacidades, y no predice el desempeño en un trabajo. El FODA, los escenarios, la ruta y el plan los escribió o eligió la persona; la afinidad con cada carrera es una referencia, no un requisito. Los datos de mercado son del monitoreo semanal del Club para el sector relacionado. Nada de este documento debe usarse para descartar a una persona de una escuela o de un proceso de selección.</p>' +
-      '<p>Hecho con las herramientas del proceso Ágora del Club de Mentes Brillantes, con la interpretación DISC de Ágora Internacional.</p>' +
+      '<p>Hecho con las herramientas del Club de Mentes Brillantes con el proceso Ágora OV 4x4 de autoconocimiento de Ágora Educación Internacional. El Modelo DISC creado por William Moulton Marston es de dominio público y ha sido estudiado y utilizado para el modelo de autoconocimiento de Ágora Educación Internacional, el cual puede tener variaciones de acuerdo con los escenarios de vida y circunstancias en el tiempo de quien realiza esta prueba.</p>' +
     '</div>';
 }
 
@@ -168,6 +181,9 @@ F.resumen = {
           '<a class="secondary" id="res_correo" href="#">' + (tutor.correo ? 'Mandar a ' + AG.esc(tutor.nombre || tutor.correo) : 'Mandar por correo a mi familia') + '</a>' +
         '</div>' +
         '<p class="note">Para mandarlo a tu familia: guarda primero el PDF y adjúntalo en el correo que se abre. Si aceptaste guardar tu expediente, tu orientador también puede mandárselo desde el Club.</p>' +
+        (AG.esBachillerato() ? '<p style="margin:10px 0 4px;"><strong>Cuestionarios para tu familia:</strong></p><ul style="margin-top:0;">' +
+          [['foda', 'después del FODA'], ['disc', 'después del Perfil DISC'], ['ruta', 'después de la Ruta profesional']].map(([id, cuando]) =>
+            '<li><a href="' + AG.esc(AG.FORMULARIOS_PAPAS[id].url) + '" target="_blank" rel="noopener">' + AG.esc(AG.FORMULARIOS_PAPAS[id].nombre) + '</a> (' + cuando + ')</li>').join('') + '</ul>' : '') +
         '<div id="avisoFase" aria-live="polite"></div>' +
         '<div class="acciones" style="margin-top:6px;"><button type="button" class="primary" id="btnCompletar"' + (faltan.length ? ' disabled' : '') + '>' + (AG.completa('resumen') ? 'Guardar cambios' : 'Terminar mi proceso') + '</button></div>' +
       '</div>' +
@@ -184,6 +200,20 @@ F.resumen = {
           (s.vacantes_verificadas || 0).toLocaleString('es-MX') + ' vacantes verificadas en la última corrida del monitoreo del Club' +
           (s.salario && s.salario.mediana_mensual_mxn ? ', con salario mediano de $' + Math.round(s.salario.mediana_mensual_mxn).toLocaleString('es-MX') + ' al mes' : '') + '.' +
           (top.length ? ' Las habilidades técnicas que más piden: ' + top.map(AG.esc).join(', ') + '.' : '') + '</p>';
+      });
+    }
+
+    // Estrategia de vida: presupuesto frente a los salarios del sector de la ruta.
+    const cajaE = cont.querySelector('#doc_estrategia');
+    if(cajaE && F.presupuesto){
+      const costo = F.presupuesto.costo(AG);
+      (car && car.s.length ? AG.sector(car.s[0]) : Promise.resolve(null)).then(s => {
+        const est = F.presupuesto.estrategia(costo, s && s.salario, s ? s.nombre : 'el sector de esta ruta');
+        if(!est){ cajaE.innerHTML = '<p class="vacio">—</p>'; return; }
+        cajaE.innerHTML = '<p><strong>' + AG.esc(est.titulo) + '.</strong> ' + AG.esc(est.texto) + '</p>' +
+          (est.mediana ? '<table class="tabla"><tr><th>Costo de vida al mes</th><th>Sueldos de entrada</th><th>Sueldo típico</th><th>El típico cubre</th></tr><tr><td>' +
+            F.presupuesto.pesos(est.costo) + '</td><td>' + F.presupuesto.pesos(est.p25) + '</td><td>' + F.presupuesto.pesos(est.mediana) + '</td><td>' + est.cubre + '%</td></tr></table>' +
+            '<p class="note" style="margin:0;">Sueldos de las vacantes de ' + AG.esc(est.sector) + ' en el monitoreo semanal del Club (el 25% más bajo y la mediana). Son una referencia, no una promesa.</p>' : '');
       });
     }
 

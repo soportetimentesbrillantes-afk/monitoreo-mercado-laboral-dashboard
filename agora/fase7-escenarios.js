@@ -30,7 +30,7 @@ function contexto(AG){
   const disc = AG.disc();
   const cre = AG.datos('crecimiento') || {};
   const ruta = AG.datos('ruta') || {};
-  const sectores = (info.sectores || []).filter(s => s !== 'Otro');
+  const sectores = (info.sectores || []).filter(s => s !== 'Otro' && s !== 'No lo sé aún');
   return {
     nivel: info.nivel, situacion: info.situacion, carrera: (info.carrera || '').trim(),
     sector: sectores[0] || (info.sectorOtro || '').trim(), edad: AG.edad(),

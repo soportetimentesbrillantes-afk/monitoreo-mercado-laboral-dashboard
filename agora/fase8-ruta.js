@@ -46,9 +46,11 @@ function mencionada(car, texto){
 function evaluar(car, ctx){
   const af = afinidad(car, ctx.disc);
   const sectoresSuyos = car.s.filter(k => ctx.sectoresInteres.includes(k));
+  // "Negocios" no es un sector del monitoreo: cuenta para las carreras de esa área.
+  const areaSuya = !!ctx.negocios && car.a === 'Administración y negocios';
   const menciona = mencionada(car, ctx.textoInteres);
-  const puntaje = ({alta:3, media:2, baja:1}[af] || 0) + (sectoresSuyos.length ? 1 : 0) + (menciona ? 1 : 0);
-  return {car, af, sectoresSuyos, menciona, puntaje};
+  const puntaje = ({alta:3, media:2, baja:1}[af] || 0) + (sectoresSuyos.length || areaSuya ? 1 : 0) + (menciona ? 1 : 0);
+  return {car, af, sectoresSuyos, areaSuya, menciona, puntaje};
 }
 
 const ETQ = {alta:'Alta', media:'Media', baja:'Baja'};
@@ -65,7 +67,7 @@ F.ruta = {
     const NOM = DISC.FACTORES;
     const guardado = AG.datos('ruta');
     const d = Object.assign(vacio(), guardado || {});
-    const ctx = {disc, sectoresInteres: [], textoInteres: [info.aspiracion, info.carrera, info.sectorOtro].join(' ')};
+    const ctx = {disc, sectoresInteres: [], negocios: (info.sectores || []).includes('Negocios'), textoInteres: [info.aspiracion, info.carrera, info.sectorOtro].join(' ')};
     let nombresSector = {};
 
     // Primera vez: se proponen como consideradas las que ya mencionó.
@@ -126,6 +128,7 @@ F.ruta = {
       const porque = [];
       if(ev.af) porque.push('Afinidad ' + ETQ[ev.af].toLowerCase() + ': se apoya en ' + c.e.map(k => NOM[k].nombre).join(' y '));
       if(ev.sectoresSuyos.length) porque.push('Está en un sector que marcaste: ' + ev.sectoresSuyos.map(k => nombresSector[k] || k).join(', '));
+      if(ev.areaSuya) porque.push('Es del área de negocios, que marcaste');
       if(ev.menciona) porque.push('Se parece a lo que escribiste que te gustaría');
       return '<tr><td><strong>' + AG.esc(c.n) + '</strong><br><span class="note" style="margin:0;">' + AG.esc(c.a) + ' · ' + AG.esc(c.d) + '</span></td>' +
         '<td data-l="Afinidad con tu estilo"><span class="nivel ' + ev.af + '">' + ETQ[ev.af] + '</span></td>' +
@@ -170,12 +173,35 @@ F.ruta = {
         });
       });
     }
+    /* La estrategia de vida para la ruta elegida: su presupuesto (fase 8)
+       frente a los salarios del sector relacionado. */
+    async function calcularEstrategia(){
+      const P = window.FASES_AGORA.presupuesto;
+      const costo = P ? P.costo(AG) : 0;
+      const nombre = cont.querySelector('#f_rut_principal').value;
+      if(!costo || !nombre) return null;
+      const car = buscar(nombre);
+      const s = car && car.s.length ? await AG.sector(car.s[0]) : null;
+      return P.estrategia(costo, s && s.salario, s ? s.nombre : 'este sector');
+    }
+    function cajaEstrategia(e){
+      if(!e) return AG.completa('presupuesto') ? '' :
+        '<div class="mercado"><strong>Tu presupuesto frente a esta ruta</strong><p style="margin:4px 0 0;">Completa tu presupuesto para ver si lo que paga esta profesión alcanza para la vida que imaginas.</p>' +
+        '<button type="button" class="secondary mini" data-abrir="presupuesto" style="margin-top:8px;">Ir a Tu presupuesto</button></div>';
+      const P = window.FASES_AGORA.presupuesto;
+      return '<div class="mercado"><strong>Tu presupuesto frente a esta ruta</strong>' +
+        (e.mediana ? '<div class="cifras"><div><b>' + P.pesos(e.costo) + '</b>tu costo de vida al mes</div><div><b>' + P.pesos(e.p25) + '</b>sueldos de entrada (el 25% más bajo)</div><div><b>' + P.pesos(e.mediana) + '</b>sueldo típico del sector</div></div>' : '') +
+        '<p style="margin:6px 0 0;"><strong>Estrategia de vida sugerida: ' + AG.esc(e.titulo) + '.</strong> ' + AG.esc(e.texto) + '</p>' +
+        '<p class="note" style="margin:6px 0 0;">Los sueldos son de las vacantes que publica hoy el sector, no una promesa. Revísalo con tu orientador.</p></div>';
+    }
     async function pintarPanel(){
       const caja2 = cont.querySelector('#rut_mercado');
       const car = buscar(cont.querySelector('#f_rut_principal').value);
-      if(!car || !car.s.length){ caja2.innerHTML = ''; return; }
+      const e = await calcularEstrategia();
+      const presupuesto = cont.querySelector('#f_rut_principal').value ? cajaEstrategia(e) : '';
+      if(!car || !car.s.length){ caja2.innerHTML = presupuesto; AG.conectar(caja2); return; }
       const [m, s] = await Promise.all([AG.manifest(), AG.sector(car.s[0])]);
-      if(!s){ caja2.innerHTML = ''; return; }
+      if(!s){ caja2.innerHTML = presupuesto; AG.conectar(caja2); return; }
       const est = info.estado && s.cobertura_geografica ? (s.cobertura_geografica.top_estados || []).find(x => x.estado === info.estado) : null;
       const top = (arr, n) => (arr || []).slice(0, n).map(x => x.skill);
       caja2.innerHTML = '<div class="mercado"><strong>Lo que pide hoy el mercado en ' + AG.esc(s.nombre) + '</strong>' +
@@ -185,7 +211,8 @@ F.ruta = {
         (est ? '<div><b>' + est.vacantes.toLocaleString('es-MX') + '</b>en ' + AG.esc(info.estado) + '</div>' : '') + '</div>' +
         (top(s.habilidades_tecnicas, 5).length ? '<p style="margin:6px 0 0;"><strong>Habilidades técnicas que más piden:</strong> ' + top(s.habilidades_tecnicas, 5).map(AG.esc).join(', ') + '.</p>' : '') +
         (top(s.habilidades_blandas, 4).length ? '<p style="margin:4px 0 0;"><strong>Habilidades blandas:</strong> ' + top(s.habilidades_blandas, 4).map(AG.esc).join(', ') + '.</p>' : '') +
-        '</div>';
+        '</div>' + presupuesto;
+      AG.conectar(caja2);
     }
     function refrescar(){ pintarMapa(); pintarPanel(); AG.guardadoTxt(AG.fijar('ruta', leer())); }
 
@@ -211,7 +238,7 @@ F.ruta = {
       else if(ev.target.id === 'f_rut_principal' || ev.target.id === 'f_rut_segunda'){ pintarPanel(); AG.guardadoTxt(AG.fijar('ruta', leer())); }
     });
 
-    cont.querySelector('#btnCompletar').onclick = () => {
+    cont.querySelector('#btnCompletar').onclick = async () => {
       const x = leer(), f = [];
       if(!x.consideradas.length) f.push('escribir al menos una carrera que estés considerando');
       if(!x.principal) f.push('elegir tu ruta principal');
@@ -225,11 +252,15 @@ F.ruta = {
       const afines = carreras().filter(c => !x.consideradas.some(n => norm(n) === norm(c.n))).map(c => evaluar(c, ctx))
         .sort((a, b) => b.puntaje - a.puntaje).slice(0, 4).map(e => e.car.n);
       const eval1 = buscar(x.principal) ? evaluar(buscar(x.principal), ctx) : null;
+      const est = await calcularEstrategia();
+      const P = window.FASES_AGORA.presupuesto;
       AG.terminar('ruta', Object.assign({}, x, {
-        afinidadPrincipal: eval1 ? eval1.af : null, sectorPrincipal: eval1 && eval1.car.s[0] || null,
+        afinidadPrincipal: eval1 ? eval1.af : null, sectorPrincipal: eval1 && eval1.car.s[0] || null, estrategia: est,
         hoja: {
           'Carreras consideradas': AG.vinetas(x.consideradas), 'Compatibilidad': x.consideradas.map(linea).join('\n'),
-          'Carreras afines sugeridas': AG.vinetas(afines), 'Ruta principal': x.principal, 'Segunda ruta': x.segunda, 'Por qué': x.porque.trim()
+          'Carreras afines sugeridas': AG.vinetas(afines), 'Ruta principal': x.principal, 'Segunda ruta': x.segunda, 'Por qué': x.porque.trim(),
+          'Costo de vida vs salario': est && est.mediana ? 'Costo de vida ' + P.pesos(est.costo) + ' al mes; sueldo de entrada ' + P.pesos(est.p25) + ', típico ' + P.pesos(est.mediana) + ' (' + est.sector + ')' : '',
+          'Estrategia de vida': est ? est.titulo : ''
         }
       }));
     };
