@@ -148,6 +148,7 @@
 </main>
 
 <script src="disc-interpretacion.js"></script>
+<script src="compartir-club.js"></script>
 <script>
 /* ============================ EL CUESTIONARIO ============================
 
@@ -388,12 +389,18 @@ function calcular(){
   pintarResultado(p);
 }
 
+/* El resultado que se está mostrando. Cada cuestionario terminado tiene su id:
+   reenviarlo al Club actualiza la misma fila; contestarlo otra vez es otra. */
+let resultadoActual = null;
 function guardar(p){
+  resultadoActual = {
+    puntajes: p, fecha: new Date().toISOString().slice(0,10), version: 2,
+    instrumento: 'bloques', escala: {min: -BLOQUES.length * PUNTOS[1], max: BLOQUES.length * PUNTOS[1]},
+    id: (typeof COMPARTIR !== 'undefined') ? COMPARTIR.nuevoId() : String(Date.now()),
+    versionClave: 'club-24-bloques-v2', respuestas: JSON.parse(JSON.stringify(respuestas))
+  };
   try{
-    localStorage.setItem(LLAVE, JSON.stringify({
-      puntajes: p, fecha: new Date().toISOString().slice(0,10), version: 2,
-      instrumento: 'bloques', escala: {min: -BLOQUES.length * PUNTOS[1], max: BLOQUES.length * PUNTOS[1]}
-    }));
+    localStorage.setItem(LLAVE, JSON.stringify(resultadoActual));
   }catch(e){
     // Modo privado o almacenamiento bloqueado: el resultado se ve igual, solo
     // que no sobrevive a cerrar la pestaña.
@@ -425,7 +432,15 @@ function pintarResultado(p){
     escala: {min: -BLOQUES.length * PUNTOS[1], max: BLOQUES.length * PUNTOS[1]},
     notaEscala: 'La cifra suma el lugar que le diste a ese factor en los 24 bloques: la primera posición vale +2, la segunda +1, la tercera −1 y la cuarta −2. Va de −48 a +48. Un valor cercano a cero quiere decir que ese rasgo ni te define ni te es ajeno. Como en cada bloque los cuatro se reparten las cuatro posiciones, lo que mide es qué pesa más <em>en ti</em>, no cuánto tienes de cada cosa.',
     alRepetir: empezar,
-    alBorrar: borrar
+    alBorrar: borrar,
+    compartir: {
+      id: () => resultadoActual && resultadoActual.id,
+      datos: () => {
+        const r = resultadoActual || {};
+        return {puntajes: r.puntajes, instrumento: 'bloques', escala: r.escala, respuestas: r.respuestas || null,
+                versionClave: r.versionClave || 'club-24-bloques-v2', fecha: r.fecha};
+      }
+    }
   });
   window.scrollTo({top:0, behavior:'smooth'});
 }
@@ -439,7 +454,11 @@ function pintarResultado(p){
   aviso.innerHTML = 'Ya contestaste este cuestionario el ' + esc(fechaLegible(guardado.fecha)) + '. ' +
     '<button class="secondary" type="button" id="btnVerGuardado" style="margin-top:8px;">Ver mi resultado</button>';
   intro.appendChild(aviso);
-  document.getElementById('btnVerGuardado').onclick = () => pintarResultado(guardado.puntajes);
+  document.getElementById('btnVerGuardado').onclick = () => {
+    if(!guardado.id){ guardado.id = (typeof COMPARTIR !== 'undefined') ? COMPARTIR.nuevoId() : String(Date.now()); try{ localStorage.setItem(LLAVE, JSON.stringify(guardado)); }catch(e){} }
+    resultadoActual = guardado;
+    pintarResultado(guardado.puntajes);
+  };
 })();
 </script>
 

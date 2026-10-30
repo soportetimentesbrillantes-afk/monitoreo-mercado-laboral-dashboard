@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tu proceso DIANA — Club de Mentes Brillantes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="proceso.css">
+</head>
+<body>
+
+<div class="topbar">
+  <a class="logo-link" href="https://www.clubmentesbrillantes.com.mx/index.html" aria-label="Club de Mentes Brillantes"><img src="logo-cmb.svg" alt="Club de Mentes Brillantes"></a>
+  <a href="index.html">← Volver a tu CV frente al mercado</a>
+</div>
+
+<header>
+  <div class="hero-inner">
+    <p class="eyebrow">Autoconocimiento para la construcción de tu plan de vida</p>
+    <h1>Tu proceso DIANA</h1>
+    <p>Cinco fases para llegar a tu siguiente trabajo: <strong>Descubrir</strong> quién eres, <strong>Iniciar</strong> tu ruta, <strong>Alinear</strong> tu perfil con lo que pide el mercado, <strong>Nutrir</strong> tu formación y <strong>Acompañar</strong> tu llegada a la industria. Avanza un paso a la vez; lo que ya hiciste en Ágora no lo repites.</p>
+  </div>
+</header>
+
+<div class="proceso">
+  <nav class="ruta" aria-label="Pasos del proceso">
+    <div class="avance">
+      <div class="cifra" id="avancePct">0%</div>
+      <div class="txt" id="avanceTxt">0 de 34 pasos completos</div>
+      <div class="barra"><div class="relleno" id="avanceBarra"></div></div>
+    </div>
+    <details id="plegable" open>
+      <summary id="resumenPaso"></summary>
+      <div id="listaFases"></div>
+    </details>
+  </nav>
+
+  <main id="contenido"></main>
+</div>
+
+<script src="compartir-club.js"></script>
+<script src="disc-interpretacion.js"></script>
+<script src="afinidad-estilo.js"></script>
+<!-- Las herramientas: una por archivo. Las de Ágora se comparten; las
+     diana-*.js son de DIANA. proceso.js las arma en el orden de PROCESO.pasos. -->
+<script src="agora/carreras.js"></script>
+<script src="agora/fase4-estilo.js"></script>
+<script src="agora/fase5-relacion.js"></script>
+<script src="agora/fase6-crecimiento.js"></script>
+<script src="agora/fase7-escenarios.js"></script>
+<script src="agora/fase9-plan.js"></script>
+<script src="agora/fase10-resumen.js"></script>
+<script src="agora/diana-mapa.js"></script>
+<script src="agora/diana-tendencias.js"></script>
+<script src="agora/diana-formacion.js"></script>
+<script src="agora/diana-marca.js"></script>
+<script src="agora/diana-alinear.js"></script>
+<script src="agora/diana-nutrir.js"></script>
+<script src="agora/diana-acompanar.js"></script>
+<script>
+/* Proceso DIANA (universidad y egresados): Descubrir, Iniciar, Alinear,
+   Nutrir y Acompañar, de la hoja "Proceso DIANA" (herramientas Agora y DIana
+   v2). Usa las mismas herramientas que Ágora; el motor está en proceso.js. */
+window.PROCESO = {
+  id: 'diana', nombre: 'DIANA', tipo: 'diana', unidad: 'paso', papas: false,
+  fases: [
+    {id:'descubrir', nombre:'Descubrir', desc:'Quién eres, cómo trabajas y qué te mueve.'},
+    {id:'iniciar', nombre:'Iniciar', desc:'Tu rol objetivo, tu industria, tu formación y tu marca.'},
+    {id:'alinear', nombre:'Alinear', desc:'Tu perfil frente a las vacantes: brechas, CV y entrevista.'},
+    {id:'nutrir', nombre:'Nutrir', desc:'Cursos, certificaciones y comunidades para crecer.'},
+    {id:'acompanar', nombre:'Acompañar', desc:'Contacto con la industria, resiliencia y tu nuevo trabajo.'}
+  ],
+  otro: {nombre: 'Ágora', href: 'agora.html', etapas: ['Secundaria o bachillerato']},
+  pasos: [
+    // ---------------- Descubrir ----------------
+    {id:'informacion', fase:'descubrir', nombre:'Información inicial',
+     objetivo:'Reunir tu información personal: estudios actuales, experiencia, certificaciones e idiomas.',
+     entrega:'Tus datos capturados, que las siguientes herramientas usan para no preguntarte lo mismo dos veces.'},
+    {id:'disc', fase:'descubrir', nombre:'Perfil DISC', marco:'disc-agora.html',
+     objetivo:'Identificar tus preferencias conductuales con el cuestionario de Ágora Internacional.',
+     entrega:'Tu evaluación DISC: tu estilo dominante, cómo se combina con los otros y qué te conviene reforzar.'},
+    {id:'foda', fase:'descubrir', nombre:'Análisis FODA', marco:'foda.html',
+     objetivo:'Identificar tus fortalezas, oportunidades, debilidades y amenazas.',
+     entrega:'Tu FODA personal y tu siguiente paso.'},
+    {id:'estilo', fase:'descubrir', nombre:'Estilo de trabajo',
+     objetivo:'Identificar tu estilo de trabajo a partir de tu Perfil DISC: tu orientación frente a la tarea, cómo trabajas, dónde rindes más y qué te mueve.',
+     entrega:'Tu estilo de trabajo personalizado.'},
+    {id:'relacion', fase:'descubrir', nombre:'Forma de relacionamiento',
+     objetivo:'Identificar cómo te relacionas con los demás: cómo te gusta que te traten, tu papel en un equipo y cómo trabajar con estilos distintos al tuyo.',
+     entrega:'Tus formas de relacionamiento personalizadas.'},
+    {id:'crecimiento', fase:'descubrir', nombre:'Crecimiento personal', cfg:{valores:true},
+     objetivo:'Identificar tus áreas de crecimiento personal, tus valores, tus intereses y tus motivaciones.',
+     entrega:'Tus áreas de crecimiento personalizadas, con tus valores, intereses y motivaciones.'},
+    {id:'escenarios', fase:'descubrir', nombre:'Escenarios de vida', mentor:true,
+     objetivo:'Imaginar tu vida a 5, 10 y 15 años, con propuestas que completas tú y un espacio para tu mentor.',
+     entrega:'Tu escenario de vida personalizado.'},
+    {id:'reporte_descubrir', fase:'descubrir', nombre:'Reporte de Descubrir', herramienta:'resumen',
+     cfg:{titulo:'Reporte de la fase Descubrir', subtitulo:'Proceso DIANA · Descubrir: quién eres, cómo trabajas y qué te mueve', fase:'Descubrir',
+          secciones:['resumen', 'disc', 'foda', 'estilo', 'relacion', 'crecimiento', 'escenarios', 'mentor'],
+          requiere:['informacion', 'disc', 'foda', 'estilo', 'relacion', 'crecimiento', 'escenarios'], cierre:'Terminar la fase Descubrir'},
+     objetivo:'Resumir la fase Descubrir en un reporte.', entrega:'Tu reporte de Descubrir, para imprimir o guardar como PDF.'},
+    // ---------------- Iniciar ----------------
+    {id:'mapa', fase:'iniciar', nombre:'Mapa de carrera',
+     objetivo:'Cruzar tu preparación académica y lo que descubriste de ti con los roles posibles de tu industria objetivo.',
+     entrega:'Tu mapa de carrera personalizado: tu rol objetivo y lo que te falta para llegar.'},
+    {id:'tendencias', fase:'iniciar', nombre:'Tendencias de la industria',
+     objetivo:'Identificar las tendencias de tu industria objetivo con los datos del monitoreo semanal del Club.',
+     entrega:'Las tendencias que te importan y qué vas a hacer con ellas.'},
+    {id:'formacion', fase:'iniciar', nombre:'Plan de formación',
+     objetivo:'Identificar cursos técnicos, de habilidades blandas y certificaciones relevantes para tu industria.',
+     entrega:'Tu lista inicial de formación, todavía sin prioridad.'},
+    {id:'marca', fase:'iniciar', nombre:'Marca personal y profesional',
+     objetivo:'Definir cómo quieres que te reconozcan y qué características personales y profesionales vas a desarrollar.',
+     entrega:'Tu marca personal y profesional, con tu propuesta de valor en una frase.'},
+    {id:'plan', fase:'iniciar', nombre:'Plan de acción 30-60-90',
+     objetivo:'Armar un plan a 30, 60 y 90 días con objetivos de educación, experiencia y conexión.',
+     entrega:'Tu plan de acción personalizado.'},
+    {id:'resumen_iniciar', fase:'iniciar', nombre:'Resumen de Iniciar', herramienta:'resumen',
+     cfg:{titulo:'Resumen ejecutivo de la fase Iniciar', subtitulo:'Proceso DIANA · Iniciar: tu rol, tu industria, tu formación y tu marca', fase:'Iniciar',
+          secciones:['resumen', 'mapa', 'tendencias', 'formacion', 'marca', 'plan', 'mentor'],
+          requiere:['mapa', 'tendencias', 'formacion', 'marca', 'plan'], cierre:'Terminar la fase Iniciar'},
+     objetivo:'Resumir la fase Iniciar en un reporte ejecutivo.', entrega:'Tu resumen de Iniciar, para imprimir o guardar como PDF.'},
+    // ---------------- Alinear ----------------
+    {id:'brechas_ofertas', fase:'alinear', nombre:'Brechas frente a las vacantes', mentor:true,
+     objetivo:'Comparar tu perfil y tu CV con las vacantes reales de tu rol: las diez que más se te parecen.', entrega:'Tu reporte de vacantes frente a tu perfil, validado con tu mentor.'},
+    {id:'brechas_competencias', fase:'alinear', nombre:'Brechas de competencias', mentor:true,
+     objetivo:'Identificar las competencias técnicas y no técnicas que te faltan para tu industria.', entrega:'Tus cinco brechas técnicas y cinco no técnicas, validadas con tu mentor.'},
+    {id:'cv', fase:'alinear', nombre:'Crea tu CV',
+     objetivo:'Armar tu CV y entender su relación con tu perfil en plataformas profesionales.', entrega:'Tu CV completo en PDF.'},
+    {id:'entrevista', fase:'alinear', nombre:'Guía de entrevista', mentor:true,
+     objetivo:'Prepararte para una entrevista exitosa en tu industria y tu rol.', entrega:'Tu guía de entrevista con preguntas técnicas y no técnicas.'},
+    {id:'presentacion', fase:'alinear', nombre:'Presentación efectiva', mentor:true,
+     objetivo:'Preparar cómo te presentas en una entrevista: introducción, elevator speech, experiencia y por qué quieres el rol.', entrega:'Tu guía de presentación efectiva.'},
+    {id:'expectativas', fase:'alinear', nombre:'Mentoría de ajuste de expectativas', mentor:true,
+     objetivo:'Ajustar expectativas con tu mentor y fortalecer tu confianza en el proceso.', entrega:'Tu guía de mentoría revisada con tu mentor.'},
+    {id:'resumen_alinear', fase:'alinear', nombre:'Resumen de Alinear', herramienta:'resumen',
+     cfg:{titulo:'Resumen ejecutivo de la fase Alinear', subtitulo:'Proceso DIANA · Alinear: tu perfil frente a las vacantes', fase:'Alinear',
+          secciones:['resumen', 'brechas_ofertas', 'brechas_competencias', 'cv', 'entrevista', 'presentacion', 'expectativas', 'mentor'],
+          requiere:['brechas_ofertas', 'brechas_competencias', 'cv', 'entrevista', 'presentacion', 'expectativas'], cierre:'Terminar la fase Alinear'},
+     objetivo:'Resumir la fase Alinear en un reporte ejecutivo.', entrega:'Tu resumen de Alinear en PDF.'},
+    // ---------------- Nutrir ----------------
+    {id:'seleccion_cursos', fase:'nutrir', nombre:'Selección de cursos', mentor:true,
+     objetivo:'Priorizar los cursos de las competencias clave que te pide tu industria.', entrega:'Tu lista de cursos seleccionados.'},
+    {id:'aprender', fase:'nutrir', nombre:'Aprender a aprender', mentor:true,
+     objetivo:'Identificar tu estilo de aprendizaje y cómo mejorarlo.', entrega:'Tu estilo de aprendizaje con recomendaciones.'},
+    {id:'certificaciones', fase:'nutrir', nombre:'Valor de las certificaciones', mentor:true,
+     objetivo:'Entender qué es una certificación y una microcredencial (CONOCER, por industria) e identificar las que te sirven.', entrega:'Tu lista de posibles certificaciones.'},
+    {id:'comunidades', fase:'nutrir', nombre:'Comunidades de aprendizaje', mentor:true,
+     objetivo:'Entender qué son las comunidades de aprendizaje y las redes profesionales de tu industria.', entrega:'Tu lista de comunidades de aprendizaje.'},
+    {id:'plan_entrenamiento', fase:'nutrir', nombre:'Plan de certificaciones y aprendizaje', mentor:true,
+     objetivo:'Acordar con tu mentor tu plan de entrenamiento.', entrega:'Tu plan de entrenamiento.'},
+    {id:'reporte_nutrir', fase:'nutrir', nombre:'Reporte de Nutrir', herramienta:'resumen',
+     cfg:{titulo:'Reporte ejecutivo de la fase Nutrir', subtitulo:'Proceso DIANA · Nutrir: tu formación y tu aprendizaje', fase:'Nutrir',
+          secciones:['resumen', 'seleccion_cursos', 'aprender', 'certificaciones', 'comunidades', 'plan_entrenamiento', 'mentor'],
+          requiere:['seleccion_cursos', 'aprender', 'certificaciones', 'comunidades', 'plan_entrenamiento'], cierre:'Terminar la fase Nutrir'},
+     objetivo:'Resumir la fase Nutrir en un reporte ejecutivo.', entrega:'Tu reporte de Nutrir en PDF.'},
+    // ---------------- Acompañar ----------------
+    {id:'contacto_industria', fase:'acompanar', nombre:'Contacto con la industria', mentor:true,
+     objetivo:'Aprender a hacer contactos en ferias de empleo, eventos de tu industria y plataformas de reclutamiento.', entrega:'Tu lista de eventos, ferias y plataformas.'},
+    {id:'investiga_industria', fase:'acompanar', nombre:'Investiga tu industria', mentor:true,
+     objetivo:'Investigar tu industria objetivo: cultura, valores, desarrollo y casos de éxito.', entrega:'Tu resumen de la industria.'},
+    {id:'inscripcion_comunidades', fase:'acompanar', nombre:'Inscripción a comunidades', mentor:true,
+     objetivo:'Conectar con comunidades de apoyo y grupos colaborativos para compartir experiencias.', entrega:'Tus comunidades y sus requisitos.'},
+    {id:'resiliencia', fase:'acompanar', nombre:'La resiliencia', mentor:true,
+     objetivo:'Entender y desarrollar resiliencia en la búsqueda de trabajo.', entrega:'Tu evaluación de resiliencia con sugerencias.'},
+    {id:'plan_nuevo_trabajo', fase:'acompanar', nombre:'Plan 30-60-90 para el nuevo trabajo', mentor:true,
+     objetivo:'Crear tu plan de 30, 60 y 90 días para empezar en tu nuevo trabajo.', entrega:'Tu plan 30, 60, 90 del nuevo trabajo.'},
+    {id:'mentoria_final', fase:'acompanar', nombre:'Mentoría final', mentor:true,
+     objetivo:'Cerrar el proceso con tu mentor y capturar su retroalimentación final.', entrega:'El reporte final de tu mentor.'},
+    {id:'reporte_final', fase:'acompanar', nombre:'Reporte final', mentor:true, herramienta:'resumen',
+     cfg:{titulo:'Reporte final del proceso DIANA', subtitulo:'Descubrir, Iniciar, Alinear, Nutrir y Acompañar', fase:'',
+          secciones:['resumen', 'disc', 'foda', 'crecimiento', 'mapa', 'marca', 'brechas_competencias', 'cv', 'presentacion', 'seleccion_cursos', 'aprender', 'plan_entrenamiento',
+                     'contacto_industria', 'investiga_industria', 'inscripcion_comunidades', 'resiliencia', 'plan_nuevo_trabajo', 'mentoria_final', 'mentor'],
+          requiere:['reporte_descubrir', 'resumen_iniciar', 'resumen_alinear', 'reporte_nutrir', 'contacto_industria', 'investiga_industria', 'inscripcion_comunidades', 'resiliencia', 'plan_nuevo_trabajo', 'mentoria_final'],
+          mentorTodos:true, cierre:'Terminar el proceso DIANA'},
+     objetivo:'Reunir todo el proceso DIANA en un reporte final.', entrega:'Tu reporte final en PDF.'}
+  ]
+};
+</script>
+<script src="proceso.js"></script>
+</body>
+</html>

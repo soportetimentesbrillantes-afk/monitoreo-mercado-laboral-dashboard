@@ -24,10 +24,14 @@ function sugerencias(AG, extra){
   const info = AG.info();
   const cre = AG.datos('crecimiento') || {};
   const ruta = AG.datos('ruta') || {};
+  // En DIANA la "ruta" es el rol objetivo del Mapa de carrera.
+  const mapa = AG.enProceso('mapa') ? (AG.datos('mapa') || {}) : {};
+  const form = AG.enProceso('formacion') ? (AG.datos('formacion') || {}) : {};
+  const marca = AG.enProceso('marca') ? (AG.datos('marca') || {}) : {};
   const foda = AG.foda();
   const disc = AG.disc();
   const habilidades = disc ? DISC.CRECIMIENTO_HABILIDADES[disc.dom] : [];
-  const r = sinPunto(ruta.principal);
+  const r = sinPunto(mapa.rol || ruta.principal);
   const sector = extra.sectorNombre;
   const preuniversitario = ['Secundaria', 'Preparatoria o bachillerato'].includes(info.nivel);
   const S = [];
@@ -36,7 +40,10 @@ function sugerencias(AG, extra){
   // 30 días: arrancar
   if(cre.prioridad) add(30, 'Educación', 'Elegir una acción concreta para trabajar tu prioridad: ' + sinPunto(cre.prioridad).toLowerCase() + '.');
   if(foda && sinPunto(foda.paso)) add(30, 'Experiencia', 'Tu siguiente paso del FODA: ' + sinPunto(foda.paso) + '.');
-  add(30, 'Conexión', 'Platicar tus resultados del proceso Ágora con tu orientador y con tu familia.');
+  add(30, 'Conexión', AG.PROCESO.id === 'agora' ? 'Platicar tus resultados del proceso Ágora con tu orientador y con tu familia.' : 'Revisar tus resultados de Descubrir e Iniciar con tu mentor.');
+  if(F.marca && F.marca.frase(marca)) add(30, 'Conexión', 'Poner tu propuesta de valor en tu perfil de LinkedIn: «' + sinPunto(F.marca.frase(marca)) + '».');
+  (form.cursos || []).slice(0, 1).forEach(c => add(60, 'Educación', 'Inscribirte al curso «' + c.split(' — ')[0] + '» de tu plan de formación.'));
+  (form.tecnicas || []).slice(0, 1).forEach(t => add(90, 'Educación', 'Avanzar en ' + t + ', de tu plan de formación.'));
   if(r) add(30, 'Educación', preuniversitario ? 'Revisar el plan de estudios de ' + r + ' en al menos tres escuelas: materias, duración y costo.' : 'Revisar qué certificaciones o especialidades piden para trabajar en ' + r + '.');
 
   // 60 días: construir
@@ -130,8 +137,9 @@ F.plan = {
       const m = await AG.manifest();
       const disc = AG.disc();
       const ruta = AG.datos('ruta') || {};
+      const mapa = AG.enProceso('mapa') ? (AG.datos('mapa') || {}) : {};
       const car = (window.CARRERAS_AGORA || []).find(c => norm(c.n) === norm(ruta.principal));
-      const clave = car && car.s[0];
+      const clave = (mapa.industria && mapa.industria !== 'otra') ? mapa.industria : (car && car.s[0]);
       if(clave){
         const s = await AG.sector(clave);
         if(s){ extra.sectorNombre = s.nombre; extra.habilidadMercado = ((s.habilidades_tecnicas || [])[0] || {}).skill; }

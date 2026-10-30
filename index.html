@@ -6,6 +6,7 @@
 <title>Análisis de Demanda de Talento y Habilidades — Prototipo</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/mammoth@1.6.0/mammoth.browser.min.js"></script>
+<script src="afinidad-estilo.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
@@ -202,7 +203,7 @@ button.secondary:hover, a.secondary:hover{background:var(--hero-bg2);}
 <div id="loadingOverlay">Cargando datos más recientes…</div>
 <div id="loadError">No se pudieron cargar los datos más recientes (sector_data.json). Mostrando la página sin datos — recarga en unos minutos o avisa a Gael.</div>
 
-<div class="topbar"><a class="logo-link" href="https://www.clubmentesbrillantes.com.mx/index.html" aria-label="Club de Mentes Brillantes"><img src="logo-cmb.svg" alt="Club de Mentes Brillantes"></a><span style="display:inline-flex;gap:18px;align-items:center;flex-wrap:wrap;"><a class="volver-link" href="agora.html">Tu proceso Ágora →</a><a class="volver-link" href="https://www.clubmentesbrillantes.com.mx/index.html">← Volver a Mentes Brillantes</a></span></div>
+<div class="topbar"><a class="logo-link" href="https://www.clubmentesbrillantes.com.mx/index.html" aria-label="Club de Mentes Brillantes"><img src="logo-cmb.svg" alt="Club de Mentes Brillantes"></a><span style="display:inline-flex;gap:18px;align-items:center;flex-wrap:wrap;"><a class="volver-link" href="agora.html">Tu proceso Ágora (bachillerato) →</a> <a class="volver-link" href="diana.html">Tu proceso DIANA (universidad y egresados) →</a><a class="volver-link" href="https://www.clubmentesbrillantes.com.mx/index.html">← Volver a Mentes Brillantes</a></span></div>
 <header>
   <div class="sesion-bar" id="sesionBar" hidden>
     <span class="quien" id="sesionQuien"></span>
@@ -1720,18 +1721,7 @@ function descargarCVMejorado(i){
       las categorías del pipeline. No sale de ningún estudio. Por eso se
       muestra como "afinidad de estilo" y nunca como una probabilidad. */
 
-const ESTILO_PUESTO = [
-  {re:/venta|comercial|asesor|ejecutiv|telemarketing|call center|comisionista|mostrador|retail|promotor/i, perfil:{D:2, I:3, S:0, C:0}},
-  {re:/gerenc|direcci[oó]n|jefatura|supervisi[oó]n|coordinaci[oó]n/i,                                      perfil:{D:3, I:1, S:1, C:1}},
-  {re:/contabilidad|fiscal|auditor|cumplimiento|compliance|calidad|an[aá]lisis|anal[ií]tica|datos|business intelligence|financier|tesorer[ií]a|cr[eé]dito/i, perfil:{D:0, I:0, S:1, C:3}},
-  {re:/legal|abogad|jur[ií]dic|notar|cobranza judicial/i,                                                  perfil:{D:1, I:0, S:0, C:3}},
-  {re:/ingenier|manufactura|procesos|dise[nñ]o|desarrollo de software|infraestructura|soporte t[eé]cnico|inteligencia artificial|automatizaci[oó]n|sistemas/i, perfil:{D:0, I:0, S:1, C:3}},
-  {re:/almac[eé]n|cedis|log[ií]stica|inventario|transporte|reparto|distribuci[oó]n|flota|producci[oó]n|operaci[oó]n|mantenimiento|soldadura|maquinado|mec[aá]nic/i, perfil:{D:0, I:0, S:3, C:2}},
-  {re:/hoteler|recepci[oó]n|atenci[oó]n a clientes|alimentos y bebidas|banquete|reservacion|turismo|educaci[oó]n|capacitaci[oó]n|recursos humanos|eventos/i, perfil:{D:0, I:3, S:3, C:0}},
-  {re:/administraci[oó]n|asistente|auxiliar|secretar|archivo|control administrativo/i,                      perfil:{D:0, I:1, S:2, C:2}},
-  {re:/compras|comercio exterior|aduana|importaci[oó]n|exportaci[oó]n/i,                                    perfil:{D:1, I:1, S:1, C:2}}
-];
-
+// La tabla puesto → estilo y el cálculo viven en afinidad-estilo.js (también los usa DIANA).
 function perfilDisc(){
   try{
     const crudo = localStorage.getItem('cmb_disc');
@@ -1741,37 +1731,12 @@ function perfilDisc(){
   }catch(e){ return null; }
 }
 
-/* Lleva los netos a pesos comparables de 0 a 1. Funciona igual con la escala
-   bipolar del cuestionario de bloques (−48..+48) y con la positiva del de
-   Ágora (0..82), porque solo mira la distancia entre los cuatro. */
-function perfilNormalizado(p){
-  const claves = ['D','I','S','C'];
-  const vals = claves.map(k => (p[k] && typeof p[k].neto === 'number') ? p[k].neto : 0);
-  const min = Math.min(...vals), rango = Math.max(...vals) - min;
-  const out = {};
-  claves.forEach((k, i) => { out[k] = rango ? (vals[i] - min) / rango : 0.5; });
-  return out;
-}
-
+const perfilNormalizado = p => AFINIDAD.perfilNormalizado(p);
 function estiloEsperado(vacante){
-  const texto = [vacante.titulo, vacante._categoria, vacante._sectorNombre].filter(Boolean).join(' ');
-  for(const regla of ESTILO_PUESTO){
-    if(regla.re.test(texto)) return regla.perfil;
-  }
-  return null;
+  return AFINIDAD.estiloDeTexto([vacante.titulo, vacante._categoria, vacante._sectorNombre].filter(Boolean).join(' '));
 }
-
-/* Afinidad 0..1: qué tanto coincide el estilo de la persona con el que ese
-   tipo de puesto suele pedir. Si no sabemos qué pide el puesto, devuelve null
-   y la vacante simplemente no muestra etiqueta. */
 function afinidadEstilo(vacante, perfilNorm){
-  const esperado = estiloEsperado(vacante);
-  if(!esperado || !perfilNorm) return null;
-  const claves = ['D','I','S','C'];
-  const total = claves.reduce((s,k) => s + esperado[k], 0);
-  if(!total) return null;
-  const puntos = claves.reduce((s,k) => s + (esperado[k] / total) * perfilNorm[k], 0);
-  return Math.max(0, Math.min(1, puntos));
+  return AFINIDAD.afinidad([vacante.titulo, vacante._categoria, vacante._sectorNombre].filter(Boolean).join(' '), perfilNorm);
 }
 
 function etiquetaAfinidad(a){

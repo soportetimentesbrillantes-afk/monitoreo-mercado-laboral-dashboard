@@ -164,6 +164,11 @@ button:disabled{opacity:.45;cursor:not-allowed;filter:grayscale(.3);}
 <div class="wrap">
 
 <!-- ============ PASO 1: SECTOR ============ -->
+<div class="hint" id="avisoDiana" style="display:none;margin:0 0 16px;">
+  <strong>Vienes del proceso DIANA.</strong> Pusimos tu rol objetivo y tu propuesta de valor en los campos que tenías vacíos; ajústalos a tu gusto.
+  Cuando descargues tu CV en PDF, regresa a la pestaña de DIANA y dale a «Ya volví: revisar mi CV».
+</div>
+
 <section class="step">
   <div class="step-badge">Paso 1</div>
   <h2>¿A qué sector va dirigido tu CV?</h2>
@@ -1412,6 +1417,28 @@ function recibirCVDeLaOtraPagina(){
   setTimeout(()=>{ try{ ta.scrollIntoView({behavior:'smooth', block:'center'}); }catch(e){} }, 400);
 }
 
+/* Si llegó desde el proceso DIANA (paso "Crea tu CV"), traemos su industria,
+   su rol objetivo y su propuesta de valor, pero solo a los campos vacíos: si
+   ya tenía un borrador, no se pisa nada. Se lee una sola vez y se borra. */
+function recibirDeDiana(){
+  if(!/[?&]desde=diana\b/.test(location.search)) return;
+  let d = null;
+  try{
+    d = JSON.parse(localStorage.getItem('cmb_cv_desde_diana') || 'null');
+    localStorage.removeItem('cmb_cv_desde_diana');
+  }catch(e){ return; }
+  const aviso = document.getElementById('avisoDiana');
+  if(aviso) aviso.style.display = 'block';
+  if(!d) return;
+  const sel = $('sector');
+  if(d.sector && sel && !sel.value && [...sel.options].some(o => o.value === d.sector)){ sel.value = d.sector; cargarDatosSector(d.sector); }
+  if(d.puestoObjetivo && !$('puestoObjetivo').value.trim()) $('puestoObjetivo').value = d.puestoObjetivo;
+  if(d.perfil && !$('perfil').value.trim()) $('perfil').value = d.perfil;
+}
+/* Para que el paso "Crea tu CV" de DIANA sepa que ya se abrió la descarga. */
+function marcarPDF(){ try{ localStorage.setItem('cmb_cv_pdf', new Date().toISOString().slice(0, 10)); }catch(e){} }
+window.addEventListener('beforeprint', marcarPDF);
+
 /* El .catch es a propósito: si algo falla al cargar los sectores, el formulario
    debe abrir de todos modos. Sin esto, un tropiezo de red dejaría la página
    muerta y sin explicación para quien la abre. */
@@ -1420,6 +1447,7 @@ cargarSectores()
   .then(()=>{
     try{ restaurar(); }catch(e){ console.warn('No se pudo restaurar el borrador:', e); }
     try{ recibirCVDeLaOtraPagina(); }catch(e){ console.warn('No se pudo recibir el CV previo:', e); }
+    try{ recibirDeDiana(); }catch(e){ console.warn('No se pudo recibir lo de DIANA:', e); }
     try{ actualizar(); }catch(e){ console.warn('No se pudo actualizar la vista:', e); }
   });
 </script>

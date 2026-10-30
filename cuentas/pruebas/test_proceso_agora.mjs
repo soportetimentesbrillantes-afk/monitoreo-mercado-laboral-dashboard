@@ -27,7 +27,7 @@ catch {
 }
 
 const RAIZ = new URL('../../', import.meta.url).pathname;
-const TIPOS = { '.html':'text/html', '.json':'application/json', '.svg':'image/svg+xml', '.js':'text/javascript' };
+const TIPOS = { '.html':'text/html', '.css':'text/css', '.json':'application/json', '.svg':'image/svg+xml', '.js':'text/javascript' };
 const servidor = createServer(async (req, res) => {
   try {
     const ruta = normalize(decodeURIComponent(req.url.split('?')[0])).replace(/^(\.\.[/\\])+/, '');
@@ -452,7 +452,7 @@ const col = (h, n) => h.filas[0].indexOf(n);
 await prueba('escribe la fila de la fase y la del expediente, con avance y listas legibles', async () => {
   const { post, pestanas } = cargar();
   igual(post(BASE_D).ok, true);
-  const inf = pestanas['Ágora · Información inicial'], ex = pestanas['Expediente Ágora'];
+  const inf = pestanas['Información inicial'], ex = pestanas['Expediente Ágora'];
   const f = inf.filas[1];
   cierto(String(f[col(inf, 'Experiencia')]).includes('Auxiliar contable — Despacho X (Prácticas profesionales), 2025-01 a actual: Conciliaciones'));
   igual(f[col(inf, 'Sectores de interés')], 'Finanzas, Otro: Energía');
@@ -465,7 +465,7 @@ await prueba('reenviar actualiza las mismas filas', async () => {
   const { post, pestanas } = cargar();
   post(BASE_D); post(Object.assign({}, BASE_D, { nombre: 'Ana P. Ruiz' }));
   igual(pestanas['Expediente Ágora'].filas.length, 2);
-  igual(pestanas['Ágora · Información inicial'].filas.length, 2);
+  igual(pestanas['Información inicial'].filas.length, 2);
 });
 
 await prueba('rechaza una fase desconocida, una edad inválida y a un menor sin autorización del tutor', async () => {

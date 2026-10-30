@@ -33,7 +33,7 @@ try {
 }
 
 const RAIZ = new URL('../../', import.meta.url).pathname;
-const TIPOS = { '.html':'text/html', '.json':'application/json', '.svg':'image/svg+xml', '.js':'text/javascript' };
+const TIPOS = { '.html':'text/html', '.css':'text/css', '.json':'application/json', '.svg':'image/svg+xml', '.js':'text/javascript' };
 
 const servidor = createServer(async (req, res) => {
   try {

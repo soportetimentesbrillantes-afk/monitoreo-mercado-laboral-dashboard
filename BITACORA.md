@@ -10,6 +10,139 @@ después.
 corrigió un error, describe también cómo se detectó — eso es lo que evita
 repetirlo.
 
+## 2026-10-30 — Proceso DIANA completo: Alinear, Nutrir y Acompañar
+
+Segundo bloque de DIANA: los 20 pasos que faltaban. Los 34 tienen herramienta.
+Siguen las elecciones de Gael: mismas herramientas para Ágora y DIANA, la
+revisión del mentor en la página, y para eventos, comunidades,
+certificaciones y preguntas de entrevista solo guía y captura (sin listas
+armadas). Todos los pasos de estas tres fases se revisan con el mentor, salvo
+*Crea tu CV* y los reportes de fase, como dice la hoja.
+
+**Alinear** (`agora/diana-alinear.js`).
+- *Brechas frente a las vacantes*: compara su perfil (información inicial, el
+  CV del constructor de este navegador o el texto que pegue) con las vacantes
+  del monitoreo de su industria y muestra las diez que más se le parecen, con
+  lo que ya tiene y lo que le falta; marca las que le interesan y concluye.
+  Si su industria no está en el monitoreo, anota a mano las que revisó.
+- *Brechas de competencias*: hasta cinco técnicas y cinco no técnicas, de lo
+  que más piden las vacantes y de lo que su estilo ejercita menos.
+- *Crea tu CV*: abre el constructor (`cv-builder.html?desde=diana`) con su
+  industria, su rol y su propuesta de valor en los campos vacíos; revisa
+  apartado por apartado lo que el constructor tiene, la alineación con su
+  perfil en plataformas profesionales y pide el PDF. El constructor anota la
+  fecha cuando se abre la impresión (`cmb_cv_pdf`).
+- *Guía de entrevista*: temas que salen de su formación, sus brechas y su
+  estilo; método STAR; las preguntas y respuestas las escribe ella (3 técnicas,
+  3 no técnicas y 2 para el entrevistador).
+- *Presentación efectiva*: introducción, elevator speech (cuenta palabras y
+  segundos), experiencia y por qué el rol, con pistas de lo que ya hizo.
+- *Ajuste de expectativas*: salario (comparado con el del monitoreo), plazo,
+  nivel, modalidad, preocupaciones y confianza antes y después de la mentoría.
+
+**Nutrir** (`agora/diana-nutrir.js`).
+- *Selección de cursos*: prioriza (alta, media, baja, no por ahora) los cursos
+  que cierran sus brechas, del catálogo del Club y de los que anotó; para las
+  brechas no técnicas busca en todo el catálogo. Nunca cursos externos.
+- *Aprender a aprender*: 10 preguntas propias (visual, auditivo, lectura y
+  escritura, práctico) y 10 recomendaciones: 5 de su preferencia y 5 que le
+  sirven a todos (practicar recordando, repaso espaciado…). Se presenta como
+  preferencia, no como etiqueta.
+- *Certificaciones*: qué es una certificación de competencia (CONOCER), de la
+  industria, una microcredencial y una constancia, cómo encontrarlas; su lista.
+- *Comunidades de aprendizaje*: qué son y dónde buscarlas; su lista con
+  requisitos para unirse.
+- *Plan de entrenamiento*: lo arma con su mentor agregando lo elegido antes,
+  con fecha, horas por semana y cómo sabrá que lo logró.
+
+**Acompañar** (`agora/diana-acompanar.js`).
+- *Contacto con la industria*: cómo hacer contactos antes, durante y después
+  de una feria; las empresas que más publican en su industria y dónde
+  aparecen las vacantes (monitoreo); su lista con al menos una plataforma.
+- *Investiga tu industria*: seis puntos guiados (cultura, valores,
+  desarrollo, casos de éxito, retos, empresas), fuentes y preguntas para un
+  asistente de IA con su rol y su industria.
+- *Inscripción a comunidades*: arranca con las de Nutrir; estado, requisitos
+  y qué va a aportar.
+- *La resiliencia*: 12 frases en seis dimensiones; nivel y sugerencias para
+  las más bajas. No es un instrumento clínico; si sale bajo, invita a
+  platicarlo con su mentor o alguien de confianza.
+- *Plan 30-60-90 del nuevo trabajo*: aprender, contribuir y proponer, con
+  sugerencias que agrega o escribe.
+- *Mentoría final*: fortalezas, áreas, recomendaciones y siguiente paso con
+  las palabras del mentor; avisa qué pasos siguen esperando al mentor.
+- *Reporte final*: junta lo principal de las cinco fases y todas las
+  revisiones del mentor; pide los cuatro reportes de fase y los pasos de
+  Acompañar.
+
+Los renglones de captura (certificaciones, comunidades, eventos, plan) usan un
+mismo componente, `FASES_AGORA.filas`. El Apps Script tiene una pestaña por
+cada paso nuevo (hay que publicarlo como versión nueva y correr
+`revisarPestanas`). Pruebas: `cuentas/pruebas/test_diana.mjs` (24).
+
+## 2026-10-29 — Proceso DIANA: Descubrir e Iniciar
+
+Gael compartió la hoja completa de DIANA (herramientas Agora y DIana v2) y
+pidió hacerlo todo, integrando lo que ya existe. Eligió: dos procesos con las
+mismas herramientas (Ágora para secundaria y bachillerato, DIANA para
+universidad y egresados); la revisión del mentor en la página con nombre y
+fecha; para las listas (eventos, comunidades, certificaciones, preguntas de
+entrevista) solo guía y área de captura, sin listas armadas; y entregar por
+fases. Este es el primer bloque: Descubrir e Iniciar. Alinear, Nutrir y
+Acompañar ya aparecen en la ruta como "Próximamente".
+
+**Motor compartido.** El código de agora.html pasó a `proceso.js` y
+`proceso.css`; cada página solo define `window.PROCESO` (pasos, fases,
+unidad). Las herramientas guardan en la misma llave del navegador, así que lo
+que se hizo en Ágora (información, DISC, FODA, estilo…) cuenta en DIANA y al
+revés. Una herramienta puede pedir más en un proceso: Crecimiento personal en
+DIANA exige valores, intereses y motivaciones y, si se completó en Ágora sin
+ellos, aparece "En curso".
+
+**Revisión del mentor.** Los pasos marcados `mentor` traen un recuadro para
+anotar que se revisó con el mentor (nombre, fecha, comentarios). El paso se
+puede completar antes y queda "Falta mentor" en la ruta. Llega a la hoja en
+las columnas *Mentor*, *Revisión del mentor* y *Comentarios del mentor*, y el
+expediente lista los *Pendientes de mentor*. En Descubrir e Iniciar solo lo
+pide Escenarios de vida ("área de captura para usuario y mentor"); casi todo
+Alinear, Nutrir y Acompañar lo pide.
+
+**Herramientas nuevas (Iniciar).**
+- *Mapa de carrera*: lo que ya trae (estudios, experiencia, estilo) frente a
+  los roles de su industria: los puestos del panel de expertos (fichas.html)
+  y las categorías de puesto del monitoreo, con afinidad de estilo y vacantes.
+  Elige rol objetivo y escribe qué la acerca y qué le falta.
+- *Tendencias de la industria*: la "investigación automática" es el monitoreo
+  del Club (vacantes por semana, habilidades, salario, empresas, estados,
+  boletín). Marca las tendencias que le importan y qué hará. Si su industria
+  no está en el monitoreo, preguntas guía y captura.
+- *Plan de formación*: lista inicial no priorizada con las habilidades que
+  piden las vacantes, las que su estilo ejercita menos y los cursos del
+  catálogo del Club (nunca externos), más los suyos.
+- *Marca personal y profesional*: expectativas, características personales y
+  profesionales a desarrollar, y su propuesta de valor en una frase.
+- El *Plan 30-60-90* sugiere con el rol, la formación y la marca.
+- *Reporte de Descubrir* y *Resumen de Iniciar*: la misma herramienta de
+  reportes de Ágora, ahora configurable por secciones, con tabla de
+  revisiones del mentor.
+
+**Otros.** `afinidad-estilo.js` saca de index.html la tabla puesto → estilo
+para que la use también el Mapa de carrera. index.html enlaza los dos
+procesos; al completar la Información inicial, si la etapa no corresponde al
+proceso, se sugiere el otro. disc.html recupera la opción de compartir con el
+Club (la versión del repositorio no la traía).
+
+**Hoja.** Pestañas sin el prefijo "Ágora · " (las comparten los dos
+procesos; `revisarPestanas` renombra las de antes), *Expediente DIANA* y las
+pestañas de las herramientas de DIANA.
+
+**Pruebas.** `test_diana.mjs` (12) reemplaza al de la primera versión de
+DIANA. Se perdieron en el entorno de trabajo `test_agora.mjs` (puntuación del
+cuestionario de Ágora e informe.html) y `test_apps_script_autoconocimiento.mjs`,
+que nunca llegaron al repositorio; lo esencial de ambos está cubierto en
+`test_proceso_agora.mjs` (la puntuación del DISC de Ágora y el DISC/FODA en
+la hoja).
+
 ## 2026-10-28 — Cambios pedidos por Gael: presupuesto, cuestionarios para papás y textos
 
 - **DISC, "Qué te conviene reforzar".** Va directo a los cursos: "Puedes

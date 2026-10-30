@@ -55,6 +55,37 @@ function coincidencias(esperas, areas){
 
 const vacio = () => ({esperas:[], esperaOtra:'', areas:[], prioridad:'', dom:null});
 
+/* DIANA pide además "un cuestionario para identificar valores, intereses y
+   motivaciones" (cfg.valores). Listas del Club, por revisar con Ágora. */
+const VALORES = ['Honestidad', 'Responsabilidad', 'Familia', 'Libertad', 'Seguridad', 'Reconocimiento', 'Servicio a los demás',
+  'Aprendizaje', 'Creatividad', 'Justicia', 'Lealtad', 'Respeto', 'Salud y bienestar', 'Independencia', 'Éxito económico',
+  'Trabajo en equipo', 'Innovación', 'Fe o espiritualidad', 'Cuidado del medio ambiente', 'Equilibrio entre vida y trabajo'];
+const INTERESES = [
+  {id:'hacer', t:'Hacer cosas con las manos, herramientas o máquinas'},
+  {id:'investigar', t:'Investigar, analizar y resolver problemas'},
+  {id:'crear', t:'Crear, diseñar y expresarme'},
+  {id:'ayudar', t:'Ayudar, enseñar o cuidar a otras personas'},
+  {id:'dirigir', t:'Convencer, vender, dirigir o emprender'},
+  {id:'organizar', t:'Organizar datos, procesos y recursos'}
+];
+const MOTIVACIONES = [
+  {id:'ingreso', t:'Ganar bien'}, {id:'estabilidad', t:'Tener un trabajo estable'}, {id:'crecer', t:'Crecer y subir de puesto'},
+  {id:'aprender', t:'Aprender cosas nuevas'}, {id:'impacto', t:'Que mi trabajo ayude a otros'}, {id:'autonomia', t:'Decidir cómo hago mi trabajo'},
+  {id:'reconocimiento', t:'Que reconozcan lo que hago'}, {id:'flexibilidad', t:'Tener horario flexible'},
+  {id:'equipo', t:'Un buen ambiente y equipo'}, {id:'reto', t:'Tener retos'}
+];
+const ESCALA = ['1', '2', '3', '4', '5'];
+const completaValores = d => (d.valores || []).length >= 3 &&
+  INTERESES.every(x => (d.intereses || {})[x.id]) && MOTIVACIONES.every(x => (d.motivaciones || {})[x.id]);
+const top = (obj, lista, n) => lista.filter(x => obj && obj[x.id]).sort((a, b) => obj[b.id] - obj[a.id]).slice(0, n);
+function textoValores(d){
+  return {
+    'Valores': (d.valores || []).join(', '),
+    'Intereses': top(d.intereses, INTERESES, 6).map(x => x.t + ': ' + d.intereses[x.id]).join('\n'),
+    'Motivaciones': top(d.motivaciones, MOTIVACIONES, 10).map(x => x.t + ': ' + d.motivaciones[x.id]).join('\n')
+  };
+}
+
 /* Texto para el correo a la familia y para la hoja. */
 function textoResultados(AG, x, habilidades){
   const nombre = AG.nombre() || 'Tu hijo o hija';
@@ -67,8 +98,21 @@ function textoResultados(AG, x, habilidades){
 }
 
 F.crecimiento = {
-  EXPECTATIVAS, coincidencias,
-  pintar(cont, AG){
+  EXPECTATIVAS, coincidencias, VALORES, INTERESES, MOTIVACIONES,
+  /* Completa según el proceso: en DIANA también pide valores, intereses y motivaciones. */
+  completa: (d, cfg) => !(cfg && cfg.valores) || completaValores(d || {}),
+  seccionValores(AG, d){
+    if(!d.valores || !d.valores.length) return '';
+    const e = AG.esc;
+    return '<h3>Valores, intereses y motivaciones</h3>' +
+      '<p><strong>Sus valores:</strong> ' + e(d.valores.join(', ')) + '.</p>' +
+      '<p><strong>Lo que más le interesa:</strong> ' + e(top(d.intereses, INTERESES, 2).map(x => x.t.toLowerCase()).join('; ')) + '.</p>' +
+      '<p><strong>Lo que más le motiva:</strong> ' + e(top(d.motivaciones, MOTIVACIONES, 3).map(x => x.t.toLowerCase()).join('; ')) + '.</p>';
+  },
+  pintar(cont, AG, paso){
+    const cfg = (paso && paso.cfg) || {};
+    const conValores = !!cfg.valores;
+    const esAgora = AG.PROCESO.id === 'agora';
     const req = AG.requiere(['disc']);
     if(req){ cont.innerHTML = req; return; }
     const disc = AG.disc();
@@ -97,6 +141,19 @@ F.crecimiento = {
         (foda ? '' : '<p class="note">Cuando completes tu FODA, aquí aparecen también tus debilidades.</p>') +
       '</div>' +
 
+      (conValores ?
+      '<div class="card" id="cre_valores">' +
+        '<h3>Tus valores</h3>' +
+        '<p class="note" style="margin-top:0;">Elige de 3 a 5: los que no negociarías al elegir dónde trabajar o cómo vivir.</p>' +
+        AG.checks('valores', VALORES, d.valores || []) +
+        '<h3>Lo que te interesa hacer</h3>' +
+        '<p class="note" style="margin-top:0;">Del 1 (nada) al 5 (mucho), ¿cuánto te gusta?</p>' +
+        INTERESES.map(x => '<div class="campo" style="margin:6px 0;"><label>' + AG.esc(x.t) + '</label>' + AG.radios('int_' + x.id, ESCALA, String((d.intereses || {})[x.id] || '')) + '</div>').join('') +
+        '<h3>Lo que te motiva en un trabajo</h3>' +
+        '<p class="note" style="margin-top:0;">Del 1 (no me importa) al 5 (me importa mucho).</p>' +
+        MOTIVACIONES.map(x => '<div class="campo" style="margin:6px 0;"><label>' + AG.esc(x.t) + '</label>' + AG.radios('mot_' + x.id, ESCALA, String((d.motivaciones || {})[x.id] || '')) + '</div>').join('') +
+      '</div>' : '') +
+
       '<div class="card">' +
         '<h3>Frente a frente</h3>' +
         '<div id="cre_cruce"></div>' +
@@ -107,19 +164,32 @@ F.crecimiento = {
         AG.boton('crecimiento', AG.completa('crecimiento')) +
       '</div>' +
 
-      '<div class="card">' +
+      (!esAgora ? '' : '<div class="card">' +
         '<h3>Compartir con tu familia</h3>' +
         '<p style="margin-top:0;">El proceso Ágora comparte esta fase con tu madre, padre o tutor. Se abre tu correo con el mensaje listo; tú decides si lo mandas.' +
         (AG.infoCompleta() ? '' : ' Primero completa tu información inicial.') + '</p>' +
         '<a class="secondary" id="cre_correo" href="#">' +
           (tutor.correo ? 'Mandar a ' + AG.esc(tutor.nombre || tutor.correo) : 'Mandar por correo a mi familia') + '</a>' +
         '<p class="note">Si aceptaste guardar tu expediente, tu orientador también puede mandárselos desde el Club.</p>' +
-      '</div>';
+      '</div>');
 
-    const leer = () => ({
-      esperas: AG.marcados(cont, 'esperas'), esperaOtra: cont.querySelector('#f_cre_otra').value,
-      areas: AG.marcados(cont, 'areas'), prioridad: cont.querySelector('#f_cre_prioridad').value, dom
-    });
+    // Lo que se lee se mezcla con lo guardado: así Ágora no borra los valores que se contestaron en DIANA.
+    const leer = () => {
+      const x = Object.assign({}, AG.datos('crecimiento') || {}, {
+        esperas: AG.marcados(cont, 'esperas'), esperaOtra: cont.querySelector('#f_cre_otra').value,
+        areas: AG.marcados(cont, 'areas'), prioridad: cont.querySelector('#f_cre_prioridad').value, dom
+      });
+      if(conValores){
+        x.valores = AG.marcados(cont, 'valores');
+        x.intereses = {}; INTERESES.forEach(i => { const v = AG.radio(cont, 'int_' + i.id); if(v) x.intereses[i.id] = Number(v); });
+        x.motivaciones = {}; MOTIVACIONES.forEach(i => { const v = AG.radio(cont, 'mot_' + i.id); if(v) x.motivaciones[i.id] = Number(v); });
+      }
+      return x;
+    };
+    // Máximo 5 valores.
+    cont.addEventListener('change', ev => {
+      if(ev.target.dataset && ev.target.dataset.grupo === 'valores' && ev.target.checked && AG.marcados(cont, 'valores').length > 5) ev.target.checked = false;
+    }, true);
 
     // La prioridad se elige entre lo marcado en las dos columnas.
     function pintarCruce(){
@@ -142,7 +212,8 @@ F.crecimiento = {
     cont.addEventListener('input', ev => { if(ev.target.id === 'f_cre_otra') guardar(); });
     pintarCruce();
 
-    cont.querySelector('#cre_correo').onclick = ev => {
+    const cc = cont.querySelector('#cre_correo');
+    if(cc) cc.onclick = ev => {
       const x = leer();
       ev.currentTarget.href = AG.mailto(tutor.correo, 'Mis resultados de Crecimiento personal — proceso Ágora', textoResultados(AG, x, habilidades));
     };
@@ -169,16 +240,22 @@ F.crecimiento = {
       if(!x.esperas.length && !x.esperaOtra.trim()) f.push('elegir al menos una cosa que esperas desarrollar');
       if(x.areas.length < 2) f.push('marcar al menos 2 áreas que quieres trabajar');
       if(!x.prioridad) f.push('elegir tu primera prioridad');
+      if(conValores){
+        if((x.valores || []).length < 3) f.push('elegir de 3 a 5 valores');
+        const sinInt = INTERESES.filter(i => !(x.intereses || {})[i.id]).length, sinMot = MOTIVACIONES.filter(i => !(x.motivaciones || {})[i.id]).length;
+        if(sinInt) f.push('calificar lo que te interesa (faltan ' + sinInt + ')');
+        if(sinMot) f.push('calificar lo que te motiva (faltan ' + sinMot + ')');
+      }
       if(f.length){ AG.faltan(f); return; }
       AG.fijar('crecimiento', x);
       cont.querySelector('#btnCompletar').textContent = 'Guardar cambios';
       AG.terminar('crecimiento', Object.assign({}, x, {
         habilidades,
-        hoja: {
+        hoja: Object.assign({
           'Lo que espero desarrollar': AG.vinetas(x.esperas.concat(x.esperaOtra.trim() ? [x.esperaOtra.trim()] : [])),
           'Áreas de crecimiento': AG.vinetas(x.areas), 'Primera prioridad': x.prioridad,
           'Habilidades a reforzar': habilidades.join(', ')
-        }
+        }, conValores ? textoValores(x) : {})
       }));
     };
   }

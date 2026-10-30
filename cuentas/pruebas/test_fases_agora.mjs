@@ -27,7 +27,7 @@ catch {
 }
 
 const RAIZ = new URL('../../', import.meta.url).pathname;
-const TIPOS = { '.html':'text/html', '.json':'application/json', '.svg':'image/svg+xml', '.js':'text/javascript' };
+const TIPOS = { '.html':'text/html', '.css':'text/css', '.json':'application/json', '.svg':'image/svg+xml', '.js':'text/javascript' };
 const servidor = createServer(async (req, res) => {
   try {
     const ruta = normalize(decodeURIComponent(req.url.split('?')[0])).replace(/^(\.\.[/\\])+/, '');
@@ -403,7 +403,7 @@ await prueba('cada fase escribe su pestaña con el ID del expediente, solo con l
   igual(post(fase('estilo', { 'Orientación': 'Orientado a los procesos' })).error, 'falta información inicial');
   post(INFO_AS);
   igual(post(fase('estilo', { 'Orientación': 'Orientado a los procesos', 'Cómo trabajo': '• Estable', 'Columna inventada': 'x', 'En mis palabras': '=HYPERLINK("x")' })).ok, true);
-  const h = pestanas['Ágora · Estilo de trabajo'];
+  const h = pestanas['Estilo de trabajo'];
   igual(h.filas[1][col(h, 'ID de envío')], B.id);
   igual(h.filas[1][col(h, 'Cómo trabajo')], '• Estable');
   igual(col(h, 'Columna inventada'), -1, 'no se crean columnas que manda la página');
@@ -423,13 +423,13 @@ await prueba('el resumen marca el proceso como terminado en el expediente', asyn
   igual(ex.filas[1][col(ex, 'Proceso terminado')], '2026-10-26');
   igual(ex.filas[1][col(ex, 'Avance')], '11 de 11');
   ctx.revisarPestanas();
-  for (const t of ['Ágora · Relacionamiento', 'Ágora · Crecimiento personal', 'Ágora · Escenarios de vida', 'Ágora · Presupuesto', 'Ágora · Ruta profesional', 'Ágora · Plan de acción']) cierto(pestanas[t], 'revisarPestanas crea ' + t);
+  for (const t of ['Relacionamiento', 'Crecimiento personal', 'Escenarios de vida', 'Presupuesto', 'Ruta profesional', 'Plan de acción']) cierto(pestanas[t], 'revisarPestanas crea ' + t);
 });
 
 await prueba('una columna nueva se agrega al final de una pestaña que ya existía', async () => {
   const { post, pestanas } = cargar();
   post(INFO_AS);
-  const inf = pestanas['Ágora · Información inicial'];
+  const inf = pestanas['Información inicial'];
   const sinEtapa = inf.filas[0].filter(c => c !== 'Etapa');
   inf.filas.length = 0; inf.filas.push(sinEtapa);   // como quedó la pestaña antes de este cambio
   igual(post(INFO_AS).ok, true);
@@ -444,7 +444,7 @@ await prueba('el orientador manda los resultados al tutor desde la hoja, con con
   post(INFO_AS);
   post(fase('crecimiento', { 'Lo que espero desarrollar': '• Tomar decisiones', 'Áreas de crecimiento': '• Sé más directo', 'Primera prioridad': 'Sé más directo', 'Habilidades a reforzar': 'liderazgo' }));
   post(fase('ruta', { 'Ruta principal': 'Finanzas', 'Por qué': 'Números' }));
-  activar('Ágora · Crecimiento personal'); ctx.enviarResultadosAlTutor();
+  activar('Crecimiento personal'); ctx.enviarResultadosAlTutor();
   igual(correos.length, 0, 'fuera del expediente no manda'); cierto(alertas.pop().includes('Expediente Ágora'));
   activar('Expediente Ágora', 2); responder('NO'); ctx.enviarResultadosAlTutor();
   igual(correos.length, 0, 'si dice que no, no manda');

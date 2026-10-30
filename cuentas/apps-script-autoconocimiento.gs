@@ -40,7 +40,11 @@
 
 var CLAVE = 'cmb-autoconocimiento-2026';
 
-var PESTANAS = { disc: 'DISC', foda: 'FODA', expediente: 'Expediente Ágora', informacion: 'Ágora · Información inicial' };
+var PESTANAS = { disc: 'DISC', foda: 'FODA', expediente: 'Expediente Ágora', expedienteDiana: 'Expediente DIANA', informacion: 'Información inicial' };
+/* Antes de DIANA las pestañas de las herramientas se llamaban "Ágora · …".
+   Ahora las comparten los dos procesos y llevan su nombre a secas;
+   revisarPestanas las renombra si encuentra las de antes. */
+var PREFIJO_VIEJO = 'Ágora · ';
 
 /* Los encabezados son el contrato con la hoja. El script busca cada columna
    por su nombre, así que puedes reordenarlas o agregar columnas tuyas a la
@@ -57,8 +61,8 @@ var ENCABEZADOS = {
   // Una fila por persona: el tablero del orientador.
   expediente: ['ID de envío', 'Alta', 'Última actividad', 'Nombre', 'Correo', 'Edad', 'Etapa',
                'Avance', 'Fases completas', 'Última fase guardada', 'Tutor', 'Correo del tutor',
-               'Tutor autoriza', 'Proceso terminado', 'Resultados enviados al tutor', 'Dispositivo'],
-  // Fase 1 del proceso Ágora.
+               'Tutor autoriza', 'Proceso terminado', 'Resultados enviados al tutor', 'Pendientes de mentor', 'Dispositivo'],
+  // Información inicial (la comparten Ágora y DIANA).
   informacion: ['ID de envío', 'Primer envío', 'Último envío', 'Nombre', 'Correo', 'Teléfono',
                 'Edad', 'Estado', 'Ciudad', 'Tutor', 'Correo del tutor', 'Parentesco', 'Tutor autoriza',
                 'Etapa', 'Nivel de estudios', 'Situación', 'Institución', 'Carrera', 'Semestre o año',
@@ -75,25 +79,73 @@ var FASES_AGORA = {
   resumen: 'Resumen ejecutivo'
 };
 
-/* Fases 4 a 11: una pestaña cada una. La página manda en `datos.hoja` un texto
+/* Nombres legibles de los pasos de DIANA (diana.html). */
+var FASES_DIANA = {
+  informacion: 'Información inicial', disc: 'Perfil DISC', foda: 'Análisis FODA', estilo: 'Estilo de trabajo',
+  relacion: 'Forma de relacionamiento', crecimiento: 'Crecimiento personal', escenarios: 'Escenarios de vida',
+  reporte_descubrir: 'Reporte de Descubrir', mapa: 'Mapa de carrera', tendencias: 'Tendencias de la industria',
+  formacion: 'Plan de formación', marca: 'Marca personal y profesional', plan: 'Plan de acción 30-60-90',
+  resumen_iniciar: 'Resumen de Iniciar', brechas_ofertas: 'Brechas frente a las vacantes', brechas_competencias: 'Brechas de competencias',
+  cv: 'Crea tu CV', entrevista: 'Guía de entrevista', presentacion: 'Presentación efectiva', expectativas: 'Mentoría de ajuste de expectativas',
+  resumen_alinear: 'Resumen de Alinear', seleccion_cursos: 'Selección de cursos', aprender: 'Aprender a aprender',
+  certificaciones: 'Valor de las certificaciones', comunidades: 'Comunidades de aprendizaje', plan_entrenamiento: 'Plan de certificaciones y aprendizaje',
+  reporte_nutrir: 'Reporte de Nutrir', contacto_industria: 'Contacto con la industria', investiga_industria: 'Investiga tu industria',
+  inscripcion_comunidades: 'Inscripción a comunidades', resiliencia: 'La resiliencia', plan_nuevo_trabajo: 'Plan 30-60-90 para el nuevo trabajo',
+  mentoria_final: 'Mentoría final', reporte_final: 'Reporte final'
+};
+var PROCESOS = {
+  agora: { fases: FASES_AGORA, expediente: 'expediente', total: 11 },
+  diana: { fases: FASES_DIANA, expediente: 'expedienteDiana', total: 34 }
+};
+
+/* Una pestaña por herramienta. La página manda en `datos.hoja` un texto
    por columna; aquí solo se aceptan las columnas de esta lista, y cada valor se
    limpia y se desactiva como fórmula. Lo estructurado (lo que marcó, sus
    listas) se queda en el navegador de la persona. */
 var PESTANAS_FASE = {
-  estilo:      { pestana: 'Ágora · Estilo de trabajo', columnas: ['Orientación', 'Estilo DISC', 'Cómo trabajo', 'Dónde rindo más', 'Qué me mueve', 'Lo que me puede frenar', 'En mis palabras'] },
-  relacion:    { pestana: 'Ágora · Relacionamiento', columnas: ['Me funciona', 'No me funciona', 'Mi papel en equipo', 'Estilo con el que me cuesta', 'Qué haré distinto'] },
-  crecimiento: { pestana: 'Ágora · Crecimiento personal', columnas: ['Lo que espero desarrollar', 'Áreas de crecimiento', 'Primera prioridad', 'Habilidades a reforzar'] },
-  escenarios:  { pestana: 'Ágora · Escenarios de vida', columnas: ['A 5 años', 'A 10 años', 'A 15 años'] },
-  presupuesto: { pestana: 'Ágora · Presupuesto', columnas: ['Total mensual', 'Detalle', 'Para cuándo', 'Dónde piensa vivir'] },
-  ruta:        { pestana: 'Ágora · Ruta profesional', columnas: ['Carreras consideradas', 'Compatibilidad', 'Carreras afines sugeridas', 'Ruta principal', 'Segunda ruta', 'Por qué', 'Costo de vida vs salario', 'Estrategia de vida'] },
-  plan:        { pestana: 'Ágora · Plan de acción', columnas: ['30 días', '60 días', '90 días'] },
-  resumen:     { pestana: 'Ágora · Resumen', columnas: ['Proceso terminado', 'Estilo dominante', 'Ruta principal', 'Segunda ruta', 'Primera prioridad de crecimiento'] }
+  estilo:      { pestana: 'Estilo de trabajo', columnas: ['Orientación', 'Estilo DISC', 'Cómo trabajo', 'Dónde rindo más', 'Qué me mueve', 'Lo que me puede frenar', 'En mis palabras'] },
+  relacion:    { pestana: 'Relacionamiento', columnas: ['Me funciona', 'No me funciona', 'Mi papel en equipo', 'Estilo con el que me cuesta', 'Qué haré distinto'] },
+  crecimiento: { pestana: 'Crecimiento personal', columnas: ['Lo que espero desarrollar', 'Áreas de crecimiento', 'Primera prioridad', 'Habilidades a reforzar', 'Valores', 'Intereses', 'Motivaciones'] },
+  escenarios:  { pestana: 'Escenarios de vida', columnas: ['A 5 años', 'A 10 años', 'A 15 años'] },
+  presupuesto: { pestana: 'Presupuesto', columnas: ['Total mensual', 'Detalle', 'Para cuándo', 'Dónde piensa vivir'] },
+  ruta:        { pestana: 'Ruta profesional', columnas: ['Carreras consideradas', 'Compatibilidad', 'Carreras afines sugeridas', 'Ruta principal', 'Segunda ruta', 'Por qué', 'Costo de vida vs salario', 'Estrategia de vida'] },
+  plan:        { pestana: 'Plan de acción', columnas: ['30 días', '60 días', '90 días'] },
+  resumen:     { pestana: 'Resumen Ágora', viejo: 'Ágora · Resumen', columnas: ['Proceso terminado', 'Estilo dominante', 'Ruta principal', 'Segunda ruta', 'Primera prioridad de crecimiento'] },
+  // DIANA
+  reporte_descubrir: { pestana: 'DIANA · Reporte Descubrir', columnas: ['Terminado', 'Estilo dominante', 'Primera prioridad de crecimiento', 'Pendientes de mentor'] },
+  mapa:        { pestana: 'Mapa de carrera', columnas: ['Industria objetivo', 'Rol objetivo', 'Segundo rol', 'Roles revisados', 'Qué me acerca y qué me falta'] },
+  tendencias:  { pestana: 'Tendencias de la industria', columnas: ['Industria', 'Tendencias que me importan', 'Qué haré'] },
+  formacion:   { pestana: 'Plan de formación', columnas: ['Habilidades técnicas', 'Habilidades blandas', 'Cursos del catálogo', 'Certificaciones y otros'] },
+  marca:       { pestana: 'Marca personal', columnas: ['Propuesta de valor', 'Cómo quiero que me reconozcan', 'Características personales', 'Características profesionales'] },
+  resumen_iniciar: { pestana: 'DIANA · Resumen Iniciar', columnas: ['Terminado', 'Estilo dominante', 'Rol objetivo', 'Primera prioridad de crecimiento', 'Pendientes de mentor'] },
+  brechas_ofertas: { pestana: 'Brechas frente a vacantes', columnas: ['Rol e industria', 'Vacantes que me interesan', 'Lo que más me falta', 'Mi conclusión'] },
+  brechas_competencias: { pestana: 'Brechas de competencias', columnas: ['Brechas técnicas', 'Brechas no técnicas', 'Cómo las cerraré'] },
+  cv:          { pestana: 'CV', columnas: ['Puesto en el CV', 'Perfil profesional', 'Experiencias en el CV', 'Perfil alineado', 'Perfil en línea'] },
+  entrevista:  { pestana: 'Guía de entrevista', columnas: ['Preguntas técnicas', 'Preguntas no técnicas', 'Mis preguntas', 'Preparación'] },
+  presentacion: { pestana: 'Presentación efectiva', columnas: ['Introducción', 'Elevator speech', 'Experiencia relevante', 'Por qué quiero el rol', 'Práctica'] },
+  expectativas: { pestana: 'Ajuste de expectativas', columnas: ['Salario esperado', 'Plazo', 'Nivel', 'Modalidad', 'Dónde', 'Lo que me preocupa', 'Confianza antes', 'Ajustes con mi mentor', 'Confianza después'] },
+  resumen_alinear: { pestana: 'DIANA · Resumen Alinear', columnas: ['Terminado', 'Estilo dominante', 'Rol objetivo', 'Primera prioridad de crecimiento', 'Pendientes de mentor'] },
+  seleccion_cursos: { pestana: 'Selección de cursos', columnas: ['Prioridad alta', 'Prioridad media', 'Brechas que cubren'] },
+  aprender:    { pestana: 'Aprender a aprender', columnas: ['Forma de aprender', 'Puntaje', 'Recomendaciones que aplicaré'] },
+  certificaciones: { pestana: 'Certificaciones', columnas: ['Certificaciones', 'Las piden las vacantes', 'Prioridad alta'] },
+  comunidades: { pestana: 'Comunidades de aprendizaje', columnas: ['Comunidades', 'Requisitos', 'Qué espero'] },
+  plan_entrenamiento: { pestana: 'Plan de entrenamiento', columnas: ['Plan', 'Horas por semana', 'Acuerdos con mi mentor'] },
+  reporte_nutrir: { pestana: 'DIANA · Reporte Nutrir', columnas: ['Terminado', 'Estilo dominante', 'Rol objetivo', 'Primera prioridad de crecimiento', 'Pendientes de mentor'] },
+  contacto_industria: { pestana: 'Contacto con la industria', columnas: ['Eventos y ferias', 'Plataformas', 'Empresas objetivo'] },
+  investiga_industria: { pestana: 'Investigación de la industria', columnas: ['Cultura', 'Valores', 'Desarrollo profesional', 'Casos de éxito', 'Retos y cambios', 'Empresas clave', 'Fuentes', 'Conclusión'] },
+  inscripcion_comunidades: { pestana: 'Inscripción a comunidades', columnas: ['Comunidades', 'Requisitos', 'Qué aportaré'] },
+  resiliencia: { pestana: 'Resiliencia', columnas: ['Nivel', 'Por dimensión', 'Lo que haré'] },
+  plan_nuevo_trabajo: { pestana: 'Plan del nuevo trabajo', columnas: ['Puesto', '30 días', '60 días', '90 días'] },
+  mentoria_final: { pestana: 'Mentoría final', columnas: ['Fortalezas', 'Áreas de oportunidad', 'Recomendaciones', 'Siguiente paso', 'Lo que me llevo', 'Valoración del proceso'] },
+  reporte_final: { pestana: 'DIANA · Reporte final', columnas: ['Terminado', 'Estilo dominante', 'Rol objetivo', 'Primera prioridad de crecimiento', 'Pendientes de mentor'] }
 };
+// Los pasos con revisión del mentor mandan además estas columnas.
+var COLUMNAS_MENTOR = ['Mentor', 'Revisión del mentor', 'Comentarios del mentor'];
 // Encabezados de cada pestaña de fase. Es una tabla y no una función a propósito:
 // así revisarPestanas es la primera función del archivo y el editor la elige al abrir.
 var ENCABEZADOS_FASE = {};
 Object.keys(PESTANAS_FASE).forEach(function (f) {
-  ENCABEZADOS_FASE[f] = ['ID de envío', 'Primer envío', 'Último envío', 'Nombre', 'Correo'].concat(PESTANAS_FASE[f].columnas);
+  ENCABEZADOS_FASE[f] = ['ID de envío', 'Primer envío', 'Último envío', 'Nombre', 'Correo'].concat(PESTANAS_FASE[f].columnas).concat(COLUMNAS_MENTOR);
 });
 
 var CORREO_CLUB = 'clubmentesbrillantesla@gmail.com';
@@ -106,11 +158,28 @@ var NOMBRES = { D: 'Dominancia', I: 'Influencia', S: 'Estabilidad', C: 'Cumplimi
 /** Para correr a mano una vez: da permisos y deja todas las pestañas listas.
     Es la primera función del archivo para que el editor la tenga elegida al abrir. */
 function revisarPestanas() {
+  renombrarViejas();
   pestana(PESTANAS.disc, ENCABEZADOS.disc);
   pestana(PESTANAS.foda, ENCABEZADOS.foda);
   pestana(PESTANAS.expediente, ENCABEZADOS.expediente);
+  pestana(PESTANAS.expedienteDiana, ENCABEZADOS.expediente);
   pestana(PESTANAS.informacion, ENCABEZADOS.informacion);
   Object.keys(PESTANAS_FASE).forEach(function (f) { pestana(PESTANAS_FASE[f].pestana, ENCABEZADOS_FASE[f]); });
+}
+
+/** "Ágora · Estilo de trabajo" → "Estilo de trabajo", si la nueva no existe. */
+function renombrarViejas() {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var pares = [[PREFIJO_VIEJO + 'Información inicial', PESTANAS.informacion]];
+  Object.keys(PESTANAS_FASE).forEach(function (f) {
+    var c = PESTANAS_FASE[f];
+    pares.push([c.viejo || (PREFIJO_VIEJO + c.pestana), c.pestana]);
+  });
+  pares.push([PREFIJO_VIEJO + 'Relacionamiento', PESTANAS_FASE.relacion.pestana]);
+  pares.forEach(function (par) {
+    var vieja = ss.getSheetByName(par[0]);
+    if (vieja && !ss.getSheetByName(par[1])) vieja.setName(par[1]);
+  });
 }
 
 // ─────────────────────────────── entrada ───────────────────────────────
@@ -132,7 +201,7 @@ function doPost(e) {
 
     if (d.tipo === 'disc') return responder(conCandado(function () { return guardarDisc(d, id, nombre, correo); }));
     if (d.tipo === 'foda') return responder(conCandado(function () { return guardarFoda(d, id, nombre, correo); }));
-    if (d.tipo === 'agora') return responder(conCandado(function () { return guardarAgora(d, id, nombre, correo); }));
+    if (d.tipo === 'agora' || d.tipo === 'diana') return responder(conCandado(function () { return guardarProceso(d, id, nombre, correo, d.tipo); }));
     return responder({ ok: false, error: 'tipo' });
   } catch (err) {
     return responder({ ok: false, error: 'petición no válida' });
@@ -236,17 +305,24 @@ function guardarFoda(d, id, nombre, correo) {
 /* Cada fase que la persona completa llega aquí. Se actualiza su fila del
    expediente (avance) y la pestaña de la fase. Una fase que todavía no tiene
    pestaña propia solo mueve el avance. */
-function guardarAgora(d, id, nombre, correo) {
+/* Ágora y DIANA: un expediente por proceso (Expediente Ágora, Expediente
+   DIANA) y una pestaña por herramienta, compartida por los dos. */
+function guardarProceso(d, id, nombre, correo, tipo) {
+  var proc = PROCESOS[tipo];
+  var FASES = proc.fases;
   var paso = limpiar(d.paso, 40);
-  if (!FASES_AGORA[paso]) return { ok: false, error: 'paso' };
+  if (!FASES[paso]) return { ok: false, error: 'paso' };
   var datos = d.datos || {};
   var completos = (Array.isArray(d.completos) ? d.completos : [])
-    .filter(function (p) { return FASES_AGORA[p]; });
-  var total = Math.min(Math.max(parseInt(d.total, 10) || 11, 1), 50);
+    .filter(function (p) { return FASES[p]; });
+  var pendientesMentor = (Array.isArray(d.pendientesMentor) ? d.pendientesMentor : [])
+    .filter(function (p) { return FASES[p]; });
+  var total = Math.min(Math.max(parseInt(d.total, 10) || proc.total, 1), 60);
 
-  // Las fases 2 en adelante se agregan a un expediente que ya existe: la
-  // fase 1 trae la edad y, si es menor, la autorización de su tutor.
-  if (paso !== 'informacion' && !existeFila(PESTANAS.expediente, id)) return { ok: false, error: 'falta información inicial' };
+  // Los demás pasos se agregan a un expediente que ya existe: la Información
+  // inicial trae la edad y, si es menor, la autorización de su tutor. Vale la
+  // que haya mandado desde cualquiera de los dos procesos.
+  if (paso !== 'informacion' && !existeFila(PESTANAS.informacion, id)) return { ok: false, error: 'falta información inicial' };
 
   // Perfil DISC y FODA se escriben en sus pestañas de siempre, con el mismo
   // ID del expediente: rehacerlos actualiza la fila en vez de duplicarla.
@@ -263,7 +339,7 @@ function guardarAgora(d, id, nombre, correo) {
     var hoja = datos.hoja || {};
     var fila = { 'ID de envío': id, 'Último envío': new Date(), 'Nombre': textoSeguro(nombre), 'Correo': textoSeguro(correo) };
     var hay = false;
-    PESTANAS_FASE[paso].columnas.forEach(function (c) {
+    PESTANAS_FASE[paso].columnas.concat(COLUMNAS_MENTOR).forEach(function (c) {
       var v = limpiar(hoja[c], MAX_TEXTO);
       if (v) hay = true;
       fila[c] = textoSeguro(v);
@@ -271,6 +347,7 @@ function guardarAgora(d, id, nombre, correo) {
     if (!hay) return { ok: false, error: 'sin datos' };
     escribir(PESTANAS_FASE[paso].pestana, ENCABEZADOS_FASE[paso], id, fila, true, 'Primer envío');
     if (paso === 'resumen') terminado = limpiar(hoja['Proceso terminado'], 10) || 'Sí';
+    if (paso === 'reporte_final') terminado = limpiar(hoja['Terminado'], 10) || 'Sí';
   }
 
   if (paso === 'informacion') {
@@ -321,11 +398,17 @@ function guardarAgora(d, id, nombre, correo) {
     'ID de envío': id, 'Última actividad': new Date(),
     'Nombre': textoSeguro(nombre), 'Correo': textoSeguro(correo),
     'Avance': completos.length + ' de ' + total,
-    'Fases completas': completos.map(function (p) { return FASES_AGORA[p]; }).join(', '),
-    'Última fase guardada': FASES_AGORA[paso],
+    'Fases completas': completos.map(function (p) { return FASES[p]; }).join(', '),
+    'Última fase guardada': FASES[paso],
+    'Pendientes de mentor': pendientesMentor.map(function (p) { return FASES[p]; }).join(', '),
     'Dispositivo': limpiar(d.dispositivo, 64)
   };
   if (terminado) expediente['Proceso terminado'] = terminado;
+  // Si la Información inicial vino del otro proceso, se copian edad, etapa y tutor.
+  if (!info) {
+    var fi = filaPorId(PESTANAS.informacion, id);
+    if (fi) info = { edad: fi['Edad'], etapa: String(fi['Etapa'] || '').replace(/^'/, ''), tutorNombre: String(fi['Tutor'] || '').replace(/^'/, ''), tutorCorreo: String(fi['Correo del tutor'] || '').replace(/^'/, '') };
+  }
   if (info) {
     var e = parseInt(info.edad, 10);
     expediente['Edad'] = e;
@@ -334,7 +417,7 @@ function guardarAgora(d, id, nombre, correo) {
     expediente['Correo del tutor'] = textoSeguro(limpiar(info.tutorCorreo, 160));
     expediente['Tutor autoriza'] = e < 18 ? 'Sí' : 'No aplica';
   }
-  escribir(PESTANAS.expediente, ENCABEZADOS.expediente, id, expediente, true, 'Alta');
+  escribir(PESTANAS[proc.expediente], ENCABEZADOS.expediente, id, expediente, true, 'Alta');
   return { ok: true };
 }
 

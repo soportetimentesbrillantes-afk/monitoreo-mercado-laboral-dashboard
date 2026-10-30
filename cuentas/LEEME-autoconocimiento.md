@@ -29,8 +29,9 @@ en la carpeta raíz del proyecto en Drive.
 
 - Proyecto de Apps Script **"Expediente Ágora y autoconocimiento"**, ligado a la
   hoja (Extensiones → Apps Script, con la cuenta soportetimentesbrillantes@gmail.com).
-- Implementación **"Expediente del proceso Ágora"**, versión 2 (2026-10-28: presupuesto,
-  etapa y estrategia de vida; la versión 1 fue la primera publicación), tipo Aplicación web,
+- Implementación de la aplicación web (descripción "Expediente Ágora y DIANA"), versión 4
+  (2026-10-30: pestañas de Alinear, Nutrir y Acompañar; la 3, 2026-10-29: proceso DIANA, pestañas sin "Ágora · ", columnas del mentor; la 2 trajo
+  presupuesto y etapa; la 1 fue la primera publicación), tipo Aplicación web,
   *Ejecutar como:* la cuenta del Club, *Acceso:* Cualquiera.
 - URL (ya está en `compartir-club.js`, constante `URL_CLUB`):
   `https://script.google.com/macros/s/AKfycbwZ7_MkqDTWdSfOnFoviCYA7LSyxQtOzzSeQtv5Z9vQ9JIFK-_v-nSVpXoz-aQArc3v/exec`
@@ -99,26 +100,41 @@ Puedes agregar columnas tuyas a la derecha (notas del orientador, fecha de
 seguimiento). El script busca las columnas por nombre: no renombres ni borres
 las originales.
 
-## Proceso Ágora
+## Procesos Ágora y DIANA
 
-`agora.html` usa el mismo script y la misma URL. Con la casilla del expediente
-marcada, cada fase completa llega con `tipo: "agora"` y el script escribe en dos
-pestañas que crea solo la primera vez: **Expediente Ágora** (una fila por
-persona, con su avance de 10 fases) y **Ágora · Información inicial**. Si ya
-publicaste el script antes de este cambio, pega la versión nueva y haz
-*Gestionar implementaciones → editar → Versión nueva* para que la URL no cambie.
+`agora.html` (secundaria y bachillerato) y `diana.html` (universidad y
+egresados) usan el mismo script y la misma URL. Con la casilla del expediente
+marcada, cada paso completo llega con `tipo: "agora"` o `tipo: "diana"`.
 
-El Perfil DISC (fase 2) y el FODA (fase 3) del proceso se escriben en las
-pestañas **DISC** y **FODA** de siempre, con el mismo *ID de envío* que el
-expediente: así se cruza a la persona entre pestañas. Ninguna fase se acepta
-si ese ID no tiene antes su fila en *Expediente Ágora* (la fase 1).
+- **Un expediente por proceso:** *Expediente Ágora* y *Expediente DIANA*, una
+  fila por persona con su avance, la última fase guardada, la *Etapa*
+  (Secundaria o bachillerato / Universidad / Ya egresé) y, en DIANA, los
+  *Pendientes de mentor*.
+- **Una pestaña por herramienta, compartida por los dos:** *Información
+  inicial*, *DISC*, *FODA*, *Estilo de trabajo*, *Relacionamiento*,
+  *Crecimiento personal* (con valores, intereses y motivaciones en DIANA),
+  *Escenarios de vida*, *Presupuesto*, *Ruta profesional*, *Plan de acción*,
+  *Resumen Ágora*, y las de DIANA: *Mapa de carrera*, *Tendencias de la
+  industria*, *Plan de formación*, *Marca personal*, *DIANA · Reporte
+  Descubrir*, *DIANA · Resumen Iniciar*; de Alinear: *Brechas frente a
+  vacantes*, *Brechas de competencias*, *CV*, *Guía de entrevista*,
+  *Presentación efectiva*, *Ajuste de expectativas*, *DIANA · Resumen Alinear*;
+  de Nutrir: *Selección de cursos*, *Aprender a aprender*, *Certificaciones*,
+  *Comunidades de aprendizaje*, *Plan de entrenamiento*, *DIANA · Reporte
+  Nutrir*; y de Acompañar: *Contacto con la industria*, *Investigación de la
+  industria*, *Inscripción a comunidades*, *Resiliencia*, *Plan del nuevo
+  trabajo*, *Mentoría final*, *DIANA · Reporte final*. Todas con el mismo *ID de envío*: así
+  se cruza a la persona entre pestañas, haya hecho un proceso o los dos.
+- **Revisión del mentor:** los pasos de DIANA que la piden traen las columnas
+  *Mentor*, *Revisión del mentor* (la fecha, o "Pendiente") y *Comentarios del
+  mentor*. Las anota la persona en la página cuando lo revisa con su mentor.
 
-Las fases 4 a 11 escriben cada una su pestaña (*Ágora · Estilo de trabajo*,
-*Ágora · Relacionamiento*, *Ágora · Crecimiento personal*, *Ágora · Escenarios
-de vida*, *Ágora · Presupuesto*, *Ágora · Ruta profesional* —con el contraste
-del presupuesto y la estrategia de vida—, *Ágora · Plan de acción*, *Ágora ·
-Resumen*), también con el mismo ID. La columna *Etapa* del expediente
-(Secundaria o bachillerato / Universidad / Ya egresé) sirve para filtrar.
+Ningún paso se acepta si ese ID no tiene antes su fila en *Información inicial*
+(ahí están la edad y, si es menor, la autorización de su tutor), venga de
+Ágora o de DIANA.
+
+Hasta el 2026-10-28 las pestañas de las herramientas se llamaban "Ágora ·
+…". `revisarPestanas` las renombra (sin perder filas) y crea las que falten.
 
 Si el script agrega columnas nuevas a una pestaña que ya existía, las pone al
 final, con encabezado en negritas. No las muevas de nombre. Cuando alguien termina, el expediente
