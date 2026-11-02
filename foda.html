@@ -124,7 +124,9 @@
 <div class="topbar">
   <a class="logo-link" href="https://www.clubmentesbrillantes.com.mx/index.html" aria-label="Club de Mentes Brillantes"><img src="logo-cmb.svg" alt="Club de Mentes Brillantes"></a>
   <span class="enlaces">
-    <a href="disc.html">Tu estilo de trabajo →</a>
+    <a href="disc-agora.html">Tu Perfil DISC →</a>
+    <a href="agora.html">Proceso Ágora →</a>
+    <a href="diana.html">Proceso DIANA →</a>
     <a href="informe.html">Tu informe →</a>
     <a href="index.html">← Volver a tu CV frente al mercado</a>
   </span>
@@ -220,9 +222,11 @@
     <textarea id="siguientePaso" placeholder="Agregar cifras a las tres experiencias de mi CV y revisar el curso de Excel del Club"></textarea>
   </div>
 
-  <div class="card solo-agora no-imprimir" id="terminarAgora">
-    <h2>Completar esta fase</h2>
-    <p style="margin-top:0;">Tu FODA queda completo cuando cada cuadro tiene al menos una idea. Puedes seguir corrigiéndolo después; si lo haces, vuelve a tocar el botón para que tu expediente tenga la versión nueva.</p>
+  <div class="card no-imprimir" id="terminarAgora">
+    <h2 class="solo-agora">Completar esta fase</h2>
+    <h2 class="solo-suelto">Completar mi FODA</h2>
+    <p style="margin-top:0;" class="solo-agora">Tu FODA queda completo cuando cada cuadro tiene al menos una idea. Puedes seguir corrigiéndolo después; si lo haces, vuelve a tocar el botón para que tu expediente tenga la versión nueva.</p>
+    <p style="margin-top:0;" class="solo-suelto">Tu FODA queda completo cuando cada cuadro tiene al menos una idea. Se guarda en este dispositivo y, si después haces tu proceso Ágora (bachillerato) o DIANA (universidad y egresados), ya aparece hecho: no lo repites.</p>
     <div id="avisoAgora" aria-live="polite"></div>
     <button class="primary" type="button" id="btnCompletarAgora" onclick="completarAgora()">Completar mi FODA</button>
   </div>
@@ -267,6 +271,7 @@
    suyo y es lo único que aparece.                                          */
 
 const LLAVE = 'cmb_foda';
+const LLAVE_COMPLETO = 'cmb_foda_completo';
 const CUADROS = ['F', 'D', 'O', 'A'];
 const NOMBRES = {F:'Fortalezas', D:'Debilidades', O:'Oportunidades', A:'Amenazas'};
 
@@ -418,7 +423,7 @@ function borrar(){
   for(const k of CUADROS) document.getElementById(k).value = '';
   document.getElementById('nombre').value = '';
   document.getElementById('siguientePaso').value = '';
-  try{ localStorage.removeItem(LLAVE); localStorage.removeItem('cmb_foda_id'); }catch(e){}
+  try{ localStorage.removeItem(LLAVE); localStorage.removeItem('cmb_foda_id'); localStorage.removeItem(LLAVE_COMPLETO); }catch(e){}
   btn.textContent = 'Borrar todo';
   contar(); pintarImpresion(); guardar();
   pintarPistas();
@@ -439,10 +444,18 @@ function completarAgora(){
     return false;
   }
   CUADROS.forEach(k => document.getElementById('cuad' + k).classList.remove('falta'));
+  // Marca de "completo" para cuando se hace suelto: agora.html y diana.html la
+  // leen al abrir y dan la fase por hecha (proceso.js, adoptarSueltos).
+  try{ localStorage.setItem(LLAVE_COMPLETO, new Date().toISOString()); }catch(e){}
+  document.getElementById('btnCompletarAgora').textContent = 'Guardar cambios';
+  if(!window.AGORA_EMBEBIDO){
+    av.innerHTML = '<div class="aviso bien"><strong>Listo, tu FODA quedó completo.</strong> Quedó guardado en este dispositivo. Si sigues con tu proceso, ya cuenta como hecho:' +
+      '<div class="acciones" style="margin-top:10px;"><a class="secondary" href="agora.html#estilo">Seguir con Ágora (bachillerato) →</a> <a class="secondary" href="diana.html#estilo">Seguir con DIANA (universidad y egresados) →</a></div></div>';
+    return true;
+  }
   av.innerHTML = '<div class="aviso bien"><strong>Listo, tu FODA quedó completo.</strong> Si lo corriges, vuelve a tocar el botón.' +
     '<br><button class="primary" type="button" id="btnSeguirAgora" style="margin-top:10px;">Seguir →</button></div>';
   document.getElementById('btnSeguirAgora').onclick = () => CMB_AGORA.avisar('ir', {fase: 'estilo'});
-  document.getElementById('btnCompletarAgora').textContent = 'Guardar cambios';
   CMB_AGORA.avisar('completo', {herramienta: 'foda',
     foda: {F: d.F, D: d.D, O: d.O, A: d.A, paso: d.paso, estiloDisc: estiloDominante() || ''}});
   return true;
@@ -523,6 +536,8 @@ function pintarPistas(){
       document.getElementById('nombre').value = [info.nombres, info.apellidoPaterno, info.apellidoMaterno].map(x => (x || '').trim()).filter(Boolean).join(' ');
     if(ag && ag.pasos && ag.pasos.foda && ag.pasos.foda.completo)
       document.getElementById('btnCompletarAgora').textContent = 'Guardar cambios';
+  } else {
+    try{ if(localStorage.getItem(LLAVE_COMPLETO)) document.getElementById('btnCompletarAgora').textContent = 'Guardar cambios'; }catch(e){}
   }
   contar(); pintarImpresion(); pintarPistas();
   if(g && hayAlgo(g)){

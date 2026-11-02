@@ -128,6 +128,9 @@
   <a class="logo-link" href="https://www.clubmentesbrillantes.com.mx/index.html" aria-label="Club de Mentes Brillantes"><img src="logo-cmb.svg" alt="Club de Mentes Brillantes"></a>
   <span class="enlaces">
     <a href="disc.html">Versión corta (24 bloques) →</a>
+    <a href="foda.html">Tu FODA →</a>
+    <a href="agora.html">Proceso Ágora →</a>
+    <a href="diana.html">Proceso DIANA →</a>
     <a href="index.html">← Volver a tu CV frente al mercado</a>
   </span>
 </div>
@@ -689,6 +692,15 @@ function pintarResultado(p){
   const div = document.createElement('div');
   div.innerHTML = tablaSecciones(p);
   h3.parentNode.insertBefore(div, h3);
+  // Suelto: el resultado ya cuenta en los dos procesos (comparten esta llave).
+  if(!window.AGORA_EMBEBIDO){
+    const c = document.createElement('div');
+    c.className = 'card no-imprimir'; c.id = 'sigueProceso';
+    c.innerHTML = '<h3 style="margin-top:0;">¿Sigues con tu proceso?</h3>' +
+      '<p style="margin-top:0;">Tu Perfil DISC quedó guardado en este dispositivo. Si haces tu proceso Ágora o DIANA en este mismo navegador, este paso ya aparece hecho: no lo repites.</p>' +
+      '<div class="acciones"><a class="secondary" href="agora.html#foda">Proceso Ágora (bachillerato) →</a> <a class="secondary" href="diana.html#foda">Proceso DIANA (universidad y egresados) →</a> <a class="secondary" href="foda.html">Hacer mi FODA →</a></div>';
+    cont.appendChild(c);
+  }
   window.scrollTo({top:0, behavior:'smooth'});
 }
 

@@ -10,6 +10,33 @@ después.
 corrigió un error, describe también cómo se detectó — eso es lo que evita
 repetirlo.
 
+## 2026-11-02 — Perfil DISC y FODA también como herramientas sueltas
+
+Gael pidió que el DISC de Ágora y el FODA se puedan usar solos desde la página
+principal, pero que lo hecho cuente si después se hace Ágora o DIANA. Esto
+revierte, solo para estas dos, la decisión de octubre de quitar las
+herramientas sueltas de la barra (más abajo).
+
+- **index.html** vuelve a enlazar *Perfil DISC* (`disc-agora.html`, el
+  cuestionario que usan los procesos) y *Análisis FODA*. La versión corta de
+  24 bloques (`disc.html`) no se enlaza desde ahí: su resultado no cuenta en
+  los procesos.
+- **foda.html suelto** ahora tiene su botón *Completar mi FODA* (antes solo
+  existía dentro del proceso). Deja la marca `cmb_foda_completo` y ofrece
+  seguir con Ágora o DIANA. Sin tocar el botón, un FODA a medias sigue "En
+  curso" en el proceso.
+- **disc-agora.html suelto**, al mostrar el resultado, ofrece seguir con Ágora,
+  DIANA o el FODA.
+- **proceso.js, `adoptarSueltos`**: al abrir agora.html o diana.html toma el
+  DISC (`cmb_disc`, instrumento Ágora) y el FODA completado sueltos, los da por
+  hechos y los deja pendientes de envío. Llegan al expediente solo con la
+  casilla aceptada y la Información inicial completa, una sola vez (si se
+  vuelve a contestar el DISC, se manda el resultado nuevo).
+
+Todo vive en el navegador de la persona: si hace el DISC en la computadora y
+el proceso en el teléfono, no se cruzan. Pruebas: `cuentas/pruebas/test_sueltos.mjs` (6);
+se actualizaron test_foda y test_proceso_agora, que comprobaban lo contrario.
+
 ## 2026-10-30 — Proceso DIANA completo: Alinear, Nutrir y Acompañar
 
 Segundo bloque de DIANA: los 20 pasos que faltaban. Los 34 tienen herramienta.

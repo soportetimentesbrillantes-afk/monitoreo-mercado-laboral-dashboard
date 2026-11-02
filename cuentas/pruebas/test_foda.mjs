@@ -180,11 +180,11 @@ await prueba('"Agregar" pone la pista como renglón nuevo, sin duplicar, y luego
   await ctx.close();
 });
 
-await prueba('la página principal ya no enlaza las herramientas sueltas: lleva al proceso Ágora', async () => {
+await prueba('la página principal enlaza los procesos y, como herramientas sueltas, el DISC de Ágora y el FODA', async () => {
   const ctx = await navegador.newContext();
   const i = await abrir(ctx, 'index.html');
-  cierto(await i.$('.topbar a[href="agora.html"]'), 'falta el enlace al proceso Ágora en index.html');
-  cierto(!(await i.$('.topbar a[href="foda.html"]')), 'index.html ya no debe enlazar foda.html en la barra');
+  cierto(await i.$('.topbar a[href="agora.html"]') && await i.$('.topbar a[href="diana.html"]'), 'faltan los enlaces a los procesos');
+  cierto(await i.$('.topbar a[href="foda.html"]') && await i.$('.topbar a[href="disc-agora.html"]'), 'faltan el FODA y el DISC sueltos');
   const d = await readFile(join(RAIZ, 'disc.html'), 'utf8');
   cierto(d.includes('href="foda.html"'), 'falta el enlace en disc.html');
   await ctx.close();

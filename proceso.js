@@ -747,6 +747,41 @@ PASOS.forEach(p => { if(!HERRAMIENTAS[p.id] && p.marco) HERRAMIENTAS[p.id] = () 
 PASOS.forEach(p => { if(!HERRAMIENTAS[p.id] && FASES_EXT[herramientaDe(p)]) HERRAMIENTAS[p.id] = () => pintarFaseExt(p.id); });
 PASOS.forEach(p => { if(!HERRAMIENTAS[p.id]) HERRAMIENTAS[p.id] = () => pintarProximamente(p.id); });
 
+/* ---- Perfil DISC y FODA hechos sueltos ----
+   disc-agora.html y foda.html también se usan solas, como herramientas del
+   sitio. Guardan en las mismas llaves (cmb_disc, cmb_foda), así que el
+   resultado ya está aquí; lo que falta es darlo por hecho en el proceso y
+   dejarlo listo para el expediente. Se manda solo si la persona aceptó el
+   expediente y ya tiene su Información inicial (enviarPendientes). */
+function adoptarSueltos(){
+  let cambio = false;
+  const r = leerLS('cmb_disc');
+  if(r && r.puntajes && r.instrumento === 'agora' && PASOS.some(p => p.id === 'disc')){
+    const s = E.pasos.disc;
+    const otro = !s || !s.completo || !s.envio || (r.id && s.envio.resultadoId !== r.id);
+    if(otro && typeof DISC !== 'undefined'){
+      const {empate, plano} = DISC.analizar(r.puntajes, r.escala || {min: 0, max: 82});
+      E.pasos.disc = Object.assign(s || {}, {completo: true, completadoEn: r.fecha || new Date().toISOString(), pendienteEnvio: true,
+        envio: {puntajes: r.puntajes, instrumento: 'agora', escala: r.escala, respuestas: r.respuestas || null, versionClave: r.versionClave,
+          fecha: r.fecha, lectura: plano ? 'parejo' : (empate ? 'empate' : 'dominante claro'), resultadoId: r.id, suelto: true}});
+      cambio = true;
+    }
+  }
+  const f = leerLS('cmb_foda');
+  let marca = null; try{ marca = localStorage.getItem('cmb_foda_completo'); }catch(e){}
+  if(f && marca && ['F','D','O','A'].every(k => lineas(f[k]).length) && PASOS.some(p => p.id === 'foda')){
+    const s = E.pasos.foda;
+    if(!s || !s.completo || String(s.completadoEn || '') < marca){
+      const g = r && r.puntajes ? ['D','I','S','C'].filter(k => r.puntajes[k] && typeof r.puntajes[k].neto === 'number').sort((a, b) => r.puntajes[b].neto - r.puntajes[a].neto)[0] : '';
+      E.pasos.foda = Object.assign(s || {}, {completo: true, completadoEn: marca, pendienteEnvio: true,
+        envio: {F: f.F, D: f.D, O: f.O, A: f.A, paso: f.paso, estiloDisc: g || '', suelto: true}});
+      cambio = true;
+    }
+  }
+  if(cambio) guardar();
+  return cambio;
+}
+
 /* ---- Arranque ---- */
 (async function iniciar(){
   try{
@@ -755,6 +790,7 @@ PASOS.forEach(p => { if(!HERRAMIENTAS[p.id]) HERRAMIENTAS[p.id] = () => pintarPr
   }catch(e){ /* sin manifiesto se usa la lista de respaldo */ }
   // Abre la primera fase disponible que no esté completa.
   // agora.html#disc (o diana.html#mapa) abre directo esa fase o paso.
+  const sueltos = adoptarSueltos();
   const pedido = PASOS.find(p => p.listo && '#' + p.id === location.hash);
   const siguiente = pedido || PASOS.find(p => p.listo && estadoPaso(p) !== 'completo') || PASOS[0];
   pasoActual = siguiente.id;
@@ -763,4 +799,5 @@ PASOS.forEach(p => { if(!HERRAMIENTAS[p.id]) HERRAMIENTAS[p.id] = () => pintarPr
   if(window.matchMedia && window.matchMedia('(max-width: 900px)').matches) document.getElementById('plegable').open = false;
   pintarRuta();
   HERRAMIENTAS[pasoActual]();
+  if(sueltos && E.consentimiento.acepta && AG.infoCompleta()) enviarPendientes();
 })();

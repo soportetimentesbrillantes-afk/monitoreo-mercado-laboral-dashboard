@@ -415,7 +415,7 @@ await prueba('agora.html#disc abre directo la fase 2; las páginas sueltas sigue
   cierto(await q.isVisible('.topbar') && await q.isVisible('#intro a[href="disc.html"]'), 'sola conserva su encabezado y la versión corta');
   cierto(!(await q.isVisible('#intro .solo-agora')), 'sola no muestra el texto del proceso');
   await q.goto(BASE + '/foda.html', { waitUntil: 'domcontentloaded' });
-  cierto(!(await q.isVisible('#terminarAgora')), 'sola no tiene el botón de completar fase');
+  cierto(await q.isVisible('#terminarAgora h2.solo-suelto') && !(await q.isVisible('#terminarAgora h2.solo-agora')), 'sola se completa con su propio texto (cuenta después en los procesos)');
   await ctx.close();
 });
 
