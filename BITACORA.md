@@ -10,6 +10,66 @@ después.
 corrigió un error, describe también cómo se detectó — eso es lo que evita
 repetirlo.
 
+## 2026-11-10 — Test vocacional propio
+
+Antes, al alumno se le mandaba a dos tests externos (el de orientación de la
+UANL y el cuestionario de The Guardian) y después pasaba a mano su resultado
+al formato del orientador. Ahora el Club tiene su propio test:
+**test-vocacional.html**, herramienta suelta (no es fase de Ágora ni DIANA).
+
+- 78 frases propias del Club en tres partes: intereses (8 áreas × 5),
+  aptitudes autoevaluadas (10 × 2) y lo que te motiva (los seis tipos de
+  Holland × 3). No se copiaron reactivos de los tests externos: solo se tomó
+  el formato.
+- El resultado llena los campos del formato: **Aplicación** (fecha y versión
+  del test), **Habilidades**, **Aptitudes**, **Áreas de preferencia**,
+  **Carreras derivadas** (de `agora/carreras.js`; la tabla `PERFIL_CARRERA`
+  le da a cada carrera sus áreas y motivos), **Sugerencias** (automáticas) y
+  **Observaciones** (las escribe el orientador en la hoja).
+- Afinidad = 55% interés en las áreas de la carrera + 20% aptitudes que esas
+  áreas piden + 25% motivos de la carrera. Si se cambian preguntas o pesos,
+  hay que subir `VERSION`.
+- Avance guardado en el navegador (`cmb_vocacional`). Si la persona contesta
+  todo igual, el resultado lo avisa.
+- **Compartir**: misma tarjeta de `compartir-club.js` (tipo `vocacional`,
+  casilla sin marcar). El Apps Script de autoconocimiento tiene la pestaña
+  nueva **Test vocacional**; reenviar la misma aplicación actualiza su fila y
+  nunca toca la columna Observaciones.
+- index.html enlaza el test en la barra de arriba.
+
+Pruebas: `cuentas/pruebas/test_vocacional.mjs` (10).
+
+## 2026-11-10 — Idiomas y carreras más solicitados en las vacantes
+
+- **Etapa 1** (tarea programada) guarda ahora la columna `descripcion`: la
+  descripción de la vacante que da la API de Adzuna, sin HTML. OCC e Indeed
+  la dejan vacía (solo dan el título).
+- **etapa4_sector_json.py** (en `herramientas/` y su copia en la raíz) cuenta
+  en título + descripción los idiomas (con nivel de inglés cuando se dice) y
+  19 grupos de carreras. Los porcentajes son sobre
+  `vacantes_con_descripcion`. Sin descripciones, `idiomas` y `carreras` quedan
+  en `null`: con solo títulos salían por debajo de 1% y engañaban.
+- **comparativo.html**: tarjeta "Idiomas y carreras que piden las vacantes"
+  (tabla sector × idioma y las 6 carreras más pedidas por sector). Muestra
+  "dato pendiente" hasta la primera corrida con descripciones.
+
+## 2026-11-05 — Selección Justa y rastreo de convocatorias
+
+- **seleccion.html**: prototipo de selección sin sesgo (rúbrica por
+  competencias, CV sin identidad, regla de los 4/5, prueba de nombres
+  cambiados). La IA es opcional, por la ruta `/calificar-candidato` del worker
+  (`worker-calificar.js`); si no está activa, se califica a mano.
+- **convocatorias.html** + `cuentas/apps-script-convocatorias.gs`: tablero de
+  convocatorias de fondeo con clave de equipo, guardado en una hoja de Google.
+  La clave (`CLAVE_EQUIPO`) vive solo en las propiedades del script.
+  Instalado el 2026-11-10: proyecto "Rastreo de convocatorias del Club"
+  publicado como aplicación web (ejecuta como la cuenta del Club, acceso
+  cualquiera; sin la clave no lee ni escribe), y su URL ya está en
+  `URL_RASTREO`. La hoja "Rastreo de convocatorias (uso interno)" tiene sus
+  pestañas Léeme, Convocatorias, Fuentes y Canales.
+
+Pruebas: `test_seleccion.mjs` (9) y `test_convocatorias.mjs` (8).
+
 ## 2026-11-02 — Perfil DISC y FODA también como herramientas sueltas
 
 Gael pidió que el DISC de Ágora y el FODA se puedan usar solos desde la página

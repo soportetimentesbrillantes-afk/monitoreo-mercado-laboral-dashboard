@@ -1,5 +1,5 @@
 /* =====================================================================
-   Compartir con el Club — DISC y FODA
+   Compartir con el Club — DISC, FODA y test vocacional
    =====================================================================
 
    Las herramientas de autoconocimiento funcionan completas sin mandar nada a
@@ -74,11 +74,12 @@ function activo(){ return !!COMPARTIR_ENDPOINT; }
 
 const TEXTO = {
   disc: 'tu nombre, tu correo, tus puntajes y tus respuestas del cuestionario',
-  foda: 'tu nombre, tu correo y lo que escribiste en los cuatro cuadros y en tu siguiente paso'
+  foda: 'tu nombre, tu correo y lo que escribiste en los cuatro cuadros y en tu siguiente paso',
+  vocacional: 'tu nombre, tu correo, tu resultado (áreas, aptitudes, carreras y sugerencias) y tus respuestas del test'
 };
 
 /* Dibuja la tarjeta dentro de `contenedor`.
-   opciones.tipo      'disc' | 'foda'
+   opciones.tipo      'disc' | 'foda' | 'vocacional'
    opciones.datos()   devuelve lo que se manda (sin nombre ni correo)
    opciones.id()      id del envío; el mismo id actualiza la misma fila     */
 function pintar(contenedor, opciones){

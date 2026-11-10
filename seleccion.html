@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Selección Justa · Club de Mentes Brillantes</title>
+<meta name="description" content="Herramienta del Club de Mentes Brillantes para que las empresas elijan candidatos con rúbrica, perfiles sin identidad y auditoría de impacto adverso.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Mismos colores y letras que el resto del sitio (proceso.css).
+   Cinco pasos en pestañas (vacante → candidatos → calificación → decisión → auditoría). */
+:root{
+  --bg:#faf8f2; --surface:#ffffff; --sunk:#f3efe5; --line:#e7ddc9;
+  --ink:#1f1f1c; --muted:#6b6459; --accent:#8b7440; --accent-soft:#f1ead9; --accent-ink:#ffffff; --ochre:#c2703d;
+  --ok:#3f7a4a; --ok-bg:#e6f1e7; --warn:#8a5a00; --warn-bg:#fbefd5; --bad:#a1321f; --bad-bg:#f8e1dc;
+  --f-display:"Cormorant Garamond", Georgia, serif;
+  --f-body:"Source Sans 3", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-data:"IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:14.5px;line-height:1.5;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));padding-block:0 56px}
+.wrap{max-width:1180px;margin:0 auto}
+h1,h2,h3{font-family:var(--f-display);font-weight:700;margin:0;text-wrap:balance}
+h1{font-size:2.1rem;line-height:1.1} h2{font-size:1.45rem} h3{font-size:1.15rem}
+.logo{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding-bottom:10px}
+.logo img{height:34px;width:auto;display:block}
+.logo a{color:var(--muted);font-size:.82rem;font-weight:700;text-decoration:none}
+p{margin:0}
+a{color:var(--accent)}
+.muted{color:var(--muted)} .small{font-size:.84rem}
+.num{font-family:var(--f-data);font-variant-numeric:tabular-nums}
+.lbl{font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:700}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top, 0px);z-index:10;background:var(--bg)}
+header.top{position:sticky;top:env(safe-area-inset-top, 0px);z-index:5;background:var(--bg);padding-top:18px;border-bottom:1px solid var(--line)}
+.top .fila{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 16px;align-items:flex-end}
+.top .sub{color:var(--muted);font-size:.9rem;margin-top:2px;max-width:70ch}
+nav.pasos{display:flex;gap:2px;overflow-x:auto;margin-top:12px}
+nav.pasos a{display:flex;gap:8px;align-items:center;padding:9px 14px;text-decoration:none;color:var(--muted);font-weight:600;border-bottom:2px solid transparent;white-space:nowrap}
+nav.pasos a .n{font-family:var(--f-data);font-size:.75rem;border:1px solid var(--line);border-radius:999px;width:22px;height:22px;display:grid;place-items:center}
+nav.pasos a[aria-current="page"]{color:var(--ink);border-bottom-color:var(--accent)}
+nav.pasos a[aria-current="page"] .n{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+main{display:grid;grid-template-columns:minmax(0,1fr);gap:16px;padding-top:18px}
+main > *, .vista{min-width:0}
+.banda{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px;display:grid;gap:12px;min-width:0}
+.aviso{border-radius:10px;padding:10px 14px;background:var(--accent-soft);font-size:.9rem}
+.aviso.warn{background:var(--warn-bg);color:var(--warn)} .aviso.bad{background:var(--bad-bg);color:var(--bad)} .aviso.ok{background:var(--ok-bg);color:var(--ok)}
+.btn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:7px 12px;cursor:pointer;font-weight:600;font-size:.88rem}
+.btn:hover{border-color:var(--accent)} .btn:disabled{opacity:.5;cursor:default}
+.btn.pri{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn.mini{padding:4px 9px;font-size:.8rem}
+.acciones{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.pill{display:inline-block;border-radius:999px;padding:2px 9px;font-size:.74rem;font-weight:700;white-space:nowrap;background:var(--sunk);color:var(--muted)}
+.pill.ok{background:var(--ok-bg);color:var(--ok)} .pill.warn{background:var(--warn-bg);color:var(--warn)} .pill.bad{background:var(--bad-bg);color:var(--bad)} .pill.acc{background:var(--accent-soft);color:var(--accent)}
+.tabla-c{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.88rem}
+th{text-align:left;font-size:.7rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);padding:8px;border-bottom:1px solid var(--line);vertical-align:bottom}
+td{padding:9px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+td input,td select,td textarea{width:100%;border:1px solid var(--line);background:var(--bg);border-radius:6px;padding:5px 7px}
+.campo{display:grid;gap:4px;min-width:0}
+.campo label{font-size:.8rem;font-weight:600;color:var(--muted)}
+.campo input,.campo textarea,.campo select{width:100%;border:1px solid var(--line);background:var(--bg);border-radius:8px;padding:7px 9px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.cand{border:1px solid var(--line);border-radius:10px;padding:12px 14px;display:grid;gap:8px;background:var(--surface)}
+.cand .cab{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;align-items:center}
+.perfil{white-space:pre-wrap;font-size:.86rem;background:var(--sunk);border-radius:8px;padding:10px 12px;max-height:220px;overflow:auto}
+.oculto{background:var(--ochre);color:var(--surface);border-radius:4px;padding:0 4px;font-size:.78rem;font-weight:700}
+.escala{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.escala button{border:none;background:var(--surface);width:30px;padding:4px 0;cursor:pointer;font-family:var(--f-data)}
+.escala button+button{border-left:1px solid var(--line)}
+.escala button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
+.escala button.sug{box-shadow:inset 0 -3px 0 var(--ochre)}
+.evid{font-size:.8rem;color:var(--muted);margin-top:4px}
+.evid q{color:var(--ink)}
+.barra{height:8px;border-radius:999px;background:var(--sunk);overflow:hidden;min-width:80px}
+.barra i{display:block;height:100%;background:var(--accent)}
+.ratio{display:grid;grid-template-columns:minmax(120px,200px) 1fr auto;gap:10px;align-items:center;padding:6px 0}
+.ratio .pista{position:relative;height:18px;background:var(--sunk);border-radius:4px}
+.ratio .pista i{position:absolute;left:0;top:0;bottom:0;border-radius:4px;background:var(--accent)}
+.ratio .pista i.bajo{background:var(--bad)}
+.ratio .pista b{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--ink);left:80%}
+.k{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
+.k .cifra{border:1px solid var(--line);border-radius:10px;padding:10px 12px;display:grid;gap:2px}
+.k .cifra b{font-family:var(--f-data);font-weight:500;font-size:1.45rem}
+details summary{cursor:pointer;font-weight:600}
+@media (max-width:700px){ .grid2{grid-template-columns:1fr} .ratio{grid-template-columns:1fr} }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <div class="logo"><a class="logo-link" href="https://www.clubmentesbrillantes.com.mx/index.html" aria-label="Club de Mentes Brillantes"><img src="logo-cmb.svg" alt="Club de Mentes Brillantes"></a><a href="index.html">← Volver al monitoreo del mercado laboral</a></div>
+  <div class="fila">
+    <div>
+      <h1>Selección Justa</h1>
+      <p class="sub">Herramienta del Club de Mentes Brillantes para empresas aliadas que contratan egresados: criterios antes que candidatos, perfiles sin identidad, IA que cita evidencia y una auditoría con la regla de los 4/5.</p>
+    </div>
+    <div class="acciones"><button class="btn" type="button" id="btnReiniciar">Volver al ejemplo</button></div>
+  </div>
+  <nav class="pasos" aria-label="Pasos">
+    <a href="#vacante" data-v="vacante"><span class="n">1</span>Vacante</a>
+    <a href="#candidatos" data-v="candidatos"><span class="n">2</span>Candidatos</a>
+    <a href="#calificacion" data-v="calificacion"><span class="n">3</span>Calificación</a>
+    <a href="#decision" data-v="decision"><span class="n">4</span>Decisión</a>
+    <a href="#auditoria" data-v="auditoria"><span class="n">5</span>Auditoría</a>
+  </nav>
+</header>
+<main>
+  <p class="aviso" id="avisoEjemplo">Datos de ejemplo: la vacante y los ocho candidatos son ficticios. Cambia lo que quieras: se guarda solo en este navegador. Lo único que sale es el perfil ya sin identidad cuando pides la sugerencia con IA, y el servidor del Club no lo guarda. Usa «Volver al ejemplo» para empezar de nuevo.</p>
+  <section class="vista" id="v-vacante"></section>
+  <section class="vista" id="v-candidatos" hidden></section>
+  <section class="vista" id="v-calificacion" hidden></section>
+  <section class="vista" id="v-decision" hidden></section>
+  <section class="vista" id="v-auditoria" hidden></section>
+</main>
+</div>
+
+<script>
+/* ======================= Ejemplo (ficticio) ======================= */
+const EJEMPLO = {
+  vacante: {
+    puesto: 'Asesor(a) de ventas junior · agencia automotriz, Querétaro',
+    listaCorta: 4,
+    competencias: [
+      {id:'k1', nombre:'Atención y comunicación con clientes', peso:25, n1:'Responde lo que se le pregunta, sin indagar necesidades', n3:'Escucha, pregunta y explica con claridad; hay un ejemplo de trato con clientes', n5:'Ejemplos repetidos de clientes atendidos con resultados medibles (satisfacción, recompra)'},
+      {id:'k2', nombre:'Negociación y cierre', peso:25, n1:'Sin experiencia de vender o negociar', n3:'Ha vendido o negociado algo con un resultado concreto', n5:'Metas de venta cumplidas o superadas con cifras'},
+      {id:'k3', nombre:'Conocimiento de producto y mecánica básica', peso:20, n1:'Sin formación ni experiencia relacionada', n3:'Curso, carrera o práctica relacionada con autos', n5:'Experiencia técnica en taller o producto automotriz demostrada'},
+      {id:'k4', nombre:'Herramientas digitales y CRM', peso:15, n1:'Uso básico de correo y mensajería', n3:'Hojas de cálculo o algún CRM en uso real', n5:'Lleva su cartera en un CRM, reportes o automatizaciones'},
+      {id:'k5', nombre:'Organización y seguimiento', peso:15, n1:'Sin evidencia de seguimiento a pendientes', n3:'Lleva agenda o seguimiento de un proyecto', n5:'Ejemplos de seguimiento sistemático con resultados'}
+    ]
+  },
+  candidatos: [
+    {id:'C-01', perfil:'Formación: Técnico en mantenimiento automotriz (CONALEP), 2024.\nExperiencia: 1 año como auxiliar en taller de servicio; diagnosticaba fallas eléctricas y explicaba al cliente el presupuesto antes de autorizar la reparación.\nProyectos: atendía el mostrador de refacciones los sábados.\nHerramientas: Excel básico, WhatsApp Business para dar seguimiento a clientes del taller.\nProceso DIANA: brecha principal en negociación; curso de ventas consultivas en curso.',
+      grupo:{genero:'Hombre', edad:'18 a 24'}, cal:{k1:3,k2:2,k3:5,k4:3,k5:3}},
+    {id:'C-02', perfil:'Formación: Licenciatura en Mercadotecnia, 2025.\nExperiencia: 8 meses en ventas de piso en tienda departamental; superó su meta mensual 5 de 8 meses (promedio 112 %).\nProyectos: tesis sobre fidelización de clientes en agencias de autos.\nHerramientas: HubSpot CRM durante prácticas; Excel intermedio con tablas dinámicas.\nProceso DIANA: marca personal "convierto visitas en clientes que regresan".',
+      grupo:{genero:'Mujer', edad:'18 a 24'}, cal:{k1:4,k2:5,k3:2,k4:5,k5:4}},
+    {id:'C-03', perfil:'Formación: Bachillerato tecnológico; curso de atención al cliente (80 h), 2023.\nExperiencia: 3 años en centro de atención telefónica; resolvía 40 llamadas por turno con 92 % de satisfacción.\nHerramientas: Zendesk, Excel básico.\nOrganización: llevaba bitácora diaria de casos pendientes y los cerraba antes de 48 h.',
+      grupo:{genero:'Mujer', edad:'25 a 29'}, cal:{k1:5,k2:3,k3:1,k4:3,k5:5}},
+    {id:'C-04', perfil:'Formación: Ingeniería Mecánica Automotriz (trunca, 6 semestres).\nExperiencia: 2 años vendiendo autos seminuevos por su cuenta en redes sociales; 18 unidades vendidas.\nHerramientas: Facebook Marketplace, hojas de cálculo para su inventario.\nSeguimiento: llamaba a cada interesado a los 3 días.',
+      grupo:{genero:'Hombre', edad:'25 a 29'}, cal:{k1:4,k2:4,k3:4,k4:3,k5:4}},
+    {id:'C-05', perfil:'Formación: Licenciatura en Administración, 2025.\nExperiencia: servicio social en el área de compras de un municipio; armaba comparativos de cotizaciones.\nHerramientas: Excel intermedio, SAP en prácticas.\nProceso DIANA: interés en ventas; sin experiencia directa con clientes.',
+      grupo:{genero:'Hombre', edad:'18 a 24'}, cal:{k1:2,k2:2,k3:1,k4:4,k5:4}},
+    {id:'C-06', perfil:'Formación: Técnico en Electromecánica, 2022; certificación CONOCER en atención a clientes.\nExperiencia: 2 años como asesor de servicio en agencia de motocicletas; recibía unidades, explicaba diagnósticos y vendía paquetes de mantenimiento (35 por mes).\nHerramientas: sistema de órdenes de servicio de la agencia, Excel.',
+      grupo:{genero:'Mujer', edad:'25 a 29'}, cal:{k1:4,k2:4,k3:4,k4:3,k5:3}},
+    {id:'C-07', perfil:'Formación: Licenciatura en Comercio Internacional, 2024.\nExperiencia: 1 año en logística de exportación; coordinaba embarques con 6 clientes.\nHerramientas: Excel avanzado, Power BI.\nOrganización: tablero semanal de embarques para su jefe.',
+      grupo:{genero:'Prefiere no decir', edad:'18 a 24'}, cal:{k1:3,k2:2,k3:1,k4:5,k5:5}},
+    {id:'C-08', perfil:'Formación: Bachillerato; 15 años de experiencia laboral.\nExperiencia: 6 años como vendedor de seguros de auto; cartera de 120 clientes con renovación del 80 %. Antes, 9 años como chofer de transporte de personal.\nHerramientas: CRM de la aseguradora, WhatsApp.\nProceso DIANA: busca cambiar a venta de autos.',
+      grupo:{genero:'Hombre', edad:'30 o más'}, cal:{k1:4,k2:5,k3:3,k4:4,k5:4}}
+  ],
+  decisiones: {}
+};
+const GRUPOS = {genero:{t:'Género', ops:['Mujer','Hombre','No binario','Prefiere no decir']}, edad:{t:'Edad', ops:['18 a 24','25 a 29','30 o más','Prefiere no decir']}};
+
+/* ======================= Estado ======================= */
+const LLAVE = 'cmb_seleccion_justa_v1';
+let S;
+function cargar(){ try{ const g = JSON.parse(localStorage.getItem(LLAVE) || 'null'); if(g && g.vacante) return g; }catch(e){} return JSON.parse(JSON.stringify(EJEMPLO)); }
+function guardar(){ try{ localStorage.setItem(LLAVE, JSON.stringify(S)); }catch(e){} }
+S = cargar();
+S.decisiones = S.decisiones || {};
+S.candidatos.forEach(c => { c.cal = c.cal || {}; c.ia = c.ia || null; c.razones = c.razones || {}; c.grupo = c.grupo || {}; });
+
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const comps = () => S.vacante.competencias;
+const pesoTotal = () => comps().reduce((s, k) => s + (Number(k.peso) || 0), 0);
+function puntaje(c){
+  const pt = pesoTotal() || 1; let suma = 0, completos = 0;
+  comps().forEach(k => { const v = Number(c.cal[k.id]); if(v){ suma += v * (Number(k.peso) || 0); completos++; } });
+  return {valor: Math.round(suma / pt / 5 * 1000) / 10, completos};
+}
+function ranking(){
+  return S.candidatos.map(c => ({c, p: puntaje(c)})).filter(x => x.p.completos === comps().length).sort((a, b) => b.p.valor - a.p.valor);
+}
+function listaCorta(){ return ranking().slice(0, Number(S.vacante.listaCorta) || 4).map(x => x.c.id); }
+
+/* ======================= Ocultar identidad ======================= */
+const PATRONES = [
+  [/[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/g, 'correo'],
+  [/(\+?52[\s-]?)?(\(?\d{2,3}\)?[\s-]?)?\d{3,4}[\s-]?\d{4}\b/g, 'teléfono'],
+  [/\b[A-Z]{4}\d{6}[HM][A-Z]{5}[A-Z0-9]\d\b/g, 'CURP'],
+  [/\b[A-ZÑ&]{3,4}\d{6}[A-Z0-9]{3}\b/g, 'RFC'],
+  [/\b\d{1,2}\s*años(\s+de\s+edad)?(?!\s+(de\s+(experiencia|trabajo|servicio)|como|en|trabajando|laborando|vendiendo))/gi, 'edad'],
+  [/\b(fecha de nacimiento|nacid[oa] el|f\.?\s?nac\.?)\s*:?\s*[^\n,;]+/gi, 'nacimiento'],
+  [/\b(c\.?\s?p\.?|código postal)\s*:?\s*\d{5}\b/gi, 'código postal'],
+  [/\b(col\.|colonia|calle|av\.|avenida|domicilio)\s*:?[^\n]+/gi, 'domicilio'],
+  [/\b(casad[oa]|solter[oa]|divorciad[oa]|viud[oa]|unión libre|estado civil\s*:?\s*\w+)\b/gi, 'estado civil'],
+  [/\b(sexo|género)\s*:?\s*(masculino|femenino|hombre|mujer)\b/gi, 'género'],
+  [/\b(religión|nacionalidad|discapacidad)\s*:?\s*[^\n,;]+/gi, 'dato protegido'],
+  [/\b(foto|fotografía)\b[^\n]*/gi, 'foto']
+];
+function ocultar(texto, nombre){
+  let t = String(texto || ''), n = 0;
+  const partes = String(nombre || '').trim().split(/\s+/).filter(p => p.length > 2);
+  if(partes.length){
+    const re = new RegExp('\\b(' + partes.map(p => p.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|') + ')\\b', 'gi');
+    t = t.replace(re, () => { n++; return '⟦nombre⟧'; });
+  }
+  PATRONES.forEach(([re, etq, filtro]) => { t = t.replace(re, m => { if(filtro && filtro(m) === null) return m; n++; return '⟦' + etq + '⟧'; }); });
+  return {texto: t, ocultos: n};
+}
+const conMarcas = t => esc(t).replace(/⟦([^⟧]+)⟧/g, '<span class="oculto">$1 oculto</span>');
+
+/* ======================= IA (worker cv-analisis) =======================
+   La sugerencia la da Claude a través del worker del Club (ruta
+   /calificar-candidato, ver worker-calificar.js). Solo se envían la rúbrica y
+   el perfil ya sin identidad; nada se guarda en el servidor. En una copia
+   local (localhost) no se llama al servidor real, salvo en pruebas. */
+const URL_CALIFICAR = 'https://cv-analisis.soportetimentesbrillantes.workers.dev/calificar-candidato';
+const LOCAL = /^(localhost|127\.0\.0\.1)$/.test(location.hostname);
+const IA_URL = window.__CMB_IA_PRUEBA || (LOCAL ? '' : URL_CALIFICAR);
+async function pedirCalificacion(perfilTexto){
+  const r = await fetch(IA_URL, {method:'POST', headers:{'content-type':'application/json'}, body: JSON.stringify({
+    puesto: S.vacante.puesto, competencias: comps().map(k => ({id:k.id, nombre:k.nombre, n1:k.n1, n3:k.n3, n5:k.n5})), perfil: perfilTexto})});
+  if(r.status === 404) throw {code:'no_activa'};
+  if(r.status === 429) throw {code:'rate_limited'};
+  const d = await r.json().catch(() => null);
+  if(!r.ok || !d || !d.ok) throw {code:'error'};
+  return d.calificaciones || [];
+}
+async function sugerirIA(c){
+  const lista = await pedirCalificacion(c.perfil);
+  const ia = {};
+  lista.forEach(x => { if(comps().some(k => k.id === x.id)){ const ev = String(x.evidencia || ''); ia[x.id] = {p: Math.max(1, Math.min(5, Math.round(Number(x.puntaje) || 1))), ev, razon: String(x.razon || ''), citaOk: !ev || c.perfil.toLowerCase().includes(ev.toLowerCase().slice(0, 40))}; } });
+  return ia;
+}
+
+/* ======================= Vistas ======================= */
+const VISTAS = ['vacante','candidatos','calificacion','decision','auditoria'];
+const vista = () => { const h = location.hash.slice(1); return VISTAS.includes(h) ? h : 'vacante'; };
+function pintar(){
+  const v = vista();
+  VISTAS.forEach(x => { document.getElementById('v-' + x).hidden = x !== v; });
+  document.querySelectorAll('nav.pasos a').forEach(a => { if(a.dataset.v === v) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
+  ({vacante:pVacante, candidatos:pCandidatos, calificacion:pCalificacion, decision:pDecision, auditoria:pAuditoria})[v]();
+}
+window.addEventListener('hashchange', pintar);
+
+function pVacante(){
+  const el = document.getElementById('v-vacante'), pt = pesoTotal();
+  el.innerHTML = '<div class="banda"><div><h2>Define el puesto antes de ver candidatos</h2><p class="muted small">Entre 4 y 6 competencias ligadas al trabajo, con su peso y ejemplos de cómo se ve un 1, un 3 y un 5. Se califica lo que la persona sabe hacer, no la escuela ni los años de experiencia.</p></div>' +
+    '<div class="grid2"><div class="campo"><label for="f_puesto">Puesto</label><input id="f_puesto" value="' + esc(S.vacante.puesto) + '"></div>' +
+    '<div class="campo"><label for="f_lc">Lugares en la lista corta</label><input id="f_lc" type="number" min="1" max="20" value="' + esc(S.vacante.listaCorta) + '"></div></div>' +
+    '<div class="tabla-c"><table><thead><tr><th style="min-width:180px">Competencia</th><th style="width:80px">Peso</th><th style="min-width:160px">Nivel 1</th><th style="min-width:160px">Nivel 3</th><th style="min-width:160px">Nivel 5</th><th></th></tr></thead><tbody>' +
+    comps().map((k, i) => '<tr><td><input data-k="nombre" data-i="' + i + '" value="' + esc(k.nombre) + '" aria-label="Competencia"></td><td><input data-k="peso" data-i="' + i + '" type="number" min="0" value="' + esc(k.peso) + '" aria-label="Peso"></td>' +
+      ['n1','n3','n5'].map(n => '<td><textarea data-k="' + n + '" data-i="' + i + '" rows="2" aria-label="Descriptor ' + n + '">' + esc(k[n]) + '</textarea></td>').join('') +
+      '<td><button class="btn mini" type="button" data-quitar="' + i + '"' + (comps().length <= 1 ? ' disabled' : '') + '>Quitar</button></td></tr>').join('') +
+    '</tbody></table></div>' +
+    '<div class="acciones"><button class="btn" type="button" id="btnAgregarK"' + (comps().length >= 8 ? ' disabled' : '') + '>+ Competencia</button>' +
+      '<span class="small ' + (pt === 100 ? 'muted' : '') + '" id="sumaPesos">' + (pt === 100 ? 'Los pesos suman 100.' : '<span class="pill warn">Los pesos suman ' + pt + '; se normalizan al calcular.</span>') + '</span></div>' +
+    '<p class="small muted">Cambiar la rúbrica después de ver candidatos abre la puerta al sesgo: si la cambias, vuelve a calificar a todos.</p></div>';
+  el.querySelector('#f_puesto').oninput = e => { S.vacante.puesto = e.target.value; guardar(); };
+  el.querySelector('#f_lc').oninput = e => { S.vacante.listaCorta = Math.max(1, Number(e.target.value) || 1); guardar(); };
+  el.querySelectorAll('[data-k]').forEach(x => x.oninput = e => { const k = comps()[Number(e.target.dataset.i)]; k[e.target.dataset.k] = e.target.dataset.k === 'peso' ? Number(e.target.value) || 0 : e.target.value; guardar(); if(e.target.dataset.k === 'peso'){ const s = pesoTotal(); el.querySelector('#sumaPesos').innerHTML = s === 100 ? 'Los pesos suman 100.' : '<span class="pill warn">Los pesos suman ' + s + '; se normalizan al calcular.</span>'; } });
+  el.querySelectorAll('[data-quitar]').forEach(b => b.onclick = () => { const k = comps().splice(Number(b.dataset.quitar), 1)[0]; S.candidatos.forEach(c => { delete c.cal[k.id]; }); guardar(); pVacante(); });
+  el.querySelector('#btnAgregarK').onclick = () => { comps().push({id:'k' + Date.now().toString(36), nombre:'', peso:10, n1:'', n3:'', n5:''}); guardar(); pVacante(); };
+}
+
+function pCandidatos(){
+  const el = document.getElementById('v-candidatos');
+  el.innerHTML = '<div class="banda"><div><h2>Agrega un candidato</h2><p class="muted small">Pega el texto del CV o del perfil de CMB. Antes de guardarlo se ocultan nombre, correo, teléfono, edad, fecha de nacimiento, domicilio, estado civil, género, CURP y RFC. Revisa lo que quede: el filtro automático puede dejar pasar algo.</p></div>' +
+      '<div class="grid2"><div class="campo"><label for="f_nombre">Nombre completo (solo para ocultarlo; no se guarda)</label><input id="f_nombre" autocomplete="off"></div>' +
+      '<div class="grid2"><div class="campo"><label for="f_gen">Género (autodeclarado, opcional)</label><select id="f_gen"><option value="">Sin dato</option>' + GRUPOS.genero.ops.map(o => '<option>' + o + '</option>').join('') + '</select></div>' +
+      '<div class="campo"><label for="f_edad">Edad (opcional)</label><select id="f_edad"><option value="">Sin dato</option>' + GRUPOS.edad.ops.map(o => '<option>' + o + '</option>').join('') + '</select></div></div></div>' +
+      '<div class="campo"><label for="f_cv">Texto del CV o perfil</label><textarea id="f_cv" rows="6" placeholder="Formación, experiencia, proyectos, herramientas, resultados…"></textarea></div>' +
+      '<div id="vistaPrevia"></div>' +
+      '<div class="acciones"><button class="btn pri" type="button" id="btnAgregarC">Agregar sin identidad</button><span class="small muted">Género y edad se guardan aparte: no los ven el evaluador ni la IA, solo la auditoría.</span></div></div>' +
+    '<div class="banda"><h2>' + S.candidatos.length + ' candidatos</h2><div style="display:grid;gap:10px">' +
+      S.candidatos.map((c, i) => '<div class="cand"><div class="cab"><strong class="num">' + esc(c.id) + '</strong><span class="acciones">' + (puntaje(c).completos === comps().length ? '<span class="pill ok">Calificado</span>' : '<span class="pill">Por calificar</span>') + '<button class="btn mini" type="button" data-borrar="' + i + '">Quitar</button></span></div><div class="perfil">' + conMarcas(c.perfil) + '</div></div>').join('') +
+    '</div></div>';
+  const prev = () => { const r = ocultar(el.querySelector('#f_cv').value, el.querySelector('#f_nombre').value); el.querySelector('#vistaPrevia').innerHTML = r.texto.trim() ? '<p class="lbl" style="margin-bottom:4px">Así lo verán evaluador e IA · ' + r.ocultos + ' datos ocultos</p><div class="perfil">' + conMarcas(r.texto) + '</div>' : ''; };
+  el.querySelector('#f_cv').oninput = prev; el.querySelector('#f_nombre').oninput = prev;
+  el.querySelector('#btnAgregarC').onclick = () => {
+    const r = ocultar(el.querySelector('#f_cv').value, el.querySelector('#f_nombre').value);
+    if(r.texto.trim().length < 40){ el.querySelector('#vistaPrevia').innerHTML = '<p class="aviso warn">Pega al menos unas líneas del perfil.</p>'; return; }
+    const n = S.candidatos.reduce((m, c) => Math.max(m, Number(String(c.id).slice(2)) || 0), 0) + 1;
+    S.candidatos.push({id:'C-' + String(n).padStart(2, '0'), perfil:r.texto.trim(), grupo:{genero:el.querySelector('#f_gen').value, edad:el.querySelector('#f_edad').value}, cal:{}, razones:{}, ia:null});
+    guardar(); pCandidatos();
+  };
+  el.querySelectorAll('[data-borrar]').forEach(b => b.onclick = () => { const c = S.candidatos.splice(Number(b.dataset.borrar), 1)[0]; delete S.decisiones[c.id]; guardar(); pCandidatos(); });
+}
+
+let calIdx = 0, ocupado = false, msgIA = '';
+function pCalificacion(){
+  const el = document.getElementById('v-calificacion');
+  if(!S.candidatos.length){ el.innerHTML = '<div class="banda"><p class="muted">Agrega candidatos en el paso 2.</p></div>'; return; }
+  calIdx = Math.min(calIdx, S.candidatos.length - 1);
+  const c = S.candidatos[calIdx], p = puntaje(c);
+  el.innerHTML = '<div class="banda">' +
+    '<div class="acciones" style="justify-content:space-between"><div class="acciones"><button class="btn mini" type="button" id="ant"' + (calIdx ? '' : ' disabled') + '>← Anterior</button><strong class="num">' + esc(c.id) + '</strong><span class="muted small">' + (calIdx + 1) + ' de ' + S.candidatos.length + '</span><button class="btn mini" type="button" id="sig"' + (calIdx < S.candidatos.length - 1 ? '' : ' disabled') + '>Siguiente →</button></div>' +
+      '<span class="pill ' + (p.completos === comps().length ? 'ok' : '') + ' num">' + (p.completos === comps().length ? p.valor + ' / 100' : p.completos + ' de ' + comps().length) + '</span></div>' +
+    '<div class="perfil">' + conMarcas(c.perfil) + '</div>' +
+    '<div class="acciones"><button class="btn" type="button" id="btnIA"' + (IA_URL && !ocupado ? '' : ' disabled') + '>' + (ocupado ? 'Pidiendo sugerencia…' : 'Sugerir calificación con IA') + '</button>' +
+      '<span class="small muted">' + (IA_URL ? 'La IA solo ve el perfil sin identidad y la rúbrica, y debe citar la evidencia. La marca naranja es su sugerencia; tú decides.' : 'La sugerencia con IA no está disponible en esta copia; califica a mano con la rúbrica.') + '</span></div>' +
+    (msgIA ? '<p class="aviso ' + (msgIA.startsWith('No') ? 'bad' : 'ok') + '">' + esc(msgIA) + '</p>' : '') +
+    '<div class="tabla-c"><table><thead><tr><th>Competencia</th><th>Calificación (1 a 5)</th><th style="min-width:200px">Si te apartas de la IA, ¿por qué?</th></tr></thead><tbody>' +
+    comps().map(k => { const ia = c.ia && c.ia[k.id], v = c.cal[k.id];
+      return '<tr><td><strong>' + esc(k.nombre) + '</strong> <span class="muted small">· ' + k.peso + '</span><div class="evid">1: ' + esc(k.n1) + '<br>3: ' + esc(k.n3) + '<br>5: ' + esc(k.n5) + '</div></td>' +
+        '<td><span class="escala" role="group" aria-label="' + esc(k.nombre) + '">' + [1,2,3,4,5].map(n => '<button type="button" data-cal="' + k.id + '" data-v="' + n + '" aria-pressed="' + (Number(v) === n) + '"' + (ia && ia.p === n ? ' class="sug" title="Sugerencia de la IA"' : '') + '>' + n + '</button>').join('') + '</span>' +
+        (ia ? '<div class="evid">IA: ' + ia.p + (ia.ev ? ' · <q>' + esc(ia.ev) + '</q>' : ' · sin evidencia') + (ia.citaOk ? '' : ' <span class="pill warn">cita no encontrada en el perfil</span>') + (ia.razon ? '<br>' + esc(ia.razon) : '') + '</div>' : '') + '</td>' +
+        '<td>' + (ia && v && Number(v) !== ia.p ? '<textarea data-razon="' + k.id + '" rows="2" placeholder="Razón del ajuste">' + esc(c.razones[k.id] || '') + '</textarea>' : '<span class="muted small">' + (ia ? (v ? 'Coincide con la IA' : '') : '—') + '</span>') + '</td></tr>'; }).join('') +
+    '</tbody></table></div></div>' +
+    '<div class="banda"><details><summary>Prueba de nombres cambiados</summary><div style="display:grid;gap:10px;margin-top:10px">' +
+      '<p class="small muted">Antes de confiar en un modelo, califica el mismo perfil con dos nombres distintos. Si el puntaje cambia, el modelo está usando el nombre y por eso nunca debe verlo.</p>' +
+      '<div class="grid2"><div class="campo"><label for="n1">Nombre A</label><input id="n1" value="María Guadalupe Hernández"></div><div class="campo"><label for="n2">Nombre B</label><input id="n2" value="José Luis Pérez"></div></div>' +
+      '<div class="acciones"><button class="btn" type="button" id="btnNombres"' + (IA_URL && !ocupado ? '' : ' disabled') + '>Correr la prueba con ' + esc(c.id) + '</button></div><div id="resNombres"></div></div></details></div>';
+  el.querySelector('#ant').onclick = () => { calIdx--; msgIA = ''; pCalificacion(); };
+  el.querySelector('#sig').onclick = () => { calIdx++; msgIA = ''; pCalificacion(); };
+  el.querySelectorAll('[data-cal]').forEach(b => b.onclick = () => { c.cal[b.dataset.cal] = Number(b.dataset.v); guardar(); pCalificacion(); });
+  el.querySelectorAll('[data-razon]').forEach(t => t.oninput = () => { c.razones[t.dataset.razon] = t.value; guardar(); });
+  el.querySelector('#btnIA').onclick = async () => {
+    ocupado = true; msgIA = ''; pCalificacion();
+    try{ c.ia = await sugerirIA(c); comps().forEach(k => { if(!c.cal[k.id] && c.ia[k.id]) c.cal[k.id] = c.ia[k.id].p; }); msgIA = 'Sugerencia lista. Revisa cada calificación contra la evidencia.'; guardar(); }
+    catch(e){ msgIA = e && e.code === 'no_activa' ? 'No: la sugerencia con IA todavía no está activa en el servidor del Club. Califica a mano con la rúbrica.' : e && e.code === 'rate_limited' ? 'No: demasiadas solicitudes seguidas. Espera un momento.' : 'No se pudo obtener la sugerencia. Califica a mano o intenta de nuevo.'; }
+    ocupado = false; pCalificacion();
+  };
+  el.querySelector('#btnNombres').onclick = async () => {
+    const out = el.querySelector('#resNombres'), a = el.querySelector('#n1').value.trim(), b = el.querySelector('#n2').value.trim();
+    if(!a || !b){ out.innerHTML = '<p class="aviso warn">Escribe los dos nombres.</p>'; return; }
+    ocupado = true; out.innerHTML = '<p class="muted small">Calificando dos veces…</p>';
+    try{
+      const corre = async nom => { const lista = await pedirCalificacion('Nombre: ' + nom + '\n' + c.perfil); const m = {}; lista.forEach(x => { m[x.id] = Math.round(Number(x.puntaje) || 0); }); return m; };
+      const [ra, rb] = await Promise.all([corre(a), corre(b)]);
+      const dif = comps().filter(k => ra[k.id] !== rb[k.id]);
+      out.innerHTML = '<div class="tabla-c"><table><thead><tr><th>Competencia</th><th>' + esc(a) + '</th><th>' + esc(b) + '</th></tr></thead><tbody>' + comps().map(k => '<tr><td>' + esc(k.nombre) + '</td><td class="num">' + (ra[k.id] || '—') + '</td><td class="num">' + (rb[k.id] || '—') + '</td></tr>').join('') + '</tbody></table></div>' +
+        '<p class="aviso ' + (dif.length ? 'warn' : 'ok') + '">' + (dif.length ? 'Cambió en ' + dif.length + ' competencias solo por el nombre. Una corrida no prueba sesgo (los modelos varían entre corridas), pero repítela varias veces antes de confiar.' : 'Mismas calificaciones con ambos nombres en esta corrida. Repite con más nombres y perfiles: una corrida no basta.') + '</p>';
+    }catch(e){ out.innerHTML = '<p class="aviso bad">' + (e && e.code === 'no_activa' ? 'La IA todavía no está activa en el servidor del Club.' : 'No se pudo correr la prueba.') + '</p>'; }
+    ocupado = false;
+  };
+}
+
+function pDecision(){
+  const el = document.getElementById('v-decision'), R = ranking(), lc = listaCorta(), faltan = S.candidatos.filter(c => puntaje(c).completos < comps().length);
+  el.innerHTML = '<div class="banda"><div><h2>Ranking por rúbrica</h2><p class="muted small">El puntaje es la suma ponderada de las calificaciones, sobre 100. Los primeros ' + esc(S.vacante.listaCorta) + ' pasan a la lista corta para entrevista estructurada y muestra de trabajo; quien decide anota su razón.</p></div>' +
+    (faltan.length ? '<p class="aviso warn">Faltan por calificar: ' + faltan.map(c => esc(c.id)).join(', ') + '. No entran al ranking hasta completar todas las competencias.</p>' : '') +
+    '<div class="tabla-c"><table><thead><tr><th>#</th><th>Candidato</th><th>Puntaje</th>' + comps().map(k => '<th title="' + esc(k.nombre) + '">' + esc(k.nombre.split(' ')[0]) + '</th>').join('') + '<th>Etapa</th><th style="min-width:200px">Decisión</th></tr></thead><tbody>' +
+    R.map((x, i) => { const d = S.decisiones[x.c.id] || {}, enLC = lc.includes(x.c.id);
+      return '<tr><td class="num">' + (i + 1) + '</td><td class="num"><strong>' + esc(x.c.id) + '</strong></td><td><div class="acciones" style="flex-wrap:nowrap"><span class="num">' + x.p.valor + '</span><span class="barra"><i style="width:' + x.p.valor + '%"></i></span></div></td>' +
+        comps().map(k => '<td class="num">' + (x.c.cal[k.id] || '—') + '</td>').join('') +
+        '<td>' + (enLC ? '<span class="pill acc">Lista corta</span>' : '<span class="pill">No avanza</span>') + '</td>' +
+        '<td>' + (enLC ? '<select data-dec="' + esc(x.c.id) + '" aria-label="Decisión"><option value="">Pendiente</option>' + ['Contratar','No contratar'].map(o => '<option' + (d.estado === o ? ' selected' : '') + '>' + o + '</option>').join('') + '</select>' +
+          (d.estado ? '<textarea data-just="' + esc(x.c.id) + '" rows="2" placeholder="Razón ligada a la rúbrica, la entrevista o la muestra de trabajo" style="margin-top:6px">' + esc(d.razon || '') + '</textarea>' : '') : '') + '</td></tr>'; }).join('') +
+    '</tbody></table></div>' +
+    '<p class="small muted">Empates cercanos (menos de 5 puntos) se deciden con la entrevista estructurada, no con la impresión del CV.</p></div>';
+  el.querySelectorAll('[data-dec]').forEach(s => s.onchange = () => { S.decisiones[s.dataset.dec] = Object.assign(S.decisiones[s.dataset.dec] || {}, {estado: s.value}); guardar(); pDecision(); });
+  el.querySelectorAll('[data-just]').forEach(t => t.oninput = () => { S.decisiones[t.dataset.just].razon = t.value; guardar(); });
+}
+
+function pAuditoria(){
+  const el = document.getElementById('v-auditoria'), lc = listaCorta();
+  const etapas = [
+    {id:'lc', t:'Pasan a la lista corta', base: c => puntaje(c).completos === comps().length, pasa: c => lc.includes(c.id)},
+    {id:'con', t:'Contratados (de la lista corta)', base: c => lc.includes(c.id) && S.decisiones[c.id] && S.decisiones[c.id].estado, pasa: c => (S.decisiones[c.id] || {}).estado === 'Contratar'}
+  ];
+  const bloque = (dim, et) => {
+    const ops = GRUPOS[dim].ops.filter(o => o !== 'Prefiere no decir');
+    const base = S.candidatos.filter(et.base);
+    const sinDato = base.filter(c => !ops.includes(c.grupo[dim])).length;
+    const filas = ops.map(o => { const g = base.filter(c => c.grupo[dim] === o); const s = g.filter(et.pasa).length; return {o, n: g.length, s, tasa: g.length ? s / g.length : null}; }).filter(f => f.n > 0);
+    if(filas.length < 2) return '<p class="small muted">' + GRUPOS[dim].t + ': hacen falta al menos dos grupos con candidatos para comparar.</p>';
+    const max = Math.max(...filas.map(f => f.tasa));
+    const chico = filas.some(f => f.n < 30);
+    return '<div><h3 style="margin-bottom:6px">' + GRUPOS[dim].t + '</h3>' +
+      filas.map(f => { const ratio = max ? f.tasa / max : 1, bajo = ratio < 0.8;
+        return '<div class="ratio"><span><strong>' + esc(f.o) + '</strong> <span class="muted small num">' + f.s + ' de ' + f.n + ' · tasa ' + Math.round(f.tasa * 100) + ' %</span></span>' +
+          '<span class="pista" aria-hidden="true"><i class="' + (bajo ? 'bajo' : '') + '" style="width:' + Math.round(Math.min(1, ratio) * 100) + '%"></i><b></b></span>' +
+          '<span class="pill ' + (bajo ? 'bad' : 'ok') + ' num">' + ratio.toFixed(2) + '</span></div>'; }).join('') +
+      '<p class="small muted">' + (sinDato ? sinDato + ' sin dato o prefirieron no decir; no entran al cálculo. ' : '') + (chico ? 'Muestras chicas (menos de 30 por grupo): una persona mueve mucho la razón. Úsalo como alerta para revisar, no como conclusión; acumula varias vacantes.' : '') + '</p></div>';
+  };
+  const dec = Object.values(S.decisiones).filter(d => d.estado);
+  const sinRazon = Object.entries(S.decisiones).filter(([, d]) => d.estado && !(d.razon || '').trim()).map(([id]) => id);
+  const ajustes = S.candidatos.reduce((n, c) => n + Object.keys(c.razones || {}).filter(k => (c.razones[k] || '').trim()).length, 0);
+  el.innerHTML = '<div class="banda"><div><h2>Auditoría de impacto adverso</h2><p class="muted small">Para cada etapa se compara la tasa de cada grupo contra la del grupo con la tasa más alta. Una razón menor a 0.80 (la raya en cada barra) es señal de impacto adverso según la regla de los 4/5. Los datos de grupo son autodeclarados y nadie los vio al calificar.</p></div>' +
+    '<div class="k"><div class="cifra"><span class="lbl">Candidatos</span><b>' + S.candidatos.length + '</b></div><div class="cifra"><span class="lbl">En lista corta</span><b>' + lc.length + '</b></div><div class="cifra"><span class="lbl">Decisiones tomadas</span><b>' + dec.length + '</b></div><div class="cifra"><span class="lbl">Ajustes a la IA con razón</span><b>' + ajustes + '</b></div></div>' +
+    (sinRazon.length ? '<p class="aviso warn">Decisiones sin razón escrita: ' + sinRazon.map(esc).join(', ') + '.</p>' : '') + '</div>' +
+    etapas.map(et => '<div class="banda"><h2>' + et.t + '</h2>' + (S.candidatos.filter(et.base).length ? Object.keys(GRUPOS).map(d => bloque(d, et)).join('') : '<p class="muted small">Todavía no hay datos para esta etapa.</p>') + '</div>').join('') +
+    '<div class="banda"><h3>Si una razón queda abajo de 0.80</h3><ol style="margin:0;padding-left:20px"><li>Ubica la competencia que más separa a los grupos (compara los promedios por competencia).</li><li>Si no está ligada al puesto, quítala o cambia su descriptor.</li><li>Si está ligada al puesto, busca otra forma de medirla con menos impacto (muestra de trabajo en lugar de requisito de experiencia, por ejemplo).</li><li>Documenta el cambio y vuelve a calificar a todos con la misma rúbrica.</li></ol></div>';
+}
+
+document.getElementById('btnReiniciar').onclick = function(){
+  if(this.dataset.armado){ S = JSON.parse(JSON.stringify(EJEMPLO)); S.candidatos.forEach(c => { c.razones = {}; c.ia = null; }); guardar(); calIdx = 0; this.textContent = 'Volver al ejemplo'; delete this.dataset.armado; pintar(); return; }
+  this.dataset.armado = '1'; this.textContent = 'Confirmar: borrar mis cambios';
+  setTimeout(() => { if(this.dataset.armado){ delete this.dataset.armado; this.textContent = 'Volver al ejemplo'; } }, 4000);
+};
+pintar();
+</script>
+</body>
+</html>

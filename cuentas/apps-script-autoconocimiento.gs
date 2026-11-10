@@ -2,8 +2,9 @@
  * Autoconocimiento DISC y FODA — Apps Script
  * Club de Mentes Brillantes
  *
- * Recibe los resultados del DISC (disc.html y disc-agora.html) y el FODA
- * (foda.html) que una persona decidió compartir con el Club, y los escribe en
+ * Recibe los resultados del DISC (disc.html y disc-agora.html), el FODA
+ * (foda.html) y el test vocacional (test-vocacional.html) que una persona
+ * decidió compartir con el Club, y los escribe en
  * la hoja interna "Autoconocimiento DISC y FODA (uso interno)".
  *
  * SOLO LLEGA LO QUE LA PERSONA ACEPTÓ MANDAR. Las páginas no envían nada por
@@ -40,7 +41,7 @@
 
 var CLAVE = 'cmb-autoconocimiento-2026';
 
-var PESTANAS = { disc: 'DISC', foda: 'FODA', expediente: 'Expediente Ágora', expedienteDiana: 'Expediente DIANA', informacion: 'Información inicial' };
+var PESTANAS = { disc: 'DISC', foda: 'FODA', vocacional: 'Test vocacional', expediente: 'Expediente Ágora', expedienteDiana: 'Expediente DIANA', informacion: 'Información inicial' };
 /* Antes de DIANA las pestañas de las herramientas se llamaban "Ágora · …".
    Ahora las comparten los dos procesos y llevan su nombre a secas;
    revisarPestanas las renombra si encuentra las de antes. */
@@ -58,6 +59,13 @@ var ENCABEZADOS = {
   foda: ['ID de envío', 'Primer envío', 'Último envío', 'Nombre', 'Correo',
          'Fortalezas', 'Debilidades', 'Oportunidades', 'Amenazas',
          'Siguiente paso', 'Estilo DISC dominante', 'Dispositivo'],
+  // Test vocacional (test-vocacional.html). Las columnas de Aplicación a
+  // Observaciones son el formato que antes se llenaba a mano. Observaciones la
+  // escribe el orientador: el script nunca la toca, ni al actualizar.
+  vocacional: ['ID de envío', 'Primer envío', 'Último envío', 'Nombre', 'Correo',
+               'Aplicación', 'Habilidades', 'Aptitudes', 'Áreas de preferencia',
+               'Carreras derivadas', 'Sugerencias', 'Observaciones',
+               'Lo que te motiva', 'Puntajes', 'Respuestas', 'Versión', 'Dispositivo'],
   // Una fila por persona: el tablero del orientador.
   expediente: ['ID de envío', 'Alta', 'Última actividad', 'Nombre', 'Correo', 'Edad', 'Etapa',
                'Avance', 'Fases completas', 'Última fase guardada', 'Tutor', 'Correo del tutor',
@@ -161,6 +169,7 @@ function revisarPestanas() {
   renombrarViejas();
   pestana(PESTANAS.disc, ENCABEZADOS.disc);
   pestana(PESTANAS.foda, ENCABEZADOS.foda);
+  pestana(PESTANAS.vocacional, ENCABEZADOS.vocacional);
   pestana(PESTANAS.expediente, ENCABEZADOS.expediente);
   pestana(PESTANAS.expedienteDiana, ENCABEZADOS.expediente);
   pestana(PESTANAS.informacion, ENCABEZADOS.informacion);
@@ -201,6 +210,7 @@ function doPost(e) {
 
     if (d.tipo === 'disc') return responder(conCandado(function () { return guardarDisc(d, id, nombre, correo); }));
     if (d.tipo === 'foda') return responder(conCandado(function () { return guardarFoda(d, id, nombre, correo); }));
+    if (d.tipo === 'vocacional') return responder(conCandado(function () { return guardarVocacional(d, id, nombre, correo); }));
     if (d.tipo === 'agora' || d.tipo === 'diana') return responder(conCandado(function () { return guardarProceso(d, id, nombre, correo, d.tipo); }));
     return responder({ ok: false, error: 'tipo' });
   } catch (err) {
@@ -295,6 +305,37 @@ function guardarFoda(d, id, nombre, correo) {
     'Amenazas': textoSeguro(lista(d.A)),
     'Siguiente paso': textoSeguro(limpiar(d.paso, MAX_TEXTO)),
     'Estilo DISC dominante': NOMBRES[d.estiloDisc] || '',
+    'Dispositivo': limpiar(d.dispositivo, 64)
+  }, true, 'Primer envío');
+  return { ok: true };
+}
+
+// ─────────────────────────── TEST VOCACIONAL ───────────────────────────
+
+/* Lo que antes el alumno pasaba a mano después de hacer dos tests externos.
+   La página manda cada campo ya armado como texto; aquí se limpia y se
+   desactiva como fórmula. Volver a enviar la misma aplicación (mismo id)
+   actualiza su fila sin borrar las Observaciones del orientador. */
+function guardarVocacional(d, id, nombre, correo) {
+  var t = function (k, max) { return textoSeguro(limpiar(d[k], max || MAX_TEXTO)); };
+  if (!limpiar(d.areas, 400) || !limpiar(d.carreras, 1000)) return { ok: false, error: 'test incompleto' };
+  var respuestas = limpiar(d.respuestas, 2000);
+  if (respuestas && !/^([a-z]_[A-Za-z]+_[0-9]=[1-5]?,?)+$/.test(respuestas)) return { ok: false, error: 'respuestas' };
+  escribir(PESTANAS.vocacional, ENCABEZADOS.vocacional, id, {
+    'ID de envío': id,
+    'Último envío': new Date(),
+    'Nombre': textoSeguro(nombre),
+    'Correo': textoSeguro(correo),
+    'Aplicación': t('aplicacion', 200),
+    'Habilidades': t('habilidades', 600),
+    'Aptitudes': t('aptitudes', 400),
+    'Áreas de preferencia': t('areas', 400),
+    'Carreras derivadas': t('carreras', 1000),
+    'Sugerencias': t('sugerencias'),
+    'Lo que te motiva': t('motiva', 300),
+    'Puntajes': t('puntajes', 1500),
+    'Respuestas': respuestas,
+    'Versión': t('version', 60),
     'Dispositivo': limpiar(d.dispositivo, 64)
   }, true, 'Primer envío');
   return { ok: true };

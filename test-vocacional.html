@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Test vocacional — Club de Mentes Brillantes</title>
+<meta name="description" content="Test vocacional del Club de Mentes Brillantes: intereses, aptitudes y lo que te motiva, con las carreras que más se acercan a ti.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --azul:#b89a57; --azul-osc:#8b7440; --naranja:#c2703d; --verde:#4f8f5b;
+    --hero-bg:#faf8f2; --hero-bg2:#f3efe5; --hero-sub:#5a5346; --hero-line:rgba(31,31,28,.1);
+    --gold-light:#d0b06a;
+    --gris-bg:#faf8f2; --gris-borde:#e7ddc9; --texto:#1f1f1c; --texto-suave:#6b6459;
+    --font-serif:'Cormorant Garamond',Georgia,'Times New Roman',serif;
+    --font-sans:'Source Sans 3',ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;
+    --sombra:rgba(53,42,21,.1) 0px 10px 25px 0px;
+  }
+  *{box-sizing:border-box;}
+  [hidden]{display:none!important;}
+  body{font-family:var(--font-sans);margin:0;background:linear-gradient(180deg,var(--hero-bg) 0%,var(--hero-bg2) 100%) fixed;color:var(--texto);}
+  .topbar{max-width:1080px;margin:0 auto;padding:16px 32px 0;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+  .topbar .logo-link img{height:34px;width:auto;display:block;}
+  .topbar a{color:var(--texto-suave);font-size:.82rem;font-weight:700;text-decoration:none;}
+  .topbar a:hover{color:var(--azul-osc);}
+  .topbar .enlaces{display:inline-flex;gap:18px;align-items:center;flex-wrap:wrap;}
+  header{padding:34px 32px 0;border-bottom:1px solid var(--hero-line);}
+  .hero-inner{max-width:1080px;margin:0 auto;padding-bottom:28px;}
+  header .eyebrow{display:inline-block;font-size:.76rem;color:#fff;background:linear-gradient(135deg,var(--azul),var(--gold-light));padding:6px 16px;border-radius:999px;margin:0 0 14px;font-weight:700;box-shadow:var(--sombra);}
+  header h1{font-family:var(--font-serif);margin:0 0 12px;font-size:2.4rem;line-height:1.15;font-weight:700;max-width:680px;}
+  header p{margin:0;font-size:.98rem;color:var(--hero-sub);max-width:640px;line-height:1.6;}
+  main{max-width:1080px;margin:0 auto;padding:28px 32px 60px;}
+  .card{background:#fff;border:1px solid var(--gris-borde);border-radius:16px;padding:24px 26px;margin-bottom:20px;box-shadow:var(--sombra);}
+  .card h2{font-family:var(--font-serif);margin:0 0 8px;font-size:1.6rem;}
+  .card h3{font-family:var(--font-serif);margin:20px 0 8px;font-size:1.25rem;color:var(--azul-osc);}
+  .card p{line-height:1.6;}
+  .note{font-size:.8rem;color:var(--texto-suave);margin-top:10px;line-height:1.5;}
+  button.primary{background:linear-gradient(135deg,var(--azul),var(--gold-light));color:#fff;border:none;padding:12px 28px;border-radius:999px;font-size:.95rem;font-weight:700;cursor:pointer;margin-top:16px;font-family:var(--font-sans);box-shadow:var(--sombra);}
+  button.primary:disabled{opacity:.45;cursor:not-allowed;box-shadow:none;}
+  button.secondary, a.secondary{background:#fff;color:var(--azul-osc);border:1.5px solid var(--azul);padding:9px 20px;border-radius:999px;font-size:.88rem;font-weight:700;cursor:pointer;margin:10px 8px 0 0;font-family:var(--font-sans);text-decoration:none;display:inline-block;}
+  button.secondary:disabled{opacity:.45;cursor:not-allowed;}
+  .aviso{border-radius:10px;padding:13px 15px;font-size:.87rem;line-height:1.55;margin:14px 0;background:#fdfaf1;border:1px solid var(--gris-borde);}
+  .partes{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:16px 0 4px;}
+  .partes div{background:var(--gris-bg);border:1px solid var(--gris-borde);border-radius:12px;padding:14px 16px;font-size:.88rem;line-height:1.5;}
+  .partes strong{display:block;font-family:var(--font-serif);font-size:1.15rem;color:var(--azul-osc);margin-bottom:2px;}
+
+  /* ---- Avance ---- */
+  .avance{position:sticky;top:0;z-index:5;background:rgba(250,248,242,.96);backdrop-filter:blur(4px);padding:10px 0 12px;margin:-8px 0 14px;border-bottom:1px solid var(--gris-borde);}
+  .avance .fila{display:flex;justify-content:space-between;gap:10px;font-size:.82rem;color:var(--texto-suave);font-weight:600;margin-bottom:6px;}
+  .barra{height:8px;background:var(--gris-borde);border-radius:999px;overflow:hidden;}
+  .barra i{display:block;height:100%;background:linear-gradient(90deg,var(--azul),var(--gold-light));border-radius:999px;transition:width .25s ease;}
+
+  /* ---- Preguntas ---- */
+  .pregunta-intro{font-size:.95rem;color:var(--hero-sub);margin:0 0 6px;}
+  .item{display:grid;grid-template-columns:1fr auto;gap:10px 18px;align-items:center;padding:13px 0;border-top:1px solid var(--gris-borde);}
+  .item:first-of-type{border-top:none;}
+  .item .txt{font-size:.97rem;line-height:1.45;}
+  .item .txt .n{color:var(--texto-suave);font-size:.8rem;font-weight:700;margin-right:6px;}
+  .escala{display:flex;gap:6px;border:none;margin:0;padding:0;}
+  .escala label{position:relative;cursor:pointer;}
+  .escala input{position:absolute;opacity:0;width:1px;height:1px;}
+  .escala span{display:flex;align-items:center;justify-content:center;width:52px;height:38px;border:1.5px solid var(--gris-borde);border-radius:10px;font-weight:700;font-size:.92rem;color:var(--texto-suave);background:#fff;transition:all .12s ease;}
+  .escala label:hover span{border-color:var(--azul);}
+  .escala input:focus-visible + span{outline:2px solid var(--azul-osc);outline-offset:2px;}
+  .escala input:checked + span{background:var(--azul-osc);border-color:var(--azul-osc);color:#fff;}
+  .leyenda{display:flex;justify-content:flex-end;gap:6px;font-size:.68rem;color:var(--texto-suave);text-align:center;line-height:1.2;margin-bottom:2px;}
+  .leyenda span{width:52px;hyphens:auto;}
+  .item.falta .txt{color:var(--naranja);}
+  .navegar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-top:8px;}
+  .navegar .faltan{font-size:.84rem;color:var(--texto-suave);}
+
+  /* ---- Resultados ---- */
+  .ficha{width:100%;border-collapse:collapse;font-size:.92rem;}
+  .ficha th{text-align:left;vertical-align:top;width:190px;padding:11px 14px 11px 0;font-size:.76rem;letter-spacing:.06em;text-transform:uppercase;color:var(--texto-suave);border-top:1px solid var(--gris-borde);}
+  .ficha td{padding:11px 0;border-top:1px solid var(--gris-borde);line-height:1.55;white-space:pre-line;}
+  .ficha td.vacio{color:var(--texto-suave);font-style:italic;}
+  .barras{display:grid;gap:9px;margin-top:6px;}
+  .barras .b{display:grid;grid-template-columns:230px 1fr 44px;gap:12px;align-items:center;font-size:.9rem;}
+  .barras .pista{height:12px;background:var(--gris-bg);border:1px solid var(--gris-borde);border-radius:999px;overflow:hidden;}
+  .barras .pista i{display:block;height:100%;background:var(--azul);border-radius:999px;}
+  .barras .b.top .pista i{background:var(--azul-osc);}
+  .barras .b.top{font-weight:700;}
+  .barras .pct{text-align:right;font-variant-numeric:tabular-nums;color:var(--texto-suave);font-weight:600;}
+  .dos{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  .carreras{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px;margin-top:8px;}
+  .carrera{border:1px solid var(--gris-borde);border-left:4px solid var(--azul);border-radius:12px;padding:12px 14px;background:#fff;}
+  .carrera h4{margin:0 0 3px;font-size:1rem;}
+  .carrera .meta{font-size:.76rem;color:var(--texto-suave);font-weight:600;margin-bottom:6px;}
+  .carrera p{margin:0;font-size:.85rem;color:var(--hero-sub);line-height:1.45;}
+  .carrera .sec{margin-top:7px;font-size:.78rem;}
+  .carrera .sec a{color:var(--azul-osc);font-weight:700;}
+  .sugerencias{margin:6px 0 0;padding-left:20px;line-height:1.6;font-size:.94rem;}
+  .sugerencias li{margin-bottom:6px;}
+  .acciones{display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
+
+  @media print{
+    @page{size:letter;margin:14mm;}
+    body{background:#fff;}
+    .topbar, header, .no-imprimir, #compartirVocacional{display:none!important;}
+    main{padding:0;}
+    .card{box-shadow:none;border:none;padding:0;margin-bottom:14pt;break-inside:avoid;}
+  }
+  @media(max-width:760px){
+    .topbar{padding:14px 20px 0;} .topbar .logo-link img{height:28px;}
+    header{padding:26px 20px 0;} header h1{font-size:1.85rem;}
+    main{padding:22px 16px 48px;} .card{padding:18px 16px;}
+    .partes, .dos{grid-template-columns:1fr;}
+    .item{grid-template-columns:1fr;}
+    .escala span{width:100%;}
+    .escala{display:grid;grid-template-columns:repeat(5,1fr);}
+    .leyenda{display:none;}
+    .barras .b{grid-template-columns:1fr 70px 40px;}
+    .ficha th{width:auto;display:block;border-top:1px solid var(--gris-borde);padding-bottom:2px;}
+    .ficha td{display:block;border-top:none;padding-top:0;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a class="logo-link" href="https://www.clubmentesbrillantes.com.mx/index.html" aria-label="Club de Mentes Brillantes"><img src="logo-cmb.svg" alt="Club de Mentes Brillantes"></a>
+  <span class="enlaces">
+    <a href="disc-agora.html">Tu Perfil DISC →</a>
+    <a href="foda.html">Tu FODA →</a>
+    <a href="comparativo.html">Sectores →</a>
+    <a href="index.html">← Volver a tu CV frente al mercado</a>
+  </span>
+</div>
+
+<header>
+  <div class="hero-inner">
+    <p class="eyebrow">Autoconocimiento para la construcción de tu plan de vida</p>
+    <h1>Test vocacional</h1>
+    <p>Qué te interesa, qué se te da y qué te mueve, y con eso, las carreras que más se acercan a ti. Toma unos 15 minutos y se guarda en este dispositivo mientras contestas: si cierras la página, sigues donde te quedaste.</p>
+  </div>
+</header>
+
+<main>
+  <!-- Inicio -->
+  <section id="vInicio" class="card">
+    <h2>Antes de empezar</h2>
+    <p>Son 78 frases cortas en tres partes. No hay respuestas buenas ni malas, y no es un examen: contesta pensando en lo que te gusta y en cómo eres hoy, no en lo que crees que deberías contestar ni en lo que gana más dinero.</p>
+    <div class="partes">
+      <div><strong>1 · Tus intereses</strong>40 actividades. ¿Qué tanto te gustaría hacerlas?</div>
+      <div><strong>2 · Tus aptitudes</strong>20 habilidades. ¿Qué tan bien se te dan hoy?</div>
+      <div><strong>3 · Lo que te motiva</strong>18 frases. ¿Qué tanto quieres eso en tu trabajo?</div>
+    </div>
+    <div class="aviso">Al final verás tus áreas de preferencia, tus aptitudes más fuertes, las carreras que más se acercan a ti y sugerencias para seguir. Es una guía para platicar con tu orientador, no un diagnóstico: ninguna carrera queda descartada por un test.</div>
+    <button class="primary" type="button" id="btnEmpezar">Empezar</button>
+    <p class="note" id="notaRetomar" hidden></p>
+  </section>
+
+  <!-- Preguntas -->
+  <section id="vPreguntas" hidden>
+    <div class="avance no-imprimir">
+      <div class="fila"><span id="avanceParte"></span><span id="avanceNum"></span></div>
+      <div class="barra"><i id="avanceBarra" style="width:0"></i></div>
+    </div>
+    <div class="card">
+      <h2 id="pagTitulo"></h2>
+      <p class="pregunta-intro" id="pagIntro"></p>
+      <div class="leyenda" id="pagLeyenda" aria-hidden="true"></div>
+      <div id="pagItems"></div>
+      <div class="navegar">
+        <button class="secondary" type="button" id="btnAtras">← Atrás</button>
+        <span class="faltan" id="faltan" aria-live="polite"></span>
+        <button class="primary" type="button" id="btnSiguiente" style="margin-top:0">Siguiente →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Resultados -->
+  <section id="vResultados" hidden>
+    <div class="card">
+      <h2>Tu resultado</h2>
+      <p class="note" id="resAplicacion" style="margin-top:0"></p>
+      <div id="resAviso"></div>
+      <table class="ficha" id="ficha"></table>
+      <div class="acciones no-imprimir">
+        <button class="secondary" type="button" id="btnImprimir">Imprimir o guardar en PDF</button>
+        <button class="secondary" type="button" id="btnRevisar">Revisar mis respuestas</button>
+        <button class="secondary" type="button" id="btnBorrar">Volver a hacerlo</button>
+        <button class="secondary" type="button" id="btnBorrarSi" hidden>Sí, borrar mis respuestas</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Carreras que más se acercan a ti</h2>
+      <p class="note" style="margin-top:0">Ordenadas por qué tanto combinan tus intereses, tus aptitudes y lo que te motiva. Son puntos de partida para investigar, no una lista cerrada.</p>
+      <div class="carreras" id="resCarreras"></div>
+    </div>
+
+    <div class="card">
+      <h2>Tus áreas de interés</h2>
+      <div class="barras" id="resAreas"></div>
+      <div class="dos">
+        <div>
+          <h3>Tus aptitudes</h3>
+          <div class="barras" id="resAptitudes"></div>
+        </div>
+        <div>
+          <h3>Lo que te motiva</h3>
+          <div class="barras" id="resMotiva"></div>
+        </div>
+      </div>
+      <p class="note">Cada porcentaje es qué tan alto contestaste en esa parte: 100% es "me agrada mucho" o "muy bien" en todo. Las aptitudes son cómo te ves tú hoy; se pueden entrenar.</p>
+    </div>
+
+    <div id="compartirVocacional"></div>
+
+    <p class="note">Preguntas escritas por el Club de Mentes Brillantes, con el formato de los tests de intereses y aptitudes que se usan en orientación vocacional. Las carreras salen de la lista de trabajo del Club (la misma de la Ruta profesional del proceso Ágora).</p>
+  </section>
+</main>
+
+<script src="agora/carreras.js"></script>
+<script src="compartir-club.js"></script>
+<script>
+/* =====================================================================
+   Test vocacional del Club — v1 (2026-11-10)
+   =====================================================================
+   Reemplaza el paso manual de mandar al alumno a dos tests externos y
+   pedirle que pase a mano su resultado. Llena los mismos campos del
+   formato del orientador: Aplicación, Habilidades, Aptitudes, Áreas de
+   preferencia, Carreras derivadas, Sugerencias y Observaciones (esta
+   última la escribe el orientador en la hoja).
+
+   Tres partes:
+     1. Intereses: 8 áreas × 5 actividades, de "me desagrada mucho" a
+        "me agrada mucho".
+     2. Aptitudes: 10 aptitudes × 2 habilidades, autoevaluadas.
+     3. Lo que te motiva: 6 temas × 3 frases (los seis tipos de Holland:
+        hacer, investigar, crear, ayudar, emprender, organizar).
+
+   Cada puntaje es (promedio − 1) / 4 × 100. La afinidad con una carrera
+   es 55% interés en sus áreas + 20% aptitudes que esas áreas piden +
+   25% motivos de la carrera. Si cambias preguntas o pesos, sube VERSION:
+   lo guardado en la hoja dice con qué versión se contestó.
+   ===================================================================== */
+const VERSION = 'Test vocacional CMB v1';
+const LLAVE = 'cmb_vocacional';
+
+const AREAS = {
+  ing: {n:'Ingeniería y ciencias exactas', apt:['numerica','espacial','cientifica'], mot:['I','R']},
+  sal: {n:'Salud y ciencias biológicas',  apt:['cientifica','social'], mot:['S','I']},
+  soc: {n:'Ciencias sociales, derecho y educación', apt:['verbal','social','liderazgo'], mot:['S','E']},
+  neg: {n:'Negocios, administración y finanzas', apt:['numerica','organizacion','liderazgo'], mot:['E','C']},
+  art: {n:'Artes, diseño y comunicación', apt:['artistica','espacial','verbal'], mot:['A']},
+  tec: {n:'Tecnología e informática', apt:['digital','numerica','cientifica'], mot:['I','C']},
+  tur: {n:'Turismo, gastronomía y servicios', apt:['social','organizacion'], mot:['S','R']},
+  ind: {n:'Industria, mecánica y oficios técnicos', apt:['mecanica','espacial'], mot:['R','C']}
+};
+
+const INTERESES = {
+  ing: ['Resolver problemas de matemáticas o de física por gusto.',
+        'Calcular cuánto peso aguanta un puente o una estructura.',
+        'Diseñar un proceso para que una fábrica produzca más con menos.',
+        'Hacer experimentos para comprobar si una idea funciona.',
+        'Analizar datos para encontrar la causa de una falla.'],
+  sal: ['Cuidar a una persona enferma o lastimada.',
+        'Aprender cómo funciona el cuerpo humano.',
+        'Trabajar en un laboratorio analizando muestras.',
+        'Orientar a alguien para que coma mejor o se ejercite.',
+        'Cuidar animales o estudiar plantas y ecosistemas.'],
+  soc: ['Defender a alguien a quien trataron injustamente.',
+        'Leer sobre historia, política o cómo funciona la sociedad.',
+        'Escuchar a una persona y ayudarla con un problema personal.',
+        'Enseñarle algo a un grupo de niños o jóvenes.',
+        'Debatir un tema y argumentar tu postura.'],
+  neg: ['Llevar las cuentas de un negocio y ver si gana o pierde.',
+        'Planear cómo arrancar tu propio negocio.',
+        'Negociar un precio o cerrar una venta.',
+        'Organizar a un equipo para que cumpla una meta.',
+        'Seguir cómo se mueven los precios, las inversiones o la economía.'],
+  art: ['Dibujar, pintar o diseñar algo visual.',
+        'Escribir historias, guiones o textos creativos.',
+        'Tomar fotos, o grabar y editar videos.',
+        'Tocar un instrumento, cantar, actuar o bailar.',
+        'Pensar cómo debe verse un logotipo, una tienda o una campaña.'],
+  tec: ['Programar una aplicación, una página web o un videojuego.',
+        'Armar o configurar una computadora o una red.',
+        'Automatizar una tarea repetitiva con una herramienta digital.',
+        'Investigar cómo proteger una cuenta o un sistema de ataques.',
+        'Trabajar con muchos datos para descubrir patrones.'],
+  tur: ['Atender a turistas y recomendarles qué hacer.',
+        'Cocinar e inventar platillos nuevos.',
+        'Organizar un evento, una boda o un viaje.',
+        'Trabajar en un hotel, un restaurante o un crucero.',
+        'Aprender de otras culturas e idiomas para atender a visitantes.'],
+  ind: ['Reparar un aparato, un mueble o un vehículo.',
+        'Usar herramientas o máquinas para fabricar algo.',
+        'Instalar o revisar la instalación eléctrica de un lugar.',
+        'Revisar que una pieza salga exactamente con las medidas pedidas.',
+        'Trabajar en un taller, una planta o un almacén en movimiento.']
+};
+
+// Cada aptitud: nombre y dos habilidades [frase, nombre corto para la ficha].
+const APTITUDES = {
+  verbal:       {n:'Verbal', h:[['Explicar una idea por escrito de forma clara.','Redacción clara'],['Entender a la primera un texto largo o complicado.','Comprensión de lectura']]},
+  numerica:     {n:'Numérica', h:[['Hacer cálculos mentales rápido.','Cálculo mental'],['Resolver problemas con porcentajes, fracciones o ecuaciones.','Razonamiento matemático']]},
+  espacial:     {n:'Espacial', h:[['Imaginar cómo se ve un objeto si lo giras o lo ves desde otro lado.','Visualización espacial'],['Leer un mapa, un plano o un diagrama.','Lectura de planos y diagramas']]},
+  mecanica:     {n:'Mecánica', h:[['Entender cómo funciona una máquina con solo verla trabajar.','Comprensión mecánica'],['Armar o reparar cosas con las manos.','Habilidad manual']]},
+  cientifica:   {n:'Científica', h:[['Observar con detalle y notar lo que otros no ven.','Observación'],['Plantear una explicación y comprobarla paso a paso.','Método científico']]},
+  artistica:    {n:'Artística', h:[['Combinar colores, formas o sonidos para que se vean o suenen bien.','Sentido estético'],['Proponer ideas originales cuando hay que crear algo.','Creatividad']]},
+  social:       {n:'Social', h:[['Ponerte en el lugar de otra persona.','Empatía'],['Platicar con gente que no conoces.','Trato con personas']]},
+  liderazgo:    {n:'Liderazgo y persuasión', h:[['Convencer a otros de una idea.','Persuasión'],['Tomar decisiones y dirigir a un grupo.','Liderazgo']]},
+  organizacion: {n:'Organización', h:[['Planear tus tiempos y cumplir fechas de entrega.','Planeación'],['Llevar registros ordenados y sin errores.','Orden y precisión']]},
+  digital:      {n:'Digital', h:[['Aprender a usar un programa o una app nueva por tu cuenta.','Aprendizaje digital'],['Usar hojas de cálculo, programación u otras herramientas avanzadas.','Herramientas digitales']]}
+};
+
+// Motivos (tipos de Holland). La frase completa es "¿Qué tanto te gustaría que tu trabajo…".
+const MOTIVOS = {
+  R: {n:'Hacer cosas concretas', busca:'veas un resultado físico de lo que haces y no pases todo el día en un escritorio',
+      f:['te dejara ver un resultado físico de lo que hiciste?','fuera más en movimiento que sentado en un escritorio?','tuviera que ver con herramientas, máquinas o la naturaleza?']},
+  I: {n:'Investigar y entender', busca:'tengas problemas difíciles que resolver y aprendas algo nuevo seguido',
+      f:['te pusiera a resolver problemas difíciles?','te pidiera aprender cosas nuevas todo el tiempo?','se basara en datos y pruebas, no en opiniones?']},
+  A: {n:'Crear y expresarte', busca:'tengas libertad para proponer y cada día sea distinto',
+      f:['te dejara expresarte con libertad?','fuera distinto cada día, sin una rutina fija?','te pidiera inventar o diseñar cosas nuevas?']},
+  S: {n:'Ayudar a otras personas', busca:'trabajes cerca de la gente y veas que tu trabajo le sirve a alguien',
+      f:['sirviera para que otras personas estén mejor?','fuera en equipo, cerca de la gente?','te permitiera enseñar o acompañar a alguien?']},
+  E: {n:'Emprender y dirigir', busca:'puedas tomar decisiones, tener retos y crecer según tus resultados',
+      f:['te diera la oportunidad de dirigir y tomar decisiones?','te pagara según los resultados que logres?','te pusiera retos para competir y ganar?']},
+  C: {n:'Orden y estabilidad', busca:'haya procesos claros, se cuide la exactitud y tengas un ingreso estable',
+      f:['tuviera reglas y procesos claros?','te pidiera cuidar los detalles y la exactitud?','fuera estable y con un ingreso seguro?']}
+};
+
+/* Áreas (la primera pesa 65%, la segunda 35%) y dos motivos (60/40) de
+   cada carrera de agora/carreras.js. Una carrera nueva que no esté aquí
+   usa su área de esa lista (AREA_POR_DEFECTO). */
+const PERFIL_CARRERA = {
+  'Administración de empresas':['neg','','EC'], 'Contaduría pública':['neg','','CI'], 'Finanzas':['neg','ing','IC'],
+  'Economía':['neg','soc','IE'], 'Actuaría':['ing','neg','IC'], 'Negocios internacionales':['neg','tur','ES'],
+  'Comercio exterior y aduanas':['neg','','CE'], 'Mercadotecnia':['neg','art','EA'], 'Ventas y desarrollo comercial':['neg','','ES'],
+  'Recursos humanos':['neg','soc','SE'], 'Logística y cadena de suministro':['neg','ind','CE'],
+  'Administración hotelera':['tur','neg','ES'], 'Turismo':['tur','','SE'], 'Gastronomía':['tur','art','AR'],
+  'Derecho':['soc','','EI'], 'Criminología':['soc','sal','IS'], 'Relaciones internacionales':['soc','neg','ES'],
+  'Ciencias políticas y administración pública':['soc','','ES'], 'Comunicación':['art','soc','AS'],
+  'Publicidad y relaciones públicas':['art','neg','AE'], 'Trabajo social':['soc','sal','SC'],
+  'Ingeniería industrial':['ing','ind','IC'], 'Ingeniería mecánica':['ing','ind','RI'], 'Ingeniería mecatrónica':['ing','tec','RI'],
+  'Ingeniería automotriz':['ind','ing','RI'], 'Ingeniería eléctrica y electrónica':['ing','ind','RI'], 'Ingeniería química':['ing','sal','IR'],
+  'Ingeniería ambiental':['ing','sal','IS'], 'Ingeniería civil':['ing','ind','RC'], 'Arquitectura':['art','ing','AI'],
+  'Diseño industrial':['art','ind','AR'], 'Diseño gráfico y digital':['art','tec','AE'],
+  'Ingeniería en sistemas computacionales':['tec','ing','IR'], 'Ingeniería de software':['tec','','IA'],
+  'Ciencia de datos e inteligencia artificial':['tec','ing','IC'], 'Ciberseguridad':['tec','','IC'],
+  'Tecnologías de la información y redes':['tec','ind','RC'], 'Medicina':['sal','','IS'], 'Enfermería':['sal','soc','SR'],
+  'Psicología':['soc','sal','SI'], 'Nutrición':['sal','','SI'], 'Odontología':['sal','','RI'], 'Fisioterapia':['sal','','SR'],
+  'Químico farmacéutico biólogo':['sal','ing','IC'], 'Medicina veterinaria':['sal','','IR'], 'Biología y biotecnología':['sal','ing','IR'],
+  'Matemáticas o física':['ing','','IA'], 'Pedagogía y ciencias de la educación':['soc','','SA'],
+  'Artes (música, artes visuales o escénicas)':['art','','AS'], 'Cine y producción audiovisual':['art','tec','AE'],
+  'Letras, historia o filosofía':['soc','art','AI'], 'Técnico en mantenimiento industrial':['ind','','RC'],
+  'Técnico en contabilidad':['neg','','CI'], 'Técnico en programación':['tec','','IC'], 'Técnico en logística':['ind','neg','CR']
+};
+const AREA_POR_DEFECTO = {
+  'Administración y negocios':'neg', 'Arquitectura y diseño':'art', 'Artes y humanidades':'art', 'Carreras técnicas':'ind',
+  'Ciencias exactas y naturales':'ing', 'Ciencias exactas':'ing', 'Derecho y ciencias sociales':'soc', 'Educación':'soc',
+  'Ingeniería y manufactura':'ing', 'Salud':'sal', 'Tecnologías de la información':'tec', 'Turismo y servicios':'tur'
+};
+const SECTORES = {automotriz:'Automotriz', turismo:'Turismo', gestion:'Gestión y Administración', ventas:'Ventas', finanzas:'Finanzas',
+  logistica:'Logística', legal:'Legal', metalmecanica:'Metalmecánica', ti:'TI'};
+
+// Cómo empezar a reforzar cada aptitud, para las sugerencias.
+const REFORZAR = {
+  verbal:'lee algo que te guste todos los días y escribe resúmenes cortos',
+  numerica:'practica problemas de razonamiento matemático (hay cursos gratuitos en línea) y usa números en tu día a día',
+  espacial:'arma modelos, dibuja objetos desde distintos ángulos o juega con programas de diseño 3D',
+  mecanica:'acompaña a alguien en un taller o arma y desarma aparatos viejos',
+  cientifica:'haz pequeños experimentos o proyectos donde anotes qué esperabas y qué pasó',
+  artistica:'toma un taller de dibujo, música o diseño y dedícale un rato fijo a la semana',
+  social:'busca un voluntariado o un trabajo de atención a personas',
+  liderazgo:'ofrécete a coordinar un proyecto en la escuela o en tu comunidad',
+  organizacion:'usa una agenda o una app de tareas y lleva un registro de tus gastos',
+  digital:'aprende hojas de cálculo a fondo y prueba un curso introductorio de programación'
+};
+
+const ESCALAS = {
+  int: ['Me desagrada mucho','Me desagrada','Me da igual','Me agrada','Me agrada mucho'],
+  apt: ['Me cuesta mucho','Me cuesta','Regular','Bien','Muy bien'],
+  mot: ['Nada','Poco','Algo','Bastante','Mucho']
+};
+
+/* ---- Preguntas en el orden en que se ven ----
+   Los intereses van intercalados (una actividad de cada área por turno)
+   para que no se note de qué área es cada bloque. */
+const PREGUNTAS = (function(){
+  const p = [];
+  const areas = Object.keys(AREAS);
+  for(let i = 0; i < 5; i++) areas.forEach(a => p.push({id:'i_' + a + '_' + (i + 1), parte:'int', grupo:a, t:INTERESES[a][i]}));
+  const apts = Object.keys(APTITUDES);
+  for(let i = 0; i < 2; i++) apts.forEach(a => p.push({id:'a_' + a + '_' + (i + 1), parte:'apt', grupo:a, t:APTITUDES[a].h[i][0], corto:APTITUDES[a].h[i][1]}));
+  const mots = Object.keys(MOTIVOS);
+  for(let i = 0; i < 3; i++) mots.forEach(m => p.push({id:'m_' + m + '_' + (i + 1), parte:'mot', grupo:m, t:'…' + MOTIVOS[m].f[i]}));
+  return p;
+})();
+
+const PARTES = {
+  int: {n:'Parte 1 de 3 · Tus intereses', titulo:'¿Qué tanto te gustaría hacer esto?', intro:'Piensa en la actividad, no en si sabes hacerla. 1 = me desagrada mucho, 5 = me agrada mucho.'},
+  apt: {n:'Parte 2 de 3 · Tus aptitudes', titulo:'¿Qué tan bien se te da?', intro:'Cómo te ves hoy, con honestidad. 1 = me cuesta mucho, 5 = muy bien.'},
+  mot: {n:'Parte 3 de 3 · Lo que te motiva', titulo:'¿Qué tanto te gustaría que tu trabajo…', intro:'1 = nada, 5 = mucho.'}
+};
+// Páginas: 10 preguntas cada una, sin mezclar partes.
+const PAGINAS = (function(){
+  const pags = [];
+  ['int','apt','mot'].forEach(parte => {
+    const qs = PREGUNTAS.filter(q => q.parte === parte);
+    for(let i = 0; i < qs.length; i += 10) pags.push({parte, qs: qs.slice(i, i + 10)});
+  });
+  return pags;
+})();
+
+/* ---- Estado guardado en el dispositivo ---- */
+function leer(){ try{ return JSON.parse(localStorage.getItem(LLAVE) || 'null'); }catch(e){ return null; } }
+function guardar(){ try{ localStorage.setItem(LLAVE, JSON.stringify(estado)); }catch(e){} }
+let estado = leer();
+if(!estado || estado.v !== 1 || typeof estado.r !== 'object') estado = {v:1, r:{}, pagina:0, inicio:null, fin:null, id:null};
+
+/* ---- Cálculo ---- */
+const pct = (vals) => {
+  const v = vals.filter(x => x >= 1 && x <= 5);
+  return v.length ? Math.round((v.reduce((s, x) => s + x, 0) / v.length - 1) / 4 * 100) : 0;
+};
+function puntajes(r){
+  const de = (parte, g) => PREGUNTAS.filter(q => q.parte === parte && q.grupo === g).map(q => r[q.id]);
+  const areas = {}, aptitudes = {}, motivos = {};
+  Object.keys(AREAS).forEach(a => areas[a] = pct(de('int', a)));
+  Object.keys(APTITUDES).forEach(a => aptitudes[a] = pct(de('apt', a)));
+  Object.keys(MOTIVOS).forEach(m => motivos[m] = pct(de('mot', m)));
+  return {areas, aptitudes, motivos};
+}
+function perfilDe(c){
+  const p = PERFIL_CARRERA[c.n];
+  if(p) return {areas: p[1] ? [p[0], p[1]] : [p[0]], mot: p[2].split('')};
+  const a = AREA_POR_DEFECTO[c.a] || 'neg';
+  return {areas:[a], mot: AREAS[a].mot.length > 1 ? AREAS[a].mot : AREAS[a].mot.concat(AREAS[a].mot)};
+}
+function afinidad(c, s){
+  const p = perfilDe(c);
+  const pesos = p.areas.length > 1 ? [0.65, 0.35] : [1];
+  const aptArea = a => { const l = AREAS[a].apt; return l.reduce((x, k) => x + s.aptitudes[k], 0) / l.length; };
+  const interes = p.areas.reduce((x, a, i) => x + pesos[i] * s.areas[a], 0);
+  const apt = p.areas.reduce((x, a, i) => x + pesos[i] * aptArea(a), 0);
+  const mot = 0.6 * s.motivos[p.mot[0]] + 0.4 * s.motivos[p.mot[1] || p.mot[0]];
+  return Math.round(0.55 * interes + 0.20 * apt + 0.25 * mot);
+}
+const orden = (obj) => Object.keys(obj).sort((a, b) => obj[b] - obj[a]);
+const lista = (xs) => xs.length <= 1 ? (xs[0] || '') : xs.slice(0, -1).join(', ') + ' y ' + xs[xs.length - 1];
+
+function fechaLegible(d){ return (d ? new Date(d) : new Date()).toLocaleDateString('es-MX', {day:'numeric', month:'long', year:'numeric'}); }
+
+function calcular(r, fecha){
+  const s = puntajes(r);
+  const areasOrd = orden(s.areas), aptOrd = orden(s.aptitudes), motOrd = orden(s.motivos);
+  const carreras = (window.CARRERAS_AGORA || []).map(c => ({c, p: afinidad(c, s)}))
+    .sort((x, y) => y.p - x.p).slice(0, 6);
+
+  // Habilidades: las calificadas con 4 o 5, de la más alta a la más baja.
+  const hab = PREGUNTAS.filter(q => q.parte === 'apt').map(q => ({q, v: r[q.id] || 0}))
+    .sort((x, y) => y.v - x.v || s.aptitudes[y.q.grupo] - s.aptitudes[x.q.grupo]);
+  let habilidades = hab.filter(h => h.v >= 4).slice(0, 6).map(h => h.q.corto);
+  const habNota = habilidades.length ? '' : ' (ninguna la calificaste como fuerte; son las que te salieron más altas)';
+  if(!habilidades.length) habilidades = hab.slice(0, 3).map(h => h.q.corto);
+
+  // ¿Contestó todo igual? Entonces el resultado no distingue nada.
+  const vals = PREGUNTAS.filter(q => q.parte === 'int').map(q => r[q.id]).filter(Boolean);
+  const media = vals.reduce((a, b) => a + b, 0) / (vals.length || 1);
+  const dispersion = Math.sqrt(vals.reduce((a, b) => a + (b - media) * (b - media), 0) / (vals.length || 1));
+  const plano = dispersion < 0.5;
+
+  const sug = [];
+  const a1 = areasOrd[0], top3 = carreras.slice(0, 3).map(x => x.c.n);
+  if(plano) sug.push('Contestaste casi todas las actividades igual, así que el resultado no distingue bien tus intereses. Vale la pena repetir la parte 1 con calma, o platicarlo con tu orientador.');
+  sug.push('Explora primero ' + lista(top3) + ': combinan lo que más te interesa (' + AREAS[a1].n.toLowerCase() + ') con aptitudes que dices tener (' + lista(aptOrd.slice(0, 2).map(k => APTITUDES[k].n.toLowerCase())) + ').');
+  const debil = AREAS[a1].apt.slice().sort((x, y) => s.aptitudes[x] - s.aptitudes[y])[0];
+  if(s.aptitudes[debil] < 60) sug.push('Para ' + AREAS[a1].n.toLowerCase() + ' conviene reforzar tu aptitud ' + APTITUDES[debil].n.toLowerCase() + ' (' + s.aptitudes[debil] + '%): ' + REFORZAR[debil] + '.');
+  sug.push('Lo que más te motiva es ' + MOTIVOS[motOrd[0]].n.toLowerCase() + ': al comparar escuelas y trabajos, busca lugares donde ' + MOTIVOS[motOrd[0]].busca + '.');
+  if(!plano && s.areas[areasOrd[0]] - s.areas[areasOrd[3]] < 12) sug.push('Tus intereses salen muy parejos entre varias áreas. Antes de decidir, pruébalas con experiencias cortas: un taller, un voluntariado o acompañar un día a alguien en su trabajo.');
+  if(s.areas[a1] < 50) sug.push('Ninguna área te entusiasmó mucho. Es normal si todavía no conoces bien las opciones: platícalo con tu orientador y date tiempo de conocer carreras de cerca.');
+  const sectores = [];
+  carreras.slice(0, 4).forEach(x => (x.c.s || []).forEach(k => { if(SECTORES[k] && !sectores.includes(SECTORES[k])) sectores.push(SECTORES[k]); }));
+  if(sectores.length) sug.push('En el monitoreo de vacantes del Club, estas carreras se piden en ' + lista(sectores.slice(0, 3)) + ': revisa qué piden esas vacantes en la página de Sectores.');
+  sug.push('Platica con alguien que estudie o trabaje en ' + top3[0] + ' y pregúntale cómo es un día normal, qué le gusta y qué no.');
+
+  return {
+    puntajes: s, areasOrd, aptOrd, motOrd, carreras, plano,
+    ficha: {
+      aplicacion: fechaLegible(fecha) + ' · ' + VERSION,
+      habilidades: habilidades.join(', ') + habNota,
+      aptitudes: aptOrd.slice(0, 3).map(k => APTITUDES[k].n + ' (' + s.aptitudes[k] + '%)').join(', '),
+      areas: areasOrd.slice(0, 3).map(a => AREAS[a].n + ' (' + s.areas[a] + '%)').join(', '),
+      carreras: carreras.map(x => x.c.n + ' (' + x.p + '%)').join(', '),
+      sugerencias: sug.map(x => '• ' + x).join('\n'),
+      motiva: motOrd.slice(0, 2).map(m => MOTIVOS[m].n + ' (' + s.motivos[m] + '%)').join(', ')
+    },
+    sug
+  };
+}
+
+/* ---- Pantallas ---- */
+const $ = (id) => document.getElementById(id);
+function esc(v){ return String(v == null ? '' : v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function contestadas(){ return PREGUNTAS.filter(q => estado.r[q.id]).length; }
+function completo(){ return contestadas() === PREGUNTAS.length; }
+
+function ver(cual){
+  $('vInicio').hidden = cual !== 'inicio';
+  $('vPreguntas').hidden = cual !== 'preguntas';
+  $('vResultados').hidden = cual !== 'resultados';
+}
+
+function pintarInicio(){
+  ver('inicio');
+  const n = contestadas();
+  if(n && !estado.fin){
+    $('btnEmpezar').textContent = 'Seguir donde me quedé';
+    $('notaRetomar').hidden = false;
+    $('notaRetomar').textContent = 'Llevas ' + n + ' de ' + PREGUNTAS.length + ' respuestas guardadas en este dispositivo.';
+  }
+}
+
+function pintarPagina(){
+  ver('preguntas');
+  const i = Math.max(0, Math.min(PAGINAS.length - 1, estado.pagina || 0));
+  estado.pagina = i;
+  const pag = PAGINAS[i], parte = PARTES[pag.parte], esc5 = ESCALAS[pag.parte];
+  $('avanceParte').textContent = parte.n;
+  $('avanceNum').textContent = 'Página ' + (i + 1) + ' de ' + PAGINAS.length;
+  $('avanceBarra').style.width = Math.round(contestadas() / PREGUNTAS.length * 100) + '%';
+  $('pagTitulo').textContent = parte.titulo;
+  $('pagIntro').textContent = parte.intro;
+  $('pagLeyenda').innerHTML = esc5.map(t => '<span>' + esc(t) + '</span>').join('');
+  const base = PREGUNTAS.indexOf(pag.qs[0]);
+  $('pagItems').innerHTML = pag.qs.map((q, k) =>
+    '<div class="item" data-q="' + q.id + '">' +
+      '<div class="txt" id="t_' + q.id + '"><span class="n">' + (base + k + 1) + '</span>' + esc(q.t) + '</div>' +
+      '<fieldset class="escala" aria-labelledby="t_' + q.id + '">' +
+        [1,2,3,4,5].map(v => '<label title="' + esc(esc5[v - 1]) + '"><input type="radio" name="' + q.id + '" value="' + v + '"' +
+          (estado.r[q.id] === v ? ' checked' : '') + ' aria-label="' + esc(esc5[v - 1]) + '"><span>' + v + '</span></label>').join('') +
+      '</fieldset>' +
+    '</div>').join('');
+  $('btnAtras').style.visibility = i === 0 ? 'hidden' : 'visible';
+  $('btnSiguiente').textContent = i === PAGINAS.length - 1 ? 'Ver mi resultado' : 'Siguiente →';
+  refrescarFaltan();
+}
+
+function refrescarFaltan(){
+  const pag = PAGINAS[estado.pagina];
+  const f = pag.qs.filter(q => !estado.r[q.id]).length;
+  $('faltan').textContent = f ? 'Faltan ' + f + (f === 1 ? ' respuesta' : ' respuestas') + ' en esta página' : '';
+  $('btnSiguiente').disabled = !!f;
+  $('avanceBarra').style.width = Math.round(contestadas() / PREGUNTAS.length * 100) + '%';
+}
+
+$('pagItems').addEventListener('change', (e) => {
+  const t = e.target;
+  if(t.type !== 'radio') return;
+  estado.r[t.name] = Number(t.value);
+  if(!estado.inicio) estado.inicio = new Date().toISOString();
+  guardar();
+  const item = t.closest('.item'); if(item) item.classList.remove('falta');
+  refrescarFaltan();
+});
+
+$('btnEmpezar').onclick = () => {
+  // Retoma en la primera página con preguntas sin contestar.
+  const p = PAGINAS.findIndex(pg => pg.qs.some(q => !estado.r[q.id]));
+  estado.pagina = p < 0 ? PAGINAS.length - 1 : p;
+  guardar(); pintarPagina(); window.scrollTo(0, 0);
+};
+$('btnAtras').onclick = () => { estado.pagina--; guardar(); pintarPagina(); window.scrollTo(0, 0); };
+$('btnSiguiente').onclick = () => {
+  if(estado.pagina < PAGINAS.length - 1){ estado.pagina++; guardar(); pintarPagina(); window.scrollTo(0, 0); return; }
+  if(!completo()) return;
+  // Cada aplicación completa lleva su id; si la vuelve a enviar, actualiza la misma fila.
+  if(!estado.fin) estado.fin = new Date().toISOString();
+  if(!estado.id) estado.id = COMPARTIR.nuevoId();
+  guardar(); pintarResultados(); window.scrollTo(0, 0);
+};
+
+function barras(cont, obj, nombre, marcar){
+  cont.innerHTML = orden(obj).map((k, i) =>
+    '<div class="b' + (i < marcar ? ' top' : '') + '"><span>' + esc(nombre(k)) + '</span>' +
+    '<span class="pista"><i style="width:' + obj[k] + '%"></i></span><span class="pct">' + obj[k] + '%</span></div>').join('');
+}
+
+function pintarResultados(){
+  ver('resultados');
+  const R = calcular(estado.r, estado.fin);
+  const f = R.ficha;
+  $('resAplicacion').textContent = 'Contestado el ' + fechaLegible(estado.fin) + ' · ' + VERSION;
+  $('resAviso').innerHTML = R.plano ? '<div class="aviso">Contestaste casi todas las actividades de la parte 1 igual. El resultado se muestra, pero tómalo con reserva.</div>' : '';
+  const filas = [
+    ['Aplicación', f.aplicacion], ['Habilidades', f.habilidades], ['Aptitudes', f.aptitudes],
+    ['Áreas de preferencia', f.areas], ['Carreras derivadas', f.carreras], ['Sugerencias', f.sugerencias],
+    ['Observaciones', '']
+  ];
+  $('ficha').innerHTML = filas.map(([k, v]) =>
+    '<tr><th scope="row">' + esc(k) + '</th>' + (v ? '<td>' + esc(v) + '</td>' : '<td class="vacio">Las escribe tu orientador del Club si compartes tu resultado.</td>') + '</tr>').join('');
+  $('resCarreras').innerHTML = R.carreras.map(x => {
+    const secs = (x.c.s || []).filter(k => SECTORES[k]);
+    return '<div class="carrera"><h4>' + esc(x.c.n) + '</h4><div class="meta">' + esc(x.c.a) + ' · afinidad ' + x.p + '%</div>' +
+      '<p>' + esc(x.c.d) + '</p>' +
+      (secs.length ? '<div class="sec">Vacantes del sector: ' + secs.map(k => '<a href="comparativo.html">' + esc(SECTORES[k]) + '</a>').join(', ') + '</div>' : '') +
+      '</div>';
+  }).join('');
+  barras($('resAreas'), R.puntajes.areas, k => AREAS[k].n, 3);
+  barras($('resAptitudes'), R.puntajes.aptitudes, k => APTITUDES[k].n, 3);
+  barras($('resMotiva'), R.puntajes.motivos, k => MOTIVOS[k].n, 2);
+
+  COMPARTIR.pintar($('compartirVocacional'), {
+    tipo: 'vocacional',
+    id: () => estado.id,
+    datos: () => {
+      const r = calcular(estado.r, estado.fin), x = r.ficha, s = r.puntajes;
+      return {
+        version: VERSION,
+        aplicacion: x.aplicacion, habilidades: x.habilidades, aptitudes: x.aptitudes, areas: x.areas,
+        carreras: x.carreras, sugerencias: x.sugerencias, motiva: x.motiva,
+        puntajes: 'Intereses: ' + r.areasOrd.map(a => AREAS[a].n + ' ' + s.areas[a]).join(' · ') +
+          '\nAptitudes: ' + r.aptOrd.map(a => APTITUDES[a].n + ' ' + s.aptitudes[a]).join(' · ') +
+          '\nMotivos: ' + r.motOrd.map(m => MOTIVOS[m].n + ' ' + s.motivos[m]).join(' · '),
+        respuestas: PREGUNTAS.map(q => q.id + '=' + (estado.r[q.id] || '')).join(',')
+      };
+    }
+  });
+}
+
+$('btnImprimir').onclick = () => window.print();
+$('btnRevisar').onclick = () => { estado.pagina = 0; guardar(); pintarPagina(); window.scrollTo(0, 0); };
+$('btnBorrar').onclick = () => { $('btnBorrarSi').hidden = false; $('btnBorrar').hidden = true; };
+$('btnBorrarSi').onclick = () => {
+  estado = {v:1, r:{}, pagina:0, inicio:null, fin:null, id:null};
+  guardar();
+  $('btnBorrarSi').hidden = true; $('btnBorrar').hidden = false;
+  $('btnEmpezar').textContent = 'Empezar'; $('notaRetomar').hidden = true;
+  pintarInicio(); window.scrollTo(0, 0);
+};
+
+// Para las pruebas automáticas.
+window.VOCACIONAL = {calcular, PREGUNTAS, PAGINAS, AREAS, VERSION};
+
+if(estado.fin && completo()) pintarResultados();
+else pintarInicio();
+</script>
+</body>
+</html>

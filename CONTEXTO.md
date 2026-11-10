@@ -38,9 +38,12 @@ El sitio se sirve con GitHub Pages desde este repositorio:
 | `afinidad-estilo.js` | Tabla puesto → estilo DISC y cálculo de afinidad. Lo usan index.html y el Mapa de carrera de DIANA. |
 | `agora/` | Una herramienta por archivo. Compartidas: `fase4-estilo.js`, `fase5-relacion.js`, `fase6-crecimiento.js` (con valores en DIANA), `fase7-escenarios.js`, `fase9-plan.js`, `fase10-resumen.js` (todos los reportes: Ágora y los de cada fase de DIANA, por `cfg.secciones`). De Ágora: `fase7b-presupuesto.js`, `fase8-ruta.js`, `carreras.js`. De DIANA: `diana-mapa.js`, `diana-tendencias.js`, `diana-formacion.js`, `diana-marca.js` (Iniciar), `diana-alinear.js`, `diana-nutrir.js` (con `FASES_AGORA.filas`, la captura en renglones), `diana-acompanar.js`. Se registran en `window.FASES_AGORA` y usan `AG`, definido en `proceso.js`. |
 | `agora-embebido.js` | Lo cargan las herramientas: con `?en=agora` esconden su encabezado y su tarjeta de compartir y le avisan a `agora.html` (alto, avance, terminado, borrado). Sin el parámetro no hace nada. |
+| `test-vocacional.html` | Test vocacional propio (intereses, aptitudes, motivos; 78 frases). Llena el formato del orientador y recomienda carreras de `agora/carreras.js`. Se comparte con la casilla a la pestaña "Test vocacional". |
+| `seleccion.html` | Selección Justa: prototipo de selección de candidatos sin sesgo; IA opcional por el worker (`worker-calificar.js`). |
+| `convocatorias.html` | Rastreo de convocatorias de fondeo del equipo; guarda en una hoja por `cuentas/apps-script-convocatorias.gs`. |
 | `informe.html` | Documento ejecutivo integral: DISC + FODA + plan de acción; lo del orientador se escribe, no se calcula. |
 | `disc-interpretacion.js` | La interpretación DISC de Ágora, compartida por las tres páginas anteriores. Excepción a "páginas autocontenidas". |
-| `compartir-club.js` | La opción de compartir DISC y FODA con el Club (casilla sin marcar) y el envío del expediente Ágora. Apunta a la aplicación web del Apps Script (`URL_CLUB`, publicada el 2026-10-28 desde la cuenta del Club); en localhost no manda nada. |
+| `compartir-club.js` | La opción de compartir DISC, FODA y test vocacional con el Club (casilla sin marcar) y el envío del expediente Ágora. Apunta a la aplicación web del Apps Script (`URL_CLUB`, publicada el 2026-10-28 desde la cuenta del Club); en localhost no manda nada. |
 
 Todas son archivos HTML autocontenidos: la lógica, los estilos y el marcado van
 en el mismo archivo. No hay compilación ni empaquetador. Lo que está en el repo

@@ -96,6 +96,15 @@ volver a puntuar a todos sin pedirles que contesten de nuevo. La columna
 compartir, se actualiza la misma fila: *Último envío* cambia, *Primer envío* se
 conserva. Si borra su FODA y escribe otro, es otra fila.
 
+**Test vocacional** (`test-vocacional.html`, desde 2026-11-10) — pestaña
+*Test vocacional*, una fila por aplicación terminada. Las columnas de
+*Aplicación* a *Observaciones* son el formato que antes se llenaba a mano;
+*Observaciones* es del orientador: el script nunca la escribe, ni cuando la
+persona vuelve a enviar la misma aplicación. Trae además los puntajes por
+área, aptitud y motivo, y las respuestas crudas (para volver a calcular si
+cambia la versión del test). Si la persona borra y vuelve a hacer el test, es
+otra fila.
+
 Puedes agregar columnas tuyas a la derecha (notas del orientador, fecha de
 seguimiento). El script busca las columnas por nombre: no renombres ni borres
 las originales.

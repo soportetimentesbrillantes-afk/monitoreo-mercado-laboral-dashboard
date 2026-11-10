@@ -1,0 +1,666 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Rastreo de convocatorias · Club de Mentes Brillantes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Página interna del equipo. Mismos colores y letras que el resto del sitio (proceso.css).
+   Barra de pestañas arriba; tablero = avisos + flujo por estatus; la ficha abre en un panel lateral. */
+:root{
+  --bg:#faf8f2; --surface:#ffffff; --sunk:#f3efe5; --line:#e7ddc9;
+  --ink:#1f1f1c; --muted:#6b6459; --accent:#8b7440; --accent-ink:#ffffff; --gold:#b89a57;
+  --ok:#3f7a4a; --ok-bg:#e6f1e7; --warn:#8a5a00; --warn-bg:#fbefd5; --bad:#a1321f; --bad-bg:#f8e1dc; --info-bg:#f1ead9;
+  --f-display:"Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --f-body:"Source Sans 3", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-data:"IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  --r:12px; color-scheme:light;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:14.5px;line-height:1.5;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));padding-block:0 48px}
+.wrap{max-width:1240px;margin:0 auto}
+h1,h2,h3{font-family:var(--f-display);font-weight:700;text-wrap:balance;margin:0}
+h1{font-size:2rem;line-height:1.1} h2{font-size:1.45rem} h3{font-size:1.15rem}
+.logo{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding-bottom:10px}
+.logo img{height:34px;width:auto;display:block}
+.logo a{color:var(--muted);font-size:.82rem;font-weight:700;text-decoration:none}
+.acceso{max-width:460px;margin:24px auto;display:grid;gap:12px}
+.acceso input{width:100%;border:1px solid var(--line);border-radius:8px;padding:9px 11px;background:var(--surface)}
+a{color:var(--accent)}
+.num{font-family:var(--f-data);font-variant-numeric:tabular-nums}
+.muted{color:var(--muted)}
+.lbl{font-size:.72rem;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);font-weight:600}
+button,select,input,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top, 0px);z-index:10;background:var(--bg)}
+header.top{position:sticky;top:env(safe-area-inset-top, 0px);z-index:5;background:var(--bg);padding:16px 0 0;border-bottom:1px solid var(--line)}
+.top .fila{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:flex-end;justify-content:space-between}
+.top .sub{color:var(--muted);font-size:.88rem;margin-top:2px}
+nav.tabs{display:flex;gap:2px;overflow-x:auto;margin-top:12px}
+nav.tabs a{padding:9px 14px;text-decoration:none;color:var(--muted);font-weight:600;border-bottom:2px solid transparent;white-space:nowrap}
+nav.tabs a[aria-current="page"]{color:var(--ink);border-bottom-color:var(--gold)}
+.btn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:7px 12px;cursor:pointer;font-weight:600;font-size:.88rem}
+.btn:hover{border-color:var(--accent)}
+.btn.pri{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.btn.peligro{color:var(--bad);border-color:var(--bad)}
+.btn:disabled{opacity:.5;cursor:default}
+.btn.mini{padding:4px 9px;font-size:.8rem}
+
+main{padding-top:18px;display:grid;grid-template-columns:minmax(0,1fr);gap:18px}
+main > *, .banda, .vista{min-width:0}
+.banda{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px}
+.estado-red{font-size:.85rem;padding:8px 12px;border-radius:8px;background:var(--info-bg)}
+.estado-red.mal{background:var(--bad-bg);color:var(--bad)}
+
+/* Resumen */
+.cifras{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.cifra{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px;display:grid;gap:2px}
+.cifra b{font-family:var(--f-data);font-size:1.6rem;font-weight:500;font-variant-numeric:tabular-nums}
+.cifra.c-alerta b{color:var(--bad)} .cifra.c-aviso b{color:var(--warn)}
+
+/* Avisos */
+.avisos{display:grid;gap:8px}
+.aviso{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;padding:9px 12px;border-radius:8px;background:var(--sunk);border-left:4px solid var(--line)}
+.aviso.bad{border-left-color:var(--bad)} .aviso.warn{border-left-color:var(--warn)} .aviso.info{border-left-color:var(--accent)}
+.aviso .que{min-width:0}
+.aviso .que strong{display:block}
+.pill{display:inline-block;font-size:.72rem;font-weight:600;border-radius:999px;padding:2px 9px;white-space:nowrap;background:var(--sunk);color:var(--muted)}
+.pill.bad{background:var(--bad-bg);color:var(--bad)} .pill.warn{background:var(--warn-bg);color:var(--warn)} .pill.ok{background:var(--ok-bg);color:var(--ok)} .pill.info{background:var(--info-bg);color:var(--accent)}
+
+/* Flujo */
+.flujo{display:grid;grid-template-columns:repeat(7,minmax(190px,1fr));gap:10px;overflow-x:auto;padding-bottom:6px}
+.col{background:var(--sunk);border-radius:var(--r);padding:10px;display:grid;align-content:start;gap:8px;min-width:0}
+.col h3{font-family:var(--f-body);font-size:.82rem;font-weight:600;display:flex;justify-content:space-between}
+.tarjeta{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:9px 10px;cursor:pointer;display:grid;gap:5px;text-align:left;width:100%}
+.tarjeta:hover{border-color:var(--accent)}
+.tarjeta .n{font-weight:600;line-height:1.3}
+.tarjeta .meta{display:flex;flex-wrap:wrap;gap:4px 8px;font-size:.78rem;color:var(--muted)}
+.vacio{color:var(--muted);font-size:.85rem;padding:6px 2px}
+
+/* Tabla */
+.filtros{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.filtros select,.filtros input{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:6px 9px}
+.tabla-c{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.88rem}
+th{text-align:left;font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);padding:8px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:9px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+tr.fila-c{cursor:pointer} tr.fila-c:hover td{background:var(--sunk)}
+.puntaje{font-family:var(--f-data);font-variant-numeric:tabular-nums;font-weight:500}
+
+/* Fuentes y canales */
+.grupo{display:grid;gap:8px}
+.fuentes{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
+.fuente{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:10px 12px;display:grid;gap:4px;align-content:start}
+.fuente .pie{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:4px;flex-wrap:wrap}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:4px 10px;font-size:.82rem;cursor:pointer}
+.ref{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.ref ul{margin:6px 0 0;padding-left:18px}
+.ref li{margin:3px 0}
+
+/* Panel de la ficha */
+.velo{position:fixed;inset:0;background:rgba(10,18,30,.45);z-index:20}
+.panel{position:fixed;top:0;right:0;bottom:0;width:min(640px,100%);background:var(--surface);z-index:21;overflow-y:auto;
+  padding:calc(16px + env(safe-area-inset-top, 0px)) max(18px, env(safe-area-inset-right, 0px)) calc(24px + env(safe-area-inset-bottom, 0px)) 18px;border-left:1px solid var(--line);display:grid;align-content:start;gap:16px}
+.panel .cab{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.seccion{display:grid;gap:10px;border-top:1px solid var(--line);padding-top:14px}
+.campos{display:grid;grid-template-columns:1fr 1fr;gap:10px 12px}
+.campo{display:grid;gap:4px;min-width:0}
+.campo.ancho{grid-column:1 / -1}
+.campo label{font-size:.8rem;font-weight:600;color:var(--muted)}
+.campo input,.campo select,.campo textarea{width:100%;border:1px solid var(--line);background:var(--bg);border-radius:8px;padding:7px 9px}
+.campo textarea{min-height:70px;resize:vertical}
+.filtro-el{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;padding:7px 0;border-bottom:1px dashed var(--line)}
+.filtro-el:last-child{border-bottom:none}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.seg button{border:none;background:var(--surface);padding:5px 10px;cursor:pointer;font-size:.82rem}
+.seg button+button{border-left:1px solid var(--line)}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
+.criterio{display:grid;grid-template-columns:1fr auto;gap:4px 10px;align-items:center;padding:7px 0;border-bottom:1px dashed var(--line)}
+.criterio small{grid-column:1 / -1;color:var(--muted)}
+.total{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;background:var(--sunk);border-radius:8px;padding:10px 12px}
+.total b{font-family:var(--f-data);font-size:1.5rem;font-weight:500}
+.historia{font-size:.82rem;color:var(--muted);display:grid;gap:3px}
+.acciones{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.msg{font-size:.85rem}
+.msg.mal{color:var(--bad)} .msg.bien{color:var(--ok)}
+code.term{font-family:var(--f-data);font-size:.82rem;background:var(--sunk);padding:2px 6px;border-radius:6px}
+
+@media (max-width:640px){
+  .campos{grid-template-columns:1fr}
+  .aviso{grid-template-columns:1fr}
+  .flujo{grid-template-columns:repeat(7,minmax(220px,1fr))}
+}
+@media (prefers-reduced-motion:no-preference){ .panel{animation:entra .18s ease-out} @keyframes entra{from{transform:translateX(24px);opacity:.6}} }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <div class="logo"><a class="logo-link" href="https://www.clubmentesbrillantes.com.mx/index.html" aria-label="Club de Mentes Brillantes"><img src="logo-cmb.svg" alt="Club de Mentes Brillantes"></a><span class="acciones"><span class="muted" style="font-size:.85rem" id="quienSoy"></span><button class="btn mini" type="button" id="btnSalir" hidden>Salir</button></span></div>
+  <div class="fila">
+    <div>
+      <h1>Rastreo de Convocatorias</h1>
+      <div class="sub">Uso interno del equipo · fondeo para formación, emprendimiento, turismo y automotriz en el Corredor Bajío-Norte</div>
+    </div>
+    <button class="btn pri" type="button" id="btnNueva">+ Registrar convocatoria</button>
+  </div>
+  <nav class="tabs" aria-label="Vistas">
+    <a href="#tablero" data-v="tablero">Tablero</a>
+    <a href="#lista" data-v="lista">Todas</a>
+    <a href="#fuentes" data-v="fuentes">Fuentes</a>
+    <a href="#canales" data-v="canales">Canales de revisión</a>
+    <a href="#criterios" data-v="criterios">Criterios</a>
+  </nav>
+</header>
+
+<main id="main">
+  <div class="estado-red" id="estadoRed">Conectando con la hoja del equipo…</div>
+  <section id="v-acceso" hidden></section>
+  <section id="v-tablero" class="vista"></section>
+  <section id="v-lista" class="vista" hidden></section>
+  <section id="v-fuentes" class="vista" hidden></section>
+  <section id="v-canales" class="vista" hidden></section>
+  <section id="v-criterios" class="vista" hidden></section>
+</main>
+</div>
+<div id="capaPanel"></div>
+
+<script>
+/* ===================== Reglas del documento "Sistema de rastreo de convocatorias de fondeo" ===================== */
+const ESTATUS = ['Detectada','En evaluación','Aplicando','Aplicada','Aprobada','Rechazada','Descartada'];
+const ACTIVOS = ['Detectada','En evaluación','Aplicando','Aplicada'];
+const CATEGORIAS = {federal:'Gobierno federal y estatal', fundaciones:'Fundaciones y organizaciones privadas', internacionales:'Organismos internacionales', empresas:'Empresas (RSE)', universidades:'Universidades y centros de investigación'};
+const AREAS = [
+  {n:'Formación y certificación laboral', p:'alta', d:'Estándares CONOCER/RENEC, diplomados técnicos, certificaciones sectoriales'},
+  {n:'Emprendimiento y PYMES', p:'alta', d:'Capital semilla, mentoría, incubación, aceleración'},
+  {n:'Turismo', p:'alta', d:'Hospitalidad, guías, alimentos y bebidas, destinos'},
+  {n:'Automotriz y manufactura', p:'alta', d:'Formación técnica, electromovilidad, mantenimiento industrial'},
+  {n:'Educación técnica y vocacional', p:'media', d:'Formación para el trabajo, bachillerato técnico'},
+  {n:'Habilidades digitales y tecnología', p:'media', d:'IA generativa, ciberseguridad, automatización'},
+  {n:'Innovación social', p:'media', d:'Impacto comunitario medible, economía social'},
+  {n:'Logística y comercio exterior', p:'media', d:'Operaciones de cadena de suministro'},
+  {n:'Salud y bienestar ocupacional', p:'baja', d:'Monitorear, no aplicar proactivamente'},
+  {n:'Medio ambiente y sostenibilidad', p:'baja', d:'Solo si se vincula a sectores núcleo'},
+  {n:'Investigación científica pura', p:'baja', d:'Sin aplicación directa a formación'}
+];
+const PRIO = {alta:{t:'Alta',c:'ok',v:3}, media:{t:'Media',c:'info',v:2}, baja:{t:'Baja',c:'',v:1}};
+const FILTROS = [
+  {k:'org', t:'El tipo de organización beneficiaria corresponde a CMB', d:'Descarta si es solo para OSC constituidas o solo IES públicas, por ejemplo.'},
+  {k:'geo', t:'La cobertura incluye nuestras zonas', d:'Corredor Bajío-Norte: NL, QRO, GTO; en expansión Jalisco y Coahuila.'},
+  {k:'plazo', t:'Cierra en 15 días naturales o más desde la detección', d:'Se calcula con la fecha de detección y la de cierre.', auto:true},
+  {k:'contra', t:'No pide una contrapartida económica que no podamos cubrir', d:''}
+];
+const CRITERIOS = [
+  {k:'afinidad', t:'Afinidad temática con áreas núcleo', peso:'Alta', esc:['Baja','Media','Alta prioridad'], auto:'Se toma de la prioridad del área temática.'},
+  {k:'monto', t:'Monto del apoyo', peso:'Alta', esc:['Menos de $100,000','$100,000 a $500,000','Más de $500,000'], auto:'Se toma del monto estimado.'},
+  {k:'exito', t:'Probabilidad de éxito estimada', peso:'Alta', esc:['Cumplimos algunos requisitos','Cumplimos la mayoría','Cumplimos todos']},
+  {k:'esfuerzo', t:'Esfuerzo para aplicar', peso:'Media', esc:['Alto (proyecto extenso)','Moderado','Bajo (formulario simple)']},
+  {k:'alianza', t:'Potencial de alianza o visibilidad', peso:'Media', esc:['Bajo','Medio','Alto (org. reconocida internacionalmente)']},
+  {k:'margen', t:'Margen hasta el cierre', peso:'Media', esc:['Menos de 15 días','15 a 45 días','Más de 45 días'], auto:'Se calcula con la fecha de cierre y la de hoy.'}
+];
+const TERMINOS = ['convocatoria emprendimiento México','fondo educación formación México','convocatoria SECIHTI 2026','convocatoria innovación social México'];
+
+/* ===================== Fechas ===================== */
+const DIA = 86400000;
+const hoyISO = () => { const d = new Date(); return new Date(d.getTime() - d.getTimezoneOffset()*60000).toISOString().slice(0,10); };
+const aFecha = s => s ? new Date(s + 'T12:00:00') : null;
+const dias = (a, b) => Math.round((aFecha(b) - aFecha(a)) / DIA);
+function habilesEntre(a, b){ // días hábiles de a (excluido) a b (incluido)
+  let n = 0, d = aFecha(a); const fin = aFecha(b);
+  if(!d || !fin) return 0;
+  while(d < fin){ d = new Date(d.getTime() + DIA); const w = d.getDay(); if(w !== 0 && w !== 6) n++; }
+  return n;
+}
+function restarHabiles(s, n){ let d = aFecha(s); while(n > 0){ d = new Date(d.getTime() - DIA); const w = d.getDay(); if(w !== 0 && w !== 6) n--; } return d.toISOString().slice(0,10); }
+const MESES = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+const fCorta = s => { if(!s) return '—'; const d = aFecha(s.slice(0,10)); return d.getDate() + ' ' + MESES[d.getMonth()] + (d.getFullYear() !== new Date().getFullYear() ? ' ' + d.getFullYear() : ''); };
+const pesos = n => (n || n === 0) && n !== '' ? '$' + Number(n).toLocaleString('es-MX', {maximumFractionDigits:0}) : '—';
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+/* ===================== Puntaje ===================== */
+function areaDe(c){ return AREAS.find(a => a.n === c.area); }
+function autoCriterio(c, k){
+  if(k === 'afinidad'){ const a = areaDe(c); return a ? PRIO[a.p].v : null; }
+  if(k === 'monto'){ const m = Number(c.monto); if(!c.monto && c.monto !== 0) return null; return m > 500000 ? 3 : m >= 100000 ? 2 : 1; }
+  if(k === 'margen'){ if(!c.cierre) return null; const d = dias(hoyISO(), c.cierre); return d > 45 ? 3 : d >= 15 ? 2 : 1; }
+  return null;
+}
+function valorCriterio(c, k){ const v = (c.puntaje || {})[k]; return v ? Number(v) : autoCriterio(c, k); }
+function puntaje(c){
+  const vals = CRITERIOS.map(x => valorCriterio(c, x.k));
+  return {total: vals.reduce((s, v) => s + (v || 0), 0), completos: vals.filter(Boolean).length};
+}
+function recomendacion(c){
+  const p = puntaje(c);
+  if(p.completos < 6) return {t:'Faltan ' + (6 - p.completos) + ' criterios', c:''};
+  if(p.total >= 14) return {t:'Elevar a dirección con recomendación de aplicar', c:'ok', corto:'Aplicar'};
+  if(p.total >= 10) return {t:'Llevar a la reunión semanal de equipo', c:'warn', corto:'Reunión'};
+  return {t:'Descartar o monitorear para la próxima edición', c:'bad', corto:'Descartar'};
+}
+function filtroValor(c, k){
+  if(k === 'plazo'){ if(!c.cierre || !c.deteccion) return null; return dias(c.deteccion, c.cierre) >= 15; }
+  const v = (c.filtros || {})[k]; return v === true || v === false ? v : null;
+}
+function filtrosEstado(c){
+  const v = FILTROS.map(f => filtroValor(c, f.k));
+  if(v.some(x => x === false)) return 'no';
+  if(v.every(x => x === true)) return 'si';
+  return 'pend';
+}
+
+/* ===================== Avisos (plazos del flujo, sección 5) ===================== */
+function fechaEstatus(c){ return (c.desde || c.deteccion || hoyISO()).slice(0,10); }
+function avisosDe(c){
+  const hoy = hoyISO(), A = [];
+  const cierreDias = c.cierre ? dias(hoy, c.cierre) : null;
+  if(ACTIVOS.includes(c.estatus) && c.estatus !== 'Aplicada' && cierreDias !== null){
+    if(cierreDias < 0) A.push({n:3, c:'bad', t:'Ya cerró (' + fCorta(c.cierre) + ')', d:'Pasa a Descartada o Aplicada.'});
+    else if(cierreDias <= 15) A.push({n:2, c:'warn', t:'Cierra en ' + cierreDias + ' días', d:'Cierre: ' + fCorta(c.cierre) + '.'});
+  }
+  if(c.estatus === 'Detectada'){
+    const h = dias(fechaEstatus(c), hoy);
+    if(h >= 2) A.push({n:3, c:'bad', t:'Filtro de elegibilidad vencido', d:'Lleva ' + h + ' días en Detectada; el filtro se revisa en 48 horas.'});
+    else A.push({n:1, c:'info', t:'Revisar filtro de elegibilidad', d:'El coordinador tiene 48 horas desde el registro.'});
+  }
+  if(c.estatus === 'En evaluación'){
+    const p = puntaje(c), r = recomendacion(c);
+    if(p.completos < 6){
+      const h = habilesEntre(fechaEstatus(c), hoy);
+      A.push(h > 3 ? {n:3, c:'bad', t:'Puntuación vencida', d:h + ' días hábiles en evaluación; el máximo es 3.'} : {n:1, c:'info', t:'Puntuar criterios', d:'Faltan ' + (6 - p.completos) + ' criterios.'});
+    } else A.push({n:2, c:r.c === 'ok' ? 'info' : r.c === 'warn' ? 'warn' : 'bad', t:'Decidir: ' + r.t.toLowerCase(), d:'Puntaje ' + p.total + ' de 18.' + (r.c === 'ok' ? ' Dirección responde en 2 días hábiles.' : '')});
+  }
+  if(c.estatus === 'Aplicando'){
+    const fi = c.fechaInterna || (c.cierre ? restarHabiles(c.cierre, 5) : null);
+    if(!c.responsable) A.push({n:2, c:'warn', t:'Asignar responsable', d:'Paso 5: responsable y fecha límite interna.'});
+    if(fi){ const d = dias(hoy, fi);
+      if(d < 0) A.push({n:3, c:'bad', t:'Pasó la fecha límite interna', d:'Era el ' + fCorta(fi) + '.'});
+      else if(d <= 3) A.push({n:2, c:'warn', t:'Fecha límite interna en ' + d + ' días', d:fCorta(fi) + ', 5 días hábiles antes del cierre.'}); }
+  }
+  if(c.estatus === 'Aplicada' && c.respuesta && dias(c.respuesta, hoy) > 0) A.push({n:2, c:'warn', t:'Dar seguimiento a la respuesta', d:'Se esperaba el ' + fCorta(c.respuesta) + '.'});
+  return A;
+}
+
+/* ===================== Estado de la página ===================== */
+/* ===================== Conexión con la hoja (Apps Script) =====================
+   La clave del equipo la escribe cada persona; no está en este archivo. En una
+   copia local (localhost) no se usa la URL real, salvo en pruebas. */
+// Aplicación web "Rastreo de convocatorias", publicada el 2026-11-10 desde la
+// cuenta del Club (proyecto Rastreo de convocatorias del Club, versión 1).
+const URL_RASTREO = 'https://script.google.com/macros/s/AKfycbzCd_PH2citml2WKZCi0PUleHqfKFZZUcrDvD59ytWqQxAC5YK7XbHxf7yMPvK2q8w0/exec';
+const LOCAL = /^(localhost|127\.0\.0\.1)$/.test(location.hostname);
+const ENDPOINT = window.__CMB_ENDPOINT_PRUEBA || (LOCAL ? '' : URL_RASTREO);
+const LS_CLAVE = 'cmb_conv_clave', LS_AUTOR = 'cmb_conv_autor';
+const leerAlm = k => { try{ return sessionStorage.getItem(k) || localStorage.getItem(k) || ''; }catch(e){ return ''; } };
+let clave = leerAlm(LS_CLAVE), autor = leerAlm(LS_AUTOR);
+let puedeEscribir = true, dentro = false;
+let CONV = [], FUENTES = [], CANALES = [];
+let cargado = {c:false, f:false, k:false};
+const vistaFiltro = {estatus:'activas', area:'', cat:'', q:''};
+
+function setEstadoRed(t, mal){ const e = document.getElementById('estadoRed'); e.hidden = !t; e.textContent = t || ''; e.classList.toggle('mal', !!mal); }
+
+/* ===================== Vistas ===================== */
+const VISTAS = ['tablero','lista','fuentes','canales','criterios'];
+function vistaActual(){ const h = location.hash.slice(1); return VISTAS.includes(h) ? h : 'tablero'; }
+function pintar(){
+  if(!dentro) return;
+  const v = vistaActual();
+  VISTAS.forEach(x => { document.getElementById('v-' + x).hidden = x !== v; });
+  document.querySelectorAll('nav.tabs a').forEach(a => { if(a.dataset.v === v) a.setAttribute('aria-current','page'); else a.removeAttribute('aria-current'); });
+  ({tablero:pTablero, lista:pLista, fuentes:pFuentes, canales:pCanales, criterios:pCriterios})[v]();
+}
+window.addEventListener('hashchange', pintar);
+
+function nombreFuente(c){ const f = FUENTES.find(x => x.id === c.fuenteId); return f ? f.institucion : (c.fuenteTexto || '—'); }
+function pillEstatus(s){ const m = {'Detectada':'info','En evaluación':'info','Aplicando':'warn','Aplicada':'warn','Aprobada':'ok','Rechazada':'bad','Descartada':''}; return '<span class="pill ' + (m[s] || '') + '">' + esc(s) + '</span>'; }
+function pillCierre(c){
+  if(!c.cierre) return '<span class="pill">Sin fecha de cierre</span>';
+  const d = dias(hoyISO(), c.cierre);
+  const cls = d < 0 ? '' : d < 15 ? 'bad' : d <= 45 ? 'warn' : 'ok';
+  return '<span class="pill ' + cls + '">' + (d < 0 ? 'Cerró ' + fCorta(c.cierre) : 'Cierra ' + fCorta(c.cierre) + ' · ' + d + ' d') + '</span>';
+}
+function pillPuntaje(c){ const p = puntaje(c); if(!p.completos) return ''; const r = recomendacion(c); return '<span class="pill ' + (p.completos === 6 ? r.c : '') + ' num">' + p.total + '/18' + (p.completos < 6 ? ' parcial' : '') + '</span>'; }
+
+function pTablero(){
+  const el = document.getElementById('v-tablero');
+  const activas = CONV.filter(c => ACTIVOS.includes(c.estatus));
+  const hoy = hoyISO();
+  const cierranPronto = activas.filter(c => c.cierre && c.estatus !== 'Aplicada' && dias(hoy, c.cierre) >= 0 && dias(hoy, c.cierre) <= 15).length;
+  const porDecidir = CONV.filter(c => c.estatus === 'En evaluación' && puntaje(c).completos === 6).length;
+  const enRespuesta = CONV.filter(c => c.estatus === 'Aplicada').length;
+  const aprobadas = CONV.filter(c => c.estatus === 'Aprobada');
+  const montoAprob = aprobadas.reduce((s, c) => s + (Number(c.montoAprobado || c.monto) || 0), 0);
+  const avisos = [];
+  CONV.forEach(conv => avisosDe(conv).forEach(a => avisos.push(Object.assign({conv}, a))));
+  CANALES.forEach(k => { const v = canalVencido(k); if(v) avisos.push({canal:k, n:1, c:'info', t:'Revisar ' + k.nombre, d:v}); });
+  avisos.sort((a, b) => b.n - a.n);
+  const cols = ESTATUS.map(s => {
+    const items = CONV.filter(c => c.estatus === s).sort((a, b) => String(a.cierre || '9999').localeCompare(String(b.cierre || '9999')));
+    const mostrar = s === 'Descartada' || s === 'Rechazada' ? items.slice(0, 6) : items;
+    return '<div class="col"><h3><span>' + esc(s) + '</span><span class="num muted">' + items.length + '</span></h3>' +
+      (mostrar.length ? mostrar.map(tarjeta).join('') + (items.length > mostrar.length ? '<a class="muted" href="#lista" style="font-size:.8rem">Ver las ' + items.length + ' →</a>' : '') : '<div class="vacio">Ninguna</div>') + '</div>';
+  }).join('');
+  el.innerHTML =
+    '<div class="cifras">' +
+      cifra('Activas', activas.length, 'Detectadas, en evaluación, aplicando o enviadas') +
+      cifra('Cierran en ≤ 15 días', cierranPronto, 'De las que no se han enviado', cierranPronto ? 'c-alerta' : '') +
+      cifra('Listas para decidir', porDecidir, 'Puntuadas en los 6 criterios', porDecidir ? 'c-aviso' : '') +
+      cifra('Esperando respuesta', enRespuesta, 'Estatus Aplicada') +
+      cifra('Aprobadas', aprobadas.length, montoAprob ? pesos(montoAprob) + ' en total' : 'Sin monto registrado') +
+    '</div>' +
+    '<div class="banda"><div class="acciones" style="justify-content:space-between;margin-bottom:10px"><h2>Pendientes</h2><span class="muted" style="font-size:.85rem">Plazos del flujo: registro 24 h · filtro 48 h · puntuación 3 días hábiles · fecha interna 5 días hábiles antes del cierre</span></div>' +
+      (avisos.length ? '<div class="avisos">' + avisos.slice(0, 14).map(a => '<div class="aviso ' + a.c + '"><span class="pill ' + a.c + '">' + (a.canal ? 'Canal' : esc(a.conv.estatus)) + '</span><div class="que"><strong>' + esc(a.t) + '</strong><span class="muted">' + (a.canal ? '' : esc(a.conv.nombre) + ' · ') + esc(a.d) + '</span></div>' +
+        (a.canal ? '<button class="btn mini" type="button" data-revisado="' + esc(a.canal.id) + '">Marcar revisado hoy</button>' : '<button class="btn mini" type="button" data-abrir="' + esc(a.conv.id) + '">Abrir</button>') + '</div>').join('') + '</div>' +
+        (avisos.length > 14 ? '<p class="muted" style="margin:8px 0 0">Y ' + (avisos.length - 14) + ' pendientes más.</p>' : '')
+      : '<p class="muted" style="margin:0">' + (CONV.length ? 'Todo al día.' : 'Aquí aparecerán los plazos vencidos y las decisiones pendientes en cuanto registren la primera convocatoria.') + '</p>') + '</div>' +
+    '<div class="banda"><h2 style="margin-bottom:10px">Flujo</h2>' +
+      (CONV.length ? '<div class="flujo">' + cols + '</div>' :
+        '<div class="vacio" style="font-size:.95rem">Todavía no hay convocatorias registradas. Cuando alguien del equipo encuentre una, la registra con <strong>+ Registrar convocatoria</strong> (máximo 24 horas después de detectarla). Empieza por los <a href="#canales">canales de revisión</a> que tocan esta semana.</div>') +
+    '</div>';
+}
+function cifra(t, n, d, cls){ return '<div class="cifra ' + (cls || '') + '"><span class="lbl">' + esc(t) + '</span><b>' + n + '</b><span class="muted" style="font-size:.8rem">' + esc(d) + '</span></div>'; }
+function tarjeta(c){
+  return '<button class="tarjeta" type="button" data-abrir="' + esc(c.id) + '"><span class="n">' + esc(c.nombre || 'Sin nombre') + '</span>' +
+    '<span class="meta"><span>' + esc(nombreFuente(c)) + '</span>' + (c.monto ? '<span class="num">' + pesos(c.monto) + '</span>' : '') + '</span>' +
+    '<span class="meta">' + pillCierre(c) + pillPuntaje(c) + '</span></button>';
+}
+
+function pLista(){
+  const el = document.getElementById('v-lista');
+  const f = vistaFiltro;
+  let xs = CONV.slice();
+  if(f.estatus === 'activas') xs = xs.filter(c => ACTIVOS.includes(c.estatus)); else if(f.estatus) xs = xs.filter(c => c.estatus === f.estatus);
+  if(f.area) xs = xs.filter(c => c.area === f.area);
+  if(f.cat) xs = xs.filter(c => { const fu = FUENTES.find(x => x.id === c.fuenteId); return fu && fu.categoria === f.cat; });
+  if(f.q){ const q = f.q.toLowerCase(); xs = xs.filter(c => (c.nombre + ' ' + nombreFuente(c) + ' ' + (c.notas || '')).toLowerCase().includes(q)); }
+  xs.sort((a, b) => String(a.cierre || '9999').localeCompare(String(b.cierre || '9999')));
+  el.innerHTML = '<div class="banda" style="display:grid;gap:12px">' +
+    '<div class="filtros">' +
+      '<select id="fEstatus" aria-label="Estatus"><option value="activas">Activas</option><option value="">Todos los estatus</option>' + ESTATUS.map(s => '<option' + (f.estatus === s ? ' selected' : '') + '>' + s + '</option>').join('') + '</select>' +
+      '<select id="fArea" aria-label="Área temática"><option value="">Todas las áreas</option>' + AREAS.map(a => '<option' + (f.area === a.n ? ' selected' : '') + '>' + esc(a.n) + '</option>').join('') + '</select>' +
+      '<select id="fCat" aria-label="Tipo de fuente"><option value="">Todas las fuentes</option>' + Object.entries(CATEGORIAS).map(([k, t]) => '<option value="' + k + '"' + (f.cat === k ? ' selected' : '') + '>' + t + '</option>').join('') + '</select>' +
+      '<input id="fQ" type="search" placeholder="Buscar" value="' + esc(f.q) + '" aria-label="Buscar">' +
+      '<span class="muted num" style="font-size:.85rem">' + xs.length + ' de ' + CONV.length + '</span>' +
+    '</div>' +
+    (xs.length ? '<div class="tabla-c"><table><thead><tr><th>Convocatoria</th><th>Fuente</th><th>Área</th><th>Cierre</th><th>Monto</th><th>Filtro</th><th>Puntaje</th><th>Estatus</th><th>Responsable</th></tr></thead><tbody>' +
+      xs.map(c => { const a = areaDe(c), fe = filtrosEstado(c), p = puntaje(c), r = recomendacion(c);
+        return '<tr class="fila-c" data-abrir="' + esc(c.id) + '"><td><strong>' + esc(c.nombre) + '</strong></td><td>' + esc(nombreFuente(c)) + '</td><td>' + (a ? esc(a.n) + ' <span class="pill ' + PRIO[a.p].c + '">' + PRIO[a.p].t + '</span>' : '—') + '</td>' +
+          '<td>' + pillCierre(c) + '</td><td class="num">' + pesos(c.monto) + '</td><td>' + (fe === 'si' ? '<span class="pill ok">Pasa</span>' : fe === 'no' ? '<span class="pill bad">No pasa</span>' : '<span class="pill">Pendiente</span>') + '</td>' +
+          '<td>' + (p.completos ? '<span class="puntaje">' + p.total + '</span><span class="muted">/18</span>' + (p.completos === 6 ? ' <span class="pill ' + r.c + '">' + r.corto + '</span>' : '') : '—') + '</td><td>' + pillEstatus(c.estatus) + '</td><td>' + esc(c.responsable || '—') + '</td></tr>'; }).join('') +
+      '</tbody></table></div>' : '<p class="muted" style="margin:0">' + (CONV.length ? 'Ninguna convocatoria coincide con estos filtros.' : 'Todavía no hay convocatorias registradas.') + '</p>') + '</div>';
+  el.querySelector('#fEstatus').value = f.estatus;
+  ['fEstatus','fArea','fCat'].forEach(id => el.querySelector('#' + id).onchange = e => { vistaFiltro[{fEstatus:'estatus',fArea:'area',fCat:'cat'}[id]] = e.target.value; pLista(); });
+  el.querySelector('#fQ').oninput = e => { vistaFiltro.q = e.target.value; clearTimeout(pLista.t); pLista.t = setTimeout(() => { pLista(); const q = document.getElementById('fQ'); q.focus(); q.setSelectionRange(q.value.length, q.value.length); }, 250); };
+}
+
+function pFuentes(){
+  const el = document.getElementById('v-fuentes');
+  if(!FUENTES.length){ el.innerHTML = '<div class="banda"><p class="muted" style="margin:0">' + (cargado.f ? 'El directorio de fuentes está vacío.' : 'Cargando el directorio de fuentes…') + '</p></div>'; return; }
+  el.innerHTML = Object.entries(CATEGORIAS).map(([k, t]) => {
+    const xs = FUENTES.filter(f => f.categoria === k).sort((a, b) => (a.orden || 0) - (b.orden || 0));
+    if(!xs.length) return '';
+    const nota = xs.find(f => f.notaCategoria);
+    return '<div class="banda grupo"><h2>' + esc(t) + ' <span class="muted num" style="font-size:.9rem">' + xs.length + '</span></h2>' +
+      (nota ? '<p class="muted" style="margin:0;font-size:.88rem">' + esc(nota.notaCategoria) + '</p>' : '') +
+      '<div class="fuentes">' + xs.map(f => { const n = CONV.filter(c => c.fuenteId === f.id), act = n.filter(c => ACTIVOS.includes(c.estatus)).length;
+        return '<div class="fuente"><strong>' + esc(f.institucion) + '</strong><span>' + esc(f.programa) + '</span><span class="muted" style="font-size:.85rem">' + esc(f.apoyo) + '</span>' +
+          '<div class="pie">' + (f.portal ? '<a href="https://' + esc(f.portal.replace(/^https?:\/\//, '')) + '" target="_blank" rel="noopener noreferrer">' + esc(f.portal) + '</a>' : '<span class="muted">Contacto directo</span>') +
+          '<span class="acciones">' + (n.length ? '<span class="pill ' + (act ? 'info' : '') + '">' + n.length + ' registradas</span>' : '') + '<button class="btn mini" type="button" data-nueva-fuente="' + esc(f.id) + '">+ Registrar</button></span></div></div>'; }).join('') + '</div></div>';
+  }).join('');
+}
+
+function canalVencido(k){
+  if(!k.cadaDias) return '';
+  if(!k.ultima) return 'Sin revisión registrada (' + k.frecuencia.toLowerCase() + ').';
+  const d = dias(k.ultima, hoyISO());
+  return d >= k.cadaDias ? 'Última revisión hace ' + d + ' días (' + k.frecuencia.toLowerCase() + ').' : '';
+}
+function pCanales(){
+  const el = document.getElementById('v-canales');
+  el.innerHTML = '<div class="banda grupo"><h2>Canales de revisión</h2>' +
+    (CANALES.length ? '<div class="tabla-c"><table><thead><tr><th>Canal</th><th>Frecuencia</th><th>Responsable</th><th>Qué buscar</th><th>Última revisión</th><th></th></tr></thead><tbody>' +
+      CANALES.slice().sort((a, b) => (a.orden || 0) - (b.orden || 0)).map(k => { const v = canalVencido(k);
+        return '<tr><td><strong>' + esc(k.nombre) + '</strong>' + (k.enlace ? '<br><a href="https://' + esc(k.enlace) + '" target="_blank" rel="noopener noreferrer" style="font-size:.82rem">' + esc(k.enlace) + '</a>' : '') + '</td><td>' + esc(k.frecuencia) + '</td><td>' + esc(k.responsable) + '</td><td>' + esc(k.queBuscar) + '</td>' +
+          '<td>' + (k.ultima ? fCorta(k.ultima) : '—') + (v ? ' <span class="pill warn">Toca</span>' : k.cadaDias ? ' <span class="pill ok">Al día</span>' : '') + '</td><td><button class="btn mini" type="button" data-revisado="' + esc(k.id) + '">Revisado hoy</button></td></tr>'; }).join('') +
+      '</tbody></table></div>' : '<p class="muted" style="margin:0">' + (cargado.k ? 'No hay canales registrados.' : 'Cargando canales…') + '</p>') + '</div>' +
+    '<div class="ref">' +
+      '<div class="banda"><h3>Google Alerts</h3><p class="muted" style="margin:4px 0 8px;font-size:.88rem">Crea una alerta por término. Toca un término para copiarlo.</p><div class="chips">' + TERMINOS.map(t => '<button class="chip" type="button" data-copiar="' + esc(t) + '">' + esc(t) + '</button>').join('') + '</div><p class="msg" id="msgCopia"></p></div>' +
+      '<div class="banda"><h3>Boletines</h3><ul><li>CEMEFI</li><li>POSiBLE</li><li>BID Lab</li><li>Fundación BBVA México</li><li>convocatoriasmexico.com</li></ul></div>' +
+      '<div class="banda"><h3>Seguir en LinkedIn</h3><ul><li>SECIHTI</li><li>Secretaría de Economía</li><li>INAES</li><li>PNUD México</li><li>BID Mesoamérica</li></ul></div>' +
+    '</div>';
+}
+
+function pCriterios(){
+  const el = document.getElementById('v-criterios');
+  el.innerHTML = '<div class="ref">' +
+    '<div class="banda"><h3>Filtros de descarte rápido</h3><p class="muted" style="margin:4px 0 0;font-size:.88rem">Si uno no se cumple, se descarta con el motivo.</p><ul>' + FILTROS.map(f => '<li><strong>' + esc(f.t) + '.</strong> ' + esc(f.d) + '</li>').join('') + '</ul></div>' +
+    '<div class="banda"><h3>Decisión por puntaje (sobre 18)</h3><ul><li><span class="pill ok">14 o más</span> El coordinador eleva a dirección; responde en 2 días hábiles.</li><li><span class="pill warn">10 a 13</span> Se decide en la reunión semanal de equipo.</li><li><span class="pill bad">Menos de 10</span> Se descarta o se monitorea para ediciones futuras, sin aprobación de dirección.</li></ul></div>' +
+    '</div>' +
+    '<div class="banda"><h3 style="margin-bottom:8px">Criterios de priorización (1 a 3)</h3><div class="tabla-c"><table><thead><tr><th>Criterio</th><th>Peso</th><th>1</th><th>2</th><th>3</th></tr></thead><tbody>' +
+      CRITERIOS.map(c => '<tr><td><strong>' + esc(c.t) + '</strong>' + (c.auto ? '<br><span class="muted" style="font-size:.8rem">' + esc(c.auto) + '</span>' : '') + '</td><td>' + c.peso + '</td>' + c.esc.map(x => '<td>' + esc(x) + '</td>').join('') + '</tr>').join('') +
+    '</tbody></table></div></div>' +
+    '<div class="banda"><h3 style="margin-bottom:8px">Áreas temáticas</h3><div class="ref">' + ['alta','media','baja'].map(p => '<div><span class="pill ' + PRIO[p].c + '">Prioridad ' + PRIO[p].t.toLowerCase() + '</span><ul>' + AREAS.filter(a => a.p === p).map(a => '<li><strong>' + esc(a.n) + ':</strong> ' + esc(a.d) + '</li>').join('') + '</ul></div>').join('') + '</div></div>';
+}
+
+/* ===================== Ficha de una convocatoria ===================== */
+let ficha = null, fichaOriginal = null, confirmarBorrar = false;
+function nueva(fuenteId){
+  return {id: null, nombre:'', fuenteId: fuenteId || '', fuenteTexto:'', link:'', deteccion: hoyISO(), cierre:'', monto:'', area:'', estatus:'Detectada',
+    filtros:{}, motivo:'', puntaje:{}, resumen:'', responsable:'', fechaInterna:'', carpeta:'', envio:'', folio:'', respuesta:'', montoAprobado:'', notas:'', historia:[]};
+}
+function abrirFicha(id, fuenteId){
+  const c = id ? CONV.find(x => x.id === id) : null;
+  ficha = JSON.parse(JSON.stringify(c || nueva(fuenteId)));
+  ficha.filtros = ficha.filtros || {}; ficha.puntaje = ficha.puntaje || {}; ficha.historia = ficha.historia || [];
+  fichaOriginal = JSON.stringify(ficha); confirmarBorrar = false;
+  pFicha();
+}
+function cerrarFicha(){ ficha = null; document.getElementById('capaPanel').innerHTML = ''; document.body.style.overflow = ''; }
+function campo(id, t, html, ancho){ return '<div class="campo' + (ancho ? ' ancho' : '') + '"><label for="' + id + '">' + t + '</label>' + html + '</div>'; }
+function inp(k, tipo, ph){ return '<input id="c_' + k + '" data-k="' + k + '"' + (tipo ? ' type="' + tipo + '"' : '') + ' value="' + esc(ficha[k]) + '"' + (ph ? ' placeholder="' + esc(ph) + '"' : '') + '>'; }
+function pFicha(){
+  const c = ficha, capa = document.getElementById('capaPanel');
+  const p = puntaje(c), r = recomendacion(c), fe = filtrosEstado(c);
+  const fi = c.cierre ? restarHabiles(c.cierre, 5) : '';
+  const seg = (grupo, k, val, ops) => '<span class="seg" role="group">' + ops.map(([v, t]) => '<button type="button" data-' + grupo + '="' + k + '" data-v="' + v + '" aria-pressed="' + (String(val) === String(v)) + '">' + t + '</button>').join('') + '</span>';
+  const fuentesOps = Object.entries(CATEGORIAS).map(([k, t]) => '<optgroup label="' + esc(t) + '">' + FUENTES.filter(f => f.categoria === k).map(f => '<option value="' + esc(f.id) + '"' + (c.fuenteId === f.id ? ' selected' : '') + '>' + esc(f.institucion) + ' · ' + esc(f.programa).slice(0, 40) + '</option>').join('') + '</optgroup>').join('');
+  capa.innerHTML = '<div class="velo" id="velo"></div><aside class="panel" role="dialog" aria-modal="true" aria-labelledby="fichaTit">' +
+    '<div class="cab"><div><span class="lbl">' + (c.id ? 'Convocatoria' : 'Nueva convocatoria') + '</span><h2 id="fichaTit">' + esc(c.nombre || 'Sin nombre') + '</h2></div><button class="btn" type="button" id="btnCerrar" aria-label="Cerrar">Cerrar</button></div>' +
+    '<div class="campos">' +
+      campo('c_nombre', 'Nombre de la convocatoria', inp('nombre', '', 'Ej. Jóvenes Innovadores 2026'), true) +
+      campo('c_fuenteId', 'Fuente', '<select id="c_fuenteId" data-k="fuenteId"><option value="">Otra (escríbela abajo)</option>' + fuentesOps + '</select>') +
+      campo('c_fuenteTexto', 'Otra fuente', inp('fuenteTexto', '', 'Si no está en el directorio')) +
+      campo('c_link', 'Enlace a la convocatoria', inp('link', 'url', 'https://'), true) +
+      campo('c_deteccion', 'Fecha de detección', inp('deteccion', 'date')) +
+      campo('c_cierre', 'Fecha de cierre', inp('cierre', 'date')) +
+      campo('c_monto', 'Monto estimado (MXN)', inp('monto', 'number')) +
+      campo('c_area', 'Área temática', '<select id="c_area" data-k="area"><option value="">Elige un área</option>' + ['alta','media','baja'].map(pp => '<optgroup label="Prioridad ' + PRIO[pp].t.toLowerCase() + '">' + AREAS.filter(a => a.p === pp).map(a => '<option' + (c.area === a.n ? ' selected' : '') + '>' + esc(a.n) + '</option>').join('') + '</optgroup>').join('') + '</select>') +
+    '</div>' +
+    '<div class="seccion"><div class="acciones" style="justify-content:space-between"><h3>Filtro de elegibilidad</h3>' + (fe === 'si' ? '<span class="pill ok">Pasa</span>' : fe === 'no' ? '<span class="pill bad">No pasa: se descarta</span>' : '<span class="pill">Pendiente</span>') + '</div>' +
+      FILTROS.map(f => { const v = filtroValor(c, f.k);
+        return '<div class="filtro-el"><div><div>' + esc(f.t) + '</div>' + (f.d ? '<small class="muted">' + esc(f.d) + '</small>' : '') + '</div>' +
+          (f.auto ? (v === null ? '<span class="pill">Falta cierre</span>' : v ? '<span class="pill ok">Sí · ' + dias(c.deteccion, c.cierre) + ' d</span>' : '<span class="pill bad">No · ' + dias(c.deteccion, c.cierre) + ' d</span>') : seg('filtro', f.k, v === null ? '' : v, [[true, 'Sí'], [false, 'No']])) + '</div>'; }).join('') +
+      (fe === 'no' || c.estatus === 'Descartada' ? campo('c_motivo', 'Motivo del descarte', '<textarea id="c_motivo" data-k="motivo">' + esc(c.motivo) + '</textarea>', true) : '') +
+    '</div>' +
+    '<div class="seccion"><h3>Puntuación</h3>' +
+      CRITERIOS.map(x => { const auto = autoCriterio(c, x.k), man = (c.puntaje || {})[x.k];
+        return '<div class="criterio"><span>' + esc(x.t) + ' <span class="muted" style="font-size:.78rem">· peso ' + x.peso.toLowerCase() + '</span></span>' +
+          seg('crit', x.k, man || '', [[1, '1'], [2, '2'], [3, '3']].concat(x.auto ? [['', auto ? 'Auto ' + auto : 'Auto']] : [])) +
+          '<small>' + esc(x.esc.map((t, i) => (i + 1) + ' = ' + t).join(' · ')) + (x.auto && !man ? ' · ' + esc(x.auto) : '') + '</small></div>'; }).join('') +
+      '<div class="total"><div><span class="lbl">Total</span><div><b>' + p.total + '</b><span class="muted"> / 18' + (p.completos < 6 ? ' · ' + p.completos + ' de 6 criterios' : '') + '</span></div></div><span class="pill ' + r.c + '" style="font-size:.82rem;white-space:normal">' + esc(r.t) + '</span></div>' +
+      campo('c_resumen', 'Resumen ejecutivo: qué pide, qué da, a quién va dirigida, fechas clave', '<textarea id="c_resumen" data-k="resumen" rows="4">' + esc(c.resumen) + '</textarea>', true) +
+    '</div>' +
+    '<div class="seccion"><h3>Preparación y envío</h3><div class="campos">' +
+      campo('c_responsable', 'Responsable(s)', inp('responsable', '', 'Nombre')) +
+      campo('c_fechaInterna', 'Fecha límite interna', inp('fechaInterna', 'date') + (fi ? '<small class="muted">Sugerida: ' + fCorta(fi) + ' (5 días hábiles antes del cierre)</small>' : '')) +
+      campo('c_carpeta', 'Carpeta en Drive', inp('carpeta', 'url', 'Convocatoria, checklist, borradores y versión final'), true) +
+      campo('c_envio', 'Fecha de envío', inp('envio', 'date')) +
+      campo('c_folio', 'Folio', inp('folio')) +
+      campo('c_respuesta', 'Fecha esperada de respuesta', inp('respuesta', 'date')) +
+      campo('c_montoAprobado', 'Monto aprobado (MXN)', inp('montoAprobado', 'number')) +
+      campo('c_notas', 'Notas y retroalimentación', '<textarea id="c_notas" data-k="notas">' + esc(c.notas) + '</textarea>', true) +
+    '</div></div>' +
+    '<div class="seccion"><h3>Estatus</h3><div class="chips">' + ESTATUS.map(s => '<button type="button" class="chip" data-estatus="' + s + '" aria-pressed="' + (c.estatus === s) + '"' + (c.estatus === s ? ' style="background:var(--accent);color:var(--accent-ink);border-color:var(--accent)"' : '') + '>' + s + '</button>').join('') + '</div>' +
+      (c.historia.length ? '<div class="historia">' + c.historia.slice().reverse().map(h => '<span>' + fCorta(h.fecha) + ' · ' + esc(h.estatus) + (h.por ? ' · ' + esc(h.por) : '') + '</span>').join('') + '</div>' : '') +
+    '</div>' +
+    '<div class="acciones" style="border-top:1px solid var(--line);padding-top:14px"><button class="btn pri" type="button" id="btnGuardar"' + (puedeEscribir ? '' : ' disabled') + '>' + (c.id ? 'Guardar cambios' : 'Registrar') + '</button>' +
+      (c.id ? '<button class="btn peligro" type="button" id="btnBorrar">' + (confirmarBorrar ? 'Confirmar: borrar para siempre' : 'Borrar') + '</button>' : '') +
+      '<span class="msg" id="msgFicha">' + (puedeEscribir ? '' : 'Solo lectura: pide acceso de edición para registrar.') + '</span></div>' +
+    '</aside>';
+  document.body.style.overflow = 'hidden';
+  capa.querySelector('#velo').onclick = intentarCerrar;
+  capa.querySelector('#btnCerrar').onclick = intentarCerrar;
+  capa.querySelectorAll('[data-k]').forEach(e => { e.addEventListener('input', alEditar); e.addEventListener('change', alEditar); });
+  capa.querySelectorAll('[data-filtro]').forEach(b => b.onclick = () => { const v = b.dataset.v === 'true'; ficha.filtros[b.dataset.filtro] = ficha.filtros[b.dataset.filtro] === v ? null : v; repintarFicha(); });
+  capa.querySelectorAll('[data-crit]').forEach(b => b.onclick = () => { ficha.puntaje[b.dataset.crit] = b.dataset.v ? Number(b.dataset.v) : null; repintarFicha(); });
+  capa.querySelectorAll('[data-estatus]').forEach(b => b.onclick = () => { cambiarEstatus(b.dataset.estatus); repintarFicha(); });
+  capa.querySelector('#btnGuardar').onclick = guardarFicha;
+  const bb = capa.querySelector('#btnBorrar'); if(bb) bb.onclick = borrarFicha;
+}
+function repintarFicha(){ const panel = document.querySelector('.panel'); const y = panel ? panel.scrollTop : 0; const foco = document.activeElement && document.activeElement.id; pFicha(); const np = document.querySelector('.panel'); if(np) np.scrollTop = y; if(foco){ const e = document.getElementById(foco); if(e) e.focus(); } }
+let tRep = null;
+function alEditar(e){
+  const k = e.target.dataset.k; ficha[k] = e.target.value;
+  if(k === 'nombre') document.getElementById('fichaTit').textContent = ficha.nombre || 'Sin nombre';
+  if(['cierre','deteccion','monto','area','fuenteId'].includes(k) && e.type === 'change') repintarFicha();
+  else if(k === 'monto'){ clearTimeout(tRep); tRep = setTimeout(repintarFicha, 600); }
+}
+function cambiarEstatus(s){
+  if(ficha.estatus === s) return;
+  ficha.estatus = s; ficha.desde = hoyISO();
+  ficha.historia.push({estatus: s, fecha: new Date().toISOString(), por: autor || ''});
+  if(s === 'Aplicada' && !ficha.envio) ficha.envio = hoyISO();
+}
+function intentarCerrar(){
+  if(JSON.stringify(ficha) !== fichaOriginal && puedeEscribir){
+    const m = document.getElementById('msgFicha');
+    if(m.dataset.avisado){ cerrarFicha(); return; }
+    m.dataset.avisado = '1'; m.className = 'msg mal'; m.textContent = 'Tienes cambios sin guardar. Toca Cerrar otra vez para descartarlos.'; return;
+  }
+  cerrarFicha();
+}
+async function guardarFicha(){
+  const m = document.getElementById('msgFicha'), btn = document.getElementById('btnGuardar');
+  if(!ficha.nombre.trim()){ m.className = 'msg mal'; m.textContent = 'Escribe el nombre de la convocatoria.'; document.getElementById('c_nombre').focus(); return; }
+  if(!ficha.fuenteId && !ficha.fuenteTexto.trim()){ m.className = 'msg mal'; m.textContent = 'Elige la fuente o escríbela.'; return; }
+  btn.disabled = true; m.className = 'msg'; m.textContent = 'Guardando…';
+  const nuevo = !ficha.id;
+  const datos = Object.assign({}, ficha);
+  if(nuevo){ datos.id = 'c' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6); datos.creadoPor = autor; datos.creado = new Date().toISOString(); datos.desde = datos.desde || hoyISO(); if(!datos.historia.length) datos.historia = [{estatus: datos.estatus, fecha: new Date().toISOString(), por: autor}]; }
+  datos.monto = datos.monto === '' ? '' : Number(datos.monto); datos.montoAprobado = datos.montoAprobado === '' ? '' : Number(datos.montoAprobado);
+  const f = FUENTES.find(x => x.id === datos.fuenteId); datos.fuenteNombre = f ? f.institucion : datos.fuenteTexto;
+  const p = puntaje(datos); datos.puntajeTotal = p.completos === 6 ? p.total : '';
+  const base = datos.version; delete datos.version;
+  try{
+    const r = await api('guardar', nuevo ? {conv: datos} : {conv: datos, base});
+    if(!r.ok){ m.className = 'msg mal'; m.textContent = mensajeError(r.error); btn.disabled = false; if(r.error === 'conflicto') recargar(); return; }
+    ficha.id = r.id; ficha.version = r.version;
+    fichaOriginal = JSON.stringify(ficha);
+    m.className = 'msg bien'; m.textContent = nuevo ? 'Registrada.' : 'Guardado.';
+    recargar();
+    if(nuevo) setTimeout(() => { if(ficha && ficha.id) cerrarFicha(); }, 700);
+  }catch(e){ m.className = 'msg mal'; m.textContent = mensajeError('red'); }
+  btn.disabled = false;
+}
+async function borrarFicha(){
+  if(!confirmarBorrar){ confirmarBorrar = true; repintarFicha(); return; }
+  try{ const r = await api('borrar', {id: ficha.id, base: ficha.version}); if(!r.ok) throw r.error; cerrarFicha(); recargar(); }
+  catch(e){ const m = document.getElementById('msgFicha'); m.className = 'msg mal'; m.textContent = mensajeError(typeof e === 'string' ? e : 'red'); }
+}
+function mensajeError(c){
+  if(c === 'conflicto') return 'Alguien más cambió esta convocatoria mientras la editabas. Ciérrala, vuelve a abrirla y repite tu cambio.';
+  if(c === 'clave') return 'La clave del equipo cambió. Vuelve a entrar.';
+  if(c === 'ocupado' || c === 'red') return 'No hubo conexión con la hoja. Intenta otra vez en unos segundos.';
+  if(c === 'demasiado grande') return 'La ficha es demasiado larga para la hoja. Recorta el resumen o las notas.';
+  return 'No se pudo guardar (' + c + ').';
+}
+
+/* ===================== Clics globales ===================== */
+document.addEventListener('click', async e => {
+  const t = e.target.closest('[data-abrir],[data-nueva-fuente],[data-revisado],[data-copiar]');
+  if(!t) return;
+  if(t.dataset.abrir) abrirFicha(t.dataset.abrir);
+  else if(t.dataset.nuevaFuente) abrirFicha(null, t.dataset.nuevaFuente);
+  else if(t.dataset.revisado){
+    t.disabled = true;
+    try{ const r = await api('revisado', {canal: t.dataset.revisado, fecha: hoyISO()}); if(!r.ok) throw 0; recargar(); }
+    catch(err){ t.disabled = false; t.textContent = 'No se pudo'; }
+  }
+  else if(t.dataset.copiar){
+    const msg = document.getElementById('msgCopia');
+    try{ await navigator.clipboard.writeText(t.dataset.copiar); msg.className = 'msg bien'; msg.textContent = 'Copiado: ' + t.dataset.copiar; }
+    catch(err){ const r = document.createRange(); r.selectNodeContents(t); const s = getSelection(); s.removeAllRanges(); s.addRange(r); msg.className = 'msg'; msg.textContent = 'Seleccionado: cópialo con Ctrl+C.'; }
+  }
+});
+document.getElementById('btnNueva').onclick = () => abrirFicha(null);
+document.addEventListener('keydown', e => { if(e.key === 'Escape' && ficha) intentarCerrar(); });
+
+/* ===================== Datos compartidos ===================== */
+async function api(accion, extra){
+  if(!ENDPOINT) throw new Error('sin endpoint');
+  const r = await fetch(ENDPOINT, {method:'POST', headers:{'content-type':'text/plain;charset=utf-8'}, body: JSON.stringify(Object.assign({accion, clave, autor}, extra || {}))});
+  return r.json();
+}
+function guardarAcceso(c, a, recordar){
+  try{ sessionStorage.setItem(LS_CLAVE, c); sessionStorage.setItem(LS_AUTOR, a); if(recordar){ localStorage.setItem(LS_CLAVE, c); localStorage.setItem(LS_AUTOR, a); } }catch(e){}
+}
+function olvidarAcceso(){ try{ [LS_CLAVE, LS_AUTOR].forEach(k => { sessionStorage.removeItem(k); localStorage.removeItem(k); }); }catch(e){} clave = ''; }
+function pintarAcceso(msg){
+  dentro = false;
+  document.querySelectorAll('.vista').forEach(v => { v.hidden = true; });
+  document.querySelector('nav.tabs').hidden = true; document.getElementById('btnNueva').hidden = true; document.getElementById('btnSalir').hidden = true;
+  setEstadoRed('');
+  const el = document.getElementById('v-acceso'); el.hidden = false;
+  el.innerHTML = '<form class="banda acceso" id="formAcceso"><h2>Entrar al rastreo</h2><p class="muted" style="margin:0">Página interna del equipo del Club. Escribe la clave del equipo y tu nombre, que queda en el historial de cada cambio.</p>' +
+    '<div class="campo"><label for="a_clave">Clave del equipo</label><input id="a_clave" type="password" autocomplete="current-password" required></div>' +
+    '<div class="campo"><label for="a_autor">Tu nombre</label><input id="a_autor" autocomplete="name" value="' + esc(autor) + '" required></div>' +
+    '<label class="acciones" style="font-size:.88rem"><input type="checkbox" id="a_rec"> Recordarme en este equipo (no lo marques en una computadora compartida)</label>' +
+    '<button class="btn pri" type="submit">Entrar</button><p class="msg ' + (msg ? 'mal' : '') + '" id="a_msg">' + esc(msg || (ENDPOINT ? '' : 'Falta publicar el Apps Script del rastreo y poner su URL en esta página.')) + '</p></form>';
+  el.querySelector('#formAcceso').onsubmit = async ev => {
+    ev.preventDefault();
+    const c = el.querySelector('#a_clave').value, a = el.querySelector('#a_autor').value.trim(), m = el.querySelector('#a_msg');
+    if(!c || !a){ m.className = 'msg mal'; m.textContent = 'Escribe la clave y tu nombre.'; return; }
+    clave = c; autor = a; m.className = 'msg'; m.textContent = 'Revisando…';
+    let r; try{ r = await api('leer'); }catch(e){ r = {ok:false, error:'red'}; }
+    if(!r.ok){ clave = ''; m.className = 'msg mal'; m.textContent = r.error === 'clave' ? 'Esa clave no es la del equipo.' : r.error === 'bloqueado' ? 'Demasiados intentos fallidos. Espera 10 minutos.' : 'No hubo conexión con la hoja del equipo.'; return; }
+    guardarAcceso(c, a, el.querySelector('#a_rec').checked);
+    entrar(r);
+  };
+}
+function aplicar(r){ CONV = r.convocatorias || []; FUENTES = r.fuentes || []; CANALES = r.canales || []; cargado = {c:true, f:true, k:true}; }
+function entrar(r){
+  dentro = true;
+  document.getElementById('v-acceso').hidden = true;
+  document.querySelector('nav.tabs').hidden = false; document.getElementById('btnNueva').hidden = false; document.getElementById('btnSalir').hidden = false;
+  document.getElementById('quienSoy').textContent = autor ? 'Registras como ' + autor : '';
+  aplicar(r); setEstadoRed(''); pintar();
+}
+let recargando = false;
+async function recargar(){
+  if(!clave || recargando) return;
+  recargando = true;
+  try{
+    const r = await api('leer');
+    if(r.ok){ if(!dentro) entrar(r); else { aplicar(r); setEstadoRed(''); pintar(); } }
+    else if(r.error === 'clave'){ olvidarAcceso(); pintarAcceso('La clave del equipo cambió. Vuelve a entrar.'); }
+    else setEstadoRed('La hoja del equipo no respondió bien (' + r.error + '). Se reintenta sola.', true);
+  }catch(e){ setEstadoRed('Sin conexión con la hoja del equipo. Se reintenta sola.', true); }
+  recargando = false;
+}
+document.getElementById('btnSalir').onclick = () => { olvidarAcceso(); cerrarFicha(); pintarAcceso(''); };
+// Lo que otros registran llega al volver a la pestaña y cada 90 segundos.
+window.addEventListener('focus', recargar);
+setInterval(() => { if(document.visibilityState === 'visible') recargar(); }, 90000);
+if(clave && ENDPOINT){ setEstadoRed('Conectando con la hoja del equipo…'); document.querySelector('nav.tabs').hidden = true; recargar(); }
+else pintarAcceso('');
+</script>
+</body>
+</html>

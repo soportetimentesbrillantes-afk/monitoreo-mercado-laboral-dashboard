@@ -25,6 +25,13 @@ Uso:
       --out sector_turismo.json
 
 categorias_*.json:  {"Alimentos y Bebidas": ["cocin", "chef", "mesero", ...], ...}
+Idiomas y carreras (desde 2026-11-10): se buscan en el título y, si el CSV trae
+la columna `descripcion` (Adzuna la manda en la misma respuesta de la API), en
+la descripción. Los idiomas solo se reportan cuando hay descripciones: el
+título casi nunca los menciona y un 0 sería engañoso; sin ellas, `idiomas` y
+`carreras` salen null ("dato pendiente"). Los porcentajes son sobre
+`vacantes_con_descripcion`, no sobre todas las verificadas.
+
 habilidades_*.json: {"tecnicas": {"Ventas y prospección comercial": ["venta", ...]},
                      "blandas":  {"Liderazgo": ["lider", "lidera"], ...},
                      "por_categoria": {"Alimentos y Bebidas":
@@ -48,6 +55,73 @@ UMBRAL_SALARIO_ANUAL = 90000  # arriba de esto en Adzuna se asume anual → /12
 # umbral dejaría sin convertir las vacantes bajas (una beca de 6,000/mes llega como
 # 72,000, por debajo de UMBRAL_SALARIO_ANUAL).
 FUENTES_ANUALIZADAS = {"OCC"}
+
+# Idiomas: regex sobre texto normalizado (minúsculas, sin acentos). "Bilingüe" en
+# una vacante mexicana casi siempre es español-inglés: se cuenta como inglés.
+IDIOMAS = {
+    "Inglés": [r"\bingles\b", r"\benglish\b", r"\bbilingue\b", r"\bbilingual\b"],
+    "Francés": [r"\bfrances\b", r"\bfrench\b"],
+    "Alemán": [r"\baleman\b", r"\bgerman\b(?!y)"],
+    "Portugués": [r"\bportugues\b", r"\bportuguese\b"],
+    "Italiano": [r"\bitaliano\b", r"\bitalian\b"],
+    "Japonés": [r"\bjapones\b", r"\bjapanese\b"],
+    "Chino (mandarín)": [r"\bmandarin\b", r"\bchinese\b", r"\bidioma chino\b", r"\bchino mandarin\b"],
+    "Coreano": [r"\bcoreano\b", r"\bkorean\b"],
+}
+NIVEL_INGLES = [("avanzado", r"avanzad|fluid|nativ|100 ?%|bilingue|bilingual|advanced|fluent|conversacional"),
+                ("intermedio", r"intermedi|intermediate|b1|b2"),
+                ("basico", r"basic|elemental")]
+# Carreras: patrones específicos de formación (no del puesto a secas). "Contador"
+# o "abogado" sí cuentan: son profesiones que exigen esa carrera.
+_GRADO = r"(?:lic\w*\.?|licenciatura|licenciad[oa]|carrera|egresad[oa]s?|titulad[oa]s?|pasante|estudiante|estudios)\s+(?:en|de)\s+"
+CARRERAS = {
+    "Administración": [_GRADO + r"administracion", r"\badministracion de empresas\b", r"\blae\b"],
+    "Contaduría": [r"\bcontador(?:a|es)?\b", r"\bcontaduria\b", _GRADO + r"contabilidad", r"\bc\.p\.\b"],
+    "Finanzas y economía": [_GRADO + r"(?:finanzas|economia)", r"\beconomista\b", r"\bactuari"],
+    "Derecho": [r"\babogad[oa]s?\b", _GRADO + r"derecho", r"\blicenciad[oa] en derecho\b"],
+    "Mercadotecnia y comunicación": [r"\bmercadotecnia\b", _GRADO + r"(?:marketing|comunicacion|ciencias de la comunicacion|publicidad)"],
+    "Recursos humanos y psicología": [_GRADO + r"(?:recursos humanos|relaciones industriales)", r"\bpsicolog"],
+    "Ingeniería industrial": [r"\bingenier\w*\s+industrial", r"\bing\.?\s+industrial"],
+    "Ingeniería mecánica": [r"\bingenier\w*\s+(?:en\s+)?mecanic", r"\bing\.?\s+mecanic"],
+    "Ingeniería mecatrónica": [r"\bmecatronic"],
+    "Ingeniería eléctrica y electrónica": [r"\bingenier\w*\s+(?:en\s+)?electr", r"\bing\.?\s+electr"],
+    "Ingeniería química": [r"\bingenier\w*\s+(?:en\s+)?quimic", r"\bquimico farmac"],
+    "Ingeniería automotriz": [r"\bingenier\w*\s+(?:en\s+)?automotri"],
+    "Ingeniería civil y arquitectura": [r"\bingenier\w*\s+civil", r"\barquitect"],
+    "Sistemas, software y TI": [r"\bingenier\w*\s+(?:en\s+)?(?:sistemas|software|computacion|informatica|tecnologias de la informacion)",
+                                _GRADO + r"(?:informatica|sistemas|computacion|ciencias de la computacion)", r"\bciencias de la computacion\b"],
+    "Logística y comercio internacional": [r"\bcomercio (?:internacional|exterior)\b", _GRADO + r"logistica", r"\bingenier\w*\s+(?:en\s+)?logistica"],
+    "Turismo, hotelería y gastronomía": [r"\bgastronom", _GRADO + r"(?:turismo|hoteleria|administracion hotelera|administracion turistica)"],
+    "Diseño": [r"\bdiseno grafico\b", _GRADO + r"diseno", r"\bdiseno industrial\b"],
+    "Salud": [r"\benfermer", r"\bmedic[oa]s? (?:general|cirujan)", r"\bmedicina\b", r"\bnutriolog", r"\bquimico clinic"],
+    "Carrera técnica": [r"\bcarrera tecnica\b", r"\bbachillerato tecnico\b", r"\btecnico (?:en|superior)\b", r"\btsu\b", r"\bconalep\b", r"\bcbtis\b"],
+}
+_RE_IDIOMAS = {k: re.compile("|".join(v)) for k, v in IDIOMAS.items()}
+_RE_CARRERAS = {k: re.compile("|".join(v)) for k, v in CARRERAS.items()}
+
+def contar_idiomas(textos):
+    """Menciones por idioma (una por vacante) y, para inglés, el nivel pedido
+    cuando aparece cerca de la palabra (40 caracteres alrededor)."""
+    out = []
+    for idioma, rx in _RE_IDIOMAS.items():
+        n, niveles = 0, {"avanzado": 0, "intermedio": 0, "basico": 0, "sin_nivel": 0}
+        for t in textos:
+            m = rx.search(t)
+            if not m: continue
+            n += 1
+            if idioma == "Inglés":
+                ventana = t[max(0, m.start() - 40): m.end() + 40]
+                nivel = next((k for k, r in NIVEL_INGLES if re.search(r, ventana)), "sin_nivel")
+                niveles[nivel] += 1
+        if n:
+            fila = {"idioma": idioma, "menciones": n}
+            if idioma == "Inglés": fila["niveles"] = niveles
+            out.append(fila)
+    return sorted(out, key=lambda x: -x["menciones"])
+
+def contar_carreras(textos):
+    out = [{"carrera": c, "menciones": sum(1 for t in textos if rx.search(t))} for c, rx in _RE_CARRERAS.items()]
+    return sorted([x for x in out if x["menciones"]], key=lambda x: -x["menciones"])
 
 def norm(s):
     if not isinstance(s, str): return ""
@@ -138,6 +212,10 @@ def main():
     df["_cat"] = df["titulo_puesto"].map(lambda t: clasificar(t, cats))
     df["_texto"] = (df["titulo_puesto"].fillna("") + " " + df["habilidades_tecnicas"].fillna("")
                     + " " + df["habilidades_blandas"].fillna("")).map(norm)
+    if "descripcion" not in df.columns: df["descripcion"] = ""
+    df["_desc"] = df["descripcion"].fillna("").map(norm)
+    df["_con_desc"] = df["_desc"].str.len().ge(40)
+    df["_texto_largo"] = (df["titulo_puesto"].fillna("").map(norm) + " \n " + df["_desc"])
     df["_sal"] = df.apply(salario_mensual, axis=1)
     df["_hab_explicita"] = df["habilidades_tecnicas"].fillna("").str.strip().ne("") | \
                            df["habilidades_blandas"].fillna("").str.strip().ne("")
@@ -160,6 +238,21 @@ def main():
                for e, v in emp["_emp"].value_counts().head(14).items()]
     est = df["_estado"].dropna().value_counts()
     top_estados = [{"estado": e, "vacantes": int(v)} for e, v in est.head(10).items()]
+
+    # idiomas y carreras (ver docstring)
+    n_desc = int(df["_con_desc"].sum())
+    if n_desc:
+        idiomas = contar_idiomas(df.loc[df["_con_desc"], "_texto_largo"])
+        for x in idiomas: x["pct"] = round(100 * x["menciones"] / n_desc, 1)
+    else:
+        idiomas = None
+    # Carreras: con el título solo casi no aparecen (se probó con las corridas de
+    # agosto: 0.6 % como máximo), así que sin descripciones también es dato pendiente.
+    if n_desc:
+        carreras = contar_carreras(df.loc[df["_con_desc"], "_texto_largo"])[:12]
+        for x in carreras: x["pct"] = round(100 * x["menciones"] / n_desc, 1)
+    else:
+        carreras = None
 
     con_sal = df["_sal"].dropna()
     salario = {"vacantes_con_dato": int(len(con_sal)), "pct_con_dato": round(100*len(con_sal)/n, 1),
@@ -217,6 +310,9 @@ def main():
         "habilidades_blandas": blandas, "top_empresas": top_emp,
         "cobertura_geografica": {"top_estados": top_estados, "estados_unicos": int(est.size)},
         "salario": salario, "evolucion_semanal": evo,
+        "vacantes_con_descripcion": n_desc,
+        "idiomas": idiomas,
+        "carreras": carreras,
         "total_empresas_unicas": int(df["_emp"].nunique()),
         "ultima_semana_vacantes": evo[-1]["vacantes"] if evo else 0,
         "vacantes_detalle": [fila_detalle(r) for _, r in muestra.iterrows()],
@@ -229,7 +325,9 @@ def main():
             "dividió entre 12 siempre). vacantes_con_habilidades "
             "cuenta solo habilidades EXPLÍCITAS en el CSV fuente. Muestra vacantes_detalle: filtro "
             "de recencia Adzuna<=10d / Indeed<=15d / OCC<=20d desde hoy, muestreo proporcional por "
-            "fuente, máx. 60; habilidades faltantes inferidas por categoría de puesto."),
+            "fuente, máx. 60; habilidades faltantes inferidas por categoría de puesto. Idiomas y "
+            "carreras: % sobre las vacantes con descripción (vacantes_con_descripcion); sin "
+            "descripciones, idiomas y carreras = null (dato pendiente)."),
     }
     Path(a.out).write_text(json.dumps(bloque, ensure_ascii=False, indent=1))
     print(f"OK -> {a.out} | verificadas={n} | detalle={len(bloque['vacantes_detalle'])} filas | "
