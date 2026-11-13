@@ -10,6 +10,32 @@ después.
 corrigió un error, describe también cómo se detectó — eso es lo que evita
 repetirlo.
 
+## 2026-11-12 — Segmentación por nivel educativo en el comparativo
+
+- **etapa4_sector_json.py** (las dos copias) clasifica cada vacante con
+  descripción en un nivel: secundaria, bachillerato o preparatoria, técnico
+  o TSU, licenciatura o ingeniería, posgrado, o "no lo especifica". Lee solo
+  la descripción (el título no lo dice). Si menciona varios niveles cuenta el
+  **más bajo**, porque es el mínimo que se pide ("bachillerato, deseable
+  licenciatura" = bachillerato). Los patrones están en `NIVELES_EDU`.
+- Por nivel guarda vacantes, % sobre `vacantes_con_descripcion`, salario
+  mediano (solo con 5 o más salarios, `MIN_SALARIOS_NIVEL`) y sus idiomas y
+  carreras. Campo nuevo `nivel_educativo`; null sin descripciones.
+- **comparativo.html**: tarjeta "Nivel educativo que piden las vacantes"
+  (sector × nivel en % y salario mediano por nivel) y, en la tarjeta de
+  idiomas y carreras, un selector de nivel que cambia la tabla de idiomas,
+  el nivel de inglés y las carreras por sector. Con menos de 10 vacantes en
+  un nivel el dato se marca como poco firme. Mientras ninguna corrida traiga
+  descripciones, dice "dato pendiente" y el selector no aparece.
+- La tarea programada de la corrida semanal revisa el nivel en 10
+  descripciones, avisa si "no lo especifica" pasa de 70% y lo incluye en el
+  reporte. Primera corrida con el dato: 2026-11-16, si el script nuevo ya
+  está en GitHub.
+
+Es una heurística por palabras: una prestación tipo "te apoyamos a terminar
+tu preparatoria" se contaría como bachillerato. Por eso la revisión a mano.
+Pruebas: `cuentas/pruebas/test_nivel_educativo.mjs` (7).
+
 ## 2026-11-10 — Test vocacional propio
 
 Antes, al alumno se le mandaba a dos tests externos (el de orientación de la

@@ -27,7 +27,7 @@ El sitio se sirve con GitHub Pages desde este repositorio:
 |---|---|
 | `index.html` | Tu CV frente al mercado laboral. Diagnostica un CV, recomienda vacantes y cursos. |
 | `cv-builder.html` | Arma tu CV. Constructor guiado paso a paso. |
-| `comparativo.html` | Dashboard que cruza indicadores entre los nueve sectores. |
+| `comparativo.html` | Dashboard que cruza indicadores entre los nueve sectores, con idiomas, carreras y nivel educativo que piden las vacantes (de la descripción de Adzuna). |
 | `boletines.html` | Índice de boletines publicados, con buscador por fecha y por texto. |
 | `disc.html` | Tu estilo de trabajo, versión corta: cuestionario DISC propio de 24 bloques. |
 | `disc-agora.html` | Tu estilo de trabajo, cuestionario de Ágora Internacional: 5 secciones, 75 reactivos, puntuación por colores. |

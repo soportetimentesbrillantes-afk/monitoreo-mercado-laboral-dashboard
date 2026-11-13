@@ -32,6 +32,15 @@ título casi nunca los menciona y un 0 sería engañoso; sin ellas, `idiomas` y
 `carreras` salen null ("dato pendiente"). Los porcentajes son sobre
 `vacantes_con_descripcion`, no sobre todas las verificadas.
 
+Nivel educativo (desde 2026-11-10): se lee SOLO en la descripción (el título
+no lo dice). Cada vacante con descripción queda en uno de seis niveles:
+secundaria, bachillerato, técnico/TSU, licenciatura, posgrado o "no lo
+especifica". Si la descripción menciona varios, cuenta el MÁS BAJO, porque es
+el mínimo que se pide ("bachillerato, deseable licenciatura" = bachillerato).
+Por nivel: vacantes, % sobre vacantes_con_descripcion, salario mediano (solo
+con 5 o más salarios) e idiomas y carreras de ese nivel. Sin descripciones,
+`nivel_educativo` sale null (dato pendiente).
+
 habilidades_*.json: {"tecnicas": {"Ventas y prospección comercial": ["venta", ...]},
                      "blandas":  {"Liderazgo": ["lider", "lidera"], ...},
                      "por_categoria": {"Alimentos y Bebidas":
@@ -96,6 +105,37 @@ CARRERAS = {
     "Salud": [r"\benfermer", r"\bmedic[oa]s? (?:general|cirujan)", r"\bmedicina\b", r"\bnutriolog", r"\bquimico clinic"],
     "Carrera técnica": [r"\bcarrera tecnica\b", r"\bbachillerato tecnico\b", r"\btecnico (?:en|superior)\b", r"\btsu\b", r"\bconalep\b", r"\bcbtis\b"],
 }
+# Nivel educativo, de menor a mayor. Patrones sobre la descripción normalizada
+# (minúsculas, sin acentos). "Bachillerato técnico" es media superior: cuenta
+# como bachillerato. CONALEP y TSU se cuentan como técnico.
+NIVELES_EDU = [
+    ("secundaria", "Secundaria", [r"\bsecundaria\b"]),
+    ("bachillerato", "Bachillerato o preparatoria",
+        [r"\bbachillerato\b", r"\bpreparatoria\b", r"\bprepa\b", r"\bmedia superior\b",
+         r"\bmedio superior\b", r"\bhigh school\b"]),
+    ("tecnico", "Técnico o TSU",
+        [r"\bcarrera tecnica\b", r"\btecnico superior\b", r"\btsu\b", r"\bnivel tecnico\b",
+         r"\bestudios tecnicos\b", r"\bformacion tecnica\b", r"\bescolaridad:?\s+tecnic",
+         r"\bconalep\b", r"\bcbtis\b", r"\bcecyt", r"\bprofesional tecnico\b", r"\btechnical degree\b"]),
+    ("licenciatura", "Licenciatura o ingeniería",
+        [r"\blicenciatura\b", r"\blicenciad[oa]s?\s+en\b", r"\bingenieria\b", r"\bingenier[oa]s?\b",
+         r"\b(?:estudios|formacion|educacion|nivel)\s+(?:universitari|profesional|superior)",
+         r"\buniversitari[oa]s?\b", r"\btitulo profesional\b", r"\bcedula profesional\b",
+         r"\bpasante\b", r"\bcarrera\s+(?:profesional|universitaria|trunca|afin|terminada|concluida)\b",
+         r"\bbachelor", r"\bdegree in\b", r"\bcollege degree\b", r"\buniversity degree\b"]),
+    ("posgrado", "Posgrado", [r"\bmaestria\b", r"\bdoctorado\b", r"\bposgrado\b", r"\bpostgrado\b",
+                              r"\bmaster'?s? degree\b", r"\bmba\b", r"\bphd\b"]),
+]
+NIVEL_SIN_DATO = ("no_especifica", "No lo especifica")
+_RE_NIVELES = [(k, re.compile("|".join(v))) for k, _, v in NIVELES_EDU]
+MIN_SALARIOS_NIVEL = 5
+
+def nivel_educativo(desc):
+    """Clave del nivel más bajo que menciona la descripción, o 'no_especifica'."""
+    for clave, rx in _RE_NIVELES:
+        if rx.search(desc): return clave
+    return NIVEL_SIN_DATO[0]
+
 _RE_IDIOMAS = {k: re.compile("|".join(v)) for k, v in IDIOMAS.items()}
 _RE_CARRERAS = {k: re.compile("|".join(v)) for k, v in CARRERAS.items()}
 
@@ -254,6 +294,30 @@ def main():
     else:
         carreras = None
 
+    # nivel educativo (ver docstring)
+    if n_desc:
+        dd = df.loc[df["_con_desc"]].copy()
+        dd["_nivel"] = dd["_desc"].map(nivel_educativo)
+        nivel_edu = {"base": "vacantes_con_descripcion", "niveles": []}
+        for clave, nombre in [(k, nom) for k, nom, _ in NIVELES_EDU] + [NIVEL_SIN_DATO]:
+            g = dd[dd["_nivel"] == clave]
+            k = len(g)
+            sal = g["_sal"].dropna()
+            fila = {"clave": clave, "nivel": nombre, "vacantes": k, "pct": round(100 * k / n_desc, 1),
+                    "vacantes_con_salario": int(len(sal)),
+                    "salario_mediano_mensual_mxn": int(sal.median()) if len(sal) >= MIN_SALARIOS_NIVEL else None}
+            if k:
+                idi = contar_idiomas(g["_texto_largo"])[:5]
+                for x in idi: x["pct"] = round(100 * x["menciones"] / k, 1)
+                car = contar_carreras(g["_texto_largo"])[:6]
+                for x in car: x["pct"] = round(100 * x["menciones"] / k, 1)
+            else:
+                idi, car = [], []
+            fila["idiomas"], fila["carreras"] = idi, car
+            nivel_edu["niveles"].append(fila)
+    else:
+        nivel_edu = None
+
     con_sal = df["_sal"].dropna()
     salario = {"vacantes_con_dato": int(len(con_sal)), "pct_con_dato": round(100*len(con_sal)/n, 1),
                "mediana_mensual_mxn": int(con_sal.median()), "p25_mensual_mxn": int(con_sal.quantile(.25)),
@@ -313,6 +377,7 @@ def main():
         "vacantes_con_descripcion": n_desc,
         "idiomas": idiomas,
         "carreras": carreras,
+        "nivel_educativo": nivel_edu,
         "total_empresas_unicas": int(df["_emp"].nunique()),
         "ultima_semana_vacantes": evo[-1]["vacantes"] if evo else 0,
         "vacantes_detalle": [fila_detalle(r) for _, r in muestra.iterrows()],
@@ -327,7 +392,9 @@ def main():
             "de recencia Adzuna<=10d / Indeed<=15d / OCC<=20d desde hoy, muestreo proporcional por "
             "fuente, máx. 60; habilidades faltantes inferidas por categoría de puesto. Idiomas y "
             "carreras: % sobre las vacantes con descripción (vacantes_con_descripcion); sin "
-            "descripciones, idiomas y carreras = null (dato pendiente)."),
+            "descripciones, idiomas y carreras = null (dato pendiente). Nivel educativo: el más bajo "
+            "que menciona la descripción; % sobre vacantes_con_descripcion; salario por nivel solo "
+            f"con {MIN_SALARIOS_NIVEL}+ salarios; null sin descripciones."),
     }
     Path(a.out).write_text(json.dumps(bloque, ensure_ascii=False, indent=1))
     print(f"OK -> {a.out} | verificadas={n} | detalle={len(bloque['vacantes_detalle'])} filas | "

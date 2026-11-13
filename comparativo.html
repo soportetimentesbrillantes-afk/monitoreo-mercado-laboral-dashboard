@@ -83,6 +83,11 @@
   .lista-barras .barra-fondo i{display:block;height:100%;border-radius:999px;}
   .lista-barras .pct{font-variant-numeric:tabular-nums;color:var(--texto-suave);}
   .pendiente-mini{font-size:0.8rem;color:var(--texto-suave);padding:10px 0 14px;}
+  table.tabla-comp td.base-chica{color:var(--texto-suave);}
+  table.tabla-comp td.num.fuerte{font-weight:700;}
+  [hidden]{display:none!important;}
+  .filtro-nivel{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:4px 0 10px;}
+  .filtro-nivel label{font-size:0.74rem;font-weight:700;color:var(--texto-suave);text-transform:uppercase;letter-spacing:.04em;}
   .empty-state{font-size:0.86rem;color:var(--texto-suave);padding:18px 4px;text-align:center;}
   #loadingOverlay{position:fixed;inset:0;background:var(--hero-bg);color:var(--texto);display:flex;align-items:center;justify-content:center;font-size:.95rem;letter-spacing:.03em;z-index:999;font-family:var(--font-sans);}
   #loadingOverlay.hidden{display:none;}
@@ -173,9 +178,23 @@
     <div class="chart-wrap"><canvas id="chartSkillDetalle"></canvas></div>
   </div>
 
+  <div class="card" id="nivelEducativoCard">
+    <h2>Nivel educativo que piden las vacantes</h2>
+    <p class="descripcion">Qué escolaridad mínima piden las vacantes de cada sector, leída en su descripción. Si una vacante menciona varios niveles ("bachillerato, deseable licenciatura") cuenta el más bajo, porque es el mínimo que pide. El porcentaje es sobre las vacantes que traen descripción; "No lo especifica" son las que tienen descripción pero no dicen escolaridad.</p>
+    <div class="tabla-scroll"><table class="tabla-comp" id="tablaNivel"><thead></thead><tbody></tbody></table></div>
+    <h3>Salario mediano mensual por nivel</h3>
+    <p class="descripcion chica">Mediana en MXN mensuales de las vacantes de ese nivel que publican salario. Solo se muestra con 5 o más salarios; con menos, una raya.</p>
+    <div class="tabla-scroll"><table class="tabla-comp" id="tablaNivelSalario"><thead></thead><tbody></tbody></table></div>
+  </div>
+
   <div class="card" id="idiomasCarrerasCard">
     <h2>Idiomas y carreras que piden las vacantes</h2>
     <p class="descripcion">Qué idiomas y qué carreras mencionan las vacantes de cada sector en su descripción. El porcentaje es sobre las vacantes que traen descripción (no todas la traen: Adzuna sí, OCC no), así que un sector con pocas descripciones da un dato menos firme; el número de vacantes con descripción está bajo cada sector.</p>
+    <div class="filtro-nivel">
+      <label for="filtroNivel">Nivel educativo</label>
+      <select id="filtroNivel"><option value="">Todos los niveles</option></select>
+      <span class="descripcion chica" id="notaFiltroNivel" style="margin:0;"></span>
+    </div>
     <h3>Idiomas</h3>
     <div class="tabla-scroll"><table class="tabla-comp" id="tablaIdiomas"><thead></thead><tbody></tbody></table></div>
     <p class="descripcion chica" id="notaIngles"></p>
@@ -314,6 +333,7 @@ function renderTodo(){
   renderChartKpiSalario();
   renderSkillsTop();
   renderSkillDetalle();
+  renderNivelEducativo();
   renderIdiomasCarreras();
   renderGeo();
   renderMultisector();
@@ -579,46 +599,123 @@ function renderSkillDetalle(){
 const IDIOMAS_COLUMNAS = ['Inglés', 'Francés', 'Alemán', 'Portugués', 'Italiano', 'Japonés', 'Chino (mandarín)', 'Coreano'];
 const escHtml = t => String(t == null ? '' : t).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
+// ---------- Nivel educativo ----------
+// Corridas desde el 2026-11-16. Sin descripciones, nivel_educativo es null:
+// dato pendiente, nunca cero.
+const NIVELES_EDU = [
+  ['secundaria', 'Secundaria'], ['bachillerato', 'Bachillerato o preparatoria'], ['tecnico', 'Técnico o TSU'],
+  ['licenciatura', 'Licenciatura o ingeniería'], ['posgrado', 'Posgrado'], ['no_especifica', 'No lo especifica']
+];
+const BASE_CHICA = 10;   // con menos vacantes, el porcentaje se marca como poco firme
+let FILTRO_NIVEL = '';
+
+const nivelesDe = (d) => (d.nivel_educativo && Array.isArray(d.nivel_educativo.niveles)) ? d.nivel_educativo.niveles : null;
+
+function renderNivelEducativo(){
+  const activos = sectoresActivos();
+  const t1h = document.querySelector('#tablaNivel thead'), t1b = document.querySelector('#tablaNivel tbody');
+  const t2h = document.querySelector('#tablaNivelSalario thead'), t2b = document.querySelector('#tablaNivelSalario tbody');
+  if(activos.length === 0){ [t1h, t2h].forEach(x => x.innerHTML = ''); [t1b, t2b].forEach(x => x.innerHTML = '<tr><td class="empty-state">Selecciona al menos un sector arriba.</td></tr>'); return; }
+  if(!activos.some(s => nivelesDe(SECTORES[s.key]))){
+    [t1h, t2h].forEach(x => x.innerHTML = '');
+    t1b.innerHTML = '<tr><td class="pendiente-mini">Dato pendiente: las corridas publicadas todavía no guardaban la descripción de las vacantes. Aparece con la primera corrida que la incluya.</td></tr>';
+    t2b.innerHTML = '<tr><td class="pendiente-mini">Dato pendiente, por la misma razón.</td></tr>';
+    return;
+  }
+  const cab = '<tr><th>Sector</th><th class="num">Con descripción</th>' + NIVELES_EDU.map(n => '<th class="num">' + escHtml(n[1]) + '</th>').join('') + '</tr>';
+  t1h.innerHTML = cab;
+  t2h.innerHTML = '<tr><th>Sector</th>' + NIVELES_EDU.map(n => '<th class="num">' + escHtml(n[1]) + '</th>').join('') + '</tr>';
+  const celda = (s) => '<td><span class="dot-sector" style="background:' + SECTOR_COLOR[s.key] + ';"></span>' + escHtml(s.nombre) + '</td>';
+  const pendiente = (n) => '<td colspan="' + n + '" class="pendiente-mini">Dato pendiente: la corrida de este sector todavía no guardaba la descripción de las vacantes.</td>';
+  t1b.innerHTML = activos.map(s => {
+    const d = SECTORES[s.key], nv = nivelesDe(d);
+    if(!nv) return '<tr>' + celda(s) + pendiente(NIVELES_EDU.length + 1) + '</tr>';
+    const max = Math.max(...NIVELES_EDU.filter(n => n[0] !== 'no_especifica').map(n => (nv.find(x => x.clave === n[0]) || {}).pct || 0));
+    return '<tr>' + celda(s) + '<td class="num">' + (d.vacantes_con_descripcion || 0).toLocaleString('es-MX') + '</td>' +
+      NIVELES_EDU.map(n => { const x = nv.find(y => y.clave === n[0]);
+        return '<td class="num' + (x && x.pct && x.pct === max && n[0] !== 'no_especifica' ? ' fuerte' : '') + '">' + (x && x.vacantes ? x.pct + ' %' : '—') + '</td>'; }).join('') + '</tr>';
+  }).join('');
+  t2b.innerHTML = activos.map(s => {
+    const nv = nivelesDe(SECTORES[s.key]);
+    if(!nv) return '<tr>' + celda(s) + pendiente(NIVELES_EDU.length) + '</tr>';
+    return '<tr>' + celda(s) + NIVELES_EDU.map(n => { const x = nv.find(y => y.clave === n[0]);
+      return '<td class="num">' + (x && x.salario_mediano_mensual_mxn ? '$' + Math.round(x.salario_mediano_mensual_mxn).toLocaleString('es-MX') : '—') + '</td>'; }).join('') + '</tr>';
+  }).join('');
+}
+
+/* Idiomas y carreras de un sector, para todos los niveles o para uno.
+   Devuelve null si el sector no tiene el dato (pendiente). */
+function idiomasCarrerasDe(d){
+  if(!FILTRO_NIVEL){
+    if(!Array.isArray(d.idiomas) && !Array.isArray(d.carreras)) return null;
+    return {idiomas: d.idiomas || [], carreras: d.carreras || [], base: d.vacantes_con_descripcion || 0};
+  }
+  const nv = nivelesDe(d);
+  if(!nv) return null;
+  const x = nv.find(y => y.clave === FILTRO_NIVEL) || {vacantes: 0, idiomas: [], carreras: []};
+  return {idiomas: x.idiomas || [], carreras: x.carreras || [], base: x.vacantes || 0};
+}
+
 function renderIdiomasCarreras(){
   const activos = sectoresActivos();
   const thead = document.querySelector('#tablaIdiomas thead'), tbody = document.querySelector('#tablaIdiomas tbody');
   const grid = document.getElementById('carrerasPorSectorGrid');
   const nota = document.getElementById('notaIngles');
+  const sel = document.getElementById('filtroNivel');
+  // El filtro solo aparece cuando algún sector ya trae nivel educativo.
+  const hayNiveles = SECTOR_LIST.some(s => nivelesDe(SECTORES[s.key]));
+  sel.closest('.filtro-nivel').hidden = !hayNiveles;
+  if(!hayNiveles) FILTRO_NIVEL = '';
+  if(sel.options.length === 1) NIVELES_EDU.forEach(n => { const o = document.createElement('option'); o.value = n[0]; o.textContent = n[1]; sel.appendChild(o); });
+  sel.value = FILTRO_NIVEL;
+  const nombreNivel = FILTRO_NIVEL ? NIVELES_EDU.find(n => n[0] === FILTRO_NIVEL)[1] : '';
+  document.getElementById('notaFiltroNivel').textContent = FILTRO_NIVEL
+    ? 'Porcentajes sobre las vacantes del nivel "' + nombreNivel + '" en cada sector. Con menos de ' + BASE_CHICA + ' vacantes, el dato es poco firme (en gris).' : '';
+  const etiquetaBase = FILTRO_NIVEL ? 'Vacantes de este nivel' : 'Con descripción';
+
   if(activos.length === 0){ thead.innerHTML = ''; tbody.innerHTML = '<tr><td class="empty-state">Selecciona al menos un sector arriba.</td></tr>'; grid.innerHTML = ''; nota.textContent = ''; return; }
-  const conIdiomas = activos.filter(s => Array.isArray(SECTORES[s.key].idiomas));
-  const conCarreras = activos.filter(s => Array.isArray(SECTORES[s.key].carreras));
-  if(!conIdiomas.length && !conCarreras.length){
+  const datos = {};
+  activos.forEach(s => { datos[s.key] = idiomasCarrerasDe(SECTORES[s.key]); });
+  const conDato = activos.filter(s => datos[s.key]);
+  if(!conDato.length){
     // Antes de la primera corrida con descripciones: un solo aviso, no nueve.
     thead.innerHTML = ''; nota.textContent = '';
     tbody.innerHTML = '<tr><td class="pendiente-mini">Dato pendiente: las corridas publicadas todavía no guardaban la descripción de las vacantes. Aparece con la primera corrida que la incluya.</td></tr>';
     grid.innerHTML = '<div class="pendiente-mini">Dato pendiente, por la misma razón.</div>';
     return;
   }
-  const cols = IDIOMAS_COLUMNAS.filter(i => conIdiomas.some(s => SECTORES[s.key].idiomas.some(x => x.idioma === i)));
+  const cols = IDIOMAS_COLUMNAS.filter(i => conDato.some(s => datos[s.key].idiomas.some(x => x.idioma === i)));
   if(!cols.length) cols.push('Inglés');
-  thead.innerHTML = '<tr><th>Sector</th><th class="num">Con descripción</th>' + cols.map(i => '<th class="num">' + escHtml(i) + '</th>').join('') + '</tr>';
+  thead.innerHTML = '<tr><th>Sector</th><th class="num">' + etiquetaBase + '</th>' + cols.map(i => '<th class="num">' + escHtml(i) + '</th>').join('') + '</tr>';
   tbody.innerHTML = activos.map(s => {
-    const d = SECTORES[s.key];
+    const d = datos[s.key];
     const celdaSector = '<td><span class="dot-sector" style="background:' + SECTOR_COLOR[s.key] + ';"></span>' + escHtml(s.nombre) + '</td>';
-    if(!Array.isArray(d.idiomas)) return '<tr>' + celdaSector + '<td colspan="' + (cols.length + 1) + '" class="pendiente-mini">Dato pendiente: la corrida de este sector todavía no guardaba la descripción de las vacantes.</td></tr>';
-    return '<tr>' + celdaSector + '<td class="num">' + (d.vacantes_con_descripcion || 0).toLocaleString('es-MX') + '</td>' +
-      cols.map(i => { const x = d.idiomas.find(y => y.idioma === i); return '<td class="num">' + (x ? x.pct + ' %' : '—') + '</td>'; }).join('') + '</tr>';
+    if(!d) return '<tr>' + celdaSector + '<td colspan="' + (cols.length + 1) + '" class="pendiente-mini">Dato pendiente: la corrida de este sector todavía no guardaba la descripción de las vacantes.</td></tr>';
+    if(!d.base) return '<tr>' + celdaSector + '<td class="num">0</td><td colspan="' + cols.length + '" class="pendiente-mini">Ninguna vacante de este nivel en la corrida.</td></tr>';
+    const chica = FILTRO_NIVEL && d.base < BASE_CHICA ? ' base-chica' : '';
+    return '<tr>' + celdaSector + '<td class="num' + chica + '">' + d.base.toLocaleString('es-MX') + '</td>' +
+      cols.map(i => { const x = d.idiomas.find(y => y.idioma === i); return '<td class="num' + chica + '">' + (x ? x.pct + ' %' : '—') + '</td>'; }).join('') + '</tr>';
   }).join('');
   // Nivel de inglés: suma de los sectores activos con dato.
   const niv = {avanzado:0, intermedio:0, basico:0, sin_nivel:0};
-  conIdiomas.forEach(s => { const x = SECTORES[s.key].idiomas.find(y => y.idioma === 'Inglés'); if(x && x.niveles) Object.keys(niv).forEach(k => { niv[k] += x.niveles[k] || 0; }); });
+  conDato.forEach(s => { const x = datos[s.key].idiomas.find(y => y.idioma === 'Inglés'); if(x && x.niveles) Object.keys(niv).forEach(k => { niv[k] += x.niveles[k] || 0; }); });
   const tot = Object.values(niv).reduce((a, b) => a + b, 0);
-  nota.textContent = tot ? ('Nivel de inglés pedido, sumando los sectores seleccionados (' + tot.toLocaleString('es-MX') + ' vacantes que piden inglés): avanzado o bilingüe ' + Math.round(100 * niv.avanzado / tot) + ' %, intermedio ' + Math.round(100 * niv.intermedio / tot) + ' %, básico ' + Math.round(100 * niv.basico / tot) + ' %, sin nivel indicado ' + Math.round(100 * niv.sin_nivel / tot) + ' %. "Bilingüe" se cuenta como inglés avanzado.') : '';
+  nota.textContent = tot ? ('Nivel de inglés pedido, sumando los sectores seleccionados (' + tot.toLocaleString('es-MX') + ' vacantes' + (FILTRO_NIVEL ? ' del nivel "' + nombreNivel + '"' : '') + ' que piden inglés): avanzado o bilingüe ' + Math.round(100 * niv.avanzado / tot) + ' %, intermedio ' + Math.round(100 * niv.intermedio / tot) + ' %, básico ' + Math.round(100 * niv.basico / tot) + ' %, sin nivel indicado ' + Math.round(100 * niv.sin_nivel / tot) + ' %. "Bilingüe" se cuenta como inglés avanzado.') : '';
   grid.innerHTML = activos.map(s => {
-    const d = SECTORES[s.key];
-    const cuerpo = !Array.isArray(d.carreras) ? '<div class="pendiente-mini">Dato pendiente: la corrida de este sector todavía no guardaba la descripción de las vacantes.</div>'
-      : !d.carreras.length ? '<div class="pendiente-mini">Ninguna de las ' + (d.vacantes_con_descripcion || 0) + ' vacantes con descripción menciona una carrera.</div>'
+    const d = datos[s.key];
+    const cuerpo = !d ? '<div class="pendiente-mini">Dato pendiente: la corrida de este sector todavía no guardaba la descripción de las vacantes.</div>'
+      : !d.base ? '<div class="pendiente-mini">Ninguna vacante de este nivel en la corrida.</div>'
+      : !d.carreras.length ? '<div class="pendiente-mini">Ninguna de las ' + d.base + ' vacantes' + (FILTRO_NIVEL ? ' de este nivel' : ' con descripción') + ' menciona una carrera.</div>'
       : '<ul class="lista-barras">' + d.carreras.slice(0, 6).map(c => { const max = d.carreras[0].pct || 1;
           return '<li><span>' + escHtml(c.carrera) + '</span><span class="pct">' + c.pct + ' %</span><span class="barra-fondo"><i style="width:' + Math.round(100 * c.pct / max) + '%;background:' + SECTOR_COLOR[s.key] + '"></i></span></li>'; }).join('') + '</ul>' +
-        '<div class="vacio-mini" style="padding:0 0 10px;text-align:left;">De ' + (d.vacantes_con_descripcion || 0).toLocaleString('es-MX') + ' vacantes con descripción.</div>';
+        '<div class="vacio-mini" style="padding:0 0 10px;text-align:left;">De ' + d.base.toLocaleString('es-MX') + ' vacantes' + (FILTRO_NIVEL ? ' de este nivel' + (d.base < BASE_CHICA ? ' (pocas: dato poco firme)' : '') : ' con descripción') + '.</div>';
     return '<div class="mini-card"><h4>' + escHtml(s.nombre) + '</h4>' + cuerpo + '</div>';
   }).join('');
 }
+
+document.addEventListener('change', (e) => {
+  if(e.target && e.target.id === 'filtroNivel'){ FILTRO_NIVEL = e.target.value; renderIdiomasCarreras(); }
+});
 
 // ---------- Geografía ----------
 
