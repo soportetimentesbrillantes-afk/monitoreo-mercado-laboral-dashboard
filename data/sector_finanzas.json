@@ -1,88 +1,88 @@
 {
  "nombre": "Finanzas",
- "vacantes_verificadas": 583,
- "vacantes_descartadas": 760,
+ "vacantes_verificadas": 520,
+ "vacantes_descartadas": 700,
  "vacantes_con_habilidades": 0,
  "pct_con_habilidades": 0.0,
  "fuentes": {
-  "Adzuna": 576,
-  "OCC": 7
+  "Adzuna": 512,
+  "OCC": 8
  },
  "categorias_puesto": [
   {
    "categoria": "Otro",
-   "vacantes": 237,
-   "pct": 40.7
+   "vacantes": 246,
+   "pct": 47.3
   },
   {
    "categoria": "Tesorería, crédito y cobranza",
-   "vacantes": 102,
-   "pct": 17.5
+   "vacantes": 80,
+   "pct": 15.4
   },
   {
    "categoria": "Contabilidad y cumplimiento fiscal",
-   "vacantes": 76,
-   "pct": 13.0
+   "vacantes": 63,
+   "pct": 12.1
   },
   {
    "categoria": "Análisis financiero y planeación",
-   "vacantes": 60,
-   "pct": 10.3
+   "vacantes": 42,
+   "pct": 8.1
   },
   {
    "categoria": "Gerencia y jefatura financiera",
-   "vacantes": 52,
-   "pct": 8.9
-  },
-  {
-   "categoria": "Coordinación financiera",
-   "vacantes": 17,
-   "pct": 2.9
+   "vacantes": 28,
+   "pct": 5.4
   },
   {
    "categoria": "Becarios y practicantes",
-   "vacantes": 14,
-   "pct": 2.4
+   "vacantes": 19,
+   "pct": 3.7
   },
   {
-   "categoria": "Sistemas y tecnología financiera",
-   "vacantes": 9,
-   "pct": 1.5
+   "categoria": "Coordinación financiera",
+   "vacantes": 16,
+   "pct": 3.1
+  },
+  {
+   "categoria": "Auxiliares y asistentes",
+   "vacantes": 15,
+   "pct": 2.9
   },
   {
    "categoria": "Otro / administración general",
    "vacantes": 8,
-   "pct": 1.4
+   "pct": 1.5
   },
   {
-   "categoria": "Auxiliares y asistentes",
-   "vacantes": 8,
-   "pct": 1.4
+   "categoria": "Sistemas y tecnología financiera",
+   "vacantes": 3,
+   "pct": 0.6
   }
  ],
  "habilidades_tecnicas": [
   {
    "skill": "Contabilidad general",
-   "menciones": 51
-  },
-  {
-   "skill": "Cuentas por cobrar/pagar",
-   "menciones": 34
+   "menciones": 49
   },
   {
    "skill": "Nómina",
-   "menciones": 31
+   "menciones": 23
   },
   {
-   "skill": "Auditoría",
-   "menciones": 4
-  },
-  {
-   "skill": "Análisis financiero",
-   "menciones": 3
+   "skill": "Cuentas por cobrar/pagar",
+   "menciones": 18
   },
   {
    "skill": "Cumplimiento fiscal (SAT/IVA/ISR)",
+   "menciones": 5
+  },
+  {
+   "skill": "Presupuestos y forecast",
+   "menciones": 2
+  },
+  {
+   "skill": "Análisis financiero",
    "menciones": 2
   },
   {
@@ -90,529 +90,588 @@
    "menciones": 1
   },
   {
-   "skill": "Presupuestos y forecast",
+   "skill": "Auditoría",
    "menciones": 1
   }
  ],
  "habilidades_blandas": [
   {
    "skill": "Orientación a resultados",
-   "menciones": 211
-  },
-  {
-   "skill": "Liderazgo",
-   "menciones": 63
+   "menciones": 203
   },
   {
    "skill": "Pensamiento analítico",
-   "menciones": 50
+   "menciones": 58
   },
   {
    "skill": "Organización",
-   "menciones": 47
+   "menciones": 41
   },
   {
-   "skill": "Toma de decisiones",
-   "menciones": 46
+   "skill": "Liderazgo",
+   "menciones": 37
   },
   {
    "skill": "Atención al detalle",
-   "menciones": 38
+   "menciones": 33
+  },
+  {
+   "skill": "Toma de decisiones",
+   "menciones": 24
   },
   {
    "skill": "Proactividad",
-   "menciones": 11
+   "menciones": 12
   },
   {
    "skill": "Visión estratégica",
-   "menciones": 6
+   "menciones": 3
   }
  ],
  "top_empresas": [
   {
    "empresa": "BBVA",
-   "vacantes": 86
+   "vacantes": 67
   },
   {
    "empresa": "TEVA RH",
-   "vacantes": 61
+   "vacantes": 51
   },
   {
    "empresa": "Grupo Salinas",
-   "vacantes": 52
+   "vacantes": 45
   },
   {
    "empresa": "ManpowerGroup",
-   "vacantes": 22
-  },
-  {
-   "empresa": "CONSUBANCO",
-   "vacantes": 22
-  },
-  {
-   "empresa": "Grupo Financiero Banorte",
-   "vacantes": 19
-  },
-  {
-   "empresa": "BHERMANOS",
-   "vacantes": 19
+   "vacantes": 34
   },
   {
    "empresa": "Grupo Nacional Provincial",
-   "vacantes": 18
+   "vacantes": 25
   },
   {
-   "empresa": "Atento Servicios SA de CV",
-   "vacantes": 16
+   "empresa": "Grupo Financiero Banorte",
+   "vacantes": 17
   },
   {
-   "empresa": "Salud Digna",
-   "vacantes": 14
-  },
-  {
-   "empresa": "Grupo Kasa Automotriz",
-   "vacantes": 13
-  },
-  {
-   "empresa": "Nach",
-   "vacantes": 12
+   "empresa": "BHERMANOS",
+   "vacantes": 15
   },
   {
    "empresa": "Banco Plata",
-   "vacantes": 12
+   "vacantes": 13
+  },
+  {
+   "empresa": "Banco Azteca",
+   "vacantes": 13
+  },
+  {
+   "empresa": "Adecco",
+   "vacantes": 13
   },
   {
    "empresa": "Magna International, Inc",
    "vacantes": 11
+  },
+  {
+   "empresa": "Nach",
+   "vacantes": 10
+  },
+  {
+   "empresa": "Banco Santander",
+   "vacantes": 9
+  },
+  {
+   "empresa": "Smart Solutions",
+   "vacantes": 9
   }
  ],
  "cobertura_geografica": {
   "top_estados": [
    {
     "estado": "Ciudad de México",
-    "vacantes": 133
+    "vacantes": 99
    },
    {
     "estado": "Estado de México",
-    "vacantes": 75
+    "vacantes": 60
    },
    {
     "estado": "Jalisco",
-    "vacantes": 34
-   },
-   {
-    "estado": "Guanajuato",
-    "vacantes": 27
+    "vacantes": 35
    },
    {
     "estado": "Nuevo León",
-    "vacantes": 25
-   },
-   {
-    "estado": "Querétaro",
-    "vacantes": 18
-   },
-   {
-    "estado": "Puebla",
-    "vacantes": 18
-   },
-   {
-    "estado": "Aguascalientes",
-    "vacantes": 16
+    "vacantes": 27
    },
    {
     "estado": "Coahuila",
-    "vacantes": 13
+    "vacantes": 24
    },
    {
-    "estado": "Sinaloa",
+    "estado": "Chihuahua",
+    "vacantes": 17
+   },
+   {
+    "estado": "Querétaro",
+    "vacantes": 16
+   },
+   {
+    "estado": "Veracruz",
+    "vacantes": 14
+   },
+   {
+    "estado": "Baja California",
     "vacantes": 12
+   },
+   {
+    "estado": "Guanajuato",
+    "vacantes": 11
    }
   ],
-  "estados_unicos": 31
+  "estados_unicos": 30
  },
  "salario": {
-  "vacantes_con_dato": 375,
-  "pct_con_dato": 64.3,
-  "mediana_mensual_mxn": 15000,
-  "p25_mensual_mxn": 11110,
-  "p75_mensual_mxn": 20750
+  "vacantes_con_dato": 355,
+  "pct_con_dato": 68.3,
+  "mediana_mensual_mxn": 14745,
+  "p25_mensual_mxn": 11000,
+  "p75_mensual_mxn": 21907
  },
  "evolucion_semanal": [
   {
-   "semana": "05 Oct",
-   "vacantes": 223
+   "semana": "02 Nov",
+   "vacantes": 128
   },
   {
-   "semana": "12 Oct",
-   "vacantes": 360
+   "semana": "09 Nov",
+   "vacantes": 392
   }
  ],
- "total_empresas_unicas": 77,
- "ultima_semana_vacantes": 360,
+ "vacantes_con_descripcion": 9420,
+ "idiomas": [
+  {
+   "idioma": "Inglés",
+   "menciones": 247,
+   "niveles": {
+    "avanzado": 145,
+    "intermedio": 41,
+    "basico": 4,
+    "sin_nivel": 57
+   },
+   "pct": 2.6
+  },
+  {
+   "idioma": "Japonés",
+   "menciones": 5,
+   "pct": 0.1
+  },
+  {
+   "idioma": "Alemán",
+   "menciones": 4,
+   "pct": 0.0
+  },
+  {
+   "idioma": "Francés",
+   "menciones": 3,
+   "pct": 0.0
+  },
+  {
+   "idioma": "Portugués",
+   "menciones": 3,
+   "pct": 0.0
+  },
+  {
+   "idioma": "Chino (mandarín)",
+   "menciones": 1,
+   "pct": 0.0
+  }
+ ],
+ "carreras": [
+  {
+   "carrera": "Contaduría",
+   "menciones": 1977,
+   "pct": 21.0
+  },
+  {
+   "carrera": "Administración",
+   "menciones": 309,
+   "pct": 3.3
+  },
+  {
+   "carrera": "Carrera técnica",
+   "menciones": 175,
+   "pct": 1.9
+  },
+  {
+   "carrera": "Finanzas y economía",
+   "menciones": 123,
+   "pct": 1.3
+  },
+  {
+   "carrera": "Ingeniería industrial",
+   "menciones": 67,
+   "pct": 0.7
+  },
+  {
+   "carrera": "Recursos humanos y psicología",
+   "menciones": 56,
+   "pct": 0.6
+  },
+  {
+   "carrera": "Mercadotecnia y comunicación",
+   "menciones": 52,
+   "pct": 0.6
+  },
+  {
+   "carrera": "Derecho",
+   "menciones": 40,
+   "pct": 0.4
+  },
+  {
+   "carrera": "Logística y comercio internacional",
+   "menciones": 38,
+   "pct": 0.4
+  },
+  {
+   "carrera": "Salud",
+   "menciones": 31,
+   "pct": 0.3
+  },
+  {
+   "carrera": "Ingeniería civil y arquitectura",
+   "menciones": 13,
+   "pct": 0.1
+  },
+  {
+   "carrera": "Sistemas, software y TI",
+   "menciones": 11,
+   "pct": 0.1
+  }
+ ],
+ "nivel_educativo": {
+  "base": "vacantes_con_descripcion",
+  "niveles": [
+   {
+    "clave": "secundaria",
+    "nivel": "Secundaria",
+    "vacantes": 79,
+    "pct": 0.8,
+    "vacantes_con_salario": 67,
+    "salario_mediano_mensual_mxn": 10000,
+    "idiomas": [],
+    "carreras": []
+   },
+   {
+    "clave": "bachillerato",
+    "nivel": "Bachillerato o preparatoria",
+    "vacantes": 688,
+    "pct": 7.3,
+    "vacantes_con_salario": 421,
+    "salario_mediano_mensual_mxn": 11500,
+    "idiomas": [
+     {
+      "idioma": "Inglés",
+      "menciones": 2,
+      "niveles": {
+       "avanzado": 2,
+       "intermedio": 0,
+       "basico": 0,
+       "sin_nivel": 0
+      },
+      "pct": 0.3
+     }
+    ],
+    "carreras": [
+     {
+      "carrera": "Carrera técnica",
+      "menciones": 57,
+      "pct": 8.3
+     },
+     {
+      "carrera": "Contaduría",
+      "menciones": 35,
+      "pct": 5.1
+     },
+     {
+      "carrera": "Administración",
+      "menciones": 13,
+      "pct": 1.9
+     },
+     {
+      "carrera": "Mercadotecnia y comunicación",
+      "menciones": 4,
+      "pct": 0.6
+     },
+     {
+      "carrera": "Recursos humanos y psicología",
+      "menciones": 2,
+      "pct": 0.3
+     },
+     {
+      "carrera": "Logística y comercio internacional",
+      "menciones": 2,
+      "pct": 0.3
+     }
+    ]
+   },
+   {
+    "clave": "tecnico",
+    "nivel": "Técnico o TSU",
+    "vacantes": 107,
+    "pct": 1.1,
+    "vacantes_con_salario": 66,
+    "salario_mediano_mensual_mxn": 12500,
+    "idiomas": [
+     {
+      "idioma": "Inglés",
+      "menciones": 1,
+      "niveles": {
+       "avanzado": 0,
+       "intermedio": 0,
+       "basico": 0,
+       "sin_nivel": 1
+      },
+      "pct": 0.9
+     }
+    ],
+    "carreras": [
+     {
+      "carrera": "Carrera técnica",
+      "menciones": 95,
+      "pct": 88.8
+     },
+     {
+      "carrera": "Contaduría",
+      "menciones": 43,
+      "pct": 40.2
+     },
+     {
+      "carrera": "Administración",
+      "menciones": 7,
+      "pct": 6.5
+     },
+     {
+      "carrera": "Finanzas y economía",
+      "menciones": 3,
+      "pct": 2.8
+     },
+     {
+      "carrera": "Mercadotecnia y comunicación",
+      "menciones": 1,
+      "pct": 0.9
+     },
+     {
+      "carrera": "Ingeniería civil y arquitectura",
+      "menciones": 1,
+      "pct": 0.9
+     }
+    ]
+   },
+   {
+    "clave": "licenciatura",
+    "nivel": "Licenciatura o ingeniería",
+    "vacantes": 1730,
+    "pct": 18.4,
+    "vacantes_con_salario": 1184,
+    "salario_mediano_mensual_mxn": 16290,
+    "idiomas": [
+     {
+      "idioma": "Inglés",
+      "menciones": 112,
+      "niveles": {
+       "avanzado": 60,
+       "intermedio": 26,
+       "basico": 1,
+       "sin_nivel": 25
+      },
+      "pct": 6.5
+     },
+     {
+      "idioma": "Francés",
+      "menciones": 1,
+      "pct": 0.1
+     }
+    ],
+    "carreras": [
+     {
+      "carrera": "Contaduría",
+      "menciones": 987,
+      "pct": 57.1
+     },
+     {
+      "carrera": "Administración",
+      "menciones": 228,
+      "pct": 13.2
+     },
+     {
+      "carrera": "Finanzas y economía",
+      "menciones": 84,
+      "pct": 4.9
+     },
+     {
+      "carrera": "Ingeniería industrial",
+      "menciones": 57,
+      "pct": 3.3
+     },
+     {
+      "carrera": "Mercadotecnia y comunicación",
+      "menciones": 26,
+      "pct": 1.5
+     },
+     {
+      "carrera": "Logística y comercio internacional",
+      "menciones": 19,
+      "pct": 1.1
+     }
+    ]
+   },
+   {
+    "clave": "posgrado",
+    "nivel": "Posgrado",
+    "vacantes": 14,
+    "pct": 0.1,
+    "vacantes_con_salario": 7,
+    "salario_mediano_mensual_mxn": 47500,
+    "idiomas": [
+     {
+      "idioma": "Inglés",
+      "menciones": 1,
+      "niveles": {
+       "avanzado": 0,
+       "intermedio": 0,
+       "basico": 0,
+       "sin_nivel": 1
+      },
+      "pct": 7.1
+     }
+    ],
+    "carreras": [
+     {
+      "carrera": "Contaduría",
+      "menciones": 7,
+      "pct": 50.0
+     }
+    ]
+   },
+   {
+    "clave": "no_especifica",
+    "nivel": "No lo especifica",
+    "vacantes": 6802,
+    "pct": 72.2,
+    "vacantes_con_salario": 3693,
+    "salario_mediano_mensual_mxn": 15000,
+    "idiomas": [
+     {
+      "idioma": "Inglés",
+      "menciones": 131,
+      "niveles": {
+       "avanzado": 83,
+       "intermedio": 15,
+       "basico": 3,
+       "sin_nivel": 30
+      },
+      "pct": 1.9
+     },
+     {
+      "idioma": "Japonés",
+      "menciones": 5,
+      "pct": 0.1
+     },
+     {
+      "idioma": "Alemán",
+      "menciones": 4,
+      "pct": 0.1
+     },
+     {
+      "idioma": "Portugués",
+      "menciones": 3,
+      "pct": 0.0
+     },
+     {
+      "idioma": "Francés",
+      "menciones": 2,
+      "pct": 0.0
+     }
+    ],
+    "carreras": [
+     {
+      "carrera": "Contaduría",
+      "menciones": 905,
+      "pct": 13.3
+     },
+     {
+      "carrera": "Administración",
+      "menciones": 61,
+      "pct": 0.9
+     },
+     {
+      "carrera": "Recursos humanos y psicología",
+      "menciones": 39,
+      "pct": 0.6
+     },
+     {
+      "carrera": "Finanzas y economía",
+      "menciones": 35,
+      "pct": 0.5
+     },
+     {
+      "carrera": "Salud",
+      "menciones": 25,
+      "pct": 0.4
+     },
+     {
+      "carrera": "Derecho",
+      "menciones": 22,
+      "pct": 0.3
+     }
+    ]
+   }
+  ]
+ },
+ "base_descripciones": {
+  "origen": "acervo",
+  "vacantes": 9420,
+  "con_descripcion": 9420,
+  "nota": "Todas las vacantes vigentes de Adzuna para los términos del sector (hasta 5,000 por término), verificadas y pendientes de la Etapa 2. La descripción de Adzuna son los primeros ~500 caracteres."
+ },
+ "total_empresas_unicas": 85,
+ "ultima_semana_vacantes": 392,
  "vacantes_detalle": [
   {
-   "titulo": "Auditor a Agencia automotriz",
-   "empresa": "Grupo Fame",
-   "ubicacion": "Querétaro",
-   "habilidades_tecnicas": [
-    "Contabilidad general",
-    "Cumplimiento fiscal (SAT/IVA/ISR)"
-   ],
-   "habilidades_blandas": [
-    "Atención al detalle"
-   ],
-   "salario_min": 12000,
-   "salario_max": 12000,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929281200"
-  },
-  {
-   "titulo": "Accountant-fin",
-   "empresa": "Autozone",
-   "ubicacion": "Chihuahua",
-   "habilidades_tecnicas": [
-    "Contabilidad general",
-    "Cumplimiento fiscal (SAT/IVA/ISR)"
-   ],
-   "habilidades_blandas": [
-    "Atención al detalle"
-   ],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929804040"
-  },
-  {
-   "titulo": "Asesoría Digital Estado de México, Coacalco",
-   "empresa": "BBVA",
-   "ubicacion": "Coacalco de Berriozabal, Estado de México",
-   "habilidades_tecnicas": [
-    "(inferida del título)"
-   ],
-   "habilidades_blandas": [],
-   "salario_min": 15952,
-   "salario_max": 15952,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929278908"
-  },
-  {
-   "titulo": "Promotor financiero cambaceo afores, seguros, créditos individuales, créditos grupales, tdc Comisionista",
-   "empresa": "TEVA RH",
-   "ubicacion": "Salamanca, Guanajuato",
-   "habilidades_tecnicas": [
-    "Gestión de tesorería",
-    "Cuentas por cobrar/pagar"
-   ],
-   "habilidades_blandas": [
-    "Orientación a resultados"
-   ],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929278780"
-  },
-  {
-   "titulo": "Vende para el banco 1 de México Comisiones de hasta 30,000",
-   "empresa": "TEVA RH",
-   "ubicacion": "La Paz, Baja California Sur",
-   "habilidades_tecnicas": [
-    "(inferida del título)"
-   ],
-   "habilidades_blandas": [],
-   "salario_min": 30000,
-   "salario_max": 30000,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929278651"
-  },
-  {
-   "titulo": "Gerente Autogestionable Xalapa, Veracruz",
-   "empresa": "Asesoria Financiera de México",
-   "ubicacion": "Xalapa, Veracruz",
-   "habilidades_tecnicas": [
-    "Liderazgo de equipos financieros"
-   ],
-   "habilidades_blandas": [
-    "Liderazgo",
-    "Toma de decisiones"
-   ],
-   "salario_min": 14000,
-   "salario_max": 14000,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929278666"
-  },
-  {
-   "titulo": "Vacante GNP Seguros para Estudiantes Fines de Semana Cupo Limitado",
-   "empresa": "Centro de Atracción de Talento",
-   "ubicacion": "Miguel Hidalgo, Ciudad de México",
-   "habilidades_tecnicas": [
-    "(inferida del título)"
-   ],
-   "habilidades_blandas": [],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929278582"
-  },
-  {
-   "titulo": "Prevencion de fraudes con experiencia sector bancaria con horario de 15hras a 23 hras",
-   "empresa": "Nach",
-   "ubicacion": "Álvaro Obregón, Ciudad de México",
-   "habilidades_tecnicas": [
-    "(inferida del título)"
-   ],
-   "habilidades_blandas": [],
-   "salario_min": 11120,
-   "salario_max": 11120,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929278451"
-  },
-  {
-   "titulo": "Asesor Financiero Comisionistas",
-   "empresa": "CONSUBANCO",
-   "ubicacion": "Boca del Río, Veracruz",
-   "habilidades_tecnicas": [
-    "Análisis financiero",
-    "Presupuestos y forecast"
-   ],
-   "habilidades_blandas": [
-    "Pensamiento analítico"
-   ],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929278394"
-  },
-  {
-   "titulo": "Cajero a Comercial BBVA San Juan del Río,Qro.",
-   "empresa": "BBVA",
-   "ubicacion": "San Juan del Río, Querétaro",
-   "habilidades_tecnicas": [
-    "(inferida del título)"
-   ],
-   "habilidades_blandas": [],
-   "salario_min": 15952,
-   "salario_max": 15952,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929278390"
-  },
-  {
-   "titulo": "Ejecutivo de Ventas seguros, visita clientes gubernamentales Lunes a viernes",
-   "empresa": "Grupo Nacional Provincial",
-   "ubicacion": "Coacalco de Berriozabal, Estado de México",
-   "habilidades_tecnicas": [
-    "(inferida del título)"
-   ],
-   "habilidades_blandas": [],
-   "salario_min": 20000,
-   "salario_max": 20000,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929278003"
-  },
-  {
-   "titulo": "Auxiliar administrativo a creditos",
-   "empresa": "360 TALENT ACQUISITION",
-   "ubicacion": "Oaxaca de Juárez, Oaxaca",
-   "habilidades_tecnicas": [
-    "Gestión de tesorería",
-    "Cuentas por cobrar/pagar"
-   ],
-   "habilidades_blandas": [
-    "Orientación a resultados"
-   ],
-   "salario_min": 9400,
-   "salario_max": 9400,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929277932"
-  },
-  {
-   "titulo": "Ejecutivo a PyME Coatzacoalcos, Veracruz",
-   "empresa": "BBVA",
-   "ubicacion": "Coatzacoalcos, Veracruz",
-   "habilidades_tecnicas": [
-    "(inferida del título)"
-   ],
-   "habilidades_blandas": [],
-   "salario_min": 27625,
-   "salario_max": 27625,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929277948"
-  },
-  {
-   "titulo": "Repartidor de Tarjetas Bono de transporte",
-   "empresa": "BANCO PLATA",
-   "ubicacion": "Ixmiquilpan, Hidalgo",
-   "habilidades_tecnicas": [
-    "(inferida del título)"
-   ],
-   "habilidades_blandas": [],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929277880"
-  },
-  {
-   "titulo": "Asesor de banco Para Acatzingo",
-   "empresa": "Grupo Salinas",
-   "ubicacion": "Acatzingo, Puebla",
-   "habilidades_tecnicas": [
-    "(inferida del título)"
-   ],
-   "habilidades_blandas": [],
-   "salario_min": 8000,
-   "salario_max": 8000,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929277763"
-  },
-  {
-   "titulo": "Asesor de ventas experiencia en ventas financieras",
-   "empresa": "Megacable",
-   "ubicacion": "Puebla",
-   "habilidades_tecnicas": [
-    "Análisis financiero",
-    "Presupuestos y forecast"
-   ],
-   "habilidades_blandas": [
-    "Pensamiento analítico"
-   ],
-   "salario_min": 10300,
-   "salario_max": 10300,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929277604"
-  },
-  {
-   "titulo": "Asesor de Ventas Telefónicas Financieras Pagos Semanales Alimento sin costo",
-   "empresa": "TEVA RH",
-   "ubicacion": "Cuauhtémoc, Ciudad de México",
-   "habilidades_tecnicas": [
-    "Análisis financiero",
-    "Presupuestos y forecast"
-   ],
-   "habilidades_blandas": [
-    "Pensamiento analítico"
-   ],
-   "salario_min": 20000,
-   "salario_max": 20000,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929277464"
-  },
-  {
-   "titulo": "gestor de cobranza",
-   "empresa": "Grupo Salinas",
-   "ubicacion": "León, Guanajuato",
-   "habilidades_tecnicas": [
-    "Gestión de tesorería",
-    "Cuentas por cobrar/pagar"
-   ],
-   "habilidades_blandas": [
-    "Orientación a resultados"
-   ],
-   "salario_min": 14000,
-   "salario_max": 14000,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929277570"
-  },
-  {
-   "titulo": "Ejecutivo Telemarketing Ventas Sector Financiero",
-   "empresa": "TEVA RH",
-   "ubicacion": "Miguel Hidalgo, Ciudad de México",
-   "habilidades_tecnicas": [
-    "Análisis financiero",
-    "Presupuestos y forecast"
-   ],
-   "habilidades_blandas": [
-    "Pensamiento analítico"
-   ],
-   "salario_min": 10000,
-   "salario_max": 10000,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929277554"
-  },
-  {
-   "titulo": "Agente telefónico de Ventas Pago Semanal se da cartera Bono Comisiones Inmediatas",
-   "empresa": "TEVA RH",
-   "ubicacion": "Miguel Hidalgo, Ciudad de México",
-   "habilidades_tecnicas": [
-    "Gestión de tesorería",
-    "Cuentas por cobrar/pagar"
-   ],
-   "habilidades_blandas": [
-    "Orientación a resultados"
-   ],
-   "salario_min": 10000,
-   "salario_max": 10000,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929278990"
-  },
-  {
-   "titulo": "Ejecutivo a BBVA Querétaro,Qro.",
-   "empresa": "BBVA",
-   "ubicacion": "Querétaro",
-   "habilidades_tecnicas": [
-    "(inferida del título)"
-   ],
-   "habilidades_blandas": [],
-   "salario_min": 15952,
-   "salario_max": 15952,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929279410"
-  },
-  {
-   "titulo": "Asesor Financiero de Nómina",
-   "empresa": "Grupo Financiero Banorte",
-   "ubicacion": "Puebla",
-   "habilidades_tecnicas": [
-    "Contabilidad general",
-    "Cumplimiento fiscal (SAT/IVA/ISR)"
-   ],
-   "habilidades_blandas": [
-    "Atención al detalle"
-   ],
-   "salario_min": 10021,
-   "salario_max": 10021,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929279692"
-  },
-  {
-   "titulo": "Cajero a Irapuato, Gto.",
-   "empresa": "BBVA",
-   "ubicacion": "Irapuato, Guanajuato",
-   "habilidades_tecnicas": [
-    "(inferida del título)"
-   ],
-   "habilidades_blandas": [],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929281016"
-  },
-  {
-   "titulo": "Contador de Control interno",
-   "empresa": "Magna International, Inc",
+   "titulo": "Ejecutivo de Ventas Automotrices – Sin Tope de Comisiones - Plaza Dila",
+   "empresa": "Grupo Autofin",
    "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5963463551"
+  },
+  {
+   "titulo": "Líder Financiero Dinero Azteca",
+   "empresa": "Banco Azteca",
+   "ubicacion": "Miguel Hidalgo, Ciudad de México",
+   "habilidades_tecnicas": [
+    "Presupuestos y forecast"
+   ],
+   "habilidades_blandas": [
+    "Organización"
+   ],
+   "salario_min": 9100,
+   "salario_max": 9100,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5962736619"
+  },
+  {
+   "titulo": "Analista Sr de Control Interno Con experiencia sector manufacturero",
+   "empresa": "Adecco",
+   "ubicacion": "León, Guanajuato",
    "habilidades_tecnicas": [
     "Excel (básico-intermedio)",
     "Conciliaciones bancarias"
@@ -621,58 +680,100 @@
     "Atención al detalle",
     "Proactividad"
    ],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929770432"
-  },
-  {
-   "titulo": "Group Leader Sr Material Cost Reduction",
-   "empresa": "Magna International, Inc",
-   "ubicacion": "Ramos Arizpe, Coahuila de Zaragoza",
-   "habilidades_tecnicas": [
-    "(inferida del título)"
-   ],
-   "habilidades_blandas": [],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929770420"
-  },
-  {
-   "titulo": "Analista de Cumplimiento Normativo PLD FT",
-   "empresa": "Adecco",
-   "ubicacion": "Álvaro Obregón, Ciudad de México",
-   "habilidades_tecnicas": [
-    "(inferida del título)"
-   ],
-   "habilidades_blandas": [],
-   "salario_min": 30000,
-   "salario_max": 30000,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929281632"
-  },
-  {
-   "titulo": "Especialista Sr Seguridad Endpoint Security",
-   "empresa": "Grupo Salinas",
-   "ubicacion": "Tlalpan, Ciudad de México",
-   "habilidades_tecnicas": [
-    "(inferida del título)"
-   ],
-   "habilidades_blandas": [],
    "salario_min": 35000,
    "salario_max": 35000,
-   "fecha_publicacion": "2026-10-15",
+   "fecha_publicacion": "2026-11-12",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929281482"
+   "url": "https://www.adzuna.com.mx/details/5962725929"
   },
   {
-   "titulo": "Asesor De Crédito Automotriz",
+   "titulo": "Especialista Comercial Corredores y Gobierno",
+   "empresa": "Grupo Nacional Provincial",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [],
+   "salario_min": 29000,
+   "salario_max": 29660,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5963434771"
+  },
+  {
+   "titulo": "Analista Sr Pricing",
+   "empresa": "AVIS renta de autos México",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [],
+   "salario_min": 20500,
+   "salario_max": 20500,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5963444323"
+  },
+  {
+   "titulo": "AML Risk Management Frameworks",
    "empresa": "BBVA",
-   "ubicacion": "Zapopan, Jalisco",
+   "ubicacion": "Cuauhtémoc, Ciudad de México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5963451294"
+  },
+  {
+   "titulo": "Asistente Administrativa de Oficina",
+   "empresa": "Seguros Atlas",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5963461035"
+  },
+  {
+   "titulo": "Personal de cajas (Durango, Durango)",
+   "empresa": "BBVA",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5963463286"
+  },
+  {
+   "titulo": "Vendedor de Unidades Diesel",
+   "empresa": "GRUPO FRANSUN",
+   "ubicacion": "Altamira, Tamaulipas",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [],
+   "salario_min": 11000,
+   "salario_max": 11000,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5962712608"
+  },
+  {
+   "titulo": "Banco Azteca solicita Gestor de cobranza Zona Nezahualcoyotl Los Reyes",
+   "empresa": "Grupo Salinas",
+   "ubicacion": "Nezahualcóyotl, Estado de México",
    "habilidades_tecnicas": [
     "Gestión de tesorería",
     "Cuentas por cobrar/pagar"
@@ -680,44 +781,61 @@
    "habilidades_blandas": [
     "Orientación a resultados"
    ],
-   "salario_min": 13000,
-   "salario_max": 13000,
-   "fecha_publicacion": "2026-10-15",
+   "salario_min": 11000,
+   "salario_max": 11000,
+   "fecha_publicacion": "2026-11-12",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929281210"
+   "url": "https://www.adzuna.com.mx/details/5962712668"
   },
   {
-   "titulo": "Asesor a Digital Irapuato, Gto.",
-   "empresa": "BBVA",
-   "ubicacion": "Irapuato, Guanajuato",
+   "titulo": "Asesor de ventas de motocicletas",
+   "empresa": "Nach",
+   "ubicacion": "San Pedro Mixtepec Distrito 22, Oaxaca",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [],
+   "salario_min": 9583,
+   "salario_max": 9583,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5962722541"
+  },
+  {
+   "titulo": "Cobrador Tijuana bcbrh",
+   "empresa": "BHERMANOS",
+   "ubicacion": "Tijuana, Baja California",
    "habilidades_tecnicas": [
     "(inferida del título)"
    ],
    "habilidades_blandas": [],
    "salario_min": null,
    "salario_max": null,
-   "fecha_publicacion": "2026-10-15",
+   "fecha_publicacion": "2026-11-12",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929281057"
+   "url": "https://www.adzuna.com.mx/details/5962735515"
   },
   {
-   "titulo": "Promotor de mototicletas hasta 18,000",
-   "empresa": "Nach",
-   "ubicacion": "Othon P. Blanco, Quintana Roo",
+   "titulo": "Contador a",
+   "empresa": "Alden Tacubaya",
+   "ubicacion": "Naucalpan de Juárez, Estado de México",
    "habilidades_tecnicas": [
-    "(inferida del título)"
+    "Contabilidad general",
+    "Cumplimiento fiscal (SAT/IVA/ISR)"
    ],
-   "habilidades_blandas": [],
-   "salario_min": 10580,
-   "salario_max": 10580,
-   "fecha_publicacion": "2026-10-15",
+   "habilidades_blandas": [
+    "Atención al detalle"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-11-12",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929280976"
+   "url": "https://www.adzuna.com.mx/details/5962735880"
   },
   {
-   "titulo": "Cajero Pool Bancario Trabaja con Grupo Financiero Banorte",
-   "empresa": "Grupo Financiero Banorte",
-   "ubicacion": "Álvaro Obregón, Ciudad de México",
+   "titulo": "Asesor financiero Ejecutivo promotor",
+   "empresa": "TEVA RH",
+   "ubicacion": "Saltillo, Coahuila de Zaragoza",
    "habilidades_tecnicas": [
     "Análisis financiero",
     "Presupuestos y forecast"
@@ -725,16 +843,30 @@
    "habilidades_blandas": [
     "Pensamiento analítico"
    ],
-   "salario_min": 14010,
-   "salario_max": 14010,
-   "fecha_publicacion": "2026-10-15",
+   "salario_min": 26000,
+   "salario_max": 26000,
+   "fecha_publicacion": "2026-11-12",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929281043"
+   "url": "https://www.adzuna.com.mx/details/5962735994"
   },
   {
-   "titulo": "Asesor de crédito automotriz",
-   "empresa": "Grupo Financiero Banorte",
-   "ubicacion": "Jiutepec, Morelos",
+   "titulo": "Asesor Asesor promotor",
+   "empresa": "TEVA RH",
+   "ubicacion": "Chihuahua",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [],
+   "salario_min": 26000,
+   "salario_max": 26000,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5962735964"
+  },
+  {
+   "titulo": "Promotor financiero cambaceo afores, seguros, créditos individuales, créditos grupales, tdc Comisionista",
+   "empresa": "TEVA RH",
+   "ubicacion": "Chihuahua",
    "habilidades_tecnicas": [
     "Gestión de tesorería",
     "Cuentas por cobrar/pagar"
@@ -742,30 +874,16 @@
    "habilidades_blandas": [
     "Orientación a resultados"
    ],
-   "salario_min": 10021,
-   "salario_max": 10021,
-   "fecha_publicacion": "2026-10-15",
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-11-12",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929279693"
+   "url": "https://www.adzuna.com.mx/details/5962736277"
   },
   {
-   "titulo": "Personal de Caja Valparaíso, Zacateca",
-   "empresa": "BBVA",
-   "ubicacion": "Valparaíso, Zacatecas",
-   "habilidades_tecnicas": [
-    "(inferida del título)"
-   ],
-   "habilidades_blandas": [],
-   "salario_min": 15900,
-   "salario_max": 15900,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929280923"
-  },
-  {
-   "titulo": "Promotor a asesor de créditos Guadalajara o Tlaquepaque",
-   "empresa": "Adecco",
-   "ubicacion": "Guadalajara, Jalisco",
+   "titulo": "Asesor de ventas sector gobierno te damos cartera comisiones inmediatas sin monto mín ni tope",
+   "empresa": "TEVA RH",
+   "ubicacion": "Tlalnepantla de Baz, Estado de México",
    "habilidades_tecnicas": [
     "Gestión de tesorería",
     "Cuentas por cobrar/pagar"
@@ -775,115 +893,31 @@
    ],
    "salario_min": 25000,
    "salario_max": 25000,
-   "fecha_publicacion": "2026-10-15",
+   "fecha_publicacion": "2026-11-12",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929280745"
+   "url": "https://www.adzuna.com.mx/details/5962736388"
   },
   {
-   "titulo": "Promotor crédito de nómina Prestaciones superiores Comisiones",
-   "empresa": "Grupo Financiero Banorte",
-   "ubicacion": "Tlalnepantla de Baz, Estado de México",
-   "habilidades_tecnicas": [
-    "Contabilidad general",
-    "Cumplimiento fiscal (SAT/IVA/ISR)"
-   ],
-   "habilidades_blandas": [
-    "Atención al detalle"
-   ],
-   "salario_min": 10000,
-   "salario_max": 10000,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929280678"
-  },
-  {
-   "titulo": "Cajero universal Descanso en domingo",
-   "empresa": "Grupo Financiero Banorte",
-   "ubicacion": "Nicolás Romero, Estado de México",
-   "habilidades_tecnicas": [
-    "(inferida del título)"
-   ],
-   "habilidades_blandas": [],
-   "salario_min": 14000,
-   "salario_max": 14000,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929280498"
-  },
-  {
-   "titulo": "Asesor Bancario",
-   "empresa": "Grupo Salinas",
-   "ubicacion": "Iztacalco, Ciudad de México",
-   "habilidades_tecnicas": [
-    "(inferida del título)"
-   ],
-   "habilidades_blandas": [],
-   "salario_min": 9800,
-   "salario_max": 9800,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929279973"
-  },
-  {
-   "titulo": "Representante comercial Consubanco Gana más 30,000",
-   "empresa": "TEVA RH",
-   "ubicacion": "Oaxaca de Juárez, Oaxaca",
-   "habilidades_tecnicas": [
-    "(inferida del título)"
-   ],
-   "habilidades_blandas": [],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929279996"
-  },
-  {
-   "titulo": "Asesor de Ventas en Campo Sueldo Base Comisiones Sin Tope",
+   "titulo": "Promotor a asesor de créditos Dolores Hidalgo",
    "empresa": "Adecco",
-   "ubicacion": "Amecameca, Estado de México",
+   "ubicacion": "Dolores Hidalgo, Guanajuato",
    "habilidades_tecnicas": [
-    "(inferida del título)"
+    "Gestión de tesorería",
+    "Cuentas por cobrar/pagar"
    ],
-   "habilidades_blandas": [],
-   "salario_min": 11500,
-   "salario_max": 11500,
-   "fecha_publicacion": "2026-10-15",
+   "habilidades_blandas": [
+    "Orientación a resultados"
+   ],
+   "salario_min": 9580,
+   "salario_max": 9580,
+   "fecha_publicacion": "2026-11-12",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929279846"
+   "url": "https://www.adzuna.com.mx/details/5962736424"
   },
   {
-   "titulo": "Repartidor de Tarjetas Apoyo de transporte y bono garantizado",
-   "empresa": "BANCO PLATA",
-   "ubicacion": "San Juan del Río, Querétaro",
-   "habilidades_tecnicas": [
-    "(inferida del título)"
-   ],
-   "habilidades_blandas": [],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929277362"
-  },
-  {
-   "titulo": "Agente seguros para zona Leon Norte Comisionista",
-   "empresa": "Qualitas Compañía de Seguros",
-   "ubicacion": "León, Guanajuato",
-   "habilidades_tecnicas": [
-    "(inferida del título)"
-   ],
-   "habilidades_blandas": [],
-   "salario_min": 9500,
-   "salario_max": 9500,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929277293"
-  },
-  {
-   "titulo": "Ejecutivo de ventas vía telefónica Créditos descuento vía nómina",
-   "empresa": "CONSUBANCO",
-   "ubicacion": "Xalapa, Veracruz",
+   "titulo": "Auxiliar Contable - En Agencia Aduanal",
+   "empresa": "Onate Willy y CIA SC",
+   "ubicacion": "México",
    "habilidades_tecnicas": [
     "Contabilidad general",
     "Cumplimiento fiscal (SAT/IVA/ISR)"
@@ -891,16 +925,67 @@
    "habilidades_blandas": [
     "Atención al detalle"
    ],
-   "salario_min": 9400,
-   "salario_max": 9400,
-   "fecha_publicacion": "2026-10-15",
+   "salario_min": 13500,
+   "salario_max": 13500,
+   "fecha_publicacion": "2026-11-12",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929277153"
+   "url": "https://www.adzuna.com.mx/details/5963438996"
   },
   {
-   "titulo": "Gerente de crédito y cobranza",
-   "empresa": "Masterh People",
-   "ubicacion": "Culiacán, Sinaloa",
+   "titulo": "Contador General Sector Automotriz - Nissan Aragón",
+   "empresa": "Grupo Gocar",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "Contabilidad general",
+    "Cumplimiento fiscal (SAT/IVA/ISR)"
+   ],
+   "habilidades_blandas": [
+    "Atención al detalle"
+   ],
+   "salario_min": 18000,
+   "salario_max": 22000,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5963440171"
+  },
+  {
+   "titulo": "Jefe de Financiamiento - Peugeot Lomas Verdes - Peugeot Aeropuerto",
+   "empresa": "Grupo Kasa Automotriz",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "Liderazgo de equipos financieros"
+   ],
+   "habilidades_blandas": [
+    "Liderazgo",
+    "Toma de decisiones"
+   ],
+   "salario_min": 12000,
+   "salario_max": 12000,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5963451388"
+  },
+  {
+   "titulo": "Jefe Administrativo Recursos Humanos y Finanzas",
+   "empresa": "Humaniq",
+   "ubicacion": "El Marqués, Querétaro",
+   "habilidades_tecnicas": [
+    "Liderazgo de equipos financieros"
+   ],
+   "habilidades_blandas": [
+    "Liderazgo",
+    "Toma de decisiones"
+   ],
+   "salario_min": 30000,
+   "salario_max": 30000,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5962740420"
+  },
+  {
+   "titulo": "Gerente De Cartera Vencida Minatitlán bsdcv",
+   "empresa": "BHERMANOS",
+   "ubicacion": "Minatitlán, Veracruz",
    "habilidades_tecnicas": [
     "Liderazgo de equipos financieros"
    ],
@@ -910,115 +995,14 @@
    ],
    "salario_min": null,
    "salario_max": null,
-   "fecha_publicacion": "2026-10-15",
+   "fecha_publicacion": "2026-11-12",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929281118"
+   "url": "https://www.adzuna.com.mx/details/5962736987"
   },
   {
-   "titulo": "Chofer de Transporte de Personal - Transporte de personal",
-   "empresa": "Abarrotera Del Duero Sa De Cv",
-   "ubicacion": "México",
-   "habilidades_tecnicas": [
-    "(inferida del título)"
-   ],
-   "habilidades_blandas": [],
-   "salario_min": 14733,
-   "salario_max": 14733,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929191842"
-  },
-  {
-   "titulo": "Ejecutivo de ventas/ Autokasa viaducto",
-   "empresa": "Grupo Kasa Automotriz",
-   "ubicacion": "México",
-   "habilidades_tecnicas": [
-    "(inferida del título)"
-   ],
-   "habilidades_blandas": [],
-   "salario_min": 9451,
-   "salario_max": 40000,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929191686"
-  },
-  {
-   "titulo": "Desarrollador Front End Angular - Frontend Angular",
-   "empresa": "IDS Comercial",
-   "ubicacion": "México",
-   "habilidades_tecnicas": [
-    "(inferida del título)"
-   ],
-   "habilidades_blandas": [],
-   "salario_min": 30000,
-   "salario_max": 34000,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929190975"
-  },
-  {
-   "titulo": "Repartidor de Tarjetas Bono garantizado",
-   "empresa": "Banco Plata",
-   "ubicacion": "Guadalajara, Jalisco",
-   "habilidades_tecnicas": [
-    "(inferida del título)"
-   ],
-   "habilidades_blandas": [],
-   "salario_min": 45000,
-   "salario_max": 45000,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929185325"
-  },
-  {
-   "titulo": "Repartidor de Tarjetas BONO DE PRODUCTIVIDAD",
-   "empresa": "Banco Plata",
-   "ubicacion": "Los Cabos, Baja California Sur",
-   "habilidades_tecnicas": [
-    "(inferida del título)"
-   ],
-   "habilidades_blandas": [],
-   "salario_min": 35000,
-   "salario_max": 35000,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929184325"
-  },
-  {
-   "titulo": "Evergreen – Personal de Cajas (Rioverde, SLP)",
-   "empresa": "BBVA",
-   "ubicacion": "Ciudad Fernández, San Luis Potosí",
-   "habilidades_tecnicas": [
-    "(inferida del título)"
-   ],
-   "habilidades_blandas": [],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929183684"
-  },
-  {
-   "titulo": "Especialista De Consumer Finance (Hermosillo, Son.-Noroeste)",
-   "empresa": "BBVA",
-   "ubicacion": "Hermosillo, Sonora",
-   "habilidades_tecnicas": [
-    "Análisis financiero",
-    "Presupuestos y forecast"
-   ],
-   "habilidades_blandas": [
-    "Pensamiento analítico"
-   ],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929180813"
-  },
-  {
-   "titulo": "Practicante Administración Finanzas",
-   "empresa": "Desarrollo Logístico",
-   "ubicacion": "San Pedro Garza García, Nuevo León",
+   "titulo": "Becario Finanzas",
+   "empresa": "Mabe",
+   "ubicacion": "Querétaro",
    "habilidades_tecnicas": [
     "Excel (básico-intermedio)",
     "Conciliaciones bancarias"
@@ -1027,102 +1011,420 @@
     "Atención al detalle",
     "Proactividad"
    ],
-   "salario_min": 72000,
-   "salario_max": 72000,
-   "fecha_publicacion": "2026-10-15",
+   "salario_min": 7515,
+   "salario_max": 7515,
+   "fecha_publicacion": "2026-11-12",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929279903"
+   "url": "https://www.adzuna.com.mx/details/5962737034"
   },
   {
-   "titulo": "Ejecutivo de Telemarketing / Comisiones sin tope / Prestaciones de ley y superiores",
-   "empresa": "Consubanco",
-   "ubicacion": "México",
+   "titulo": "Practicante de contabilidad",
+   "empresa": "PROGRAMA BMX",
+   "ubicacion": "Naucalpan de Juárez, Estado de México",
+   "habilidades_tecnicas": [
+    "Excel (básico-intermedio)",
+    "Conciliaciones bancarias"
+   ],
+   "habilidades_blandas": [
+    "Atención al detalle",
+    "Proactividad"
+   ],
+   "salario_min": 84000,
+   "salario_max": 84000,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5962737641"
+  },
+  {
+   "titulo": "Auxiliar administrativo con manejo de motocicleta",
+   "empresa": "GEPP",
+   "ubicacion": "Chiapa de Corzo, Chiapas",
    "habilidades_tecnicas": [
     "(inferida del título)"
    ],
    "habilidades_blandas": [],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-10-15",
+   "salario_min": 10000,
+   "salario_max": 10000,
+   "fecha_publicacion": "2026-11-12",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929192733"
+   "url": "https://www.adzuna.com.mx/details/5962738245"
   },
   {
-   "titulo": "Manager de Estrategia de Desarrollo Comercial Crossborder (Ciudad de México, Torre Reforma)",
-   "empresa": "BBVA",
+   "titulo": "Auxiliar contable zona Tlalnepantla",
+   "empresa": "Grupo Satélite Automotriz",
+   "ubicacion": "Tlalnepantla de Baz, Estado de México",
+   "habilidades_tecnicas": [
+    "Contabilidad general",
+    "Cumplimiento fiscal (SAT/IVA/ISR)"
+   ],
+   "habilidades_blandas": [
+    "Atención al detalle"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5962738856"
+  },
+  {
+   "titulo": "Asesor de Credito Credito Individual",
+   "empresa": "Adecco",
+   "ubicacion": "San Nicolás de los Garza, Nuevo León",
+   "habilidades_tecnicas": [
+    "Gestión de tesorería",
+    "Cuentas por cobrar/pagar"
+   ],
+   "habilidades_blandas": [
+    "Orientación a resultados"
+   ],
+   "salario_min": 12500,
+   "salario_max": 12500,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5962739716"
+  },
+  {
+   "titulo": "Contador Cuentas por Pagar, Playa del Carmen, Quintana Roo Playa del Carmen, Q. Roo",
+   "empresa": "Grupo Salinas",
+   "ubicacion": "Solidaridad, Quintana Roo",
+   "habilidades_tecnicas": [
+    "Contabilidad general",
+    "Cumplimiento fiscal (SAT/IVA/ISR)"
+   ],
+   "habilidades_blandas": [
+    "Atención al detalle"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5962739848"
+  },
+  {
+   "titulo": "Analista de nómina JR Tlalpan",
+   "empresa": "EVOQUE CONSULTING GROUP",
+   "ubicacion": "Tlalpan, Ciudad de México",
+   "habilidades_tecnicas": [
+    "Contabilidad general",
+    "Cumplimiento fiscal (SAT/IVA/ISR)"
+   ],
+   "habilidades_blandas": [
+    "Atención al detalle"
+   ],
+   "salario_min": 14000,
+   "salario_max": 14000,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5962740260"
+  },
+  {
+   "titulo": "Analista de Cuentas Hospitalarias",
+   "empresa": "OPERADORA DE HOSPITALES ANGELES SA DE CV",
    "ubicacion": "Cuauhtémoc, Ciudad de México",
    "habilidades_tecnicas": [
     "(inferida del título)"
    ],
    "habilidades_blandas": [],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-10-15",
+   "salario_min": 9000,
+   "salario_max": 9000,
+   "fecha_publicacion": "2026-11-12",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929218721"
+   "url": "https://www.adzuna.com.mx/details/5962741165"
   },
   {
-   "titulo": "Especialista en Finanzas Personales",
-   "empresa": "Seguros Atlas",
-   "ubicacion": "Benito Juárez, Ciudad de México",
+   "titulo": "Anfitrión de tienda Sucursal El Vergel",
+   "empresa": "Abarrotera Del Duero Sa De Cv",
+   "ubicacion": "México",
    "habilidades_tecnicas": [
-    "Análisis financiero",
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5963457443"
+  },
+  {
+   "titulo": "Auxiliar contable Zeekr Polanco Agencia Automotriz Zeekr Polanco",
+   "empresa": "Grupo Fame",
+   "ubicacion": "Miguel Hidalgo, Ciudad de México",
+   "habilidades_tecnicas": [
+    "Contabilidad general",
+    "Cumplimiento fiscal (SAT/IVA/ISR)"
+   ],
+   "habilidades_blandas": [
+    "Atención al detalle"
+   ],
+   "salario_min": 14000,
+   "salario_max": 14000,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5962741690"
+  },
+  {
+   "titulo": "Gestor Vencida",
+   "empresa": "Banco Azteca",
+   "ubicacion": "Iztapalapa, Ciudad de México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [],
+   "salario_min": 10000,
+   "salario_max": 10000,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5962741875"
+  },
+  {
+   "titulo": "Gestor de Investigación",
+   "empresa": "Banco Azteca",
+   "ubicacion": "Apodaca, Nuevo León",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [],
+   "salario_min": 10000,
+   "salario_max": 10000,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5962742136"
+  },
+  {
+   "titulo": "Auxiliar administrativo/a - diligenciero/a",
+   "empresa": "Abarrotera Del Duero Sa De Cv",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [],
+   "salario_min": 11500,
+   "salario_max": 12000,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5963426824"
+  },
+  {
+   "titulo": "Analista de Crédito y Cobranza - Vespertino",
+   "empresa": "Grupo viso",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "Gestión de tesorería",
+    "Cuentas por cobrar/pagar"
+   ],
+   "habilidades_blandas": [
+    "Orientación a resultados"
+   ],
+   "salario_min": 12000,
+   "salario_max": 12000,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5963429131"
+  },
+  {
+   "titulo": "Coordinador Oficial de cumplimiento",
+   "empresa": "Filosofia En Proyectos",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
     "Presupuestos y forecast"
    ],
    "habilidades_blandas": [
-    "Pensamiento analítico"
+    "Organización"
    ],
    "salario_min": null,
    "salario_max": null,
-   "fecha_publicacion": "2026-10-15",
+   "fecha_publicacion": "2026-11-12",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929201414"
+   "url": "https://www.adzuna.com.mx/details/5963433579"
   },
   {
-   "titulo": "Especialista Suscriptor Jr.",
-   "empresa": "Grupo Nacional Provincial",
+   "titulo": "Coordinador de contabilidad fiscal",
+   "empresa": "Filosofia En Proyectos",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "Presupuestos y forecast"
+   ],
+   "habilidades_blandas": [
+    "Organización"
+   ],
+   "salario_min": 44400,
+   "salario_max": 44400,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5963463338"
+  },
+  {
+   "titulo": "Contador Cuentas por Pagar, Playa del Carmen, Quintana Roo - Playa del Carmen, Q. Roo",
+   "empresa": "Grupo Salinas",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "Contabilidad general",
+    "Cumplimiento fiscal (SAT/IVA/ISR)"
+   ],
+   "habilidades_blandas": [
+    "Atención al detalle"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5963460648"
+  },
+  {
+   "titulo": "Coordinacion de procuración de Fondos y Controles Administrativos",
+   "empresa": "TALINK",
+   "ubicacion": "Guadalajara, Jalisco",
+   "habilidades_tecnicas": [],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": 25000,
+   "salario_max": 25000,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5962736387"
+  },
+  {
+   "titulo": "Supervisor de cobranza canales digitales",
+   "empresa": "BANCO PLATA",
+   "ubicacion": "Miguel Hidalgo, Ciudad de México",
+   "habilidades_tecnicas": [
+    "Presupuestos y forecast"
+   ],
+   "habilidades_blandas": [
+    "Organización"
+   ],
+   "salario_min": 15000,
+   "salario_max": 15000,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5962736225"
+  },
+  {
+   "titulo": "Asesor digital Con discapacidad zona Jojutla",
+   "empresa": "BBVA",
+   "ubicacion": "Jojutla, Morelos",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [],
+   "salario_min": 15952,
+   "salario_max": 15952,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5962736967"
+  },
+  {
+   "titulo": "Cajero Sucursal",
+   "empresa": "Banco Santander",
    "ubicacion": "México",
    "habilidades_tecnicas": [
     "(inferida del título)"
    ],
    "habilidades_blandas": [],
-   "salario_min": 29000,
-   "salario_max": 29600,
-   "fecha_publicacion": "2026-10-15",
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-11-12",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929190825"
+   "url": "https://www.adzuna.com.mx/details/5963448332"
   },
   {
-   "titulo": "Legal Counsel",
-   "empresa": "Uala",
-   "ubicacion": "México",
+   "titulo": "Cajero Bancario",
+   "empresa": "ManpowerGroup",
+   "ubicacion": "Morelia, Michoacán de Ocampo",
    "habilidades_tecnicas": [
     "(inferida del título)"
    ],
    "habilidades_blandas": [],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-10-15",
+   "salario_min": 11577,
+   "salario_max": 11577,
+   "fecha_publicacion": "2026-11-12",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929182597"
+   "url": "https://www.adzuna.com.mx/details/5962741465"
   },
   {
-   "titulo": "Repartidor de Tarjetas APOYO DE TRANSPORTE BONO GARANTIZADO",
+   "titulo": "Promotor de ventas en campo Bono de transporte",
    "empresa": "Banco Plata",
-   "ubicacion": "Bahía de Banderas, Nayarit",
+   "ubicacion": "Monclova, Coahuila de Zaragoza",
    "habilidades_tecnicas": [
     "(inferida del título)"
    ],
    "habilidades_blandas": [],
    "salario_min": 35000,
    "salario_max": 35000,
-   "fecha_publicacion": "2026-10-15",
+   "fecha_publicacion": "2026-11-12",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929192161"
+   "url": "https://www.adzuna.com.mx/details/5963425757"
   },
   {
-   "titulo": "Gerente de Comercial créditos via nomina - Veracruz",
-   "empresa": "Consubanco",
+   "titulo": "Coordinador Contable Fiscal Fintech",
+   "empresa": "Farmacias del Ahorro",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "Presupuestos y forecast"
+   ],
+   "habilidades_blandas": [
+    "Organización"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5963432603"
+  },
+  {
+   "titulo": "Asesor F&I - Especialista de crédito automotriz (Guadalajara, Jalisco)",
+   "empresa": "BBVA",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "Gestión de tesorería",
+    "Cuentas por cobrar/pagar"
+   ],
+   "habilidades_blandas": [
+    "Orientación a resultados"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5963433062"
+  },
+  {
+   "titulo": "Contador Senior Especialista en IA y transformación digital contable - con experiencia",
+   "empresa": "Grupo Witt",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "Contabilidad general",
+    "Cumplimiento fiscal (SAT/IVA/ISR)"
+   ],
+   "habilidades_blandas": [
+    "Atención al detalle"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5963433750"
+  },
+  {
+   "titulo": "Supervisor de operaciones",
+   "empresa": "Banco Plata",
+   "ubicacion": "Naucalpan de Juárez, Estado de México",
+   "habilidades_tecnicas": [
+    "Presupuestos y forecast"
+   ],
+   "habilidades_blandas": [
+    "Organización"
+   ],
+   "salario_min": 30000,
+   "salario_max": 30000,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5963435241"
+  },
+  {
+   "titulo": "Gerente de Procesos, riesgos y control Contact Center",
+   "empresa": "Banco Santander",
    "ubicacion": "México",
    "habilidades_tecnicas": [
     "Liderazgo de equipos financieros"
@@ -1133,28 +1435,73 @@
    ],
    "salario_min": null,
    "salario_max": null,
-   "fecha_publicacion": "2026-10-15",
+   "fecha_publicacion": "2026-11-12",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929195337"
+   "url": "https://www.adzuna.com.mx/details/5963435443"
   },
   {
-   "titulo": "Asesoría Digital Zaragoza, Ciudad de México",
-   "empresa": "BBVA",
-   "ubicacion": "Venustiano Carranza, Ciudad de México",
+   "titulo": "Financiamiento y Seguros Automotriz Nissan",
+   "empresa": "Grupo Gocar",
+   "ubicacion": "México",
    "habilidades_tecnicas": [
     "(inferida del título)"
    ],
    "habilidades_blandas": [],
-   "salario_min": 15952,
-   "salario_max": 15952,
-   "fecha_publicacion": "2026-10-15",
+   "salario_min": 30000,
+   "salario_max": 40000,
+   "fecha_publicacion": "2026-11-12",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929277023"
+   "url": "https://www.adzuna.com.mx/details/5963446126"
   },
   {
-   "titulo": "Asesor de Servicios Financieros",
+   "titulo": "Promotor/a asesor de créditos - Apatzingán",
    "empresa": "Grupo Salinas",
-   "ubicacion": "Zinacantepec, Estado de México",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "Gestión de tesorería",
+    "Cuentas por cobrar/pagar"
+   ],
+   "habilidades_blandas": [
+    "Orientación a resultados"
+   ],
+   "salario_min": 8000,
+   "salario_max": 16000,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5963446302"
+  },
+  {
+   "titulo": "Promotor de ventas en campo BONO DE TRANSPORTE",
+   "empresa": "Banco Plata",
+   "ubicacion": "León, Guanajuato",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [],
+   "salario_min": 45000,
+   "salario_max": 45000,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5963447132"
+  },
+  {
+   "titulo": "Creador De Contenido Y Social Media",
+   "empresa": "Seguros Atlas",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5963450571"
+  },
+  {
+   "titulo": "representante financiero csb",
+   "empresa": "TEVA RH",
+   "ubicacion": "Torreón, Coahuila de Zaragoza",
    "habilidades_tecnicas": [
     "Análisis financiero",
     "Presupuestos y forecast"
@@ -1162,12 +1509,73 @@
    "habilidades_blandas": [
     "Pensamiento analítico"
    ],
+   "salario_min": 12300,
+   "salario_max": 12300,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5962740066"
+  },
+  {
+   "titulo": "Estibador / Auxiliar de Almacén",
+   "empresa": "Abarrotera Del Duero Sa De Cv",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [],
+   "salario_min": 7600,
+   "salario_max": 9500,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5963450895"
+  },
+  {
+   "titulo": "Analista Sr de Costos ( Flota )",
+   "empresa": "AVIS renta de autos México",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "Análisis financiero",
+    "Presupuestos y forecast"
+   ],
+   "habilidades_blandas": [
+    "Pensamiento analítico"
+   ],
+   "salario_min": 19300,
+   "salario_max": 19300,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5963451981"
+  },
+  {
+   "titulo": "Personal de Cajas (Mazatlán, Sin.- División Noroeste)",
+   "empresa": "BBVA",
+   "ubicacion": "Mazatlán, Sinaloa",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5963452510"
+  },
+  {
+   "titulo": "Lider Financiero",
+   "empresa": "Grupo Salinas",
+   "ubicacion": "Allende, Nuevo León",
+   "habilidades_tecnicas": [
+    "Presupuestos y forecast"
+   ],
+   "habilidades_blandas": [
+    "Organización"
+   ],
    "salario_min": 10000,
    "salario_max": 15000,
-   "fecha_publicacion": "2026-10-15",
+   "fecha_publicacion": "2026-11-12",
    "fuente": "OCC",
-   "url": "https://www.occ.com.mx/empleo/oferta/21376959/"
+   "url": "https://www.occ.com.mx/empleo/oferta/21409642/"
   }
  ],
- "vacantes_detalle_nota": "Generado programáticamente (2026-10-16) por etapa4_sector_json.py sobre 583 vacantes verificadas (vacantes_finanzas_verificadas_auto.csv). Todos los conteos son exactos (pandas, sin estimaciones). Salario normalizado a MXN mensual (Adzuna >90,000/año se dividió entre 12; OCC llega anualizado desde la Etapa 1 y se dividió entre 12 siempre). vacantes_con_habilidades cuenta solo habilidades EXPLÍCITAS en el CSV fuente. Muestra vacantes_detalle: filtro de recencia Adzuna<=10d / Indeed<=15d / OCC<=20d desde hoy, muestreo proporcional por fuente, máx. 60; habilidades faltantes inferidas por categoría de puesto."
+ "vacantes_detalle_nota": "Generado programáticamente (2026-11-12) por etapa4_sector_json.py sobre 520 vacantes verificadas (vacantes_finanzas_verificadas_auto.csv). Todos los conteos son exactos (pandas, sin estimaciones). Salario normalizado a MXN mensual (Adzuna >90,000/año se dividió entre 12; OCC llega anualizado desde la Etapa 1 y se dividió entre 12 siempre). vacantes_con_habilidades cuenta solo habilidades EXPLÍCITAS en el CSV fuente. Muestra vacantes_detalle: filtro de recencia Adzuna<=10d / Indeed<=15d / OCC<=20d desde hoy, muestreo proporcional por fuente, máx. 60; habilidades faltantes inferidas por categoría de puesto. Idiomas y carreras: % sobre las vacantes con descripción (vacantes_con_descripcion); sin descripciones, idiomas y carreras = null (dato pendiente). Nivel educativo: el más bajo que menciona la descripción; % sobre vacantes_con_descripcion; salario por nivel solo con 5+ salarios; null sin descripciones. base_descripciones dice si idiomas, carreras y nivel salen de la semana o del acervo de vacantes vigentes."
 }

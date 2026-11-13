@@ -1,183 +1,192 @@
 {
  "nombre": "Ventas",
- "vacantes_verificadas": 723,
- "vacantes_descartadas": 834,
+ "vacantes_verificadas": 603,
+ "vacantes_descartadas": 628,
  "vacantes_con_habilidades": 0,
  "pct_con_habilidades": 0.0,
  "fuentes": {
-  "Adzuna": 711,
-  "OCC": 12
+  "Adzuna": 594,
+  "OCC": 9
  },
  "categorias_puesto": [
   {
    "categoria": "Otro",
-   "vacantes": 299,
-   "pct": 41.4
+   "vacantes": 284,
+   "pct": 47.1
   },
   {
    "categoria": "Ejecutivo / Asesor B2C",
-   "vacantes": 228,
+   "vacantes": 190,
    "pct": 31.5
   },
   {
-   "categoria": "Piso / Mostrador / Retail",
-   "vacantes": 100,
-   "pct": 13.8
-  },
-  {
    "categoria": "Seguros / AFORE / Financieras",
-   "vacantes": 40,
-   "pct": 5.5
+   "vacantes": 45,
+   "pct": 7.5
   },
   {
-   "categoria": "Telemarketing / Call center",
-   "vacantes": 22,
-   "pct": 3.0
-  },
-  {
-   "categoria": "Comisionista / Campo",
-   "vacantes": 13,
-   "pct": 1.8
-  },
-  {
-   "categoria": "Gerencia / Supervisión comercial",
-   "vacantes": 9,
-   "pct": 1.2
+   "categoria": "Piso / Mostrador / Retail",
+   "vacantes": 44,
+   "pct": 7.3
   },
   {
    "categoria": "Calle / Ruta / Chofer-vendedor",
-   "vacantes": 7,
+   "vacantes": 10,
+   "pct": 1.7
+  },
+  {
+   "categoria": "Comisionista / Campo",
+   "vacantes": 9,
+   "pct": 1.5
+  },
+  {
+   "categoria": "Gerencia / Supervisión comercial",
+   "vacantes": 6,
+   "pct": 1.0
+  },
+  {
+   "categoria": "Telemarketing / Call center",
+   "vacantes": 6,
    "pct": 1.0
   },
   {
    "categoria": "Técnicas / B2B / KAM",
    "vacantes": 5,
+   "pct": 0.8
+  },
+  {
+   "categoria": "Administración y soporte / Trainee",
+   "vacantes": 4,
    "pct": 0.7
   }
  ],
  "habilidades_tecnicas": [
   {
-   "skill": "manejo de caja / pos",
-   "menciones": 63
-  },
-  {
    "skill": "conocimiento de productos financieros",
-   "menciones": 36
+   "menciones": 43
   },
   {
-   "skill": "manejo de script / call center",
-   "menciones": 27
-  },
-  {
-   "skill": "gestión de ruta / reparto",
-   "menciones": 23
-  },
-  {
-   "skill": "prospección de clientes / campo",
-   "menciones": 23
+   "skill": "manejo de caja / pos",
+   "menciones": 22
   },
   {
    "skill": "excel / reportes",
-   "menciones": 12
+   "menciones": 22
+  },
+  {
+   "skill": "gestión de ruta / reparto",
+   "menciones": 21
+  },
+  {
+   "skill": "prospección de clientes / campo",
+   "menciones": 21
+  },
+  {
+   "skill": "manejo de script / call center",
+   "menciones": 7
   },
   {
    "skill": "venta consultiva / b2b",
-   "menciones": 3
+   "menciones": 2
   }
  ],
  "habilidades_blandas": [
   {
    "skill": "persuasión / negociación",
-   "menciones": 154
+   "menciones": 152
   },
   {
    "skill": "liderazgo",
-   "menciones": 45
-  },
-  {
-   "skill": "orientación a resultados / comisión",
-   "menciones": 28
-  },
-  {
-   "skill": "resiliencia / manejo del estrés",
-   "menciones": 27
-  },
-  {
-   "skill": "persistencia / tolerancia al rechazo",
-   "menciones": 23
+   "menciones": 34
   },
   {
    "skill": "organización",
-   "menciones": 20
+   "menciones": 31
+  },
+  {
+   "skill": "orientación a resultados / comisión",
+   "menciones": 29
   },
   {
    "skill": "atención al cliente",
+   "menciones": 18
+  },
+  {
+   "skill": "persistencia / tolerancia al rechazo",
    "menciones": 16
+  },
+  {
+   "skill": "resiliencia / manejo del estrés",
+   "menciones": 7
+  },
+  {
+   "skill": "disposición a aprender",
+   "menciones": 4
   }
  ],
  "top_empresas": [
   {
    "empresa": "Grupo Salinas",
-   "vacantes": 80
-  },
-  {
-   "empresa": "Grupo Axo",
-   "vacantes": 41
-  },
-  {
-   "empresa": "Sears",
-   "vacantes": 32
-  },
-  {
-   "empresa": "Centro de Atracción de Talento",
-   "vacantes": 31
-  },
-  {
-   "empresa": "Nach",
-   "vacantes": 31
-  },
-  {
-   "empresa": "ManpowerGroup",
-   "vacantes": 30
-  },
-  {
-   "empresa": "Megacable",
-   "vacantes": 27
-  },
-  {
-   "empresa": "BBVA",
-   "vacantes": 26
-  },
-  {
-   "empresa": "Adecco",
-   "vacantes": 26
-  },
-  {
-   "empresa": "Sanborns",
-   "vacantes": 24
-  },
-  {
-   "empresa": "TEVA RH",
-   "vacantes": 22
-  },
-  {
-   "empresa": "GEPP",
-   "vacantes": 17
+   "vacantes": 61
   },
   {
    "empresa": "Atento Servicios SA de CV",
+   "vacantes": 33
+  },
+  {
+   "empresa": "Nach",
+   "vacantes": 28
+  },
+  {
+   "empresa": "Adecco",
+   "vacantes": 27
+  },
+  {
+   "empresa": "ManpowerGroup",
+   "vacantes": 24
+  },
+  {
+   "empresa": "Megacable",
+   "vacantes": 21
+  },
+  {
+   "empresa": "Grupo Kasa Automotriz",
+   "vacantes": 19
+  },
+  {
+   "empresa": "GEPP",
+   "vacantes": 19
+  },
+  {
+   "empresa": "TEVA RH",
    "vacantes": 17
   },
   {
-   "empresa": "Autozone",
-   "vacantes": 16
+   "empresa": "Sanborns",
+   "vacantes": 15
+  },
+  {
+   "empresa": "Sears",
+   "vacantes": 14
+  },
+  {
+   "empresa": "BBVA",
+   "vacantes": 14
+  },
+  {
+   "empresa": "Grupo Axo",
+   "vacantes": 14
+  },
+  {
+   "empresa": "Operadora De Hospitales Angeles Sa De Cv",
+   "vacantes": 13
   }
  ],
  "cobertura_geografica": {
   "top_estados": [
    {
     "estado": "Ciudad de México",
-    "vacantes": 155
+    "vacantes": 109
    },
    {
     "estado": "Estado de México",
@@ -185,63 +194,488 @@
    },
    {
     "estado": "Nuevo León",
-    "vacantes": 57
+    "vacantes": 30
    },
    {
     "estado": "Jalisco",
-    "vacantes": 47
-   },
-   {
-    "estado": "Puebla",
-    "vacantes": 33
+    "vacantes": 28
    },
    {
     "estado": "Querétaro",
-    "vacantes": 26
+    "vacantes": 14
    },
    {
-    "estado": "Guanajuato",
-    "vacantes": 21
-   },
-   {
-    "estado": "Veracruz",
-    "vacantes": 19
-   },
-   {
-    "estado": "Coahuila",
-    "vacantes": 16
+    "estado": "Chihuahua",
+    "vacantes": 13
    },
    {
     "estado": "Michoacán",
-    "vacantes": 16
+    "vacantes": 12
+   },
+   {
+    "estado": "Coahuila",
+    "vacantes": 11
+   },
+   {
+    "estado": "Guanajuato",
+    "vacantes": 11
+   },
+   {
+    "estado": "San Luis Potosí",
+    "vacantes": 10
    }
   ],
-  "estados_unicos": 28
+  "estados_unicos": 29
  },
  "salario": {
-  "vacantes_con_dato": 537,
-  "pct_con_dato": 74.3,
-  "mediana_mensual_mxn": 11500,
-  "p25_mensual_mxn": 10000,
-  "p75_mensual_mxn": 14500
+  "vacantes_con_dato": 444,
+  "pct_con_dato": 73.6,
+  "mediana_mensual_mxn": 11737,
+  "p25_mensual_mxn": 9990,
+  "p75_mensual_mxn": 15000
  },
  "evolucion_semanal": [
   {
-   "semana": "05 Oct",
-   "vacantes": 90
+   "semana": "02 Nov",
+   "vacantes": 79
   },
   {
-   "semana": "12 Oct",
-   "vacantes": 633
+   "semana": "09 Nov",
+   "vacantes": 524
   }
  ],
- "total_empresas_unicas": 104,
- "ultima_semana_vacantes": 633,
+ "vacantes_con_descripcion": 8116,
+ "idiomas": [
+  {
+   "idioma": "Inglés",
+   "menciones": 251,
+   "niveles": {
+    "avanzado": 135,
+    "intermedio": 16,
+    "basico": 13,
+    "sin_nivel": 87
+   },
+   "pct": 3.1
+  },
+  {
+   "idioma": "Japonés",
+   "menciones": 7,
+   "pct": 0.1
+  },
+  {
+   "idioma": "Francés",
+   "menciones": 6,
+   "pct": 0.1
+  },
+  {
+   "idioma": "Portugués",
+   "menciones": 6,
+   "pct": 0.1
+  },
+  {
+   "idioma": "Alemán",
+   "menciones": 4,
+   "pct": 0.0
+  },
+  {
+   "idioma": "Chino (mandarín)",
+   "menciones": 3,
+   "pct": 0.0
+  },
+  {
+   "idioma": "Italiano",
+   "menciones": 2,
+   "pct": 0.0
+  },
+  {
+   "idioma": "Coreano",
+   "menciones": 2,
+   "pct": 0.0
+  }
+ ],
+ "carreras": [
+  {
+   "carrera": "Carrera técnica",
+   "menciones": 116,
+   "pct": 1.4
+  },
+  {
+   "carrera": "Salud",
+   "menciones": 82,
+   "pct": 1.0
+  },
+  {
+   "carrera": "Mercadotecnia y comunicación",
+   "menciones": 47,
+   "pct": 0.6
+  },
+  {
+   "carrera": "Ingeniería industrial",
+   "menciones": 42,
+   "pct": 0.5
+  },
+  {
+   "carrera": "Administración",
+   "menciones": 40,
+   "pct": 0.5
+  },
+  {
+   "carrera": "Logística y comercio internacional",
+   "menciones": 26,
+   "pct": 0.3
+  },
+  {
+   "carrera": "Turismo, hotelería y gastronomía",
+   "menciones": 19,
+   "pct": 0.2
+  },
+  {
+   "carrera": "Recursos humanos y psicología",
+   "menciones": 14,
+   "pct": 0.2
+  },
+  {
+   "carrera": "Ingeniería mecatrónica",
+   "menciones": 13,
+   "pct": 0.2
+  },
+  {
+   "carrera": "Contaduría",
+   "menciones": 10,
+   "pct": 0.1
+  },
+  {
+   "carrera": "Ingeniería civil y arquitectura",
+   "menciones": 8,
+   "pct": 0.1
+  },
+  {
+   "carrera": "Ingeniería eléctrica y electrónica",
+   "menciones": 7,
+   "pct": 0.1
+  }
+ ],
+ "nivel_educativo": {
+  "base": "vacantes_con_descripcion",
+  "niveles": [
+   {
+    "clave": "secundaria",
+    "nivel": "Secundaria",
+    "vacantes": 543,
+    "pct": 6.7,
+    "vacantes_con_salario": 430,
+    "salario_mediano_mensual_mxn": 10000,
+    "idiomas": [
+     {
+      "idioma": "Inglés",
+      "menciones": 3,
+      "niveles": {
+       "avanzado": 1,
+       "intermedio": 0,
+       "basico": 0,
+       "sin_nivel": 2
+      },
+      "pct": 0.6
+     },
+     {
+      "idioma": "Alemán",
+      "menciones": 1,
+      "pct": 0.2
+     }
+    ],
+    "carreras": [
+     {
+      "carrera": "Salud",
+      "menciones": 12,
+      "pct": 2.2
+     },
+     {
+      "carrera": "Contaduría",
+      "menciones": 1,
+      "pct": 0.2
+     },
+     {
+      "carrera": "Carrera técnica",
+      "menciones": 1,
+      "pct": 0.2
+     }
+    ]
+   },
+   {
+    "clave": "bachillerato",
+    "nivel": "Bachillerato o preparatoria",
+    "vacantes": 819,
+    "pct": 10.1,
+    "vacantes_con_salario": 592,
+    "salario_mediano_mensual_mxn": 10950,
+    "idiomas": [
+     {
+      "idioma": "Inglés",
+      "menciones": 25,
+      "niveles": {
+       "avanzado": 4,
+       "intermedio": 4,
+       "basico": 11,
+       "sin_nivel": 6
+      },
+      "pct": 3.1
+     },
+     {
+      "idioma": "Italiano",
+      "menciones": 2,
+      "pct": 0.2
+     }
+    ],
+    "carreras": [
+     {
+      "carrera": "Carrera técnica",
+      "menciones": 69,
+      "pct": 8.4
+     },
+     {
+      "carrera": "Salud",
+      "menciones": 14,
+      "pct": 1.7
+     },
+     {
+      "carrera": "Administración",
+      "menciones": 5,
+      "pct": 0.6
+     },
+     {
+      "carrera": "Mercadotecnia y comunicación",
+      "menciones": 3,
+      "pct": 0.4
+     },
+     {
+      "carrera": "Ingeniería industrial",
+      "menciones": 3,
+      "pct": 0.4
+     },
+     {
+      "carrera": "Logística y comercio internacional",
+      "menciones": 3,
+      "pct": 0.4
+     }
+    ]
+   },
+   {
+    "clave": "tecnico",
+    "nivel": "Técnico o TSU",
+    "vacantes": 30,
+    "pct": 0.4,
+    "vacantes_con_salario": 15,
+    "salario_mediano_mensual_mxn": 11000,
+    "idiomas": [
+     {
+      "idioma": "Inglés",
+      "menciones": 1,
+      "niveles": {
+       "avanzado": 1,
+       "intermedio": 0,
+       "basico": 0,
+       "sin_nivel": 0
+      },
+      "pct": 3.3
+     }
+    ],
+    "carreras": [
+     {
+      "carrera": "Carrera técnica",
+      "menciones": 25,
+      "pct": 83.3
+     },
+     {
+      "carrera": "Mercadotecnia y comunicación",
+      "menciones": 5,
+      "pct": 16.7
+     },
+     {
+      "carrera": "Salud",
+      "menciones": 4,
+      "pct": 13.3
+     },
+     {
+      "carrera": "Administración",
+      "menciones": 1,
+      "pct": 3.3
+     },
+     {
+      "carrera": "Sistemas, software y TI",
+      "menciones": 1,
+      "pct": 3.3
+     }
+    ]
+   },
+   {
+    "clave": "licenciatura",
+    "nivel": "Licenciatura o ingeniería",
+    "vacantes": 294,
+    "pct": 3.6,
+    "vacantes_con_salario": 181,
+    "salario_mediano_mensual_mxn": 17000,
+    "idiomas": [
+     {
+      "idioma": "Inglés",
+      "menciones": 27,
+      "niveles": {
+       "avanzado": 15,
+       "intermedio": 3,
+       "basico": 2,
+       "sin_nivel": 7
+      },
+      "pct": 9.2
+     }
+    ],
+    "carreras": [
+     {
+      "carrera": "Ingeniería industrial",
+      "menciones": 29,
+      "pct": 9.9
+     },
+     {
+      "carrera": "Mercadotecnia y comunicación",
+      "menciones": 26,
+      "pct": 8.8
+     },
+     {
+      "carrera": "Administración",
+      "menciones": 25,
+      "pct": 8.5
+     },
+     {
+      "carrera": "Salud",
+      "menciones": 16,
+      "pct": 5.4
+     },
+     {
+      "carrera": "Logística y comercio internacional",
+      "menciones": 14,
+      "pct": 4.8
+     },
+     {
+      "carrera": "Ingeniería mecatrónica",
+      "menciones": 9,
+      "pct": 3.1
+     }
+    ]
+   },
+   {
+    "clave": "posgrado",
+    "nivel": "Posgrado",
+    "vacantes": 1,
+    "pct": 0.0,
+    "vacantes_con_salario": 1,
+    "salario_mediano_mensual_mxn": null,
+    "idiomas": [
+     {
+      "idioma": "Inglés",
+      "menciones": 1,
+      "niveles": {
+       "avanzado": 1,
+       "intermedio": 0,
+       "basico": 0,
+       "sin_nivel": 0
+      },
+      "pct": 100.0
+     }
+    ],
+    "carreras": [
+     {
+      "carrera": "Salud",
+      "menciones": 1,
+      "pct": 100.0
+     }
+    ]
+   },
+   {
+    "clave": "no_especifica",
+    "nivel": "No lo especifica",
+    "vacantes": 6429,
+    "pct": 79.2,
+    "vacantes_con_salario": 3416,
+    "salario_mediano_mensual_mxn": 12000,
+    "idiomas": [
+     {
+      "idioma": "Inglés",
+      "menciones": 194,
+      "niveles": {
+       "avanzado": 113,
+       "intermedio": 9,
+       "basico": 0,
+       "sin_nivel": 72
+      },
+      "pct": 3.0
+     },
+     {
+      "idioma": "Japonés",
+      "menciones": 7,
+      "pct": 0.1
+     },
+     {
+      "idioma": "Francés",
+      "menciones": 6,
+      "pct": 0.1
+     },
+     {
+      "idioma": "Portugués",
+      "menciones": 6,
+      "pct": 0.1
+     },
+     {
+      "idioma": "Alemán",
+      "menciones": 3,
+      "pct": 0.0
+     }
+    ],
+    "carreras": [
+     {
+      "carrera": "Salud",
+      "menciones": 35,
+      "pct": 0.5
+     },
+     {
+      "carrera": "Turismo, hotelería y gastronomía",
+      "menciones": 16,
+      "pct": 0.2
+     },
+     {
+      "carrera": "Carrera técnica",
+      "menciones": 16,
+      "pct": 0.2
+     },
+     {
+      "carrera": "Mercadotecnia y comunicación",
+      "menciones": 13,
+      "pct": 0.2
+     },
+     {
+      "carrera": "Recursos humanos y psicología",
+      "menciones": 10,
+      "pct": 0.2
+     },
+     {
+      "carrera": "Ingeniería industrial",
+      "menciones": 10,
+      "pct": 0.2
+     }
+    ]
+   }
+  ]
+ },
+ "base_descripciones": {
+  "origen": "acervo",
+  "vacantes": 8116,
+  "con_descripcion": 8116,
+  "nota": "Todas las vacantes vigentes de Adzuna para los términos del sector (hasta 5,000 por término), verificadas y pendientes de la Etapa 2. La descripción de Adzuna son los primeros ~500 caracteres."
+ },
+ "total_empresas_unicas": 110,
+ "ultima_semana_vacantes": 524,
  "vacantes_detalle": [
   {
-   "titulo": "Technology Sales Director - Mexico",
-   "empresa": "Oracle",
-   "ubicacion": "Ciudad de México, México",
+   "titulo": "Bartender",
+   "empresa": "Amarone",
+   "ubicacion": "México",
    "habilidades_tecnicas": [
     "(inferida del título)"
    ],
@@ -250,494 +684,590 @@
    ],
    "salario_min": null,
    "salario_max": null,
-   "fecha_publicacion": "2026-10-16",
+   "fecha_publicacion": "2026-11-12",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5930116921"
+   "url": "https://www.adzuna.com.mx/details/5963462811"
   },
   {
-   "titulo": "SUPERVISOR",
-   "empresa": "AutoZone, Inc.",
-   "ubicacion": "Aguascalientes",
-   "habilidades_tecnicas": [
-    "(inferida del título)"
-   ],
-   "habilidades_blandas": [
-    "Responsabilidad"
-   ],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-10-16",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5930116331"
-  },
-  {
-   "titulo": "Parts Pro",
-   "empresa": "AutoZone, Inc.",
-   "ubicacion": "Puebla",
-   "habilidades_tecnicas": [
-    "(inferida del título)"
-   ],
-   "habilidades_blandas": [
-    "Responsabilidad"
-   ],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-10-16",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5930116337"
-  },
-  {
-   "titulo": "Ejecutivo Telefónico Trabaja Solo Sábado y Domingo Seguros Banorte",
-   "empresa": "Centro de Atracción de Talento",
-   "ubicacion": "Gustavo A. Madero, Ciudad de México",
+   "titulo": "Ejecutivo Bancario Plaza del Parque",
+   "empresa": "Grupo Salinas",
+   "ubicacion": "México",
    "habilidades_tecnicas": [
     "Productos financieros"
    ],
    "habilidades_blandas": [
     "Generar confianza"
-   ],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929278694"
-  },
-  {
-   "titulo": "Líder Técnico de Reparación de Dispositivos y Servicio",
-   "empresa": "Mixup",
-   "ubicacion": "Mexicali, Baja California",
-   "habilidades_tecnicas": [
-    "(inferida del título)"
-   ],
-   "habilidades_blandas": [
-    "Responsabilidad"
-   ],
-   "salario_min": 16000,
-   "salario_max": 16000,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929278388"
-  },
-  {
-   "titulo": "Vendedor cambaceo Zacapu",
-   "empresa": "Megacable",
-   "ubicacion": "Zacapu, Michoacán de Ocampo",
-   "habilidades_tecnicas": [
-    "Prospección en campo"
-   ],
-   "habilidades_blandas": [
-    "Persistencia"
-   ],
-   "salario_min": 9450,
-   "salario_max": 9450,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929278296"
-  },
-  {
-   "titulo": "Agente Comercial con Auto Propio en Torreón Sin Límite de Comisiones",
-   "empresa": "WURTH MEXICO SA DE CV",
-   "ubicacion": "Torreón, Coahuila de Zaragoza",
-   "habilidades_tecnicas": [
-    "Negociación comercial"
-   ],
-   "habilidades_blandas": [
-    "Persuasión"
-   ],
-   "salario_min": 15000,
-   "salario_max": 15000,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929278358"
-  },
-  {
-   "titulo": "Ayudante General sin Experiencia con Apoyo de Transporte Muebleria Paseo San Pedro.",
-   "empresa": "Liverpool",
-   "ubicacion": "San Pedro Garza García, Nuevo León",
-   "habilidades_tecnicas": [
-    "(inferida del título)"
-   ],
-   "habilidades_blandas": [
-    "Responsabilidad"
-   ],
-   "salario_min": 12900,
-   "salario_max": 12900,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929278337"
-  },
-  {
-   "titulo": "Recepcionista de citas Agencia Automotriz",
-   "empresa": "Grupo DC",
-   "ubicacion": "Mérida, Yucatán",
-   "habilidades_tecnicas": [
-    "(inferida del título)"
-   ],
-   "habilidades_blandas": [
-    "Responsabilidad"
-   ],
-   "salario_min": 9583,
-   "salario_max": 9583,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929278302"
-  },
-  {
-   "titulo": "Asesor de ventas Qualitas Fin de Semana Tiempo Completo contratación inmediata",
-   "empresa": "Centro de Atracción de Talento",
-   "ubicacion": "Azcapotzalco, Ciudad de México",
-   "habilidades_tecnicas": [
-    "Negociación comercial"
-   ],
-   "habilidades_blandas": [
-    "Persuasión"
-   ],
-   "salario_min": 9500,
-   "salario_max": 9500,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929278373"
-  },
-  {
-   "titulo": "Cobrador en Moto Pachuca y alrededores",
-   "empresa": "Grupo Salinas",
-   "ubicacion": "Pachuca de Soto, Hidalgo",
-   "habilidades_tecnicas": [
-    "(inferida del título)"
-   ],
-   "habilidades_blandas": [
-    "Responsabilidad"
-   ],
-   "salario_min": 10000,
-   "salario_max": 10000,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929278317"
-  },
-  {
-   "titulo": "Supervisor de sucursal",
-   "empresa": "AutoZone México",
-   "ubicacion": "Aguascalientes",
-   "habilidades_tecnicas": [
-    "(inferida del título)"
-   ],
-   "habilidades_blandas": [
-    "Responsabilidad"
-   ],
-   "salario_min": 14500,
-   "salario_max": 14500,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929278219"
-  },
-  {
-   "titulo": "Encargado de sucursal Cajero",
-   "empresa": "Grupo DAR Suspensión y Dirección Refaccionarias DAR",
-   "ubicacion": "Tuxtla Gutiérrez, Chiapas",
-   "habilidades_tecnicas": [
-    "Manejo de caja/POS"
-   ],
-   "habilidades_blandas": [
-    "Atención al cliente"
-   ],
-   "salario_min": 20000,
-   "salario_max": 20000,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929278222"
-  },
-  {
-   "titulo": "Vendedor de campo Empresa líder en el mercado",
-   "empresa": "Adecco",
-   "ubicacion": "Monterrey, Nuevo León",
-   "habilidades_tecnicas": [
-    "Prospección en campo"
-   ],
-   "habilidades_blandas": [
-    "Persistencia"
-   ],
-   "salario_min": 20035,
-   "salario_max": 20035,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929278173"
-  },
-  {
-   "titulo": "Asesor fiancieron ventas seguros GNP Salario prestaciones comisiones",
-   "empresa": "Grupo Nacional Provincial",
-   "ubicacion": "Tultitlán, Estado de México",
-   "habilidades_tecnicas": [
-    "Productos financieros"
-   ],
-   "habilidades_blandas": [
-    "Generar confianza"
-   ],
-   "salario_min": 20000,
-   "salario_max": 20000,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929278250"
-  },
-  {
-   "titulo": "Vendedor de telefonía, zona Chimalhuacan Chimalhuacan",
-   "empresa": "Grupo Salinas",
-   "ubicacion": "Chimalhuacán, Estado de México",
-   "habilidades_tecnicas": [
-    "Negociación comercial"
-   ],
-   "habilidades_blandas": [
-    "Persuasión"
    ],
    "salario_min": 8000,
-   "salario_max": 8000,
-   "fecha_publicacion": "2026-10-15",
+   "salario_max": 15000,
+   "fecha_publicacion": "2026-11-12",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929278242"
+   "url": "https://www.adzuna.com.mx/details/5963441384"
   },
   {
-   "titulo": "Gestor de cobranza zona valle de Chalco Moto y Gasolina",
-   "empresa": "Grupo Salinas",
-   "ubicacion": "Valle de Chalco, Estado de México",
-   "habilidades_tecnicas": [
-    "(inferida del título)"
-   ],
-   "habilidades_blandas": [
-    "Responsabilidad"
-   ],
-   "salario_min": 11000,
-   "salario_max": 11000,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929278091"
-  },
-  {
-   "titulo": "Vendedor de Refacciones Automotriz",
-   "empresa": "Grupo DAR Suspensión y Dirección Refaccionarias DAR",
-   "ubicacion": "Tuxtla Gutiérrez, Chiapas",
+   "titulo": "Especialista Comercial",
+   "empresa": "Autozone",
+   "ubicacion": "San Luis de la Paz, Guanajuato",
    "habilidades_tecnicas": [
     "Negociación comercial"
    ],
    "habilidades_blandas": [
     "Persuasión"
-   ],
-   "salario_min": 11000,
-   "salario_max": 11000,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929278078"
-  },
-  {
-   "titulo": "Auxiliar de Temporada Noviembre y Diciembre Tiempo Completo 46 horas, 2 descansos a la semana",
-   "empresa": "CA MEXICO S DE RL",
-   "ubicacion": "Pachuca de Soto, Hidalgo",
-   "habilidades_tecnicas": [
-    "(inferida del título)"
-   ],
-   "habilidades_blandas": [
-    "Responsabilidad"
-   ],
-   "salario_min": 12700,
-   "salario_max": 12700,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929278133"
-  },
-  {
-   "titulo": "Ejecutivo de Atención al Cliente Bilinge Aeropuerto Internacional Monterrey",
-   "empresa": "ManpowerGroup",
-   "ubicacion": "Apodaca, Nuevo León",
-   "habilidades_tecnicas": [
-    "Negociación comercial"
-   ],
-   "habilidades_blandas": [
-    "Persuasión"
-   ],
-   "salario_min": 21000,
-   "salario_max": 21000,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929278072"
-  },
-  {
-   "titulo": "Urge Promotor de cambaceo de productos de Motocicleta",
-   "empresa": "Nach",
-   "ubicacion": "Celaya, Guanajuato",
-   "habilidades_tecnicas": [
-    "Prospección en campo"
-   ],
-   "habilidades_blandas": [
-    "Persistencia"
    ],
    "salario_min": null,
    "salario_max": null,
-   "fecha_publicacion": "2026-10-15",
+   "fecha_publicacion": "2026-11-12",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929278014"
+   "url": "https://www.adzuna.com.mx/details/5963433558"
   },
   {
-   "titulo": "Ejecutivo de Ventas seguros, visita clientes gubernamentales Lunes a viernes",
-   "empresa": "Grupo Nacional Provincial",
-   "ubicacion": "Coacalco de Berriozabal, Estado de México",
-   "habilidades_tecnicas": [
-    "Productos financieros"
-   ],
-   "habilidades_blandas": [
-    "Generar confianza"
-   ],
-   "salario_min": 20000,
-   "salario_max": 20000,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929278003"
-  },
-  {
-   "titulo": "Cajero a Comercial BBVA San Juan del Río,Qro.",
-   "empresa": "BBVA",
-   "ubicacion": "San Juan del Río, Querétaro",
-   "habilidades_tecnicas": [
-    "Manejo de caja/POS"
-   ],
-   "habilidades_blandas": [
-    "Atención al cliente"
-   ],
-   "salario_min": 15952,
-   "salario_max": 15952,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929278390"
-  },
-  {
-   "titulo": "Ejecutivo de atención a clientes y ventas",
-   "empresa": "Grupo Financiero Banorte",
-   "ubicacion": "Cuautla, Morelos",
-   "habilidades_tecnicas": [
-    "Negociación comercial"
-   ],
-   "habilidades_blandas": [
-    "Persuasión"
-   ],
-   "salario_min": 14010,
-   "salario_max": 14010,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929278782"
-  },
-  {
-   "titulo": "Vende para el banco 1 de México Comisiones de hasta 30,000",
-   "empresa": "TEVA RH",
-   "ubicacion": "La Paz, Baja California Sur",
-   "habilidades_tecnicas": [
-    "(inferida del título)"
-   ],
-   "habilidades_blandas": [
-    "Responsabilidad"
-   ],
-   "salario_min": 30000,
-   "salario_max": 30000,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929278651"
-  },
-  {
-   "titulo": "Call Center AXA Sin experiencia Ingreso inmediato Dos días fijos de descanso",
-   "empresa": "Centro de Atracción de Talento",
-   "ubicacion": "Iztapalapa, Ciudad de México",
+   "titulo": "ETAC Asesor educativo - Call center",
+   "empresa": "Aliat Universidades",
+   "ubicacion": "México",
    "habilidades_tecnicas": [
     "Manejo de script telefónico"
    ],
    "habilidades_blandas": [
     "Resiliencia"
    ],
-   "salario_min": 10000,
-   "salario_max": 10000,
-   "fecha_publicacion": "2026-10-15",
+   "salario_min": 9820,
+   "salario_max": 9820,
+   "fecha_publicacion": "2026-11-12",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929278074"
+   "url": "https://www.adzuna.com.mx/details/5963433281"
   },
   {
-   "titulo": "Supervisor promotores de campo",
-   "empresa": "Megacable",
-   "ubicacion": "Guadalajara, Jalisco",
+   "titulo": "Personal de Cajas (San Ignacio Cerro Gordo, Jalisco)",
+   "empresa": "BBVA",
+   "ubicacion": "San Ignacio Cerro Gordo, Jalisco",
+   "habilidades_tecnicas": [
+    "Manejo de caja/POS"
+   ],
+   "habilidades_blandas": [
+    "Atención al cliente"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5963433239"
+  },
+  {
+   "titulo": "Ejecutivo de ventas hotel",
+   "empresa": "Medica Sur",
+   "ubicacion": "México",
    "habilidades_tecnicas": [
     "Negociación comercial"
    ],
    "habilidades_blandas": [
     "Persuasión"
    ],
-   "salario_min": 15010,
-   "salario_max": 15010,
-   "fecha_publicacion": "2026-10-15",
+   "salario_min": 19800,
+   "salario_max": 19800,
+   "fecha_publicacion": "2026-11-12",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929278653"
+   "url": "https://www.adzuna.com.mx/details/5963433172"
   },
   {
-   "titulo": "Gerente comercial",
-   "empresa": "Staffbridge Group",
-   "ubicacion": "San Pedro Tlaquepaque, Jalisco",
+   "titulo": "Asesor F&I - Especialista de crédito automotriz (Guadalajara, Jalisco)",
+   "empresa": "BBVA",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "Productos financieros"
+   ],
+   "habilidades_blandas": [
+    "Generar confianza"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5963433062"
+  },
+  {
+   "titulo": "Ejecutivo de Ventas Seminuevos - Honda Metepec y Honda Tollocan",
+   "empresa": "Grupo Gocar",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "Negociación comercial"
+   ],
+   "habilidades_blandas": [
+    "Persuasión"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5963432540"
+  },
+  {
+   "titulo": "Ejecutivo de Ventas de Autos- Grupokasa Automotriz",
+   "empresa": "Grupo Kasa Automotriz",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "Negociación comercial"
+   ],
+   "habilidades_blandas": [
+    "Persuasión"
+   ],
+   "salario_min": 88800,
+   "salario_max": 88800,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5963429538"
+  },
+  {
+   "titulo": "Ejecutivo/a Pyme (San Luis Potosí, SLP.)",
+   "empresa": "BBVA",
+   "ubicacion": "Soledad de Graciano Sánchez, San Luis Potosí",
+   "habilidades_tecnicas": [
+    "Negociación comercial"
+   ],
+   "habilidades_blandas": [
+    "Persuasión"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5963428975"
+  },
+  {
+   "titulo": "Ejecutivo De Ventas Empresariales",
+   "empresa": "OfficeMax",
+   "ubicacion": "Aguascalientes",
+   "habilidades_tecnicas": [
+    "Negociación comercial"
+   ],
+   "habilidades_blandas": [
+    "Persuasión"
+   ],
+   "salario_min": 10100,
+   "salario_max": 14000,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5963428557"
+  },
+  {
+   "titulo": "Clasificador Arancelario",
+   "empresa": "Onate Willy y CIA SC",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": 23650,
+   "salario_max": 28000,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5963428237"
+  },
+  {
+   "titulo": "Valuador Presta Prenda Ixtlahuaca - Valuador Presta Prenda Ixtlahuaca",
+   "empresa": "Grupo Salinas",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": 10000,
+   "salario_max": 12000,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5963427577"
+  },
+  {
+   "titulo": "Valuador / Comprador de Seminuevos - Geely Polanco",
+   "empresa": "Grupo Fame",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": 10000,
+   "salario_max": 20000,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5963427193"
+  },
+  {
+   "titulo": "Asesor de Ventas Autos Seminuevos - MG Tollocan",
+   "empresa": "Grupo Gocar",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "Negociación comercial"
+   ],
+   "habilidades_blandas": [
+    "Persuasión"
+   ],
+   "salario_min": 20000,
+   "salario_max": 30000,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5963426831"
+  },
+  {
+   "titulo": "Mesero / Vendedor / Revolución - Mesero / Vendedor / Revolución",
+   "empresa": "Wingstop",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "Negociación comercial"
+   ],
+   "habilidades_blandas": [
+    "Persuasión"
+   ],
+   "salario_min": 9000,
+   "salario_max": 9000,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5963426531"
+  },
+  {
+   "titulo": "Ejecutivo a de Ventas en Sucursal Centro Ejecutivo a de Ventas en Sucursal Centro",
+   "empresa": "Atento Servicios SA de CV",
+   "ubicacion": "Tijuana, Baja California",
+   "habilidades_tecnicas": [
+    "Negociación comercial"
+   ],
+   "habilidades_blandas": [
+    "Persuasión"
+   ],
+   "salario_min": 13410,
+   "salario_max": 13410,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5962742114"
+  },
+  {
+   "titulo": "Coordinador Oficial de cumplimiento",
+   "empresa": "Filosofia En Proyectos",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5963433579"
+  },
+  {
+   "titulo": "Vendedor de Joyería / Lago de Guadalupe",
+   "empresa": "Grupo Salinas",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "Negociación comercial"
+   ],
+   "habilidades_blandas": [
+    "Persuasión"
+   ],
+   "salario_min": 10000,
+   "salario_max": 13000,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5963434034"
+  },
+  {
+   "titulo": "Business Analyst - Sector Asegurador",
+   "empresa": "IDS Comercial",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5963434184"
+  },
+  {
+   "titulo": "Profesional Vendedor De Autopartes",
+   "empresa": "Autozone",
+   "ubicacion": "San Luis Potosí, México",
+   "habilidades_tecnicas": [
+    "Negociación comercial"
+   ],
+   "habilidades_blandas": [
+    "Persuasión"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5963437135"
+  },
+  {
+   "titulo": "Coordinador BDC - Agencia automotriz",
+   "empresa": "Grupo Fame",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": 10000,
+   "salario_max": 10000,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5963440507"
+  },
+  {
+   "titulo": "Instructor de Operadores de Bus.",
+   "empresa": "Volvo Group Mexico Sa De Cv",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": 20000,
+   "salario_max": 30000,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5963439975"
+  },
+  {
+   "titulo": "Asesor de Créditos y servicios Financieros Los Cabos, BCS - sucursal Centro de Los Cabos, BCS",
+   "empresa": "Grupo Salinas",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "Productos financieros"
+   ],
+   "habilidades_blandas": [
+    "Generar confianza"
+   ],
+   "salario_min": 11000,
+   "salario_max": 14000,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5963439375"
+  },
+  {
+   "titulo": "Ejecutivo Telefónico Hyundai Satélite",
+   "empresa": "Grupo Kasa Automotriz",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "Negociación comercial"
+   ],
+   "habilidades_blandas": [
+    "Persuasión"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5963439266"
+  },
+  {
+   "titulo": "Administrador ventas",
+   "empresa": "Briggs Equipment México",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "Negociación comercial"
+   ],
+   "habilidades_blandas": [
+    "Persuasión"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5963438383"
+  },
+  {
+   "titulo": "DevOps con experiencia en Java",
+   "empresa": "IDS Comercial",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5963438096"
+  },
+  {
+   "titulo": "Suscriptor/a de Seguros de Autos (Miguel Hidalgo, CDMX)",
+   "empresa": "BBVA",
+   "ubicacion": "Miguel Hidalgo, Ciudad de México",
+   "habilidades_tecnicas": [
+    "Productos financieros"
+   ],
+   "habilidades_blandas": [
+    "Generar confianza"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5963437091"
+  },
+  {
+   "titulo": "Ejecutivo de Ventas - Honda Tlalnepantla - Honda",
+   "empresa": "Grupo Kasa Automotriz",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "Negociación comercial"
+   ],
+   "habilidades_blandas": [
+    "Persuasión"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5963434449"
+  },
+  {
+   "titulo": "asesor de ventas - Nissan Aragón",
+   "empresa": "Grupo Gocar",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "Negociación comercial"
+   ],
+   "habilidades_blandas": [
+    "Persuasión"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5963437071"
+  },
+  {
+   "titulo": "Asesor de ventas Jr. - Apatzingán , Abarrotera del Duero - Apatzingán , Abarrotera del Duero",
+   "empresa": "Abarrotera Del Duero Sa De Cv",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "Negociación comercial"
+   ],
+   "habilidades_blandas": [
+    "Persuasión"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5963436278"
+  },
+  {
+   "titulo": "Auxiliar de farmacia",
+   "empresa": "La Comer",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": 9805,
+   "salario_max": 9805,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5963436108"
+  },
+  {
+   "titulo": "Encargado/a - plaza de la tecnología",
+   "empresa": "SILCA Consultores",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": 11500,
+   "salario_max": 13000,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5963435258"
+  },
+  {
+   "titulo": "Especialista Comercial Corredores y Gobierno",
+   "empresa": "Grupo Nacional Provincial",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "Negociación comercial"
+   ],
+   "habilidades_blandas": [
+    "Persuasión"
+   ],
+   "salario_min": 29000,
+   "salario_max": 29660,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5963434771"
+  },
+  {
+   "titulo": "Supervisor de mantenimiento - experiencia en mantenimiento",
+   "empresa": "Medica Sur",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [
+    "Responsabilidad"
+   ],
+   "salario_min": 24400,
+   "salario_max": 24400,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5963434683"
+  },
+  {
+   "titulo": "Ejecutivo a de Ventas en Sucursal Alameda Monterrey Ejecutivo a de Ventas en Sucursal",
+   "empresa": "Atento Servicios SA de CV",
+   "ubicacion": "Monterrey, Nuevo León",
+   "habilidades_tecnicas": [
+    "Negociación comercial"
+   ],
+   "habilidades_blandas": [
+    "Persuasión"
+   ],
+   "salario_min": 9583,
+   "salario_max": 9583,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5962742090"
+  },
+  {
+   "titulo": "Supervisor de ventas sector metalmecánico",
+   "empresa": "CGS CONSULTORES",
+   "ubicacion": "Tepotzotlán, Estado de México",
    "habilidades_tecnicas": [
     "Gestión de KPIs comerciales"
    ],
    "habilidades_blandas": [
     "Liderazgo"
    ],
-   "salario_min": 40000,
-   "salario_max": 40000,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929278670"
-  },
-  {
-   "titulo": "CallCenter Solo Fines de Semana Seguros Mapfre",
-   "empresa": "Centro de Atracción de Talento",
-   "ubicacion": "Azcapotzalco, Ciudad de México",
-   "habilidades_tecnicas": [
-    "Productos financieros"
-   ],
-   "habilidades_blandas": [
-    "Generar confianza"
-   ],
    "salario_min": null,
    "salario_max": null,
-   "fecha_publicacion": "2026-10-15",
+   "fecha_publicacion": "2026-11-12",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929278669"
+   "url": "https://www.adzuna.com.mx/details/5962742056"
   },
   {
-   "titulo": "Gerente Autogestionable Xalapa, Veracruz",
-   "empresa": "Asesoria Financiera de México",
-   "ubicacion": "Xalapa, Veracruz",
-   "habilidades_tecnicas": [
-    "(inferida del título)"
-   ],
-   "habilidades_blandas": [
-    "Responsabilidad"
-   ],
-   "salario_min": 14000,
-   "salario_max": 14000,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929278666"
-  },
-  {
-   "titulo": "Experto Técnico Cubre Reparación de Dispositivos Tecnológicos",
-   "empresa": "Mixup",
-   "ubicacion": "Solidaridad, Quintana Roo",
-   "habilidades_tecnicas": [
-    "(inferida del título)"
-   ],
-   "habilidades_blandas": [
-    "Responsabilidad"
-   ],
-   "salario_min": 16000,
-   "salario_max": 16000,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929278695"
-  },
-  {
-   "titulo": "Cajero a sucursal Antonio Barona",
+   "titulo": "Cajero de Ventanilla en Banco Azteca Narvarte Poniente",
    "empresa": "Grupo Salinas",
-   "ubicacion": "Cuernavaca, Morelos",
+   "ubicacion": "Benito Juárez, Ciudad de México",
    "habilidades_tecnicas": [
     "Manejo de caja/POS"
    ],
@@ -746,109 +1276,45 @@
    ],
    "salario_min": 10000,
    "salario_max": 10000,
-   "fecha_publicacion": "2026-10-15",
+   "fecha_publicacion": "2026-11-12",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929278614"
+   "url": "https://www.adzuna.com.mx/details/5962742043"
   },
   {
-   "titulo": "Gerente de Tienda Promoda Urban Aguascalientes Plaza Espacio experiencia en puesto similar",
-   "empresa": "Grupo Axo",
-   "ubicacion": "Aguascalientes",
-   "habilidades_tecnicas": [
-    "Manejo de caja/POS"
-   ],
-   "habilidades_blandas": [
-    "Atención al cliente"
-   ],
-   "salario_min": 12600,
-   "salario_max": 12600,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929278572"
-  },
-  {
-   "titulo": "Asesor de ventas GNP Sábado y Domingo Call Center contratación inmediata",
-   "empresa": "Centro de Atracción de Talento",
-   "ubicacion": "Gustavo A. Madero, Ciudad de México",
-   "habilidades_tecnicas": [
-    "Manejo de script telefónico"
-   ],
-   "habilidades_blandas": [
-    "Resiliencia"
-   ],
-   "salario_min": 9500,
-   "salario_max": 9500,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929278512"
-  },
-  {
-   "titulo": "Cajero a Emiliano Zapata",
-   "empresa": "Grupo Salinas",
-   "ubicacion": "Emiliano Zapata, Morelos",
-   "habilidades_tecnicas": [
-    "Manejo de caja/POS"
-   ],
-   "habilidades_blandas": [
-    "Atención al cliente"
-   ],
-   "salario_min": 8000,
-   "salario_max": 8000,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929278575"
-  },
-  {
-   "titulo": "Ejecutivo bilinge call center Vespertino",
-   "empresa": "Grupo Salinas",
-   "ubicacion": "Benito Juárez, Ciudad de México",
-   "habilidades_tecnicas": [
-    "Manejo de script telefónico"
-   ],
-   "habilidades_blandas": [
-    "Resiliencia"
-   ],
-   "salario_min": 12500,
-   "salario_max": 12500,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929278553"
-  },
-  {
-   "titulo": "Call center Seguros Banorte Pago semanal labora solo sábado y domingo",
-   "empresa": "Centro de Atracción de Talento",
-   "ubicacion": "Gustavo A. Madero, Ciudad de México",
-   "habilidades_tecnicas": [
-    "Productos financieros"
-   ],
-   "habilidades_blandas": [
-    "Generar confianza"
-   ],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929278528"
-  },
-  {
-   "titulo": "Asesora Financieroa, zona Centro Qro.",
-   "empresa": "Grupo Salinas",
-   "ubicacion": "Querétaro",
+   "titulo": "Ejecutivo Comercial de Productos Cosmeticos de Belleza de alta gama Canal Spas, Hoteles y clínicas cosmetológicas",
+   "empresa": "Pulse HR",
+   "ubicacion": "México",
    "habilidades_tecnicas": [
     "Negociación comercial"
    ],
    "habilidades_blandas": [
     "Persuasión"
    ],
-   "salario_min": 12000,
-   "salario_max": 12000,
-   "fecha_publicacion": "2026-10-15",
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-11-12",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929278499"
+   "url": "https://www.adzuna.com.mx/details/5962740641"
   },
   {
-   "titulo": "Asesor a de ventas digital automotriz multimarca ave. Lazaro Cardenas Contratación inmediata Zona Sur Monterrey",
-   "empresa": "Grupo Autofin",
+   "titulo": "Líder de ventas y Prospección Sueldo base Comisiones sin tope Prestaciones de ley Vales de despensa y fondo de ahorro",
+   "empresa": "Aliat Universidades",
+   "ubicacion": "San Luis Potosí",
+   "habilidades_tecnicas": [
+    "Negociación comercial"
+   ],
+   "habilidades_blandas": [
+    "Persuasión"
+   ],
+   "salario_min": 9820,
+   "salario_max": 9820,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5962740918"
+  },
+  {
+   "titulo": "Supervisor de Punto de Venta",
+   "empresa": "Grupo Salinas",
    "ubicacion": "Monterrey, Nuevo León",
    "habilidades_tecnicas": [
     "Negociación comercial"
@@ -856,48 +1322,240 @@
    "habilidades_blandas": [
     "Persuasión"
    ],
-   "salario_min": 12000,
-   "salario_max": 12000,
-   "fecha_publicacion": "2026-10-15",
+   "salario_min": 19000,
+   "salario_max": 19000,
+   "fecha_publicacion": "2026-11-12",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929278558"
+   "url": "https://www.adzuna.com.mx/details/5962740647"
   },
   {
-   "titulo": "Auxiliar de Abarrotes City Market Lomas de Chapultepec",
-   "empresa": "La Comer",
-   "ubicacion": "Miguel Hidalgo, Ciudad de México",
+   "titulo": "Ejecutivo de tarjetas de crédito Galerias Chalco Medio tiempo",
+   "empresa": "Atento Servicios SA de CV",
+   "ubicacion": "Chalco, Estado de México",
+   "habilidades_tecnicas": [
+    "Productos financieros"
+   ],
+   "habilidades_blandas": [
+    "Generar confianza"
+   ],
+   "salario_min": 66600,
+   "salario_max": 66600,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5962740668"
+  },
+  {
+   "titulo": "Ejecutivo de tarjetas de crédito Los Héroes Tecámac Medio tiempo",
+   "empresa": "Atento Servicios SA de CV",
+   "ubicacion": "Tecámac, Estado de México",
+   "habilidades_tecnicas": [
+    "Productos financieros"
+   ],
+   "habilidades_blandas": [
+    "Generar confianza"
+   ],
+   "salario_min": 66600,
+   "salario_max": 66600,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5962740683"
+  },
+  {
+   "titulo": "Ejecutivo de tarjetas de crédito Luna Parc Medio tiempo",
+   "empresa": "Atento Servicios SA de CV",
+   "ubicacion": "Cuautitlán Izcalli, Estado de México",
+   "habilidades_tecnicas": [
+    "Productos financieros"
+   ],
+   "habilidades_blandas": [
+    "Generar confianza"
+   ],
+   "salario_min": 66600,
+   "salario_max": 66600,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5962740659"
+  },
+  {
+   "titulo": "Almacenista Old Navy Suc Paseo Acoxpa 2 descansos semanales",
+   "empresa": "Grupo Axo",
+   "ubicacion": "Tlalpan, Ciudad de México",
    "habilidades_tecnicas": [
     "(inferida del título)"
    ],
    "habilidades_blandas": [
     "Responsabilidad"
    ],
-   "salario_min": 10400,
-   "salario_max": 10400,
-   "fecha_publicacion": "2026-10-15",
+   "salario_min": 10091,
+   "salario_max": 10091,
+   "fecha_publicacion": "2026-11-12",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929278541"
+   "url": "https://www.adzuna.com.mx/details/5962740681"
   },
   {
-   "titulo": "Supervisor de Sucursal",
-   "empresa": "Megacable",
-   "ubicacion": "México",
+   "titulo": "Vendedor Liverpool Valle Oriente BathBody Works 2 descansos semanales",
+   "empresa": "Grupo Axo",
+   "ubicacion": "Monterrey, Nuevo León",
    "habilidades_tecnicas": [
-    "(inferida del título)"
+    "Negociación comercial"
    ],
    "habilidades_blandas": [
-    "Responsabilidad"
+    "Persuasión"
+   ],
+   "salario_min": 9582,
+   "salario_max": 9582,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5962740553"
+  },
+  {
+   "titulo": "Asesor Prendario",
+   "empresa": "Grupo Salinas",
+   "ubicacion": "Atizapán de Zaragoza, Estado de México",
+   "habilidades_tecnicas": [
+    "Negociación comercial"
+   ],
+   "habilidades_blandas": [
+    "Persuasión"
+   ],
+   "salario_min": 9582,
+   "salario_max": 9582,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5962740994"
+  },
+  {
+   "titulo": "Promotor de tarjetas de crédito Tenayuca Medio tiempo",
+   "empresa": "Atento Servicios SA de CV",
+   "ubicacion": "Gustavo A. Madero, Ciudad de México",
+   "habilidades_tecnicas": [
+    "Productos financieros"
+   ],
+   "habilidades_blandas": [
+    "Generar confianza"
+   ],
+   "salario_min": 66600,
+   "salario_max": 66600,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5962740523"
+  },
+  {
+   "titulo": "Promotor de tarjetas de crédito Galerías Manacar Medio tiempo",
+   "empresa": "Atento Servicios SA de CV",
+   "ubicacion": "Benito Juárez, Ciudad de México",
+   "habilidades_tecnicas": [
+    "Productos financieros"
+   ],
+   "habilidades_blandas": [
+    "Generar confianza"
+   ],
+   "salario_min": 66600,
+   "salario_max": 66600,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5962740508"
+  },
+  {
+   "titulo": "Aux Almacen retail Victorias Secret Satelite 2 descansos",
+   "empresa": "Grupo Axo",
+   "ubicacion": "Naucalpan de Juárez, Estado de México",
+   "habilidades_tecnicas": [
+    "Manejo de caja/POS"
+   ],
+   "habilidades_blandas": [
+    "Atención al cliente"
+   ],
+   "salario_min": 9582,
+   "salario_max": 9582,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5962740415"
+  },
+  {
+   "titulo": "Promotor de tarjetas de crédito Galerías Tlatelolco Medio tiempo",
+   "empresa": "Atento Servicios SA de CV",
+   "ubicacion": "Cuauhtémoc, Ciudad de México",
+   "habilidades_tecnicas": [
+    "Productos financieros"
+   ],
+   "habilidades_blandas": [
+    "Generar confianza"
+   ],
+   "salario_min": 66600,
+   "salario_max": 66600,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5962740463"
+  },
+  {
+   "titulo": "Asesor Bancario Zacatelco Asesor Bancario Zacatelco",
+   "empresa": "Grupo Salinas",
+   "ubicacion": "Zacatelco, Tlaxcala",
+   "habilidades_tecnicas": [
+    "Productos financieros"
+   ],
+   "habilidades_blandas": [
+    "Generar confianza"
+   ],
+   "salario_min": 10000,
+   "salario_max": 10000,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5962740424"
+  },
+  {
+   "titulo": "Promotor SR San Luis Potosi bpdvw",
+   "empresa": "BHERMANOS",
+   "ubicacion": "San Luis Potosí",
+   "habilidades_tecnicas": [
+    "Negociación comercial"
+   ],
+   "habilidades_blandas": [
+    "Persuasión"
    ],
    "salario_min": null,
    "salario_max": null,
-   "fecha_publicacion": "2026-10-15",
+   "fecha_publicacion": "2026-11-12",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929278546"
+   "url": "https://www.adzuna.com.mx/details/5962740303"
   },
   {
-   "titulo": "Chofer Repartidor",
+   "titulo": "Asesor de vinos y licores Experiencia mínima",
+   "empresa": "La Comer",
+   "ubicacion": "Atizapán de Zaragoza, Estado de México",
+   "habilidades_tecnicas": [
+    "Negociación comercial"
+   ],
+   "habilidades_blandas": [
+    "Persuasión"
+   ],
+   "salario_min": 10400,
+   "salario_max": 10400,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5962740801"
+  },
+  {
+   "titulo": "Solicitamos Chofer de reparto Zona Acatzingo reparto, atencion al cliente y multifuncional",
    "empresa": "AutoZone México",
-   "ubicacion": "Manzanillo, Colima",
+   "ubicacion": "Acatzingo, Puebla",
+   "habilidades_tecnicas": [
+    "Gestión de ruta"
+   ],
+   "habilidades_blandas": [
+    "Autogestión y disciplina"
+   ],
+   "salario_min": 10600,
+   "salario_max": 10600,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5962740920"
+  },
+  {
+   "titulo": "Auxiliar contable Zeekr Polanco Agencia Automotriz Zeekr Polanco",
+   "empresa": "Grupo Fame",
+   "ubicacion": "Miguel Hidalgo, Ciudad de México",
    "habilidades_tecnicas": [
     "(inferida del título)"
    ],
@@ -906,157 +1564,29 @@
    ],
    "salario_min": 14000,
    "salario_max": 14000,
-   "fecha_publicacion": "2026-10-15",
+   "fecha_publicacion": "2026-11-12",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929278400"
+   "url": "https://www.adzuna.com.mx/details/5962741690"
   },
   {
-   "titulo": "Ejecutivo Telefónico Únicamente Fin de Semana Sin Experiencia Estudiantes",
-   "empresa": "Centro de Atracción de Talento",
-   "ubicacion": "Gustavo A. Madero, Ciudad de México",
+   "titulo": "Últimos lugares Ejecutivo telefónico ATC Matutino",
+   "empresa": "Atento Servicios SA de CV",
+   "ubicacion": "Nezahualcóyotl, Estado de México",
    "habilidades_tecnicas": [
     "Negociación comercial"
    ],
    "habilidades_blandas": [
     "Persuasión"
    ],
-   "salario_min": 48000,
-   "salario_max": 48000,
-   "fecha_publicacion": "2026-10-15",
+   "salario_min": 9583,
+   "salario_max": 9583,
+   "fecha_publicacion": "2026-11-12",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929278489"
+   "url": "https://www.adzuna.com.mx/details/5962741316"
   },
   {
-   "titulo": "Asesor tecnico comercial Hidraulico o neumatico",
-   "empresa": "FORHUMAN",
-   "ubicacion": "Tlalnepantla de Baz, Estado de México",
-   "habilidades_tecnicas": [
-    "Negociación comercial"
-   ],
-   "habilidades_blandas": [
-    "Persuasión"
-   ],
-   "salario_min": 13000,
-   "salario_max": 13000,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929278048"
-  },
-  {
-   "titulo": "Analista de Mercadotecnia Farmacéutico",
-   "empresa": "Grupo viso",
-   "ubicacion": "Coacalco de Berriozabal, Estado de México",
-   "habilidades_tecnicas": [
-    "(inferida del título)"
-   ],
-   "habilidades_blandas": [
-    "Responsabilidad"
-   ],
-   "salario_min": 13000,
-   "salario_max": 13000,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929278023"
-  },
-  {
-   "titulo": "Especialista Comercial en Refacciones Rio Nilo",
-   "empresa": "AutoZone México",
-   "ubicacion": "Guadalajara, Jalisco",
-   "habilidades_tecnicas": [
-    "Negociación comercial"
-   ],
-   "habilidades_blandas": [
-    "Persuasión"
-   ],
-   "salario_min": 14500,
-   "salario_max": 14500,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929278843"
-  },
-  {
-   "titulo": "Asesora de Ventas Imagen Turno Matutino",
-   "empresa": "Ópticas Ver de Verdad",
-   "ubicacion": "Hermosillo, Sonora",
-   "habilidades_tecnicas": [
-    "Negociación comercial"
-   ],
-   "habilidades_blandas": [
-    "Persuasión"
-   ],
-   "salario_min": 9451,
-   "salario_max": 9451,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929278026"
-  },
-  {
-   "titulo": "Asesor de banco Para Acatzingo",
-   "empresa": "Grupo Salinas",
-   "ubicacion": "Acatzingo, Puebla",
-   "habilidades_tecnicas": [
-    "Negociación comercial"
-   ],
-   "habilidades_blandas": [
-    "Persuasión"
-   ],
-   "salario_min": 8000,
-   "salario_max": 8000,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929277763"
-  },
-  {
-   "titulo": "Analista de Titulacion Atencion a Clientes y Ventas",
-   "empresa": "Aliat Universidades",
-   "ubicacion": "Coacalco de Berriozabal, Estado de México",
-   "habilidades_tecnicas": [
-    "Negociación comercial"
-   ],
-   "habilidades_blandas": [
-    "Persuasión"
-   ],
-   "salario_min": 9800,
-   "salario_max": 9800,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929277743"
-  },
-  {
-   "titulo": "Gerente de sucursal",
-   "empresa": "Salud Digna",
-   "ubicacion": "León, Guanajuato",
-   "habilidades_tecnicas": [
-    "(inferida del título)"
-   ],
-   "habilidades_blandas": [
-    "Responsabilidad"
-   ],
-   "salario_min": 17000,
-   "salario_max": 17000,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929277693"
-  },
-  {
-   "titulo": "Staff de Ventas Mulfituncional Tiempo Completo Angelopolis",
-   "empresa": "CA MEXICO S DE RL",
-   "ubicacion": "Puebla",
-   "habilidades_tecnicas": [
-    "Negociación comercial"
-   ],
-   "habilidades_blandas": [
-    "Persuasión"
-   ],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929277769"
-  },
-  {
-   "titulo": "Key Account Manager Senior Retail, Plazas y Centros Comerciales",
-   "empresa": "Ecodeli",
+   "titulo": "Ejecutivo de ventas Tienda departamental",
+   "empresa": "CGS CONSULTORES",
    "ubicacion": "Miguel Hidalgo, Ciudad de México",
    "habilidades_tecnicas": [
     "Manejo de caja/POS"
@@ -1064,112 +1594,16 @@
    "habilidades_blandas": [
     "Atención al cliente"
    ],
-   "salario_min": 30000,
-   "salario_max": 30000,
-   "fecha_publicacion": "2026-10-15",
+   "salario_min": 15000,
+   "salario_max": 15000,
+   "fecha_publicacion": "2026-11-12",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929277754"
+   "url": "https://www.adzuna.com.mx/details/5962741632"
   },
   {
-   "titulo": "Asesor de ventas sin experiencia",
-   "empresa": "Megacable",
-   "ubicacion": "San Martín Texmelucan, Puebla",
-   "habilidades_tecnicas": [
-    "Negociación comercial"
-   ],
-   "habilidades_blandas": [
-    "Persuasión"
-   ],
-   "salario_min": 9450,
-   "salario_max": 9450,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929277679"
-  },
-  {
-   "titulo": "Promo vendedor sin experiencia",
-   "empresa": "Megacable",
-   "ubicacion": "Puebla",
-   "habilidades_tecnicas": [
-    "Negociación comercial"
-   ],
-   "habilidades_blandas": [
-    "Persuasión"
-   ],
-   "salario_min": 9400,
-   "salario_max": 9400,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929277653"
-  },
-  {
-   "titulo": "Vendedor de motocicletas. Pago base más comisiones semanales.",
-   "empresa": "Nach",
-   "ubicacion": "México",
-   "habilidades_tecnicas": [
-    "Negociación comercial"
-   ],
-   "habilidades_blandas": [
-    "Persuasión"
-   ],
-   "salario_min": 12000,
-   "salario_max": 12000,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929277626"
-  },
-  {
-   "titulo": "Gestor de cobranza Banco Azteca Lerma",
-   "empresa": "Grupo Salinas",
-   "ubicacion": "Lerma, Estado de México",
-   "habilidades_tecnicas": [
-    "(inferida del título)"
-   ],
-   "habilidades_blandas": [
-    "Responsabilidad"
-   ],
-   "salario_min": 10000,
-   "salario_max": 10000,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929277618"
-  },
-  {
-   "titulo": "Ayudante general Automotriz metro Tacubaya sin experiencia",
-   "empresa": "Cristakar",
-   "ubicacion": "Miguel Hidalgo, Ciudad de México",
-   "habilidades_tecnicas": [
-    "(inferida del título)"
-   ],
-   "habilidades_blandas": [
-    "Responsabilidad"
-   ],
-   "salario_min": 9451,
-   "salario_max": 9451,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929277662"
-  },
-  {
-   "titulo": "Jefe de Sucursal Refaccionarias Zona Texcoco",
-   "empresa": "Grupo DAR Suspensión y Dirección Refaccionarias DAR",
-   "ubicacion": "Texcoco, Estado de México",
-   "habilidades_tecnicas": [
-    "(inferida del título)"
-   ],
-   "habilidades_blandas": [
-    "Responsabilidad"
-   ],
-   "salario_min": 20000,
-   "salario_max": 20000,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929277583"
-  },
-  {
-   "titulo": "Asesor de Banco y Afiliación Zona Adolfo López Mateos, Zinacantepec",
-   "empresa": "Grupo Salinas",
-   "ubicacion": "Zinacantepec, Estado de México",
+   "titulo": "Promotor Autoservicio Bodega Aurrera Olivos Ixtlahuacán",
+   "empresa": "GEPP",
+   "ubicacion": "Guadalajara, Jalisco",
    "habilidades_tecnicas": [
     "Negociación comercial"
    ],
@@ -1178,26 +1612,26 @@
    ],
    "salario_min": null,
    "salario_max": null,
-   "fecha_publicacion": "2026-10-15",
+   "fecha_publicacion": "2026-11-12",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929277664"
+   "url": "https://www.adzuna.com.mx/details/5962741449"
   },
   {
-   "titulo": "Prospectador de ventas",
-   "empresa": "Adecco",
-   "ubicacion": "Sinaloa",
+   "titulo": "Vendedor ventas cambaceo",
+   "empresa": "Grupo Bafar",
+   "ubicacion": "Manzanillo, Colima",
    "habilidades_tecnicas": [
-    "Manejo de script telefónico"
+    "Prospección en campo"
    ],
    "habilidades_blandas": [
-    "Resiliencia"
+    "Persistencia"
    ],
-   "salario_min": 10500,
-   "salario_max": 10500,
-   "fecha_publicacion": "2026-10-15",
+   "salario_min": 19000,
+   "salario_max": 21000,
+   "fecha_publicacion": "2026-11-11",
    "fuente": "OCC",
-   "url": "https://www.occ.com.mx/empleo/oferta/21367725/"
+   "url": "https://www.occ.com.mx/empleo/oferta/21400433/"
   }
  ],
- "vacantes_detalle_nota": "Generado programáticamente (2026-10-16) por etapa4_sector_json.py sobre 723 vacantes verificadas (vacantes_ventas_verificadas_auto.csv). Todos los conteos son exactos (pandas, sin estimaciones). Salario normalizado a MXN mensual (Adzuna >90,000/año se dividió entre 12; OCC llega anualizado desde la Etapa 1 y se dividió entre 12 siempre). vacantes_con_habilidades cuenta solo habilidades EXPLÍCITAS en el CSV fuente. Muestra vacantes_detalle: filtro de recencia Adzuna<=10d / Indeed<=15d / OCC<=20d desde hoy, muestreo proporcional por fuente, máx. 60; habilidades faltantes inferidas por categoría de puesto."
+ "vacantes_detalle_nota": "Generado programáticamente (2026-11-12) por etapa4_sector_json.py sobre 603 vacantes verificadas (vacantes_ventas_verificadas_auto.csv). Todos los conteos son exactos (pandas, sin estimaciones). Salario normalizado a MXN mensual (Adzuna >90,000/año se dividió entre 12; OCC llega anualizado desde la Etapa 1 y se dividió entre 12 siempre). vacantes_con_habilidades cuenta solo habilidades EXPLÍCITAS en el CSV fuente. Muestra vacantes_detalle: filtro de recencia Adzuna<=10d / Indeed<=15d / OCC<=20d desde hoy, muestreo proporcional por fuente, máx. 60; habilidades faltantes inferidas por categoría de puesto. Idiomas y carreras: % sobre las vacantes con descripción (vacantes_con_descripcion); sin descripciones, idiomas y carreras = null (dato pendiente). Nivel educativo: el más bajo que menciona la descripción; % sobre vacantes_con_descripcion; salario por nivel solo con 5+ salarios; null sin descripciones. base_descripciones dice si idiomas, carreras y nivel salen de la semana o del acervo de vacantes vigentes."
 }

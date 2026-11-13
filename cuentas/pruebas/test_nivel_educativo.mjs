@@ -49,12 +49,12 @@ const filas = [];
 for (let r = 0; r < 3; r++) VAC.forEach(([t, d, s], i) => filas.push([String(r * 10 + i), t, 'E' + i, 'Querétaro', '', '', s, s, '2026-11-09', 'adzuna', 'x', 'u', 'h' + String(r * 10 + i).padStart(16, '0'), d]));
 const csv = (conDesc) => 'id_interno,titulo_puesto,empresa,ubicacion,habilidades_tecnicas,habilidades_blandas,salario_min,salario_max,fecha_publicacion,fuente,sector,url_original,hash_contenido' + (conDesc ? ',descripcion' : '') + '\n' +
   filas.map(f => (conDesc ? f : f.slice(0, -1)).map(v => '"' + String(v).replace(/"/g, '""') + '"').join(',')).join('\n') + '\n';
-function correr(conDesc) {
-  const ent = join(dir, conDesc ? 'con.csv' : 'sin.csv'), sal = join(dir, conDesc ? 'con.json' : 'sin.json');
+function correr(conDesc, acervo) {
+  const ent = join(dir, conDesc ? 'con.csv' : 'sin.csv'), sal = join(dir, (conDesc ? 'con' : 'sin') + (acervo ? '_acervo' : '') + '.json');
   return writeFile(ent, csv(conDesc)).then(() => {
     execFileSync('python3', [join(RAIZ, 'herramientas/etapa4_sector_json.py'), '--verified', ent, '--sector', 'Ventas', '--key', 'ventas',
       '--categorias', join(RAIZ, 'herramientas/categorias_ventas.json'), '--habilidades', join(RAIZ, 'herramientas/habilidades_ventas.json'),
-      '--hoy', '2026-11-10', '--out', sal], { stdio: 'pipe' });
+      '--hoy', '2026-11-10', '--out', sal].concat(acervo ? ['--acervo', acervo] : []), { stdio: 'pipe' });
     return readFile(sal, 'utf8').then(JSON.parse);
   });
 }
@@ -79,6 +79,16 @@ await prueba('idiomas y carreras por nivel, con % sobre las vacantes de ese nive
 await prueba('sin la columna descripcion, nivel_educativo es null', async () => {
   igual((await correr(false)).nivel_educativo, null);
 });
+await prueba('con --acervo, idiomas, carreras y nivel salen del acervo; los conteos siguen siendo de la semana', async () => {
+  await correr(true);   // deja con.csv escrito para usarlo como acervo
+  const d = await correr(false, join(dir, 'con.csv'));
+  igual(d.vacantes_verificadas, 24);
+  igual(d.base_descripciones.origen, 'acervo');
+  igual(d.base_descripciones.vacantes, 24);
+  igual(d.vacantes_con_descripcion, 24);
+  igual(d.nivel_educativo.niveles.find(n => n.clave === 'posgrado').vacantes, 3);
+  igual(CON.base_descripciones.origen, 'semana');
+});
 await prueba('herramientas/ y la copia de la raíz son el mismo archivo', async () => {
   igual(await readFile(join(RAIZ, 'etapa4_sector_json.py'), 'utf8'), await readFile(join(RAIZ, 'herramientas/etapa4_sector_json.py'), 'utf8'));
 });
@@ -90,9 +100,13 @@ let inyectar = false;
 const servidor = createServer(async (req, res) => {
   try {
     const u = req.url.split('?')[0];
-    if (inyectar && /sector_ventas\.json$/.test(u)) {
+    if (/sector_\w+\.json$/.test(u)) {
+      // Cada prueba arma sus datos: sin descripciones en ningún sector, o con
+      // las de la Etapa 4 de arriba solo en Ventas. No depende de la corrida publicada.
       const d = JSON.parse(await readFile(join(RAIZ, u), 'utf8'));
-      for (const k of ['vacantes_con_descripcion', 'idiomas', 'carreras', 'nivel_educativo']) d[k] = CON[k];
+      const CAMPOS = ['vacantes_con_descripcion', 'idiomas', 'carreras', 'nivel_educativo', 'base_descripciones'];
+      for (const k of CAMPOS) delete d[k];
+      if (inyectar && /sector_ventas\.json$/.test(u)) for (const k of CAMPOS) d[k] = CON[k];
       res.writeHead(200, { 'content-type': 'application/json' }); return res.end(JSON.stringify(d));
     }
     const f = join(RAIZ, u);
@@ -134,6 +148,7 @@ await prueba('con dato: tabla por nivel, salarios y filtro que cambia idiomas y 
   const idi = await p.$$eval('#tablaIdiomas tbody tr', t => t.map(r => r.textContent).find(x => x.includes('Ventas')));
   cierto(idi.includes('3') && idi.includes('100 %'), idi);
   cierto((await p.textContent('#notaFiltroNivel')).includes('Posgrado'));
+  cierto((await p.textContent('#notaBaseNivel')).includes('semana'), 'dice de dónde salen las cifras');
   await p.selectOption('#filtroNivel', '');
   const todos = await p.$$eval('#tablaIdiomas tbody tr', t => t.map(r => r.textContent).find(x => x.includes('Ventas')));
   cierto(todos.includes('24'), todos);

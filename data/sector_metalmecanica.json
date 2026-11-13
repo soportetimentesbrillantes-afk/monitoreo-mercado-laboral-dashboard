@@ -1,260 +1,720 @@
 {
  "nombre": "Metalmecánica",
- "vacantes_verificadas": 22,
- "vacantes_descartadas": 62,
+ "vacantes_verificadas": 43,
+ "vacantes_descartadas": 28,
  "vacantes_con_habilidades": 0,
  "pct_con_habilidades": 0.0,
  "fuentes": {
-  "Adzuna": 13,
-  "OCC": 9
+  "Adzuna": 39,
+  "OCC": 4
  },
  "categorias_puesto": [
   {
-   "categoria": "Ventas técnicas / comercial industrial",
-   "vacantes": 8,
-   "pct": 36.4
+   "categoria": "Soldadura y maquinado",
+   "vacantes": 11,
+   "pct": 25.6
+  },
+  {
+   "categoria": "Otro",
+   "vacantes": 9,
+   "pct": 20.9
+  },
+  {
+   "categoria": "Ingeniería industrial y de manufactura",
+   "vacantes": 7,
+   "pct": 16.3
+  },
+  {
+   "categoria": "Calidad",
+   "vacantes": 6,
+   "pct": 14.0
   },
   {
    "categoria": "Mantenimiento industrial",
    "vacantes": 5,
-   "pct": 22.7
+   "pct": 11.6
   },
   {
-   "categoria": "Ingeniería industrial y de manufactura",
-   "vacantes": 3,
-   "pct": 13.6
-  },
-  {
-   "categoria": "Otro",
-   "vacantes": 3,
-   "pct": 13.6
+   "categoria": "Gerencia y dirección industrial",
+   "vacantes": 2,
+   "pct": 4.7
   },
   {
    "categoria": "Producción y operación",
    "vacantes": 2,
-   "pct": 9.1
+   "pct": 4.7
   },
   {
-   "categoria": "Gerencia y dirección industrial",
+   "categoria": "Ventas técnicas / comercial industrial",
    "vacantes": 1,
-   "pct": 4.5
+   "pct": 2.3
   }
  ],
  "habilidades_tecnicas": [
   {
+   "skill": "soldadura",
+   "menciones": 8
+  },
+  {
+   "skill": "control de calidad",
+   "menciones": 6
+  },
+  {
    "skill": "mantenimiento industrial",
-   "menciones": 4
+   "menciones": 5
   },
   {
    "skill": "manufactura / producción",
-   "menciones": 2
+   "menciones": 4
+  },
+  {
+   "skill": "maquinado cnc",
+   "menciones": 4
   }
  ],
  "habilidades_blandas": [
   {
    "skill": "resolucion de problemas",
-   "menciones": 8
-  },
-  {
-   "skill": "negociacion",
-   "menciones": 8
+   "menciones": 25
   },
   {
    "skill": "trabajo en equipo",
-   "menciones": 4
+   "menciones": 8
+  },
+  {
+   "skill": "seguridad y disciplina",
+   "menciones": 8
+  },
+  {
+   "skill": "atencion al detalle",
+   "menciones": 7
   },
   {
    "skill": "liderazgo",
-   "menciones": 2
+   "menciones": 6
   },
   {
-   "skill": "toma de decisiones",
+   "skill": "responsabilidad",
+   "menciones": 4
+  },
+  {
+   "skill": "negociacion",
    "menciones": 1
   }
  ],
  "top_empresas": [
   {
-   "empresa": "WURTH MEXICO, SA DE CV",
-   "vacantes": 8
-  },
-  {
    "empresa": "Magna International, Inc",
-   "vacantes": 5
+   "vacantes": 24
   },
   {
-   "empresa": "Human Staff",
+   "empresa": "Staffbridge Group",
+   "vacantes": 4
+  },
+  {
+   "empresa": "Adippsa Administracion de Proyectos",
    "vacantes": 2
+  },
+  {
+   "empresa": "GEPP",
+   "vacantes": 2
+  },
+  {
+   "empresa": "SILCA Consultores",
+   "vacantes": 1
   },
   {
    "empresa": "BigBola Casinos",
-   "vacantes": 2
-  },
-  {
-   "empresa": "Taylors",
    "vacantes": 1
   },
   {
-   "empresa": "Eaton Corporation",
+   "empresa": "Materiales Vite",
    "vacantes": 1
   },
   {
-   "empresa": "Nach",
+   "empresa": "MASTER TALENT",
    "vacantes": 1
   },
   {
-   "empresa": "Grupo Calidra",
+   "empresa": "CGS CONSULTORES",
    "vacantes": 1
   },
   {
-   "empresa": "?Organización Reynera",
+   "empresa": "ManpowerGroup",
+   "vacantes": 1
+  },
+  {
+   "empresa": "ALTEN MÉXICO",
+   "vacantes": 1
+  },
+  {
+   "empresa": "Adecco",
+   "vacantes": 1
+  },
+  {
+   "empresa": "MANSI SERVICIOS",
+   "vacantes": 1
+  },
+  {
+   "empresa": "PHRAC INTERNATIONAL",
    "vacantes": 1
   }
  ],
  "cobertura_geografica": {
   "top_estados": [
    {
+    "estado": "Coahuila",
+    "vacantes": 9
+   },
+   {
     "estado": "Guanajuato",
     "vacantes": 3
    },
    {
-    "estado": "Coahuila",
+    "estado": "Estado de México",
     "vacantes": 3
    },
    {
-    "estado": "Estado de México",
+    "estado": "Nuevo León",
+    "vacantes": 3
+   },
+   {
+    "estado": "Jalisco",
     "vacantes": 2
    },
    {
-    "estado": "Chiapas",
+    "estado": "Ciudad de México",
     "vacantes": 1
    },
    {
     "estado": "Veracruz",
     "vacantes": 1
-   },
-   {
-    "estado": "Nuevo León",
-    "vacantes": 1
-   },
-   {
-    "estado": "Durango",
-    "vacantes": 1
-   },
-   {
-    "estado": "Morelos",
-    "vacantes": 1
-   },
-   {
-    "estado": "Nayarit",
-    "vacantes": 1
-   },
-   {
-    "estado": "Chihuahua",
-    "vacantes": 1
    }
   ],
-  "estados_unicos": 12
+  "estados_unicos": 7
  },
  "salario": {
   "vacantes_con_dato": 14,
-  "pct_con_dato": 63.6,
-  "mediana_mensual_mxn": 17500,
-  "p25_mensual_mxn": 17500,
-  "p75_mensual_mxn": 18250
+  "pct_con_dato": 32.6,
+  "mediana_mensual_mxn": 16094,
+  "p25_mensual_mxn": 12625,
+  "p75_mensual_mxn": 19750
  },
  "evolucion_semanal": [
   {
-   "semana": "05 Oct",
-   "vacantes": 12
+   "semana": "02 Nov",
+   "vacantes": 17
   },
   {
-   "semana": "12 Oct",
-   "vacantes": 10
+   "semana": "09 Nov",
+   "vacantes": 26
   }
  ],
- "total_empresas_unicas": 9,
- "ultima_semana_vacantes": 10,
+ "vacantes_con_descripcion": 1247,
+ "idiomas": [
+  {
+   "idioma": "Inglés",
+   "menciones": 20,
+   "niveles": {
+    "avanzado": 8,
+    "intermedio": 6,
+    "basico": 1,
+    "sin_nivel": 5
+   },
+   "pct": 1.6
+  },
+  {
+   "idioma": "Alemán",
+   "menciones": 7,
+   "pct": 0.6
+  }
+ ],
+ "carreras": [
+  {
+   "carrera": "Carrera técnica",
+   "menciones": 211,
+   "pct": 16.9
+  },
+  {
+   "carrera": "Ingeniería mecatrónica",
+   "menciones": 61,
+   "pct": 4.9
+  },
+  {
+   "carrera": "Ingeniería mecánica",
+   "menciones": 32,
+   "pct": 2.6
+  },
+  {
+   "carrera": "Ingeniería industrial",
+   "menciones": 28,
+   "pct": 2.2
+  },
+  {
+   "carrera": "Ingeniería eléctrica y electrónica",
+   "menciones": 16,
+   "pct": 1.3
+  },
+  {
+   "carrera": "Recursos humanos y psicología",
+   "menciones": 9,
+   "pct": 0.7
+  },
+  {
+   "carrera": "Ingeniería civil y arquitectura",
+   "menciones": 8,
+   "pct": 0.6
+  },
+  {
+   "carrera": "Diseño",
+   "menciones": 5,
+   "pct": 0.4
+  },
+  {
+   "carrera": "Contaduría",
+   "menciones": 3,
+   "pct": 0.2
+  },
+  {
+   "carrera": "Mercadotecnia y comunicación",
+   "menciones": 3,
+   "pct": 0.2
+  },
+  {
+   "carrera": "Salud",
+   "menciones": 3,
+   "pct": 0.2
+  },
+  {
+   "carrera": "Administración",
+   "menciones": 2,
+   "pct": 0.2
+  }
+ ],
+ "nivel_educativo": {
+  "base": "vacantes_con_descripcion",
+  "niveles": [
+   {
+    "clave": "secundaria",
+    "nivel": "Secundaria",
+    "vacantes": 60,
+    "pct": 4.8,
+    "vacantes_con_salario": 52,
+    "salario_mediano_mensual_mxn": 14100,
+    "idiomas": [],
+    "carreras": [
+     {
+      "carrera": "Carrera técnica",
+      "menciones": 13,
+      "pct": 21.7
+     }
+    ]
+   },
+   {
+    "clave": "bachillerato",
+    "nivel": "Bachillerato o preparatoria",
+    "vacantes": 68,
+    "pct": 5.5,
+    "vacantes_con_salario": 44,
+    "salario_mediano_mensual_mxn": 13000,
+    "idiomas": [
+     {
+      "idioma": "Alemán",
+      "menciones": 2,
+      "pct": 2.9
+     }
+    ],
+    "carreras": [
+     {
+      "carrera": "Carrera técnica",
+      "menciones": 39,
+      "pct": 57.4
+     },
+     {
+      "carrera": "Ingeniería mecatrónica",
+      "menciones": 6,
+      "pct": 8.8
+     },
+     {
+      "carrera": "Ingeniería mecánica",
+      "menciones": 1,
+      "pct": 1.5
+     },
+     {
+      "carrera": "Ingeniería eléctrica y electrónica",
+      "menciones": 1,
+      "pct": 1.5
+     },
+     {
+      "carrera": "Sistemas, software y TI",
+      "menciones": 1,
+      "pct": 1.5
+     }
+    ]
+   },
+   {
+    "clave": "tecnico",
+    "nivel": "Técnico o TSU",
+    "vacantes": 63,
+    "pct": 5.1,
+    "vacantes_con_salario": 42,
+    "salario_mediano_mensual_mxn": 16789,
+    "idiomas": [
+     {
+      "idioma": "Inglés",
+      "menciones": 3,
+      "niveles": {
+       "avanzado": 0,
+       "intermedio": 1,
+       "basico": 0,
+       "sin_nivel": 2
+      },
+      "pct": 4.8
+     }
+    ],
+    "carreras": [
+     {
+      "carrera": "Carrera técnica",
+      "menciones": 55,
+      "pct": 87.3
+     },
+     {
+      "carrera": "Ingeniería mecatrónica",
+      "menciones": 15,
+      "pct": 23.8
+     },
+     {
+      "carrera": "Ingeniería industrial",
+      "menciones": 4,
+      "pct": 6.3
+     },
+     {
+      "carrera": "Ingeniería mecánica",
+      "menciones": 3,
+      "pct": 4.8
+     },
+     {
+      "carrera": "Ingeniería eléctrica y electrónica",
+      "menciones": 2,
+      "pct": 3.2
+     },
+     {
+      "carrera": "Diseño",
+      "menciones": 1,
+      "pct": 1.6
+     }
+    ]
+   },
+   {
+    "clave": "licenciatura",
+    "nivel": "Licenciatura o ingeniería",
+    "vacantes": 160,
+    "pct": 12.8,
+    "vacantes_con_salario": 85,
+    "salario_mediano_mensual_mxn": 18000,
+    "idiomas": [
+     {
+      "idioma": "Inglés",
+      "menciones": 14,
+      "niveles": {
+       "avanzado": 6,
+       "intermedio": 5,
+       "basico": 1,
+       "sin_nivel": 2
+      },
+      "pct": 8.8
+     }
+    ],
+    "carreras": [
+     {
+      "carrera": "Ingeniería mecatrónica",
+      "menciones": 23,
+      "pct": 14.4
+     },
+     {
+      "carrera": "Ingeniería mecánica",
+      "menciones": 22,
+      "pct": 13.8
+     },
+     {
+      "carrera": "Ingeniería industrial",
+      "menciones": 21,
+      "pct": 13.1
+     },
+     {
+      "carrera": "Ingeniería eléctrica y electrónica",
+      "menciones": 11,
+      "pct": 6.9
+     },
+     {
+      "carrera": "Carrera técnica",
+      "menciones": 10,
+      "pct": 6.2
+     },
+     {
+      "carrera": "Ingeniería civil y arquitectura",
+      "menciones": 6,
+      "pct": 3.8
+     }
+    ]
+   },
+   {
+    "clave": "posgrado",
+    "nivel": "Posgrado",
+    "vacantes": 0,
+    "pct": 0.0,
+    "vacantes_con_salario": 0,
+    "salario_mediano_mensual_mxn": null,
+    "idiomas": [],
+    "carreras": []
+   },
+   {
+    "clave": "no_especifica",
+    "nivel": "No lo especifica",
+    "vacantes": 896,
+    "pct": 71.9,
+    "vacantes_con_salario": 445,
+    "salario_mediano_mensual_mxn": 14750,
+    "idiomas": [
+     {
+      "idioma": "Alemán",
+      "menciones": 5,
+      "pct": 0.6
+     },
+     {
+      "idioma": "Inglés",
+      "menciones": 3,
+      "niveles": {
+       "avanzado": 2,
+       "intermedio": 0,
+       "basico": 0,
+       "sin_nivel": 1
+      },
+      "pct": 0.3
+     }
+    ],
+    "carreras": [
+     {
+      "carrera": "Carrera técnica",
+      "menciones": 94,
+      "pct": 10.5
+     },
+     {
+      "carrera": "Ingeniería mecatrónica",
+      "menciones": 17,
+      "pct": 1.9
+     },
+     {
+      "carrera": "Recursos humanos y psicología",
+      "menciones": 9,
+      "pct": 1.0
+     },
+     {
+      "carrera": "Ingeniería mecánica",
+      "menciones": 6,
+      "pct": 0.7
+     },
+     {
+      "carrera": "Ingeniería industrial",
+      "menciones": 3,
+      "pct": 0.3
+     },
+     {
+      "carrera": "Ingeniería eléctrica y electrónica",
+      "menciones": 2,
+      "pct": 0.2
+     }
+    ]
+   }
+  ]
+ },
+ "base_descripciones": {
+  "origen": "acervo",
+  "vacantes": 1247,
+  "con_descripcion": 1247,
+  "nota": "Todas las vacantes vigentes de Adzuna para los términos del sector (hasta 5,000 por término), verificadas y pendientes de la Etapa 2. La descripción de Adzuna son los primeros ~500 caracteres."
+ },
+ "total_empresas_unicas": 15,
+ "ultima_semana_vacantes": 26,
  "vacantes_detalle": [
   {
-   "titulo": "Ingeniero de Procesos",
-   "empresa": "Magna International, Inc",
+   "titulo": "Operador CNC torno",
+   "empresa": "Staffbridge Group",
    "ubicacion": "México",
    "habilidades_tecnicas": [
+    "Soldadura y maquinado CNC",
     "Ingeniería de manufactura"
    ],
    "habilidades_blandas": [
+    "Atención al detalle",
+    "Resolución de problemas"
+   ],
+   "salario_min": 13475,
+   "salario_max": 20900,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5963456014"
+  },
+  {
+   "titulo": "Tornero convencional",
+   "empresa": "SILCA Consultores",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "Soldadura y maquinado CNC",
+    "Ingeniería de manufactura"
+   ],
+   "habilidades_blandas": [
+    "Atención al detalle",
+    "Resolución de problemas"
+   ],
+   "salario_min": 15000,
+   "salario_max": 15001,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5963454895"
+  },
+  {
+   "titulo": "Ayudante mantenimiento Casino Big Bola Santa Fe Casino Big Bola Patio Santa Fe",
+   "empresa": "BigBola Casinos",
+   "ubicacion": "Álvaro Obregón, Ciudad de México",
+   "habilidades_tecnicas": [
+    "Mantenimiento electromecánico"
+   ],
+   "habilidades_blandas": [
+    "Resolución de problemas"
+   ],
+   "salario_min": 11000,
+   "salario_max": 11000,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5962725884"
+  },
+  {
+   "titulo": "Supplier Quality Development Engineer – Electronics",
+   "empresa": "Magna International",
+   "ubicacion": "Arteaga, Coahuila de Zaragoza",
+   "habilidades_tecnicas": [
+    "Ingeniería de manufactura",
+    "Control de calidad / ISO"
+   ],
+   "habilidades_blandas": [
+    "Resolución de problemas",
+    "Atención al detalle"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-11-11",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5961890536"
+  },
+  {
+   "titulo": "Operador CNC",
+   "empresa": "Staffbridge Group",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "Soldadura y maquinado CNC",
+    "Ingeniería de manufactura"
+   ],
+   "habilidades_blandas": [
+    "Atención al detalle",
     "Resolución de problemas"
    ],
    "salario_min": null,
    "salario_max": null,
-   "fecha_publicacion": "2026-10-15",
+   "fecha_publicacion": "2026-11-11",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929770484"
+   "url": "https://www.adzuna.com.mx/details/5961889343"
   },
   {
-   "titulo": "Tecnico de Procesos Tipo C",
-   "empresa": "Human Staff",
-   "ubicacion": "México",
-   "habilidades_tecnicas": [
-    "Ingeniería de manufactura"
-   ],
-   "habilidades_blandas": [
-    "Resolución de problemas"
-   ],
-   "salario_min": 20000,
-   "salario_max": 22000,
-   "fecha_publicacion": "2026-10-15",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5929202304"
-  },
-  {
-   "titulo": "Gerente General de Planta Autopartes",
-   "empresa": "Taylors",
-   "ubicacion": "Ecatepec, Estado de México",
+   "titulo": "Jefe de producción de soldadura giro metalmecánico",
+   "empresa": "CGS CONSULTORES",
+   "ubicacion": "Tultitlán, Estado de México",
    "habilidades_tecnicas": [
     "Gestión de planta"
    ],
    "habilidades_blandas": [
     "Liderazgo"
    ],
-   "salario_min": 145000,
-   "salario_max": 160000,
-   "fecha_publicacion": "2026-10-14",
+   "salario_min": 21500,
+   "salario_max": 21500,
+   "fecha_publicacion": "2026-11-11",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5927716126"
+   "url": "https://www.adzuna.com.mx/details/5961284874"
   },
   {
-   "titulo": "Mould Maker",
+   "titulo": "Soldador Laser Con experieinca",
+   "empresa": "MASTER TALENT",
+   "ubicacion": "Tlajomulco de Zuñiga, Jalisco",
+   "habilidades_tecnicas": [
+    "Soldadura y maquinado CNC",
+    "Ingeniería de manufactura"
+   ],
+   "habilidades_blandas": [
+    "Atención al detalle",
+    "Resolución de problemas"
+   ],
+   "salario_min": 21887,
+   "salario_max": 21887,
+   "fecha_publicacion": "2026-11-11",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5961286339"
+  },
+  {
+   "titulo": "Ingeniero de Mantenimiento",
+   "empresa": "Staffbridge Group",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "Mantenimiento electromecánico"
+   ],
+   "habilidades_blandas": [
+    "Resolución de problemas"
+   ],
+   "salario_min": 15000,
+   "salario_max": 15000,
+   "fecha_publicacion": "2026-11-11",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5961874607"
+  },
+  {
+   "titulo": "Ingeniero de Soldadura",
    "empresa": "Magna International",
-   "ubicacion": "Apaseo el Grande, Guanajuato",
+   "ubicacion": "Arteaga, Coahuila de Zaragoza",
    "habilidades_tecnicas": [
-    "(inferida del título)"
+    "Soldadura y maquinado CNC",
+    "Ingeniería de manufactura"
    ],
-   "habilidades_blandas": [],
+   "habilidades_blandas": [
+    "Atención al detalle",
+    "Resolución de problemas"
+   ],
    "salario_min": null,
    "salario_max": null,
-   "fecha_publicacion": "2026-10-14",
+   "fecha_publicacion": "2026-11-11",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5927694128"
+   "url": "https://www.adzuna.com.mx/details/5961880015"
   },
   {
-   "titulo": "Mould Maker",
-   "empresa": "Magna International, Inc",
-   "ubicacion": "Celaya, Guanajuato",
+   "titulo": "Pailero",
+   "empresa": "Materiales Vite",
+   "ubicacion": "México",
    "habilidades_tecnicas": [
-    "(inferida del título)"
+    "Soldadura y maquinado CNC",
+    "Ingeniería de manufactura"
    ],
-   "habilidades_blandas": [],
-   "salario_min": null,
-   "salario_max": null,
-   "fecha_publicacion": "2026-10-13",
+   "habilidades_blandas": [
+    "Atención al detalle",
+    "Resolución de problemas"
+   ],
+   "salario_min": 12000,
+   "salario_max": 12000,
+   "fecha_publicacion": "2026-11-11",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5926641682"
+   "url": "https://www.adzuna.com.mx/details/5961882933"
   },
   {
-   "titulo": "Técnico Electromecánico",
+   "titulo": "Técnico de Mantenimiento Tratamiento Térmico",
    "empresa": "Magna International, Inc",
-   "ubicacion": "Celaya, Guanajuato",
+   "ubicacion": "Ramos Arizpe, Coahuila de Zaragoza",
    "habilidades_tecnicas": [
     "Mantenimiento electromecánico"
    ],
@@ -263,13 +723,293 @@
    ],
    "salario_min": null,
    "salario_max": null,
-   "fecha_publicacion": "2026-10-13",
+   "fecha_publicacion": "2026-11-11",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5926641676"
+   "url": "https://www.adzuna.com.mx/details/5962474908"
   },
   {
-   "titulo": "Operador Corte Laser",
-   "empresa": "Human Staff",
+   "titulo": "Ingeniero de Soldadura (Calidad)",
+   "empresa": "Magna International, Inc",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "Ingeniería de manufactura",
+    "Control de calidad / ISO"
+   ],
+   "habilidades_blandas": [
+    "Resolución de problemas",
+    "Atención al detalle"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-11-11",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5962474912"
+  },
+  {
+   "titulo": "ESPECIALISTA EN SOLDADURA",
+   "empresa": "Magna International, Inc",
+   "ubicacion": "Ramos Arizpe, Coahuila de Zaragoza",
+   "habilidades_tecnicas": [
+    "Soldadura y maquinado CNC",
+    "Ingeniería de manufactura"
+   ],
+   "habilidades_blandas": [
+    "Atención al detalle",
+    "Resolución de problemas"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-11-11",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5962474910"
+  },
+  {
+   "titulo": "Mould Maker",
+   "empresa": "Magna International, Inc",
+   "ubicacion": "Celaya, Guanajuato",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-11-11",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5962474939"
+  },
+  {
+   "titulo": "Ingeniero de Soldadura",
+   "empresa": "Magna International, Inc",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "Soldadura y maquinado CNC",
+    "Ingeniería de manufactura"
+   ],
+   "habilidades_blandas": [
+    "Atención al detalle",
+    "Resolución de problemas"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-11-11",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5962474914"
+  },
+  {
+   "titulo": "Supplier Quality Development Engineer - Electronics",
+   "empresa": "Magna International, Inc",
+   "ubicacion": "Ramos Arizpe, Coahuila de Zaragoza",
+   "habilidades_tecnicas": [
+    "Ingeniería de manufactura",
+    "Control de calidad / ISO"
+   ],
+   "habilidades_blandas": [
+    "Resolución de problemas",
+    "Atención al detalle"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-11-10",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5960991546"
+  },
+  {
+   "titulo": "Especialista de control de calidad de obra",
+   "empresa": "Adippsa Administracion de Proyectos",
+   "ubicacion": "San Miguel de Allende, Guanajuato",
+   "habilidades_tecnicas": [
+    "Ingeniería de manufactura",
+    "Control de calidad / ISO"
+   ],
+   "habilidades_blandas": [
+    "Resolución de problemas",
+    "Atención al detalle"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-11-10",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5960031591"
+  },
+  {
+   "titulo": "Ingeniero de Control",
+   "empresa": "Magna International, Inc",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "Ingeniería de manufactura"
+   ],
+   "habilidades_blandas": [
+    "Resolución de problemas"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-11-10",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5960991534"
+  },
+  {
+   "titulo": "Jefe de Producción",
+   "empresa": "Magna International, Inc",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "Gestión de planta"
+   ],
+   "habilidades_blandas": [
+    "Liderazgo"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-11-10",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5960991535"
+  },
+  {
+   "titulo": "SQE",
+   "empresa": "Magna International, Inc",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-11-10",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5960991527"
+  },
+  {
+   "titulo": "Operador de Torno CNC",
+   "empresa": "Staffbridge Group",
+   "ubicacion": "El Salto, Jalisco",
+   "habilidades_tecnicas": [
+    "Soldadura y maquinado CNC",
+    "Ingeniería de manufactura"
+   ],
+   "habilidades_blandas": [
+    "Atención al detalle",
+    "Resolución de problemas"
+   ],
+   "salario_min": 13000,
+   "salario_max": 13000,
+   "fecha_publicacion": "2026-11-10",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5960028377"
+  },
+  {
+   "titulo": "Ingeniero de Robotica",
+   "empresa": "Magna International, Inc",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "Ingeniería de manufactura"
+   ],
+   "habilidades_blandas": [
+    "Resolución de problemas"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-11-10",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5960991524"
+  },
+  {
+   "titulo": "AME Machining Engineer",
+   "empresa": "Magna International, Inc",
+   "ubicacion": "Ramos Arizpe, Coahuila de Zaragoza",
+   "habilidades_tecnicas": [
+    "Ingeniería de manufactura"
+   ],
+   "habilidades_blandas": [
+    "Resolución de problemas"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-11-09",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5959821738"
+  },
+  {
+   "titulo": "Coordinador de Estructura Metálica y Concretos",
+   "empresa": "Adippsa Administracion de Proyectos",
+   "ubicacion": "San Miguel de Allende, Guanajuato",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-11-09",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5959456333"
+  },
+  {
+   "titulo": "Ingeniero de Contol",
+   "empresa": "Magna International, Inc",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "Ingeniería de manufactura"
+   ],
+   "habilidades_blandas": [
+    "Resolución de problemas"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-11-08",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5958727810"
+  },
+  {
+   "titulo": "Técnico en refrigeración Taller",
+   "empresa": "GEPP",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [],
+   "salario_min": 11000,
+   "salario_max": 14000,
+   "fecha_publicacion": "2026-11-08",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5958324562"
+  },
+  {
+   "titulo": "Tecnico en Soldadura",
+   "empresa": "Magna International, Inc",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "Soldadura y maquinado CNC",
+    "Ingeniería de manufactura"
+   ],
+   "habilidades_blandas": [
+    "Atención al detalle",
+    "Resolución de problemas"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-11-08",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5958727809"
+  },
+  {
+   "titulo": "Ingeniero de Calidad",
+   "empresa": "Magna International, Inc",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "Ingeniería de manufactura",
+    "Control de calidad / ISO"
+   ],
+   "habilidades_blandas": [
+    "Resolución de problemas",
+    "Atención al detalle"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-11-08",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5958727811"
+  },
+  {
+   "titulo": "Supervisor de Producción Prensas",
+   "empresa": "Magna International, Inc",
    "ubicacion": "México",
    "habilidades_tecnicas": [
     "Operación de línea de producción"
@@ -277,57 +1017,43 @@
    "habilidades_blandas": [
     "Trabajo en equipo"
    ],
-   "salario_min": 10500,
-   "salario_max": 11250,
-   "fecha_publicacion": "2026-10-11",
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-11-08",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5923466077"
+   "url": "https://www.adzuna.com.mx/details/5958727831"
   },
   {
-   "titulo": "Ingeniero de Manufactura Sr.",
-   "empresa": "Eaton Corporation",
-   "ubicacion": "Juárez, Chiapas",
+   "titulo": "Especialista de Soldadura",
+   "empresa": "Magna International, Inc",
+   "ubicacion": "México",
    "habilidades_tecnicas": [
+    "Soldadura y maquinado CNC",
     "Ingeniería de manufactura"
    ],
    "habilidades_blandas": [
+    "Atención al detalle",
     "Resolución de problemas"
    ],
    "salario_min": null,
    "salario_max": null,
-   "fecha_publicacion": "2026-10-11",
+   "fecha_publicacion": "2026-11-08",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5923978585"
+   "url": "https://www.adzuna.com.mx/details/5958727819"
   },
   {
-   "titulo": "Ayudante de Mantenimiento - Ayudante de mantenimiento",
-   "empresa": "BigBola Casinos",
-   "ubicacion": "México",
-   "habilidades_tecnicas": [
-    "Mantenimiento electromecánico"
-   ],
-   "habilidades_blandas": [
-    "Resolución de problemas"
-   ],
-   "salario_min": 10500,
-   "salario_max": 12500,
-   "fecha_publicacion": "2026-10-10",
-   "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5922372725"
-  },
-  {
-   "titulo": "Técnico instalador aire acondicionado contratación inmediata",
-   "empresa": "Nach",
-   "ubicacion": "Tlalnepantla de Baz, Estado de México",
+   "titulo": "Técnico Metalúrgico",
+   "empresa": "Magna International, Inc",
+   "ubicacion": "Ramos Arizpe, Coahuila de Zaragoza",
    "habilidades_tecnicas": [
     "(inferida del título)"
    ],
    "habilidades_blandas": [],
    "salario_min": null,
    "salario_max": null,
-   "fecha_publicacion": "2026-10-10",
+   "fecha_publicacion": "2026-11-08",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5922447015"
+   "url": "https://www.adzuna.com.mx/details/5958727833"
   },
   {
    "titulo": "Tecnico Electromecanico",
@@ -341,30 +1067,30 @@
    ],
    "salario_min": null,
    "salario_max": null,
-   "fecha_publicacion": "2026-10-10",
+   "fecha_publicacion": "2026-11-08",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5922765386"
+   "url": "https://www.adzuna.com.mx/details/5958727834"
   },
   {
-   "titulo": "Ayudante de Mantenimiento Ayudante de mantenimiento",
-   "empresa": "BigBola Casinos",
-   "ubicacion": "Xalapa, Veracruz",
+   "titulo": "Supervisor de Producción",
+   "empresa": "Magna International, Inc",
+   "ubicacion": "México",
    "habilidades_tecnicas": [
-    "Mantenimiento electromecánico"
+    "Operación de línea de producción"
    ],
    "habilidades_blandas": [
-    "Resolución de problemas"
+    "Trabajo en equipo"
    ],
-   "salario_min": 10500,
-   "salario_max": 10500,
-   "fecha_publicacion": "2026-10-09",
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-11-07",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5921068018"
+   "url": "https://www.adzuna.com.mx/details/5957701215"
   },
   {
-   "titulo": "mecanico mecanico industrial",
-   "empresa": "Grupo Calidra",
-   "ubicacion": "Torreón, Coahuila de Zaragoza",
+   "titulo": "Supervisor de Mantenimiento (Estampados)",
+   "empresa": "Magna International, Inc",
+   "ubicacion": "México",
    "habilidades_tecnicas": [
     "Mantenimiento electromecánico"
    ],
@@ -373,14 +1099,136 @@
    ],
    "salario_min": null,
    "salario_max": null,
-   "fecha_publicacion": "2026-10-09",
+   "fecha_publicacion": "2026-11-07",
    "fuente": "Adzuna",
-   "url": "https://www.adzuna.com.mx/details/5921070646"
+   "url": "https://www.adzuna.com.mx/details/5957701219"
   },
   {
-   "titulo": "Representante de Ventas con Auto Propio en Gómez Palacio, Durango - Atractivas comisiones",
+   "titulo": "AME Assembly Engineer",
+   "empresa": "Magna International, Inc",
+   "ubicacion": "Ramos Arizpe, Coahuila de Zaragoza",
+   "habilidades_tecnicas": [
+    "Ingeniería de manufactura"
+   ],
+   "habilidades_blandas": [
+    "Resolución de problemas"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-11-07",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5957701218"
+  },
+  {
+   "titulo": "Ingeniero de Calidad Procesos",
+   "empresa": "Magna International, Inc",
+   "ubicacion": "Saltillo, Coahuila de Zaragoza",
+   "habilidades_tecnicas": [
+    "Ingeniería de manufactura",
+    "Control de calidad / ISO"
+   ],
+   "habilidades_blandas": [
+    "Resolución de problemas",
+    "Atención al detalle"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-11-07",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5957701228"
+  },
+  {
+   "titulo": "Técnico en refrigeración Taller",
+   "empresa": "GEPP",
+   "ubicacion": "Chimalhuacán, Estado de México",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [],
+   "salario_min": 11000,
+   "salario_max": 11000,
+   "fecha_publicacion": "2026-11-06",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5955950317"
+  },
+  {
+   "titulo": "Técnico Especialista En Sistemas VRF 28,000 brutos Mobile",
+   "empresa": "ManpowerGroup",
+   "ubicacion": "Monterrey, Nuevo León",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [],
+   "salario_min": 28000,
+   "salario_max": 28000,
+   "fecha_publicacion": "2026-11-06",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5955949809"
+  },
+  {
+   "titulo": "(0214S) - Design & Release Engineer MID (Lighting)",
+   "empresa": "ALTEN MÉXICO",
+   "ubicacion": "México",
+   "habilidades_tecnicas": [
+    "Ingeniería de manufactura"
+   ],
+   "habilidades_blandas": [
+    "Resolución de problemas"
+   ],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-11-06",
+   "fuente": "Adzuna",
+   "url": "https://www.adzuna.com.mx/details/5955875190"
+  },
+  {
+   "titulo": "Técnico metalmecánico",
+   "empresa": "Adecco",
+   "ubicacion": "Santa Catarina, Nuevo León",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [],
+   "salario_min": 18000,
+   "salario_max": 22000,
+   "fecha_publicacion": "2026-11-12",
+   "fuente": "OCC",
+   "url": "https://www.occ.com.mx/empleo/oferta/21401663/"
+  },
+  {
+   "titulo": "Ingeniero de procesos",
+   "empresa": "MANSI SERVICIOS",
+   "ubicacion": "Toluca, Estado de México",
+   "habilidades_tecnicas": [
+    "Ingeniería de manufactura"
+   ],
+   "habilidades_blandas": [
+    "Resolución de problemas"
+   ],
+   "salario_min": 19000,
+   "salario_max": 19000,
+   "fecha_publicacion": "2026-11-09",
+   "fuente": "OCC",
+   "url": "https://www.occ.com.mx/empleo/oferta/21404639/"
+  },
+  {
+   "titulo": "Cell leader",
+   "empresa": "PHRAC INTERNATIONAL",
+   "ubicacion": "Apodaca, Nuevo León",
+   "habilidades_tecnicas": [
+    "(inferida del título)"
+   ],
+   "habilidades_blandas": [],
+   "salario_min": null,
+   "salario_max": null,
+   "fecha_publicacion": "2026-11-08",
+   "fuente": "OCC",
+   "url": "https://www.occ.com.mx/empleo/oferta/21404154/"
+  },
+  {
+   "titulo": "Agente de Ventas con Auto Propio en San Andrés Tuxtla - Atractivas comisiones",
    "empresa": "WURTH MEXICO, SA DE CV",
-   "ubicacion": "Gómez Palacio, Durango",
+   "ubicacion": "San Andrés Tuxtla, Veracruz",
    "habilidades_tecnicas": [
     "Ventas técnicas"
    ],
@@ -390,145 +1238,10 @@
    ],
    "salario_min": 15000,
    "salario_max": 20000,
-   "fecha_publicacion": "2026-10-14",
+   "fecha_publicacion": "2026-11-06",
    "fuente": "OCC",
-   "url": "https://www.occ.com.mx/empleo/oferta/21374664/"
-  },
-  {
-   "titulo": "Ejecutivo de Ventas con Auto Propio en Saltillo, Coahuila - Comisiones sin Tope",
-   "empresa": "WURTH MEXICO, SA DE CV",
-   "ubicacion": "Saltillo, Coahuila",
-   "habilidades_tecnicas": [
-    "Ventas técnicas"
-   ],
-   "habilidades_blandas": [
-    "Negociación",
-    "Responsabilidad"
-   ],
-   "salario_min": 17000,
-   "salario_max": 20000,
-   "fecha_publicacion": "2026-10-14",
-   "fuente": "OCC",
-   "url": "https://www.occ.com.mx/empleo/oferta/21374566/"
-  },
-  {
-   "titulo": "Agente de Ventas con Auto Propio en Jojutla Morelos atractivas comisiones",
-   "empresa": "WURTH MEXICO, SA DE CV",
-   "ubicacion": "Jojutla, Morelos",
-   "habilidades_tecnicas": [
-    "Ventas técnicas"
-   ],
-   "habilidades_blandas": [
-    "Negociación",
-    "Responsabilidad"
-   ],
-   "salario_min": 15000,
-   "salario_max": 20000,
-   "fecha_publicacion": "2026-10-13",
-   "fuente": "OCC",
-   "url": "https://www.occ.com.mx/empleo/oferta/21373369/"
-  },
-  {
-   "titulo": "Coordinador de Produccion - Inyección plastico o metalmecanico",
-   "empresa": "?Organización Reynera",
-   "ubicacion": "Cadereyta Jiménez, Nuevo León",
-   "habilidades_tecnicas": [
-    "Operación de línea de producción"
-   ],
-   "habilidades_blandas": [
-    "Trabajo en equipo"
-   ],
-   "salario_min": 45000,
-   "salario_max": 50000,
-   "fecha_publicacion": "2026-10-12",
-   "fuente": "OCC",
-   "url": "https://www.occ.com.mx/empleo/oferta/21372110/"
-  },
-  {
-   "titulo": "Representante de Ventas con Auto Propio en Ciudad Juárez - Comisiones sin límite",
-   "empresa": "WURTH MEXICO, SA DE CV",
-   "ubicacion": "Juárez, Chihuahua",
-   "habilidades_tecnicas": [
-    "Ventas técnicas"
-   ],
-   "habilidades_blandas": [
-    "Negociación",
-    "Responsabilidad"
-   ],
-   "salario_min": 15000,
-   "salario_max": 20000,
-   "fecha_publicacion": "2026-10-11",
-   "fuente": "OCC",
-   "url": "https://www.occ.com.mx/empleo/oferta/21370501/"
-  },
-  {
-   "titulo": "Agente de Ventas con Auto Propio en Compostela - Altas y atractivas comisiones",
-   "empresa": "WURTH MEXICO, SA DE CV",
-   "ubicacion": "Compostela, Nayarit",
-   "habilidades_tecnicas": [
-    "Ventas técnicas"
-   ],
-   "habilidades_blandas": [
-    "Negociación",
-    "Responsabilidad"
-   ],
-   "salario_min": 15000,
-   "salario_max": 20000,
-   "fecha_publicacion": "2026-10-11",
-   "fuente": "OCC",
-   "url": "https://www.occ.com.mx/empleo/oferta/21370503/"
-  },
-  {
-   "titulo": "Agente de Ventas con Auto Propio en Tehuacán - Sin límite de comisión",
-   "empresa": "WURTH MEXICO, SA DE CV",
-   "ubicacion": "Tehuacán, Puebla",
-   "habilidades_tecnicas": [
-    "Ventas técnicas"
-   ],
-   "habilidades_blandas": [
-    "Negociación",
-    "Responsabilidad"
-   ],
-   "salario_min": 15000,
-   "salario_max": 20000,
-   "fecha_publicacion": "2026-10-10",
-   "fuente": "OCC",
-   "url": "https://www.occ.com.mx/empleo/oferta/21370327/"
-  },
-  {
-   "titulo": "Agente de Ventas con Auto Propio en Monclova - Sin límite de comisión",
-   "empresa": "WURTH MEXICO, SA DE CV",
-   "ubicacion": "Monclova, Coahuila",
-   "habilidades_tecnicas": [
-    "Ventas técnicas"
-   ],
-   "habilidades_blandas": [
-    "Negociación",
-    "Responsabilidad"
-   ],
-   "salario_min": 15000,
-   "salario_max": 20000,
-   "fecha_publicacion": "2026-10-10",
-   "fuente": "OCC",
-   "url": "https://www.occ.com.mx/empleo/oferta/21370329/"
-  },
-  {
-   "titulo": "Representante de Ventas con Auto Propio en Hermosillo - Comisiones sin límite",
-   "empresa": "WURTH MEXICO, SA DE CV",
-   "ubicacion": "Hermosillo, Sonora",
-   "habilidades_tecnicas": [
-    "Ventas técnicas"
-   ],
-   "habilidades_blandas": [
-    "Negociación",
-    "Responsabilidad"
-   ],
-   "salario_min": 15000,
-   "salario_max": 20000,
-   "fecha_publicacion": "2026-10-10",
-   "fuente": "OCC",
-   "url": "https://www.occ.com.mx/empleo/oferta/21370326/"
+   "url": "https://www.occ.com.mx/empleo/oferta/21403450/"
   }
  ],
- "vacantes_detalle_nota": "Generado programáticamente (2026-10-16) por etapa4_sector_json.py sobre 22 vacantes verificadas (vacantes_metalmecanica_verificadas_auto.csv). Todos los conteos son exactos (pandas, sin estimaciones). Salario normalizado a MXN mensual (Adzuna >90,000/año se dividió entre 12; OCC llega anualizado desde la Etapa 1 y se dividió entre 12 siempre). vacantes_con_habilidades cuenta solo habilidades EXPLÍCITAS en el CSV fuente. Muestra vacantes_detalle: filtro de recencia Adzuna<=10d / Indeed<=15d / OCC<=20d desde hoy, muestreo proporcional por fuente, máx. 60; habilidades faltantes inferidas por categoría de puesto."
+ "vacantes_detalle_nota": "Generado programáticamente (2026-11-12) por etapa4_sector_json.py sobre 43 vacantes verificadas (vacantes_metalmecanica_verificadas_auto.csv). Todos los conteos son exactos (pandas, sin estimaciones). Salario normalizado a MXN mensual (Adzuna >90,000/año se dividió entre 12; OCC llega anualizado desde la Etapa 1 y se dividió entre 12 siempre). vacantes_con_habilidades cuenta solo habilidades EXPLÍCITAS en el CSV fuente. Muestra vacantes_detalle: filtro de recencia Adzuna<=10d / Indeed<=15d / OCC<=20d desde hoy, muestreo proporcional por fuente, máx. 60; habilidades faltantes inferidas por categoría de puesto. Idiomas y carreras: % sobre las vacantes con descripción (vacantes_con_descripcion); sin descripciones, idiomas y carreras = null (dato pendiente). Nivel educativo: el más bajo que menciona la descripción; % sobre vacantes_con_descripcion; salario por nivel solo con 5+ salarios; null sin descripciones. base_descripciones dice si idiomas, carreras y nivel salen de la semana o del acervo de vacantes vigentes."
 }

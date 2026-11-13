@@ -1,6 +1,15 @@
 {
  "ediciones": [
   {
+   "folio": "2026-11-12",
+   "fecha": "2026-11-12",
+   "periodo": "Del 6 al 12 de noviembre de 2026",
+   "titulo": "Boletín — Del 6 al 12 de noviembre de 2026",
+   "resumen": "3,210 vacantes verificadas en 9 sectores. Automotriz encabeza con 611. Las cifras no se pueden comparar con ediciones anteriores.",
+   "html": "boletines/newsletter-2026-11-12.html",
+   "pdf": "boletines/newsletter-2026-11-12.pdf"
+  },
+  {
    "folio": "2026-10-16",
    "fecha": "2026-10-16",
    "periodo": "Del 9 al 16 de octubre de 2026",

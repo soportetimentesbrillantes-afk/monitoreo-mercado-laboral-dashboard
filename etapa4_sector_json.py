@@ -41,6 +41,15 @@ Por nivel: vacantes, % sobre vacantes_con_descripcion, salario mediano (solo
 con 5 o más salarios) e idiomas y carreras de ese nivel. Sin descripciones,
 `nivel_educativo` sale null (dato pendiente).
 
+Acervo (desde 2026-11-12): con --acervo <csv ...> los idiomas, las carreras y
+el nivel educativo NO salen de las vacantes de la semana sino de todas las
+vacantes vigentes que Adzuna da para los términos del sector (hasta 5,000 por
+término, el máximo que pagina la API), ya pasadas por la Etapa 2 (verificadas
+y pendientes; sin duplicados ni empresas sin nombre). Así hay muchas más
+descripciones. Los conteos, salarios, empresas, habilidades y la evolución
+siguen siendo de la semana. `base_descripciones` dice de dónde salió cada
+cosa. Sin --acervo, todo es de la semana, como antes.
+
 habilidades_*.json: {"tecnicas": {"Ventas y prospección comercial": ["venta", ...]},
                      "blandas":  {"Liderazgo": ["lider", "lidera"], ...},
                      "por_categoria": {"Alimentos y Bebidas":
@@ -96,7 +105,9 @@ CARRERAS = {
     "Ingeniería eléctrica y electrónica": [r"\bingenier\w*\s+(?:en\s+)?electr", r"\bing\.?\s+electr"],
     "Ingeniería química": [r"\bingenier\w*\s+(?:en\s+)?quimic", r"\bquimico farmac"],
     "Ingeniería automotriz": [r"\bingenier\w*\s+(?:en\s+)?automotri"],
-    "Ingeniería civil y arquitectura": [r"\bingenier\w*\s+civil", r"\barquitect"],
+    # "Arquitecto de software / de soluciones" o "arquitectura de datos" son puestos de TI, no la carrera.
+    "Ingeniería civil y arquitectura": [r"\bingenier\w*\s+civil", _GRADO + r"arquitectura", r"\barquitectura\s+o\s",
+                                        r"\barquitect[oa]s?\b(?!\s+(?:de|en)\s+(?:software|soluciones|datos|sistemas|aplicaciones|nube|cloud|ti\b|infraestructura|seguridad|redes|integracion|empresarial))"],
     "Sistemas, software y TI": [r"\bingenier\w*\s+(?:en\s+)?(?:sistemas|software|computacion|informatica|tecnologias de la informacion)",
                                 _GRADO + r"(?:informatica|sistemas|computacion|ciencias de la computacion)", r"\bciencias de la computacion\b"],
     "Logística y comercio internacional": [r"\bcomercio (?:internacional|exterior)\b", _GRADO + r"logistica", r"\bingenier\w*\s+(?:en\s+)?logistica"],
@@ -230,6 +241,8 @@ def main():
     ap.add_argument("--categorias", required=True); ap.add_argument("--habilidades", required=True)
     ap.add_argument("--hoy", default=None, help="YYYY-MM-DD (default: hoy)")
     ap.add_argument("--out", required=True)
+    ap.add_argument("--acervo", nargs="*", default=[],
+                    help="CSV con todas las vacantes vigentes del sector (Etapa 2: verificadas + pendientes)")
     a = ap.parse_args()
     hoy = date.fromisoformat(a.hoy) if a.hoy else date.today()
 
@@ -279,24 +292,42 @@ def main():
     est = df["_estado"].dropna().value_counts()
     top_estados = [{"estado": e, "vacantes": int(v)} for e, v in est.head(10).items()]
 
-    # idiomas y carreras (ver docstring)
-    n_desc = int(df["_con_desc"].sum())
+    # idiomas, carreras y nivel educativo (ver docstring): de la semana o del acervo
+    if a.acervo:
+        dfa = pd.concat([pd.read_csv(f, dtype=str) for f in a.acervo], ignore_index=True)
+        if "descripcion" not in dfa.columns: dfa["descripcion"] = ""
+        dfa = dfa.drop_duplicates(subset=["id_interno"]).reset_index(drop=True)
+        dfa["fuente"] = dfa["fuente"].str.strip().str.lower().map(
+            {"adzuna": "Adzuna", "occ": "OCC", "indeed": "Indeed"}).fillna(dfa["fuente"])
+        dfa["_desc"] = dfa["descripcion"].fillna("").map(norm)
+        dfa["_con_desc"] = dfa["_desc"].str.len().ge(40)
+        dfa["_texto_largo"] = (dfa["titulo_puesto"].fillna("").map(norm) + " \n " + dfa["_desc"])
+        dfa["_sal"] = dfa.apply(salario_mensual, axis=1)
+        base_df = dfa
+        base_desc = {"origen": "acervo", "vacantes": int(len(dfa)), "con_descripcion": int(dfa["_con_desc"].sum()),
+                     "nota": "Todas las vacantes vigentes de Adzuna para los términos del sector (hasta 5,000 por término), "
+                             "verificadas y pendientes de la Etapa 2. La descripción de Adzuna son los primeros ~500 caracteres."}
+    else:
+        base_df = df
+        base_desc = {"origen": "semana", "vacantes": n, "con_descripcion": int(df["_con_desc"].sum()),
+                     "nota": "Vacantes verificadas de la semana que traen descripción."}
+    n_desc = int(base_df["_con_desc"].sum())
     if n_desc:
-        idiomas = contar_idiomas(df.loc[df["_con_desc"], "_texto_largo"])
+        idiomas = contar_idiomas(base_df.loc[base_df["_con_desc"], "_texto_largo"])
         for x in idiomas: x["pct"] = round(100 * x["menciones"] / n_desc, 1)
     else:
         idiomas = None
     # Carreras: con el título solo casi no aparecen (se probó con las corridas de
     # agosto: 0.6 % como máximo), así que sin descripciones también es dato pendiente.
     if n_desc:
-        carreras = contar_carreras(df.loc[df["_con_desc"], "_texto_largo"])[:12]
+        carreras = contar_carreras(base_df.loc[base_df["_con_desc"], "_texto_largo"])[:12]
         for x in carreras: x["pct"] = round(100 * x["menciones"] / n_desc, 1)
     else:
         carreras = None
 
     # nivel educativo (ver docstring)
     if n_desc:
-        dd = df.loc[df["_con_desc"]].copy()
+        dd = base_df.loc[base_df["_con_desc"]].copy()
         dd["_nivel"] = dd["_desc"].map(nivel_educativo)
         nivel_edu = {"base": "vacantes_con_descripcion", "niveles": []}
         for clave, nombre in [(k, nom) for k, nom, _ in NIVELES_EDU] + [NIVEL_SIN_DATO]:
@@ -378,6 +409,7 @@ def main():
         "idiomas": idiomas,
         "carreras": carreras,
         "nivel_educativo": nivel_edu,
+        "base_descripciones": base_desc,
         "total_empresas_unicas": int(df["_emp"].nunique()),
         "ultima_semana_vacantes": evo[-1]["vacantes"] if evo else 0,
         "vacantes_detalle": [fila_detalle(r) for _, r in muestra.iterrows()],
@@ -394,7 +426,8 @@ def main():
             "carreras: % sobre las vacantes con descripción (vacantes_con_descripcion); sin "
             "descripciones, idiomas y carreras = null (dato pendiente). Nivel educativo: el más bajo "
             "que menciona la descripción; % sobre vacantes_con_descripcion; salario por nivel solo "
-            f"con {MIN_SALARIOS_NIVEL}+ salarios; null sin descripciones."),
+            f"con {MIN_SALARIOS_NIVEL}+ salarios; null sin descripciones. base_descripciones dice si "
+            "idiomas, carreras y nivel salen de la semana o del acervo de vacantes vigentes."),
     }
     Path(a.out).write_text(json.dumps(bloque, ensure_ascii=False, indent=1))
     print(f"OK -> {a.out} | verificadas={n} | detalle={len(bloque['vacantes_detalle'])} filas | "

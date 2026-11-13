@@ -181,6 +181,7 @@
   <div class="card" id="nivelEducativoCard">
     <h2>Nivel educativo que piden las vacantes</h2>
     <p class="descripcion">Qué escolaridad mínima piden las vacantes de cada sector, leída en su descripción. Si una vacante menciona varios niveles ("bachillerato, deseable licenciatura") cuenta el más bajo, porque es el mínimo que pide. El porcentaje es sobre las vacantes que traen descripción; "No lo especifica" son las que tienen descripción pero no dicen escolaridad.</p>
+    <p class="descripcion chica nota-base" id="notaBaseNivel"></p>
     <div class="tabla-scroll"><table class="tabla-comp" id="tablaNivel"><thead></thead><tbody></tbody></table></div>
     <h3>Salario mediano mensual por nivel</h3>
     <p class="descripcion chica">Mediana en MXN mensuales de las vacantes de ese nivel que publican salario. Solo se muestra con 5 o más salarios; con menos, una raya.</p>
@@ -190,6 +191,7 @@
   <div class="card" id="idiomasCarrerasCard">
     <h2>Idiomas y carreras que piden las vacantes</h2>
     <p class="descripcion">Qué idiomas y qué carreras mencionan las vacantes de cada sector en su descripción. El porcentaje es sobre las vacantes que traen descripción (no todas la traen: Adzuna sí, OCC no), así que un sector con pocas descripciones da un dato menos firme; el número de vacantes con descripción está bajo cada sector.</p>
+    <p class="descripcion chica nota-base" id="notaBaseIdiomas"></p>
     <div class="filtro-nivel">
       <label for="filtroNivel">Nivel educativo</label>
       <select id="filtroNivel"><option value="">Todos los niveles</option></select>
@@ -611,8 +613,25 @@ let FILTRO_NIVEL = '';
 
 const nivelesDe = (d) => (d.nivel_educativo && Array.isArray(d.nivel_educativo.niveles)) ? d.nivel_educativo.niveles : null;
 
+/* De dónde salen idiomas, carreras y nivel: desde el 2026-11-12, de todas las
+   vacantes vigentes en Adzuna (base_descripciones.origen = 'acervo'), no solo
+   de las de la semana. Las corridas anteriores no traen el campo: semana. */
+function notaBase(){
+  const act = sectoresActivos().map(s => SECTORES[s.key]).filter(d => d.base_descripciones);
+  if(!act.length) return '';
+  const acervo = act.filter(d => d.base_descripciones.origen === 'acervo');
+  if(!acervo.length) return 'Calculado sobre las vacantes de la semana que traen descripción.';
+  const v = acervo.reduce((a, d) => a + (d.base_descripciones.vacantes || 0), 0);
+  const c = acervo.reduce((a, d) => a + (d.base_descripciones.con_descripcion || 0), 0);
+  return 'Calculado sobre todas las vacantes vigentes en Adzuna para cada sector, no solo las de la semana: ' +
+    v.toLocaleString('es-MX') + ' vacantes en los sectores seleccionados, ' + c.toLocaleString('es-MX') +
+    ' con descripción. Adzuna da solo el inicio de cada descripción (unos 500 caracteres), así que lo que se pide más abajo en el texto no se alcanza a contar.' +
+    (acervo.length < act.length ? ' Algunos sectores todavía usan solo la semana.' : '');
+}
+
 function renderNivelEducativo(){
   const activos = sectoresActivos();
+  document.getElementById('notaBaseNivel').textContent = notaBase();
   const t1h = document.querySelector('#tablaNivel thead'), t1b = document.querySelector('#tablaNivel tbody');
   const t2h = document.querySelector('#tablaNivelSalario thead'), t2b = document.querySelector('#tablaNivelSalario tbody');
   if(activos.length === 0){ [t1h, t2h].forEach(x => x.innerHTML = ''); [t1b, t2b].forEach(x => x.innerHTML = '<tr><td class="empty-state">Selecciona al menos un sector arriba.</td></tr>'); return; }
@@ -633,7 +652,7 @@ function renderNivelEducativo(){
     const max = Math.max(...NIVELES_EDU.filter(n => n[0] !== 'no_especifica').map(n => (nv.find(x => x.clave === n[0]) || {}).pct || 0));
     return '<tr>' + celda(s) + '<td class="num">' + (d.vacantes_con_descripcion || 0).toLocaleString('es-MX') + '</td>' +
       NIVELES_EDU.map(n => { const x = nv.find(y => y.clave === n[0]);
-        return '<td class="num' + (x && x.pct && x.pct === max && n[0] !== 'no_especifica' ? ' fuerte' : '') + '">' + (x && x.vacantes ? x.pct + ' %' : '—') + '</td>'; }).join('') + '</tr>';
+        return '<td class="num' + (x && x.pct && x.pct === max && n[0] !== 'no_especifica' ? ' fuerte' : '') + '">' + (x && x.vacantes ? (x.pct ? x.pct + ' %' : '<0.1 %') : '—') + '</td>'; }).join('') + '</tr>';
   }).join('');
   t2b.innerHTML = activos.map(s => {
     const nv = nivelesDe(SECTORES[s.key]);
@@ -658,6 +677,7 @@ function idiomasCarrerasDe(d){
 
 function renderIdiomasCarreras(){
   const activos = sectoresActivos();
+  document.getElementById('notaBaseIdiomas').textContent = notaBase();
   const thead = document.querySelector('#tablaIdiomas thead'), tbody = document.querySelector('#tablaIdiomas tbody');
   const grid = document.getElementById('carrerasPorSectorGrid');
   const nota = document.getElementById('notaIngles');

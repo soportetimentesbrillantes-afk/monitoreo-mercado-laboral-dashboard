@@ -10,6 +10,83 @@ después.
 corrigió un error, describe también cómo se detectó — eso es lo que evita
 repetirlo.
 
+## 2026-11-12 — Corrida a pedido (jueves), primera con acervo
+
+Gael pidió correr la corrida completa ya, con idiomas, carreras y nivel
+educativo calculados sobre todas las vacantes disponibles (ver la entrada de
+abajo). Corrió en una sesión interactiva, no en la tarea de los lunes.
+
+- Ventana: 2026-11-06 al 2026-11-12. Adzuna (API) y OCC (navegador de la
+  computadora de Gael, el JavaScript sí corrió esta vez). Indeed no disponible.
+- Topes de 2,500 en Adzuna: `gestion`, `sales`, `ventas`, `finance`,
+  `logistica`. En esos sectores el conteo semanal es un piso.
+- Acervo: 72,111 vacantes extraídas, 61,780 usadas tras la Etapa 2. Algunas
+  son viejas (Adzuna las sigue listando desde 2022-2024); se usaron todas
+  porque así se pidió.
+- Total verificadas: 3,210.
+
+| Sector | Verificadas | Adzuna / OCC | Mediana MXN/mes | Acervo usado | Inglés | Carrera más pedida | Licenciatura | Nivel no especificado |
+|---|---|---|---|---|---|---|---|---|
+| Automotriz | 611 | 594 / 17 | 12,350 | 5,347 | 1.9 % | Carrera técnica (5.6 %) | 10.5 % | 73.9 % |
+| Turismo | 151 | 147 / 4 | 12,000 | 5,437 | 6.1 % | Turismo, hotelería y gastronomía (5.4 %) | 6.8 % | 84.1 % |
+| Gestión y Administración | 442 | 432 / 10 | 14,000 | 10,998 | 3.5 % | Administración (3.6 %) | 13.8 % | 79.7 % |
+| Ventas | 603 | 594 / 9 | 11,737 | 8,116 | 3.1 % | Carrera técnica (1.4 %) | 3.6 % | 79.2 % |
+| Finanzas | 520 | 512 / 8 | 14,745 | 9,420 | 2.6 % | Contaduría (21.0 %) | 18.4 % | 72.2 % |
+| Logística | 438 | 425 / 13 | 12,500 | 8,160 | 2.4 % | Logística y comercio internacional (2.9 %) | 7.1 % | 76.9 % |
+| Legal | 230 | 209 / 21 | 16,000 | 4,923 | 4.6 % | Derecho (10.0 %) | 20.9 % | 73.8 % |
+| Metalmecánica | 43 | 39 / 4 | 16,094 | 1,247 | 1.6 % | Carrera técnica (16.9 %) | 12.8 % | 71.9 % |
+| TI | 172 | 162 / 10 | 21,000 | 8,132 | 4.7 % | Sistemas, software y TI (2.6 %) | 10.4 % | 87.2 % |
+
+- **No comparable** con lo publicado (2026-10-16): faltan en la serie las
+  corridas del 2026-10-26, 2026-11-02 y 2026-11-09 (esta última se hizo pero
+  no se publicó y su ventana se traslapa con esta del 2026-11-06 al
+  2026-11-09). Solo Automotriz y Turismo tenían verificados previos en
+  `datos/` para detectar republicaciones.
+- **"No lo especifica" pasa de 70 % en todos los sectores.** Revisadas a mano
+  10 descripciones con nivel asignado: las 10 bien (por ejemplo
+  "bachillerato o preparatoria concluida, licenciatura deseable" →
+  bachillerato). Las que no lo especifican casi nunca llegan a los
+  requisitos: Adzuna corta la descripción a ~500 caracteres y la mayoría se
+  va en presentar a la empresa. No es un hueco de los patrones; no se cambió
+  `NIVELES_EDU`.
+- Por la misma razón, inglés sale bajo (2 a 6 %): es un piso.
+- Se corrigió un falso positivo de carreras: "arquitecto de software",
+  "arquitectura de datos" y similares contaban como la carrera de
+  Arquitectura (en TI era la "carrera" más pedida). Ahora solo cuenta la
+  carrera.
+- `pct_con_habilidades` sigue en 0 (el crudo no trae habilidades
+  explícitas), por eso el boletín dice "Cobertura: dato pendiente", igual que
+  en ediciones anteriores.
+- Boletín: `boletines/newsletter-2026-11-12` con aviso de que no es
+  comparable.
+
+## 2026-11-12 — Idiomas, carreras y nivel educativo desde todas las vacantes vigentes
+
+Con solo las vacantes de la semana (y solo las de Adzuna traen descripción)
+había pocas descripciones por sector. Gael pidió usar todas las vacantes
+disponibles para esas tres cosas, sin mover lo demás.
+
+- **Etapa 1** hace una segunda extracción de Adzuna, el **acervo**: los mismos
+  términos sin `max_days_old` (todas las vacantes vigentes), hasta 100 páginas
+  de 50 por término. Es lo más que pagina la API: a partir de la página ~100
+  repite la misma página, así que en los términos grandes (ventas, gestión,
+  finanzas, logística, TI) el acervo es una parte de lo vigente, no todo.
+- El acervo pasa por la Etapa 2 sin `--prev-verified`; se usan sus
+  verificadas **y** sus pendientes (empresa todavía no revisada): para saber
+  qué piden las vacantes no hace falta haber verificado la empresa. Quedan
+  fuera duplicados y empresas sin nombre.
+- **etapa4_sector_json.py `--acervo`**: si se pasa, idiomas, carreras y nivel
+  educativo salen del acervo; vacantes, salarios, empresas, habilidades,
+  estados, evolución y boletín siguen siendo de la semana (comparables).
+  Campo nuevo `base_descripciones` (`origen`: acervo o semana, vacantes, con
+  descripción).
+- **comparativo.html** dice de dónde salen esas cifras en las dos tarjetas.
+- Adzuna da solo los primeros ~500 caracteres de la descripción: lo que la
+  vacante pide más abajo no se alcanza a contar. Los porcentajes son un piso.
+- El acervo no se guarda en el repo (decenas de MB por semana).
+- La tarea programada de los lunes ya lo hace (~1.5 a 2 horas más de
+  extracción).
+
 ## 2026-11-12 — Segmentación por nivel educativo en el comparativo
 
 - **etapa4_sector_json.py** (las dos copias) clasifica cada vacante con
