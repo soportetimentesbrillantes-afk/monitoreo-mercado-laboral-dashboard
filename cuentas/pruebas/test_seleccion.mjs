@@ -4,7 +4,9 @@
  *
  *   node cuentas/pruebas/test_seleccion.mjs
  *
- * Lo que importa: el ejemplo calcula bien el ranking y la regla de los 4/5;
+ * Lo que importa: el ejemplo calcula bien el ranking del CV, la matriz de los
+ * cuatro métodos (CV anónimo, prueba de competencias, muestra de trabajo y
+ * entrevista estructurada) y la regla de los 4/5;
  * al agregar un candidato se ocultan nombre, correo, teléfono, edad y estado
  * civil, sin borrar los años de experiencia; a la IA solo le llega el perfil
  * sin identidad y la rúbrica; si la ruta no está activa la página sigue
@@ -70,13 +72,82 @@ async function abrir(hash = '', ia = 'ok') {
 
 console.log('\nSelección Justa');
 
-await prueba('el ejemplo: ranking ponderado y lista corta de 4', async () => {
-  const { p, ctx } = await abrir('#decision');
-  await p.waitForSelector('#v-decision tbody tr');
-  const filas = await p.$$eval('#v-decision tbody tr', (t) => t.map(r => [r.cells[1].textContent.trim(), r.cells[2].textContent.trim()]));
+await prueba('el ejemplo: ranking del CV anónimo y lista corta de 4', async () => {
+  const { p, ctx } = await abrir('#cv');
+  await p.waitForSelector('#tablaCV tbody tr');
+  const filas = await p.$$eval('#tablaCV tbody tr', (t) => t.map(r => [r.cells[1].textContent.trim(), r.cells[2].textContent.trim()]));
   igual(filas.map(f => f[0]).join(','), 'C-08,C-02,C-04,C-06,C-03,C-01,C-07,C-05');
   igual(filas[0][1], '81'); igual(filas[7][1], '48');
-  igual(await p.locator('#v-decision .pill.acc').count(), 4);
+  igual(await p.locator('#tablaCV .pill.acc').count(), 4);
+  await ctx.close();
+});
+
+await prueba('la matriz suma los cuatro métodos y recomienda a quien no era primero en el CV', async () => {
+  const { p, ctx } = await abrir('#matriz');
+  await p.waitForSelector('#tablaMatriz tbody tr');
+  const filas = await p.$$eval('#tablaMatriz tbody tr', (t) => t.map(r => [...r.cells].map(c => c.textContent.trim())));
+  igual(filas.map(f => f[1].slice(0, 4)).join(','), 'C-06,C-02,C-04,C-08');
+  igual(filas[0].slice(2, 7).join('|'), '74|71.4|95.4|85.9|83.5');
+  igual(filas[3][6], '68.1', 'C-08 era primero en el CV y queda último');
+  const t = await p.textContent('#v-matriz');
+  cierto(t.includes('La matriz recomienda a C-06') && t.includes('empate técnico'), t.slice(0, 400));
+  cierto(await p.$('#tablaDetalle td.vacia'), 'las competencias que un método no mide quedan en gris');
+  await ctx.close();
+});
+
+await prueba('paso 1: la matriz de métodos cambia el puntaje y avisa si una competencia queda con un solo método', async () => {
+  const { p, ctx } = await abrir('#vacante');
+  await p.waitForSelector('#tablaMetodos');
+  igual(await p.locator('#tablaMetodos input[type=checkbox]:checked').count(), 14);
+  await p.uncheck('[data-mk="prueba"][data-kid="k4"]');
+  cierto((await p.textContent('#avisosMatriz')).includes('Medidas con un solo método: Herramientas digitales y CRM'), await p.textContent('#avisosMatriz'));
+  const g = await p.evaluate(() => JSON.parse(localStorage.getItem('cmb_seleccion_justa_v2')).vacante.metodos.prueba.comps.join(','));
+  igual(g, 'k3');
+  await p.goto(BASE + '/seleccion.html#matriz');
+  await p.waitForSelector('#tablaMatriz tbody tr');
+  const c06 = await p.$$eval('#tablaMatriz tbody tr', (t) => t.map(r => [...r.cells].map(c => c.textContent.trim())).find(f => f[1].startsWith('C-06')));
+  igual(c06[3], '80', 'la prueba de C-06 ahora solo cuenta producto (4 de 5)');
+  await ctx.close();
+});
+
+await prueba('paso 4: la entrevista promedia a los evaluadores y mueve la matriz', async () => {
+  const { p, ctx } = await abrir('#evaluacion');
+  await p.waitForSelector('[data-metodo="entrevista"]');
+  cierto((await p.textContent('#v-evaluacion')).includes('C-08'), 'empieza por el primero de la lista corta');
+  await p.click('[data-m="entrevista"][data-e="0"][data-k="k1"][data-v="5"]');
+  const prom = await p.$eval('[data-metodo="entrevista"] tbody tr', r => r.cells[r.cells.length - 1].textContent.trim());
+  igual(prom, '4');
+  await p.goto(BASE + '/seleccion.html#matriz');
+  await p.waitForSelector('#tablaMatriz tbody tr');
+  const c08 = await p.$$eval('#tablaMatriz tbody tr', (t) => t.map(r => [...r.cells].map(c => c.textContent.trim())).find(f => f[1].startsWith('C-08')));
+  cierto(c08[6] !== '68.1', 'el total de C-08 cambió: ' + c08[6]);
+  await ctx.close();
+});
+
+await prueba('contratar a alguien distinto del recomendado pide razón y la auditoría lo marca', async () => {
+  const { p, ctx } = await abrir('#matriz');
+  await p.waitForSelector('[data-dec="C-08"]');
+  await p.selectOption('[data-dec="C-08"]', 'Contratar');
+  cierto((await p.getAttribute('[data-just="C-08"]', 'placeholder')).startsWith('Obligatorio'), 'pide la razón');
+  await p.goto(BASE + '/seleccion.html#auditoria');
+  const t = await p.textContent('#v-auditoria');
+  cierto(t.includes('distinto del recomendado por la matriz (C-08)') && t.includes('Decisiones sin razón escrita: C-08'), t.slice(0, 600));
+  cierto(t.includes('¿En qué método se abre la brecha?'));
+  await ctx.close();
+});
+
+await prueba('lo guardado con la versión anterior se conserva y entra como CV anónimo', async () => {
+  const ctx = await navegador.newContext();
+  await ctx.route(/^https?:\/\/(cdnjs|cdn\.jsdelivr|fonts\.google|fonts\.gstatic)/, (r) => r.abort());
+  await ctx.addInitScript(() => { if(!sessionStorage.getItem('x')){ sessionStorage.setItem('x', 1); localStorage.setItem('cmb_seleccion_justa_v1', JSON.stringify({vacante:{puesto:'Puesto viejo', listaCorta:1, competencias:[{id:'a', nombre:'Comp A', peso:50, n1:'', n3:'', n5:''},{id:'b', nombre:'Comp B', peso:50, n1:'', n3:'', n5:''}]}, candidatos:[{id:'C-01', perfil:'Perfil de prueba con texto suficiente para pasar el filtro.', grupo:{}, cal:{a:5,b:3}}], decisiones:{}})); } });
+  const p = await ctx.newPage();
+  p.on('pageerror', (er) => { errores.push(er.message); console.log('         [error de página] ' + er.message); });
+  await p.goto(BASE + '/seleccion.html#matriz');
+  await p.waitForSelector('#v-matriz .banda');
+  const t = await p.textContent('#v-matriz');
+  cierto(t.includes('Faltan métodos por calificar en: C-01 (Prueba, Muestra, Entrevista)'), t.slice(0, 500));
+  await p.goto(BASE + '/seleccion.html#cv');
+  igual(await p.$eval('#tablaCV tbody tr', r => r.cells[2].textContent.trim()), '80');
   await ctx.close();
 });
 
@@ -99,21 +170,21 @@ await prueba('agregar un candidato oculta su identidad pero no sus años de expe
   await p.selectOption('#f_gen', 'Mujer'); await p.selectOption('#f_edad', '18 a 24');
   await p.click('#btnAgregarC');
   await p.waitForFunction(() => document.querySelectorAll('.cand').length === 9);
-  const g = await p.evaluate(() => JSON.parse(localStorage.getItem('cmb_seleccion_justa_v1')).candidatos.at(-1));
+  const g = await p.evaluate(() => JSON.parse(localStorage.getItem('cmb_seleccion_justa_v2')).candidatos.at(-1));
   igual(g.id, 'C-09'); igual(g.grupo.genero, 'Mujer');
   cierto(!g.perfil.includes('Gutiérrez'), 'lo guardado tampoco trae el nombre');
   await ctx.close();
 });
 
 await prueba('la IA solo recibe rúbrica y perfil sin identidad; la página señala la cita que no aparece', async () => {
-  const { p, ctx, pedidos } = await abrir('#calificacion');
+  const { p, ctx, pedidos } = await abrir('#cv');
   await p.waitForSelector('#btnIA');
   await p.click('#btnIA');
-  await p.waitForFunction(() => document.querySelector('#v-calificacion').textContent.includes('Sugerencia lista'));
+  await p.waitForFunction(() => document.querySelector('#v-cv').textContent.includes('Sugerencia lista'));
   igual(pedidos.length, 1);
   igual(Object.keys(pedidos[0]).sort().join(','), 'competencias,perfil,puesto');
   igual(pedidos[0].competencias.length, 5);
-  const t = await p.textContent('#v-calificacion');
+  const t = await p.textContent('#v-cv');
   cierto(t.includes('diagnosticaba fallas eléctricas'), 'muestra la evidencia');
   cierto(t.includes('cita no encontrada en el perfil'), 'avisa de la cita inventada');
   // C-01 ya estaba calificado: la sugerencia no pisa al evaluador; si difiere, pide la razón.
@@ -122,8 +193,8 @@ await prueba('la IA solo recibe rúbrica y perfil sin identidad; la página señ
 });
 
 await prueba('prueba de nombres cambiados: avisa cuando el puntaje cambia solo por el nombre', async () => {
-  const { p, ctx, pedidos } = await abrir('#calificacion');
-  await p.click('details summary');
+  const { p, ctx, pedidos } = await abrir('#cv');
+  await p.click('#v-cv details summary');
   await p.click('#btnNombres');
   await p.waitForFunction(() => document.getElementById('resNombres').textContent.includes('Cambió en 1'));
   igual(pedidos.length, 2);
@@ -132,9 +203,9 @@ await prueba('prueba de nombres cambiados: avisa cuando el puntaje cambia solo p
 });
 
 await prueba('si la ruta del worker no está activa, se califica a mano', async () => {
-  const { p, ctx } = await abrir('#calificacion', '404');
+  const { p, ctx } = await abrir('#cv', '404');
   await p.click('#btnIA');
-  await p.waitForFunction(() => document.querySelector('#v-calificacion').textContent.includes('todavía no está activa'));
+  await p.waitForFunction(() => document.querySelector('#v-cv').textContent.includes('todavía no está activa'));
   await p.click('[data-cal="k2"][data-v="4"]');
   cierto(await p.getAttribute('[data-cal="k2"][data-v="4"]', 'aria-pressed') === 'true');
   await ctx.close();

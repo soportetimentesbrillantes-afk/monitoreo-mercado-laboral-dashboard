@@ -10,6 +10,39 @@ después.
 corrigió un error, describe también cómo se detectó — eso es lo que evita
 repetirlo.
 
+## 2026-11-17 — Selección Justa: matriz de cuatro métodos
+
+Gael pidió que la selección no dependiera de un solo método sino de los que
+plantea el documento "Selección de candidatos sin sesgo", combinados en una
+matriz que decida.
+
+- **seleccion.html** ahora tiene seis pasos: vacante y métodos, candidatos,
+  CV anónimo, pruebas y entrevista, matriz de decisión y auditoría.
+- Cuatro métodos miden a cada candidato: **revisión anónima del CV** (a
+  todos; arma la lista corta), **prueba de competencias**, **muestra de
+  trabajo** y **entrevista estructurada** (hasta tres evaluadores que se
+  promedian). El quinto método del documento, **decisión por rúbrica y
+  suma**, es la matriz.
+- En el paso 1 la empresa marca qué competencias mide cada método y el peso
+  de cada método, antes de ver candidatos. Avisa si una competencia se mide
+  con un solo método o con ninguno.
+- Cada método da un puntaje sobre 100 (promedio ponderado de las
+  competencias que mide); la matriz los suma con sus pesos, recomienda al
+  primero, marca empate técnico (menos de 3 puntos) y desacuerdo entre
+  métodos (más de 25 puntos), y muestra el detalle por competencia.
+  Contratar a alguien distinto del recomendado exige razón escrita y la
+  auditoría lo registra.
+- La auditoría agrega el promedio de cada método por grupo, para ver en qué
+  método se abre una brecha.
+- Lo guardado con la versión anterior (`cmb_seleccion_justa_v1`) se conserva:
+  pasa como CV anónimo y los otros métodos quedan por calificar. La llave
+  nueva es `cmb_seleccion_justa_v2`.
+- El documento de investigación tiene una sección nueva, "Matriz de decisión:
+  los cuatro métodos juntos", y su enlace al prototipo apunta ya a esta
+  página.
+
+Pruebas: `cuentas/pruebas/test_seleccion.mjs` (14).
+
 ## 2026-11-12 — Corrida a pedido (jueves), primera con acervo
 
 Gael pidió correr la corrida completa ya, con idiomas, carreras y nivel

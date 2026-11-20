@@ -10,7 +10,8 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@500&display=swap">
 <style>
 /* Mismos colores y letras que el resto del sitio (proceso.css).
-   Cinco pasos en pestañas (vacante → candidatos → calificación → decisión → auditoría). */
+   Seis pasos en pestañas: vacante y métodos → candidatos → CV anónimo →
+   pruebas y entrevista → matriz de decisión → auditoría. */
 :root{
   --bg:#faf8f2; --surface:#ffffff; --sunk:#f3efe5; --line:#e7ddc9;
   --ink:#1f1f1c; --muted:#6b6459; --accent:#8b7440; --accent-soft:#f1ead9; --accent-ink:#ffffff; --ochre:#c2703d;
@@ -89,6 +90,13 @@ td input,td select,td textarea{width:100%;border:1px solid var(--line);backgroun
 .k .cifra{border:1px solid var(--line);border-radius:10px;padding:10px 12px;display:grid;gap:2px}
 .k .cifra b{font-family:var(--f-data);font-weight:500;font-size:1.45rem}
 details summary{cursor:pointer;font-weight:600}
+.metodo-cab{display:grid;gap:2px}
+.metodo-cab b{font-size:.86rem;color:var(--ink);text-transform:none;letter-spacing:0}
+td.centro,th.centro{text-align:center}
+td.vacia{background:var(--sunk)}
+tr.gana td{background:var(--accent-soft)}
+.chk{width:18px;height:18px;accent-color:var(--accent)}
+.met{border:1px solid var(--line);border-radius:10px;padding:12px 14px;display:grid;gap:8px}
 @media (max-width:700px){ .grid2{grid-template-columns:1fr} .ratio{grid-template-columns:1fr} }
 </style>
 </head>
@@ -99,85 +107,187 @@ details summary{cursor:pointer;font-weight:600}
   <div class="fila">
     <div>
       <h1>Selección Justa</h1>
-      <p class="sub">Herramienta del Club de Mentes Brillantes para empresas aliadas que contratan egresados: criterios antes que candidatos, perfiles sin identidad, IA que cita evidencia y una auditoría con la regla de los 4/5.</p>
+      <p class="sub">Herramienta del Club de Mentes Brillantes para empresas aliadas que contratan egresados. Cuatro métodos con evidencia (revisión anónima del CV, prueba de competencias, muestra de trabajo y entrevista estructurada) se suman en una matriz con pesos fijados antes de ver candidatos, y una auditoría revisa la regla de los 4/5.</p>
     </div>
     <div class="acciones"><button class="btn" type="button" id="btnReiniciar">Volver al ejemplo</button></div>
   </div>
   <nav class="pasos" aria-label="Pasos">
-    <a href="#vacante" data-v="vacante"><span class="n">1</span>Vacante</a>
+    <a href="#vacante" data-v="vacante"><span class="n">1</span>Vacante y métodos</a>
     <a href="#candidatos" data-v="candidatos"><span class="n">2</span>Candidatos</a>
-    <a href="#calificacion" data-v="calificacion"><span class="n">3</span>Calificación</a>
-    <a href="#decision" data-v="decision"><span class="n">4</span>Decisión</a>
-    <a href="#auditoria" data-v="auditoria"><span class="n">5</span>Auditoría</a>
+    <a href="#cv" data-v="cv"><span class="n">3</span>CV anónimo</a>
+    <a href="#evaluacion" data-v="evaluacion"><span class="n">4</span>Pruebas y entrevista</a>
+    <a href="#matriz" data-v="matriz"><span class="n">5</span>Matriz de decisión</a>
+    <a href="#auditoria" data-v="auditoria"><span class="n">6</span>Auditoría</a>
   </nav>
 </header>
 <main>
   <p class="aviso" id="avisoEjemplo">Datos de ejemplo: la vacante y los ocho candidatos son ficticios. Cambia lo que quieras: se guarda solo en este navegador. Lo único que sale es el perfil ya sin identidad cuando pides la sugerencia con IA, y el servidor del Club no lo guarda. Usa «Volver al ejemplo» para empezar de nuevo.</p>
   <section class="vista" id="v-vacante"></section>
   <section class="vista" id="v-candidatos" hidden></section>
-  <section class="vista" id="v-calificacion" hidden></section>
-  <section class="vista" id="v-decision" hidden></section>
+  <section class="vista" id="v-cv" hidden></section>
+  <section class="vista" id="v-evaluacion" hidden></section>
+  <section class="vista" id="v-matriz" hidden></section>
   <section class="vista" id="v-auditoria" hidden></section>
 </main>
 </div>
 
 <script>
+/* =====================================================================
+   Selección Justa — matriz de cuatro métodos
+   =====================================================================
+   El documento "Selección de candidatos sin sesgo" plantea cinco métodos con
+   evidencia. Aquí cuatro de ellos miden a cada candidato y el quinto, la
+   decisión por rúbrica y suma, es la matriz que los combina:
+
+     1. Revisión anónima del CV   (a todos; decide la lista corta)
+     2. Prueba de competencias     (cada competencia se comprueba, no se supone)
+     3. Muestra de trabajo         (tarea corta y real del puesto)
+     4. Entrevista estructurada    (mismas preguntas; cada evaluador por su cuenta)
+     5. Matriz: puntaje de cada método (0 a 100, ponderado por competencia)
+        × peso del método, fijado antes de ver candidatos.
+
+   En el paso 1 la empresa marca qué competencias mide cada método (lo
+   recomendable es que cada competencia se mida con al menos dos) y el peso de
+   cada método. Los pasos 2 a 4 califican; el 5 ordena y recomienda; una
+   persona decide y escribe su razón.
+   ===================================================================== */
+
+const METODOS = [
+  {id:'cv', n:'Revisión anónima del CV', corto:'CV anónimo', d:'El perfil sin nombre, edad, género ni domicilio, calificado con la rúbrica. Se aplica a todos y decide la lista corta.'},
+  {id:'prueba', n:'Prueba de competencias', corto:'Prueba', d:'Cada competencia se comprueba con una prueba corta o evidencia verificable (certificación, portafolio), no con el título ni los años de experiencia.'},
+  {id:'muestra', n:'Muestra de trabajo', corto:'Muestra', d:'Una tarea corta y real del puesto, igual para todos, calificada con la rúbrica.'},
+  {id:'entrevista', n:'Entrevista estructurada', corto:'Entrevista', d:'Las mismas preguntas para todos. Cada evaluador califica por su cuenta antes de comentar; se promedia.'}
+];
+const MID = METODOS.map(m => m.id);
+const nombreM = id => METODOS.find(m => m.id === id).n;
+
 /* ======================= Ejemplo (ficticio) ======================= */
 const EJEMPLO = {
   vacante: {
     puesto: 'Asesor(a) de ventas junior · agencia automotriz, Querétaro',
     listaCorta: 4,
+    evaluadores: 2,
     competencias: [
       {id:'k1', nombre:'Atención y comunicación con clientes', peso:25, n1:'Responde lo que se le pregunta, sin indagar necesidades', n3:'Escucha, pregunta y explica con claridad; hay un ejemplo de trato con clientes', n5:'Ejemplos repetidos de clientes atendidos con resultados medibles (satisfacción, recompra)'},
       {id:'k2', nombre:'Negociación y cierre', peso:25, n1:'Sin experiencia de vender o negociar', n3:'Ha vendido o negociado algo con un resultado concreto', n5:'Metas de venta cumplidas o superadas con cifras'},
       {id:'k3', nombre:'Conocimiento de producto y mecánica básica', peso:20, n1:'Sin formación ni experiencia relacionada', n3:'Curso, carrera o práctica relacionada con autos', n5:'Experiencia técnica en taller o producto automotriz demostrada'},
       {id:'k4', nombre:'Herramientas digitales y CRM', peso:15, n1:'Uso básico de correo y mensajería', n3:'Hojas de cálculo o algún CRM en uso real', n5:'Lleva su cartera en un CRM, reportes o automatizaciones'},
       {id:'k5', nombre:'Organización y seguimiento', peso:15, n1:'Sin evidencia de seguimiento a pendientes', n3:'Lleva agenda o seguimiento de un proyecto', n5:'Ejemplos de seguimiento sistemático con resultados'}
-    ]
+    ],
+    metodos: {
+      cv: {peso:20, comps:['k1','k2','k3','k4','k5'], guia:''},
+      prueba: {peso:20, comps:['k3','k4'], guia:'Cuestionario de 10 preguntas sobre los modelos de la agencia y mecánica básica; ejercicio en un CRM de prueba: registrar un prospecto y programar su seguimiento.'},
+      muestra: {peso:30, comps:['k1','k2','k5'], guia:'Simulación de 15 minutos: un cliente (actor) duda entre dos modelos. Se califica cómo indaga, presenta y cierra, y el mensaje de seguimiento que envía al día siguiente.'},
+      entrevista: {peso:30, comps:['k1','k2','k3','k5'], guia:'1. Cuéntame de una vez que un cliente no quería comprar. ¿Qué hiciste y qué pasó?\n2. Un cliente pregunta por una falla que no conoces. ¿Qué le dices?\n3. ¿Cómo llevas el seguimiento de varios prospectos a la vez? Dame un ejemplo.\n4. ¿Qué haces si un cliente pide un descuento que no puedes dar?'}
+    }
   },
   candidatos: [
     {id:'C-01', perfil:'Formación: Técnico en mantenimiento automotriz (CONALEP), 2024.\nExperiencia: 1 año como auxiliar en taller de servicio; diagnosticaba fallas eléctricas y explicaba al cliente el presupuesto antes de autorizar la reparación.\nProyectos: atendía el mostrador de refacciones los sábados.\nHerramientas: Excel básico, WhatsApp Business para dar seguimiento a clientes del taller.\nProceso DIANA: brecha principal en negociación; curso de ventas consultivas en curso.',
       grupo:{genero:'Hombre', edad:'18 a 24'}, cal:{k1:3,k2:2,k3:5,k4:3,k5:3}},
     {id:'C-02', perfil:'Formación: Licenciatura en Mercadotecnia, 2025.\nExperiencia: 8 meses en ventas de piso en tienda departamental; superó su meta mensual 5 de 8 meses (promedio 112 %).\nProyectos: tesis sobre fidelización de clientes en agencias de autos.\nHerramientas: HubSpot CRM durante prácticas; Excel intermedio con tablas dinámicas.\nProceso DIANA: marca personal "convierto visitas en clientes que regresan".',
-      grupo:{genero:'Mujer', edad:'18 a 24'}, cal:{k1:4,k2:5,k3:2,k4:5,k5:4}},
+      grupo:{genero:'Mujer', edad:'18 a 24'}, cal:{k1:4,k2:5,k3:2,k4:5,k5:4},
+      ev:{prueba:{k3:3,k4:5}, muestra:{k1:5,k2:4,k5:4}, entrevista:[{k1:5,k2:4,k3:3,k5:4},{k1:4,k2:4,k3:3,k5:5}]}},
     {id:'C-03', perfil:'Formación: Bachillerato tecnológico; curso de atención al cliente (80 h), 2023.\nExperiencia: 3 años en centro de atención telefónica; resolvía 40 llamadas por turno con 92 % de satisfacción.\nHerramientas: Zendesk, Excel básico.\nOrganización: llevaba bitácora diaria de casos pendientes y los cerraba antes de 48 h.',
       grupo:{genero:'Mujer', edad:'25 a 29'}, cal:{k1:5,k2:3,k3:1,k4:3,k5:5}},
     {id:'C-04', perfil:'Formación: Ingeniería Mecánica Automotriz (trunca, 6 semestres).\nExperiencia: 2 años vendiendo autos seminuevos por su cuenta en redes sociales; 18 unidades vendidas.\nHerramientas: Facebook Marketplace, hojas de cálculo para su inventario.\nSeguimiento: llamaba a cada interesado a los 3 días.',
-      grupo:{genero:'Hombre', edad:'25 a 29'}, cal:{k1:4,k2:4,k3:4,k4:3,k5:4}},
+      grupo:{genero:'Hombre', edad:'25 a 29'}, cal:{k1:4,k2:4,k3:4,k4:3,k5:4},
+      ev:{prueba:{k3:5,k4:3}, muestra:{k1:4,k2:4,k5:3}, entrevista:[{k1:4,k2:3,k3:5,k5:3},{k1:4,k2:4,k3:4,k5:3}]}},
     {id:'C-05', perfil:'Formación: Licenciatura en Administración, 2025.\nExperiencia: servicio social en el área de compras de un municipio; armaba comparativos de cotizaciones.\nHerramientas: Excel intermedio, SAP en prácticas.\nProceso DIANA: interés en ventas; sin experiencia directa con clientes.',
       grupo:{genero:'Hombre', edad:'18 a 24'}, cal:{k1:2,k2:2,k3:1,k4:4,k5:4}},
     {id:'C-06', perfil:'Formación: Técnico en Electromecánica, 2022; certificación CONOCER en atención a clientes.\nExperiencia: 2 años como asesor de servicio en agencia de motocicletas; recibía unidades, explicaba diagnósticos y vendía paquetes de mantenimiento (35 por mes).\nHerramientas: sistema de órdenes de servicio de la agencia, Excel.',
-      grupo:{genero:'Mujer', edad:'25 a 29'}, cal:{k1:4,k2:4,k3:4,k4:3,k5:3}},
+      grupo:{genero:'Mujer', edad:'25 a 29'}, cal:{k1:4,k2:4,k3:4,k4:3,k5:3},
+      ev:{prueba:{k3:4,k4:3}, muestra:{k1:5,k2:5,k5:4}, entrevista:[{k1:5,k2:4,k3:4,k5:4},{k1:4,k2:5,k3:4,k5:4}]}},
     {id:'C-07', perfil:'Formación: Licenciatura en Comercio Internacional, 2024.\nExperiencia: 1 año en logística de exportación; coordinaba embarques con 6 clientes.\nHerramientas: Excel avanzado, Power BI.\nOrganización: tablero semanal de embarques para su jefe.',
       grupo:{genero:'Prefiere no decir', edad:'18 a 24'}, cal:{k1:3,k2:2,k3:1,k4:5,k5:5}},
     {id:'C-08', perfil:'Formación: Bachillerato; 15 años de experiencia laboral.\nExperiencia: 6 años como vendedor de seguros de auto; cartera de 120 clientes con renovación del 80 %. Antes, 9 años como chofer de transporte de personal.\nHerramientas: CRM de la aseguradora, WhatsApp.\nProceso DIANA: busca cambiar a venta de autos.',
-      grupo:{genero:'Hombre', edad:'30 o más'}, cal:{k1:4,k2:5,k3:3,k4:4,k5:4}}
+      grupo:{genero:'Hombre', edad:'30 o más'}, cal:{k1:4,k2:5,k3:3,k4:4,k5:4},
+      ev:{prueba:{k3:3,k4:3}, muestra:{k1:3,k2:4,k5:3}, entrevista:[{k1:3,k2:4,k3:3,k5:4},{k1:3,k2:4,k3:2,k5:3}]}}
   ],
   decisiones: {}
 };
 const GRUPOS = {genero:{t:'Género', ops:['Mujer','Hombre','No binario','Prefiere no decir']}, edad:{t:'Edad', ops:['18 a 24','25 a 29','30 o más','Prefiere no decir']}};
 
 /* ======================= Estado ======================= */
-const LLAVE = 'cmb_seleccion_justa_v1';
+/* v2 agrega los métodos. Lo guardado con la versión anterior (v1) se conserva:
+   su calificación pasa a ser la del CV anónimo y los métodos nuevos miden
+   todas las competencias hasta que la empresa los ajuste. */
+const LLAVE = 'cmb_seleccion_justa_v2', LLAVE_V1 = 'cmb_seleccion_justa_v1';
 let S;
-function cargar(){ try{ const g = JSON.parse(localStorage.getItem(LLAVE) || 'null'); if(g && g.vacante) return g; }catch(e){} return JSON.parse(JSON.stringify(EJEMPLO)); }
+const copia = o => JSON.parse(JSON.stringify(o));
+function cargar(){
+  try{ const g = JSON.parse(localStorage.getItem(LLAVE) || 'null'); if(g && g.vacante) return g; }catch(e){}
+  try{ const v1 = JSON.parse(localStorage.getItem(LLAVE_V1) || 'null'); if(v1 && v1.vacante) return v1; }catch(e){}
+  return copia(EJEMPLO);
+}
 function guardar(){ try{ localStorage.setItem(LLAVE, JSON.stringify(S)); }catch(e){} }
-S = cargar();
-S.decisiones = S.decisiones || {};
-S.candidatos.forEach(c => { c.cal = c.cal || {}; c.ia = c.ia || null; c.razones = c.razones || {}; c.grupo = c.grupo || {}; });
+function normalizar(){
+  const v = S.vacante;
+  v.evaluadores = Math.min(3, Math.max(1, Number(v.evaluadores) || 2));
+  if(!v.metodos){
+    const todas = v.competencias.map(k => k.id);
+    v.metodos = {};
+    MID.forEach(m => { v.metodos[m] = {peso: EJEMPLO.vacante.metodos[m].peso, comps: todas.slice(), guia: ''}; });
+  }
+  MID.forEach(m => { const x = v.metodos[m] = v.metodos[m] || {peso:0, comps:[], guia:''}; x.comps = (x.comps || []).filter(id => v.competencias.some(k => k.id === id)); x.peso = Number(x.peso) || 0; x.guia = x.guia || ''; });
+  S.decisiones = S.decisiones || {};
+  S.candidatos.forEach(c => {
+    c.cal = c.cal || {}; c.ia = c.ia || null; c.razones = c.razones || {}; c.grupo = c.grupo || {};
+    c.ev = c.ev || {}; c.ev.prueba = c.ev.prueba || {}; c.ev.muestra = c.ev.muestra || {};
+    c.ev.entrevista = Array.isArray(c.ev.entrevista) ? c.ev.entrevista : [];
+    while(c.ev.entrevista.length < v.evaluadores) c.ev.entrevista.push({});
+    c.notas = c.notas || {};
+  });
+}
+S = cargar(); normalizar();
 
 const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const comps = () => S.vacante.competencias;
 const pesoTotal = () => comps().reduce((s, k) => s + (Number(k.peso) || 0), 0);
-function puntaje(c){
-  const pt = pesoTotal() || 1; let suma = 0, completos = 0;
-  comps().forEach(k => { const v = Number(c.cal[k.id]); if(v){ suma += v * (Number(k.peso) || 0); completos++; } });
-  return {valor: Math.round(suma / pt / 5 * 1000) / 10, completos};
+const compsDe = m => comps().filter(k => S.vacante.metodos[m].comps.includes(k.id));
+const metodosActivos = () => MID.filter(m => compsDe(m).length && S.vacante.metodos[m].peso > 0);
+const pesoMetodos = () => metodosActivos().reduce((s, m) => s + S.vacante.metodos[m].peso, 0);
+
+/* Calificaciones de un candidato en un método: {id competencia: 1..5}.
+   En la entrevista es el promedio de los evaluadores que calificaron. */
+function notas(c, m){
+  if(m === 'cv') return c.cal;
+  if(m !== 'entrevista') return c.ev[m] || {};
+  const r = {};
+  compsDe('entrevista').forEach(k => {
+    const vs = c.ev.entrevista.slice(0, S.vacante.evaluadores).map(e => Number(e[k.id])).filter(Boolean);
+    if(vs.length) r[k.id] = vs.reduce((a, b) => a + b, 0) / vs.length;
+  });
+  return r;
 }
+/* Puntaje de un método sobre 100: promedio ponderado por el peso de cada
+   competencia que ese método mide. */
+function puntajeM(c, m){
+  const ks = compsDe(m), r = notas(c, m);
+  const pt = ks.reduce((s, k) => s + (Number(k.peso) || 0), 0) || 1;
+  let suma = 0, completos = 0;
+  ks.forEach(k => { const v = Number(r[k.id]); if(v){ suma += v * (Number(k.peso) || 0); completos++; } });
+  return {valor: Math.round(suma / pt / 5 * 1000) / 10, completos, total: ks.length, listo: ks.length > 0 && completos === ks.length};
+}
+const puntaje = c => puntajeM(c, 'cv');
 function ranking(){
-  return S.candidatos.map(c => ({c, p: puntaje(c)})).filter(x => x.p.completos === comps().length).sort((a, b) => b.p.valor - a.p.valor);
+  return S.candidatos.map(c => ({c, p: puntaje(c)})).filter(x => x.p.listo).sort((a, b) => b.p.valor - a.p.valor);
 }
 function listaCorta(){ return ranking().slice(0, Number(S.vacante.listaCorta) || 4).map(x => x.c.id); }
+
+/* La matriz: puntaje de cada método × su peso. Solo entra quien está en la
+   lista corta y tiene completos todos los métodos activos. */
+function matriz(){
+  const act = metodosActivos(), pw = pesoMetodos() || 1, lc = listaCorta();
+  const filas = S.candidatos.filter(c => lc.includes(c.id)).map(c => {
+    const pm = {}; act.forEach(m => { pm[m] = puntajeM(c, m); });
+    const listo = act.every(m => pm[m].listo);
+    const total = listo ? Math.round(act.reduce((s, m) => s + pm[m].valor * S.vacante.metodos[m].peso, 0) / pw * 10) / 10 : null;
+    const vals = act.map(m => pm[m].valor);
+    return {c, pm, listo, total, rango: listo ? Math.round((Math.max(...vals) - Math.min(...vals)) * 10) / 10 : null};
+  });
+  const completas = filas.filter(f => f.listo).sort((a, b) => b.total - a.total);
+  return {act, completas, pendientes: filas.filter(f => !f.listo)};
+}
 
 /* ======================= Ocultar identidad ======================= */
 const PATRONES = [
@@ -201,22 +311,22 @@ function ocultar(texto, nombre){
     const re = new RegExp('\\b(' + partes.map(p => p.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|') + ')\\b', 'gi');
     t = t.replace(re, () => { n++; return '⟦nombre⟧'; });
   }
-  PATRONES.forEach(([re, etq, filtro]) => { t = t.replace(re, m => { if(filtro && filtro(m) === null) return m; n++; return '⟦' + etq + '⟧'; }); });
+  PATRONES.forEach(([re, etq]) => { t = t.replace(re, () => { n++; return '⟦' + etq + '⟧'; }); });
   return {texto: t, ocultos: n};
 }
 const conMarcas = t => esc(t).replace(/⟦([^⟧]+)⟧/g, '<span class="oculto">$1 oculto</span>');
 
 /* ======================= IA (worker cv-analisis) =======================
-   La sugerencia la da Claude a través del worker del Club (ruta
-   /calificar-candidato, ver worker-calificar.js). Solo se envían la rúbrica y
-   el perfil ya sin identidad; nada se guarda en el servidor. En una copia
-   local (localhost) no se llama al servidor real, salvo en pruebas. */
+   Solo para la revisión anónima del CV. La sugerencia la da Claude a través
+   del worker del Club (ruta /calificar-candidato, ver worker-calificar.js).
+   Se envían la rúbrica y el perfil ya sin identidad; nada se guarda en el
+   servidor. En una copia local (localhost) no se llama al servidor real. */
 const URL_CALIFICAR = 'https://cv-analisis.soportetimentesbrillantes.workers.dev/calificar-candidato';
 const LOCAL = /^(localhost|127\.0\.0\.1)$/.test(location.hostname);
 const IA_URL = window.__CMB_IA_PRUEBA || (LOCAL ? '' : URL_CALIFICAR);
 async function pedirCalificacion(perfilTexto){
   const r = await fetch(IA_URL, {method:'POST', headers:{'content-type':'application/json'}, body: JSON.stringify({
-    puesto: S.vacante.puesto, competencias: comps().map(k => ({id:k.id, nombre:k.nombre, n1:k.n1, n3:k.n3, n5:k.n5})), perfil: perfilTexto})});
+    puesto: S.vacante.puesto, competencias: compsDe('cv').map(k => ({id:k.id, nombre:k.nombre, n1:k.n1, n3:k.n3, n5:k.n5})), perfil: perfilTexto})});
   if(r.status === 404) throw {code:'no_activa'};
   if(r.status === 429) throw {code:'rate_limited'};
   const d = await r.json().catch(() => null);
@@ -226,41 +336,73 @@ async function pedirCalificacion(perfilTexto){
 async function sugerirIA(c){
   const lista = await pedirCalificacion(c.perfil);
   const ia = {};
-  lista.forEach(x => { if(comps().some(k => k.id === x.id)){ const ev = String(x.evidencia || ''); ia[x.id] = {p: Math.max(1, Math.min(5, Math.round(Number(x.puntaje) || 1))), ev, razon: String(x.razon || ''), citaOk: !ev || c.perfil.toLowerCase().includes(ev.toLowerCase().slice(0, 40))}; } });
+  lista.forEach(x => { if(compsDe('cv').some(k => k.id === x.id)){ const ev = String(x.evidencia || ''); ia[x.id] = {p: Math.max(1, Math.min(5, Math.round(Number(x.puntaje) || 1))), ev, razon: String(x.razon || ''), citaOk: !ev || c.perfil.toLowerCase().includes(ev.toLowerCase().slice(0, 40))}; } });
   return ia;
 }
 
 /* ======================= Vistas ======================= */
-const VISTAS = ['vacante','candidatos','calificacion','decision','auditoria'];
-const vista = () => { const h = location.hash.slice(1); return VISTAS.includes(h) ? h : 'vacante'; };
+const VISTAS = ['vacante','candidatos','cv','evaluacion','matriz','auditoria'];
+const ALIAS = {calificacion:'cv', decision:'matriz'};   // enlaces de la versión anterior
+const vista = () => { const h = location.hash.slice(1); return VISTAS.includes(h) ? h : (ALIAS[h] || 'vacante'); };
 function pintar(){
   const v = vista();
   VISTAS.forEach(x => { document.getElementById('v-' + x).hidden = x !== v; });
   document.querySelectorAll('nav.pasos a').forEach(a => { if(a.dataset.v === v) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
-  ({vacante:pVacante, candidatos:pCandidatos, calificacion:pCalificacion, decision:pDecision, auditoria:pAuditoria})[v]();
+  ({vacante:pVacante, candidatos:pCandidatos, cv:pCV, evaluacion:pEvaluacion, matriz:pMatriz, auditoria:pAuditoria})[v]();
 }
 window.addEventListener('hashchange', pintar);
+const escala = (attrs, v, sug) => '<span class="escala" role="group">' + [1,2,3,4,5].map(n => '<button type="button" ' + attrs + ' data-v="' + n + '" aria-pressed="' + (Number(v) === n) + '"' + (sug === n ? ' class="sug" title="Sugerencia de la IA"' : '') + '>' + n + '</button>').join('') + '</span>';
+const fmt = v => (Math.round(v * 10) / 10).toFixed(1).replace(/\.0$/, '');
 
+/* ---------- 1. Vacante y métodos ---------- */
+function avisosMatriz(){
+  const out = [];
+  const sinMetodo = comps().filter(k => !MID.some(m => S.vacante.metodos[m].comps.includes(k.id)));
+  const unaVez = comps().filter(k => MID.filter(m => S.vacante.metodos[m].comps.includes(k.id)).length === 1);
+  const vacios = MID.filter(m => !compsDe(m).length);
+  if(!S.vacante.metodos.cv.comps.length) out.push(['bad', 'La revisión anónima del CV debe medir al menos una competencia: es la que arma la lista corta.']);
+  if(sinMetodo.length) out.push(['bad', 'Sin método que las mida: ' + sinMetodo.map(k => k.nombre || '(sin nombre)').join(', ') + '.']);
+  if(unaVez.length) out.push(['warn', 'Medidas con un solo método: ' + unaVez.map(k => k.nombre || '(sin nombre)').join(', ') + '. Con dos o más, un error de un método pesa menos.']);
+  if(vacios.length) out.push(['warn', 'Métodos que no miden ninguna competencia y no cuentan en la matriz: ' + vacios.map(nombreM).join(', ') + '.']);
+  return out;
+}
 function pVacante(){
-  const el = document.getElementById('v-vacante'), pt = pesoTotal();
+  const el = document.getElementById('v-vacante'), pt = pesoTotal(), pm = MID.reduce((s, m) => s + S.vacante.metodos[m].peso, 0);
+  const sumaK = s => s === 100 ? 'Los pesos de las competencias suman 100.' : '<span class="pill warn">Los pesos de las competencias suman ' + s + '; se normalizan al calcular.</span>';
+  const sumaM = s => s === 100 ? 'Los pesos de los métodos suman 100.' : '<span class="pill warn">Los pesos de los métodos suman ' + s + '; se normalizan al calcular.</span>';
   el.innerHTML = '<div class="banda"><div><h2>Define el puesto antes de ver candidatos</h2><p class="muted small">Entre 4 y 6 competencias ligadas al trabajo, con su peso y ejemplos de cómo se ve un 1, un 3 y un 5. Se califica lo que la persona sabe hacer, no la escuela ni los años de experiencia.</p></div>' +
     '<div class="grid2"><div class="campo"><label for="f_puesto">Puesto</label><input id="f_puesto" value="' + esc(S.vacante.puesto) + '"></div>' +
-    '<div class="campo"><label for="f_lc">Lugares en la lista corta</label><input id="f_lc" type="number" min="1" max="20" value="' + esc(S.vacante.listaCorta) + '"></div></div>' +
+    '<div class="grid2"><div class="campo"><label for="f_lc">Lugares en la lista corta</label><input id="f_lc" type="number" min="1" max="20" value="' + esc(S.vacante.listaCorta) + '"></div>' +
+    '<div class="campo"><label for="f_ev">Evaluadores en la entrevista</label><select id="f_ev">' + [1,2,3].map(n => '<option' + (S.vacante.evaluadores === n ? ' selected' : '') + '>' + n + '</option>').join('') + '</select></div></div></div>' +
     '<div class="tabla-c"><table><thead><tr><th style="min-width:180px">Competencia</th><th style="width:80px">Peso</th><th style="min-width:160px">Nivel 1</th><th style="min-width:160px">Nivel 3</th><th style="min-width:160px">Nivel 5</th><th></th></tr></thead><tbody>' +
     comps().map((k, i) => '<tr><td><input data-k="nombre" data-i="' + i + '" value="' + esc(k.nombre) + '" aria-label="Competencia"></td><td><input data-k="peso" data-i="' + i + '" type="number" min="0" value="' + esc(k.peso) + '" aria-label="Peso"></td>' +
       ['n1','n3','n5'].map(n => '<td><textarea data-k="' + n + '" data-i="' + i + '" rows="2" aria-label="Descriptor ' + n + '">' + esc(k[n]) + '</textarea></td>').join('') +
       '<td><button class="btn mini" type="button" data-quitar="' + i + '"' + (comps().length <= 1 ? ' disabled' : '') + '>Quitar</button></td></tr>').join('') +
     '</tbody></table></div>' +
-    '<div class="acciones"><button class="btn" type="button" id="btnAgregarK"' + (comps().length >= 8 ? ' disabled' : '') + '>+ Competencia</button>' +
-      '<span class="small ' + (pt === 100 ? 'muted' : '') + '" id="sumaPesos">' + (pt === 100 ? 'Los pesos suman 100.' : '<span class="pill warn">Los pesos suman ' + pt + '; se normalizan al calcular.</span>') + '</span></div>' +
-    '<p class="small muted">Cambiar la rúbrica después de ver candidatos abre la puerta al sesgo: si la cambias, vuelve a calificar a todos.</p></div>';
+    '<div class="acciones"><button class="btn" type="button" id="btnAgregarK"' + (comps().length >= 8 ? ' disabled' : '') + '>+ Competencia</button><span class="small" id="sumaPesos">' + sumaK(pt) + '</span></div></div>' +
+
+    '<div class="banda" id="bandaMatriz"><div><h2>Matriz de métodos</h2><p class="muted small">Los cuatro métodos del estudio miden a cada candidato; la decisión por rúbrica y suma los combina. Marca qué competencias mide cada método y cuánto pesa cada uno en la decisión final. Se fija aquí, antes de ver a nadie.</p></div>' +
+    '<div class="tabla-c"><table id="tablaMetodos"><thead><tr><th style="min-width:200px">Competencia</th>' + METODOS.map(m => '<th class="centro" style="min-width:110px"><span class="metodo-cab"><b>' + esc(m.n) + '</b></span></th>').join('') + '</tr></thead><tbody>' +
+      comps().map(k => '<tr><td>' + esc(k.nombre || '(sin nombre)') + ' <span class="muted small">· ' + esc(k.peso) + '</span></td>' + MID.map(m => '<td class="centro"><input type="checkbox" class="chk" data-mk="' + m + '" data-kid="' + esc(k.id) + '"' + (S.vacante.metodos[m].comps.includes(k.id) ? ' checked' : '') + ' aria-label="' + esc(nombreM(m)) + ' mide ' + esc(k.nombre) + '"></td>').join('') + '</tr>').join('') +
+      '<tr><td><strong>Peso del método en la decisión</strong></td>' + MID.map(m => '<td class="centro"><input type="number" min="0" max="100" data-pm="' + m + '" value="' + S.vacante.metodos[m].peso + '" style="max-width:80px" aria-label="Peso de ' + esc(nombreM(m)) + '"></td>').join('') + '</tr>' +
+    '</tbody></table></div>' +
+    '<div class="acciones"><span class="small" id="sumaMetodos">' + sumaM(pm) + '</span></div>' +
+    '<div id="avisosMatriz">' + avisosMatriz().map(a => '<p class="aviso ' + a[0] + '">' + esc(a[1]) + '</p>').join('') + '</div>' +
+    '<div class="grid2">' + METODOS.filter(m => m.id !== 'cv').map(m => '<div class="campo"><label for="g_' + m.id + '">' + esc(m.n) + ': qué se pide, igual para todos</label><textarea id="g_' + m.id + '" data-guia="' + m.id + '" rows="4">' + esc(S.vacante.metodos[m.id].guia) + '</textarea><span class="small muted">' + esc(m.d) + '</span></div>').join('') + '</div>' +
+    '<p class="small muted">Cambiar la rúbrica o la matriz después de ver candidatos abre la puerta al sesgo: si las cambias, vuelve a calificar a todos.</p></div>';
   el.querySelector('#f_puesto').oninput = e => { S.vacante.puesto = e.target.value; guardar(); };
   el.querySelector('#f_lc').oninput = e => { S.vacante.listaCorta = Math.max(1, Number(e.target.value) || 1); guardar(); };
-  el.querySelectorAll('[data-k]').forEach(x => x.oninput = e => { const k = comps()[Number(e.target.dataset.i)]; k[e.target.dataset.k] = e.target.dataset.k === 'peso' ? Number(e.target.value) || 0 : e.target.value; guardar(); if(e.target.dataset.k === 'peso'){ const s = pesoTotal(); el.querySelector('#sumaPesos').innerHTML = s === 100 ? 'Los pesos suman 100.' : '<span class="pill warn">Los pesos suman ' + s + '; se normalizan al calcular.</span>'; } });
-  el.querySelectorAll('[data-quitar]').forEach(b => b.onclick = () => { const k = comps().splice(Number(b.dataset.quitar), 1)[0]; S.candidatos.forEach(c => { delete c.cal[k.id]; }); guardar(); pVacante(); });
-  el.querySelector('#btnAgregarK').onclick = () => { comps().push({id:'k' + Date.now().toString(36), nombre:'', peso:10, n1:'', n3:'', n5:''}); guardar(); pVacante(); };
+  el.querySelector('#f_ev').onchange = e => { S.vacante.evaluadores = Number(e.target.value); normalizar(); guardar(); };
+  el.querySelectorAll('[data-k]').forEach(x => x.oninput = e => { const k = comps()[Number(e.target.dataset.i)]; k[e.target.dataset.k] = e.target.dataset.k === 'peso' ? Number(e.target.value) || 0 : e.target.value; guardar(); if(e.target.dataset.k === 'peso') el.querySelector('#sumaPesos').innerHTML = sumaK(pesoTotal()); });
+  el.querySelectorAll('[data-k="nombre"],[data-k="peso"]').forEach(x => x.onchange = () => pVacante());
+  el.querySelectorAll('[data-quitar]').forEach(b => b.onclick = () => { const k = comps().splice(Number(b.dataset.quitar), 1)[0]; S.candidatos.forEach(c => { delete c.cal[k.id]; delete c.ev.prueba[k.id]; delete c.ev.muestra[k.id]; c.ev.entrevista.forEach(e => delete e[k.id]); }); normalizar(); guardar(); pVacante(); });
+  el.querySelector('#btnAgregarK').onclick = () => { const id = 'k' + Date.now().toString(36); comps().push({id, nombre:'', peso:10, n1:'', n3:'', n5:''}); S.vacante.metodos.cv.comps.push(id); guardar(); pVacante(); };
+  el.querySelectorAll('[data-mk]').forEach(ch => ch.onchange = () => { const l = S.vacante.metodos[ch.dataset.mk].comps, id = ch.dataset.kid; const i = l.indexOf(id); if(ch.checked && i < 0) l.push(id); if(!ch.checked && i >= 0) l.splice(i, 1); guardar(); el.querySelector('#avisosMatriz').innerHTML = avisosMatriz().map(a => '<p class="aviso ' + a[0] + '">' + esc(a[1]) + '</p>').join(''); });
+  el.querySelectorAll('[data-pm]').forEach(x => x.oninput = () => { S.vacante.metodos[x.dataset.pm].peso = Math.max(0, Number(x.value) || 0); guardar(); el.querySelector('#sumaMetodos').innerHTML = sumaM(MID.reduce((s, m) => s + S.vacante.metodos[m].peso, 0)); });
+  el.querySelectorAll('[data-guia]').forEach(t => t.oninput = () => { S.vacante.metodos[t.dataset.guia].guia = t.value; guardar(); });
 }
 
+/* ---------- 2. Candidatos ---------- */
 function pCandidatos(){
   const el = document.getElementById('v-candidatos');
   el.innerHTML = '<div class="banda"><div><h2>Agrega un candidato</h2><p class="muted small">Pega el texto del CV o del perfil de CMB. Antes de guardarlo se ocultan nombre, correo, teléfono, edad, fecha de nacimiento, domicilio, estado civil, género, CURP y RFC. Revisa lo que quede: el filtro automático puede dejar pasar algo.</p></div>' +
@@ -269,55 +411,62 @@ function pCandidatos(){
       '<div class="campo"><label for="f_edad">Edad (opcional)</label><select id="f_edad"><option value="">Sin dato</option>' + GRUPOS.edad.ops.map(o => '<option>' + o + '</option>').join('') + '</select></div></div></div>' +
       '<div class="campo"><label for="f_cv">Texto del CV o perfil</label><textarea id="f_cv" rows="6" placeholder="Formación, experiencia, proyectos, herramientas, resultados…"></textarea></div>' +
       '<div id="vistaPrevia"></div>' +
-      '<div class="acciones"><button class="btn pri" type="button" id="btnAgregarC">Agregar sin identidad</button><span class="small muted">Género y edad se guardan aparte: no los ven el evaluador ni la IA, solo la auditoría.</span></div></div>' +
+      '<div class="acciones"><button class="btn pri" type="button" id="btnAgregarC">Agregar sin identidad</button><span class="small muted">Género y edad se guardan aparte: no los ven los evaluadores ni la IA, solo la auditoría.</span></div></div>' +
     '<div class="banda"><h2>' + S.candidatos.length + ' candidatos</h2><div style="display:grid;gap:10px">' +
-      S.candidatos.map((c, i) => '<div class="cand"><div class="cab"><strong class="num">' + esc(c.id) + '</strong><span class="acciones">' + (puntaje(c).completos === comps().length ? '<span class="pill ok">Calificado</span>' : '<span class="pill">Por calificar</span>') + '<button class="btn mini" type="button" data-borrar="' + i + '">Quitar</button></span></div><div class="perfil">' + conMarcas(c.perfil) + '</div></div>').join('') +
+      S.candidatos.map((c, i) => '<div class="cand"><div class="cab"><strong class="num">' + esc(c.id) + '</strong><span class="acciones">' + (puntaje(c).listo ? '<span class="pill ok">CV calificado</span>' : '<span class="pill">CV por calificar</span>') + '<button class="btn mini" type="button" data-borrar="' + i + '">Quitar</button></span></div><div class="perfil">' + conMarcas(c.perfil) + '</div></div>').join('') +
     '</div></div>';
-  const prev = () => { const r = ocultar(el.querySelector('#f_cv').value, el.querySelector('#f_nombre').value); el.querySelector('#vistaPrevia').innerHTML = r.texto.trim() ? '<p class="lbl" style="margin-bottom:4px">Así lo verán evaluador e IA · ' + r.ocultos + ' datos ocultos</p><div class="perfil">' + conMarcas(r.texto) + '</div>' : ''; };
+  const prev = () => { const r = ocultar(el.querySelector('#f_cv').value, el.querySelector('#f_nombre').value); el.querySelector('#vistaPrevia').innerHTML = r.texto.trim() ? '<p class="lbl" style="margin-bottom:4px">Así lo verán evaluadores e IA · ' + r.ocultos + ' datos ocultos</p><div class="perfil">' + conMarcas(r.texto) + '</div>' : ''; };
   el.querySelector('#f_cv').oninput = prev; el.querySelector('#f_nombre').oninput = prev;
   el.querySelector('#btnAgregarC').onclick = () => {
     const r = ocultar(el.querySelector('#f_cv').value, el.querySelector('#f_nombre').value);
     if(r.texto.trim().length < 40){ el.querySelector('#vistaPrevia').innerHTML = '<p class="aviso warn">Pega al menos unas líneas del perfil.</p>'; return; }
     const n = S.candidatos.reduce((m, c) => Math.max(m, Number(String(c.id).slice(2)) || 0), 0) + 1;
     S.candidatos.push({id:'C-' + String(n).padStart(2, '0'), perfil:r.texto.trim(), grupo:{genero:el.querySelector('#f_gen').value, edad:el.querySelector('#f_edad').value}, cal:{}, razones:{}, ia:null});
-    guardar(); pCandidatos();
+    normalizar(); guardar(); pCandidatos();
   };
   el.querySelectorAll('[data-borrar]').forEach(b => b.onclick = () => { const c = S.candidatos.splice(Number(b.dataset.borrar), 1)[0]; delete S.decisiones[c.id]; guardar(); pCandidatos(); });
 }
 
+/* ---------- 3. Revisión anónima del CV ---------- */
 let calIdx = 0, ocupado = false, msgIA = '';
-function pCalificacion(){
-  const el = document.getElementById('v-calificacion');
+function pCV(){
+  const el = document.getElementById('v-cv');
   if(!S.candidatos.length){ el.innerHTML = '<div class="banda"><p class="muted">Agrega candidatos en el paso 2.</p></div>'; return; }
+  if(!compsDe('cv').length){ el.innerHTML = '<div class="banda"><p class="aviso bad">La revisión anónima del CV no mide ninguna competencia. Márcalas en la matriz de métodos (paso 1).</p></div>'; return; }
   calIdx = Math.min(calIdx, S.candidatos.length - 1);
-  const c = S.candidatos[calIdx], p = puntaje(c);
-  el.innerHTML = '<div class="banda">' +
+  const c = S.candidatos[calIdx], p = puntaje(c), R = ranking(), lc = listaCorta();
+  el.innerHTML = '<div class="banda"><div><h2>Método 1 · Revisión anónima del CV</h2><p class="muted small">' + esc(METODOS[0].d) + '</p></div>' +
     '<div class="acciones" style="justify-content:space-between"><div class="acciones"><button class="btn mini" type="button" id="ant"' + (calIdx ? '' : ' disabled') + '>← Anterior</button><strong class="num">' + esc(c.id) + '</strong><span class="muted small">' + (calIdx + 1) + ' de ' + S.candidatos.length + '</span><button class="btn mini" type="button" id="sig"' + (calIdx < S.candidatos.length - 1 ? '' : ' disabled') + '>Siguiente →</button></div>' +
-      '<span class="pill ' + (p.completos === comps().length ? 'ok' : '') + ' num">' + (p.completos === comps().length ? p.valor + ' / 100' : p.completos + ' de ' + comps().length) + '</span></div>' +
+      '<span class="pill ' + (p.listo ? 'ok' : '') + ' num">' + (p.listo ? p.valor + ' / 100' : p.completos + ' de ' + p.total) + '</span></div>' +
     '<div class="perfil">' + conMarcas(c.perfil) + '</div>' +
     '<div class="acciones"><button class="btn" type="button" id="btnIA"' + (IA_URL && !ocupado ? '' : ' disabled') + '>' + (ocupado ? 'Pidiendo sugerencia…' : 'Sugerir calificación con IA') + '</button>' +
       '<span class="small muted">' + (IA_URL ? 'La IA solo ve el perfil sin identidad y la rúbrica, y debe citar la evidencia. La marca naranja es su sugerencia; tú decides.' : 'La sugerencia con IA no está disponible en esta copia; califica a mano con la rúbrica.') + '</span></div>' +
     (msgIA ? '<p class="aviso ' + (msgIA.startsWith('No') ? 'bad' : 'ok') + '">' + esc(msgIA) + '</p>' : '') +
     '<div class="tabla-c"><table><thead><tr><th>Competencia</th><th>Calificación (1 a 5)</th><th style="min-width:200px">Si te apartas de la IA, ¿por qué?</th></tr></thead><tbody>' +
-    comps().map(k => { const ia = c.ia && c.ia[k.id], v = c.cal[k.id];
+    compsDe('cv').map(k => { const ia = c.ia && c.ia[k.id], v = c.cal[k.id];
       return '<tr><td><strong>' + esc(k.nombre) + '</strong> <span class="muted small">· ' + k.peso + '</span><div class="evid">1: ' + esc(k.n1) + '<br>3: ' + esc(k.n3) + '<br>5: ' + esc(k.n5) + '</div></td>' +
-        '<td><span class="escala" role="group" aria-label="' + esc(k.nombre) + '">' + [1,2,3,4,5].map(n => '<button type="button" data-cal="' + k.id + '" data-v="' + n + '" aria-pressed="' + (Number(v) === n) + '"' + (ia && ia.p === n ? ' class="sug" title="Sugerencia de la IA"' : '') + '>' + n + '</button>').join('') + '</span>' +
+        '<td>' + escala('data-cal="' + k.id + '"', v, ia && ia.p) +
         (ia ? '<div class="evid">IA: ' + ia.p + (ia.ev ? ' · <q>' + esc(ia.ev) + '</q>' : ' · sin evidencia') + (ia.citaOk ? '' : ' <span class="pill warn">cita no encontrada en el perfil</span>') + (ia.razon ? '<br>' + esc(ia.razon) : '') + '</div>' : '') + '</td>' +
         '<td>' + (ia && v && Number(v) !== ia.p ? '<textarea data-razon="' + k.id + '" rows="2" placeholder="Razón del ajuste">' + esc(c.razones[k.id] || '') + '</textarea>' : '<span class="muted small">' + (ia ? (v ? 'Coincide con la IA' : '') : '—') + '</span>') + '</td></tr>'; }).join('') +
     '</tbody></table></div></div>' +
+    '<div class="banda"><div><h2>Lista corta por CV anónimo</h2><p class="muted small">Los primeros ' + esc(S.vacante.listaCorta) + ' pasan a la prueba de competencias, la muestra de trabajo y la entrevista. El CV todavía no decide: es uno de los cuatro métodos de la matriz.</p></div>' +
+    '<div class="tabla-c"><table id="tablaCV"><thead><tr><th>#</th><th>Candidato</th><th>CV anónimo</th><th>Etapa</th></tr></thead><tbody>' +
+      R.map((x, i) => '<tr><td class="num">' + (i + 1) + '</td><td class="num"><strong>' + esc(x.c.id) + '</strong></td><td><div class="acciones" style="flex-wrap:nowrap"><span class="num">' + x.p.valor + '</span><span class="barra"><i style="width:' + x.p.valor + '%"></i></span></div></td><td>' + (lc.includes(x.c.id) ? '<span class="pill acc">Lista corta</span>' : '<span class="pill">No avanza</span>') + '</td></tr>').join('') +
+    '</tbody></table></div>' +
+    (S.candidatos.length > R.length ? '<p class="aviso warn">Faltan por calificar: ' + S.candidatos.filter(c => !puntaje(c).listo).map(c => esc(c.id)).join(', ') + '.</p>' : '') + '</div>' +
     '<div class="banda"><details><summary>Prueba de nombres cambiados</summary><div style="display:grid;gap:10px;margin-top:10px">' +
       '<p class="small muted">Antes de confiar en un modelo, califica el mismo perfil con dos nombres distintos. Si el puntaje cambia, el modelo está usando el nombre y por eso nunca debe verlo.</p>' +
       '<div class="grid2"><div class="campo"><label for="n1">Nombre A</label><input id="n1" value="María Guadalupe Hernández"></div><div class="campo"><label for="n2">Nombre B</label><input id="n2" value="José Luis Pérez"></div></div>' +
       '<div class="acciones"><button class="btn" type="button" id="btnNombres"' + (IA_URL && !ocupado ? '' : ' disabled') + '>Correr la prueba con ' + esc(c.id) + '</button></div><div id="resNombres"></div></div></details></div>';
-  el.querySelector('#ant').onclick = () => { calIdx--; msgIA = ''; pCalificacion(); };
-  el.querySelector('#sig').onclick = () => { calIdx++; msgIA = ''; pCalificacion(); };
-  el.querySelectorAll('[data-cal]').forEach(b => b.onclick = () => { c.cal[b.dataset.cal] = Number(b.dataset.v); guardar(); pCalificacion(); });
+  el.querySelector('#ant').onclick = () => { calIdx--; msgIA = ''; pCV(); };
+  el.querySelector('#sig').onclick = () => { calIdx++; msgIA = ''; pCV(); };
+  el.querySelectorAll('[data-cal]').forEach(b => b.onclick = () => { c.cal[b.dataset.cal] = Number(b.dataset.v); guardar(); pCV(); });
   el.querySelectorAll('[data-razon]').forEach(t => t.oninput = () => { c.razones[t.dataset.razon] = t.value; guardar(); });
   el.querySelector('#btnIA').onclick = async () => {
-    ocupado = true; msgIA = ''; pCalificacion();
-    try{ c.ia = await sugerirIA(c); comps().forEach(k => { if(!c.cal[k.id] && c.ia[k.id]) c.cal[k.id] = c.ia[k.id].p; }); msgIA = 'Sugerencia lista. Revisa cada calificación contra la evidencia.'; guardar(); }
+    ocupado = true; msgIA = ''; pCV();
+    try{ c.ia = await sugerirIA(c); compsDe('cv').forEach(k => { if(!c.cal[k.id] && c.ia[k.id]) c.cal[k.id] = c.ia[k.id].p; }); msgIA = 'Sugerencia lista. Revisa cada calificación contra la evidencia.'; guardar(); }
     catch(e){ msgIA = e && e.code === 'no_activa' ? 'No: la sugerencia con IA todavía no está activa en el servidor del Club. Califica a mano con la rúbrica.' : e && e.code === 'rate_limited' ? 'No: demasiadas solicitudes seguidas. Espera un momento.' : 'No se pudo obtener la sugerencia. Califica a mano o intenta de nuevo.'; }
-    ocupado = false; pCalificacion();
+    ocupado = false; pCV();
   };
   el.querySelector('#btnNombres').onclick = async () => {
     const out = el.querySelector('#resNombres'), a = el.querySelector('#n1').value.trim(), b = el.querySelector('#n2').value.trim();
@@ -326,35 +475,90 @@ function pCalificacion(){
     try{
       const corre = async nom => { const lista = await pedirCalificacion('Nombre: ' + nom + '\n' + c.perfil); const m = {}; lista.forEach(x => { m[x.id] = Math.round(Number(x.puntaje) || 0); }); return m; };
       const [ra, rb] = await Promise.all([corre(a), corre(b)]);
-      const dif = comps().filter(k => ra[k.id] !== rb[k.id]);
-      out.innerHTML = '<div class="tabla-c"><table><thead><tr><th>Competencia</th><th>' + esc(a) + '</th><th>' + esc(b) + '</th></tr></thead><tbody>' + comps().map(k => '<tr><td>' + esc(k.nombre) + '</td><td class="num">' + (ra[k.id] || '—') + '</td><td class="num">' + (rb[k.id] || '—') + '</td></tr>').join('') + '</tbody></table></div>' +
+      const dif = compsDe('cv').filter(k => ra[k.id] !== rb[k.id]);
+      out.innerHTML = '<div class="tabla-c"><table><thead><tr><th>Competencia</th><th>' + esc(a) + '</th><th>' + esc(b) + '</th></tr></thead><tbody>' + compsDe('cv').map(k => '<tr><td>' + esc(k.nombre) + '</td><td class="num">' + (ra[k.id] || '—') + '</td><td class="num">' + (rb[k.id] || '—') + '</td></tr>').join('') + '</tbody></table></div>' +
         '<p class="aviso ' + (dif.length ? 'warn' : 'ok') + '">' + (dif.length ? 'Cambió en ' + dif.length + ' competencias solo por el nombre. Una corrida no prueba sesgo (los modelos varían entre corridas), pero repítela varias veces antes de confiar.' : 'Mismas calificaciones con ambos nombres en esta corrida. Repite con más nombres y perfiles: una corrida no basta.') + '</p>';
     }catch(e){ out.innerHTML = '<p class="aviso bad">' + (e && e.code === 'no_activa' ? 'La IA todavía no está activa en el servidor del Club.' : 'No se pudo correr la prueba.') + '</p>'; }
     ocupado = false;
   };
 }
 
-function pDecision(){
-  const el = document.getElementById('v-decision'), R = ranking(), lc = listaCorta(), faltan = S.candidatos.filter(c => puntaje(c).completos < comps().length);
-  el.innerHTML = '<div class="banda"><div><h2>Ranking por rúbrica</h2><p class="muted small">El puntaje es la suma ponderada de las calificaciones, sobre 100. Los primeros ' + esc(S.vacante.listaCorta) + ' pasan a la lista corta para entrevista estructurada y muestra de trabajo; quien decide anota su razón.</p></div>' +
-    (faltan.length ? '<p class="aviso warn">Faltan por calificar: ' + faltan.map(c => esc(c.id)).join(', ') + '. No entran al ranking hasta completar todas las competencias.</p>' : '') +
-    '<div class="tabla-c"><table><thead><tr><th>#</th><th>Candidato</th><th>Puntaje</th>' + comps().map(k => '<th title="' + esc(k.nombre) + '">' + esc(k.nombre.split(' ')[0]) + '</th>').join('') + '<th>Etapa</th><th style="min-width:200px">Decisión</th></tr></thead><tbody>' +
-    R.map((x, i) => { const d = S.decisiones[x.c.id] || {}, enLC = lc.includes(x.c.id);
-      return '<tr><td class="num">' + (i + 1) + '</td><td class="num"><strong>' + esc(x.c.id) + '</strong></td><td><div class="acciones" style="flex-wrap:nowrap"><span class="num">' + x.p.valor + '</span><span class="barra"><i style="width:' + x.p.valor + '%"></i></span></div></td>' +
-        comps().map(k => '<td class="num">' + (x.c.cal[k.id] || '—') + '</td>').join('') +
-        '<td>' + (enLC ? '<span class="pill acc">Lista corta</span>' : '<span class="pill">No avanza</span>') + '</td>' +
-        '<td>' + (enLC ? '<select data-dec="' + esc(x.c.id) + '" aria-label="Decisión"><option value="">Pendiente</option>' + ['Contratar','No contratar'].map(o => '<option' + (d.estado === o ? ' selected' : '') + '>' + o + '</option>').join('') + '</select>' +
-          (d.estado ? '<textarea data-just="' + esc(x.c.id) + '" rows="2" placeholder="Razón ligada a la rúbrica, la entrevista o la muestra de trabajo" style="margin-top:6px">' + esc(d.razon || '') + '</textarea>' : '') : '') + '</td></tr>'; }).join('') +
-    '</tbody></table></div>' +
-    '<p class="small muted">Empates cercanos (menos de 5 puntos) se deciden con la entrevista estructurada, no con la impresión del CV.</p></div>';
-  el.querySelectorAll('[data-dec]').forEach(s => s.onchange = () => { S.decisiones[s.dataset.dec] = Object.assign(S.decisiones[s.dataset.dec] || {}, {estado: s.value}); guardar(); pDecision(); });
-  el.querySelectorAll('[data-just]').forEach(t => t.oninput = () => { S.decisiones[t.dataset.just].razon = t.value; guardar(); });
+/* ---------- 4. Pruebas y entrevista (lista corta) ---------- */
+let evIdx = 0;
+function pEvaluacion(){
+  const el = document.getElementById('v-evaluacion'), lc = listaCorta();
+  if(!lc.length){ el.innerHTML = '<div class="banda"><p class="muted">Primero califica los CV (paso 3): la lista corta sale de ahí.</p></div>'; return; }
+  evIdx = Math.min(evIdx, lc.length - 1);
+  const c = S.candidatos.find(x => x.id === lc[evIdx]), nEv = S.vacante.evaluadores;
+  const bloque = m => {
+    const meta = METODOS.find(x => x.id === m), ks = compsDe(m), p = puntajeM(c, m), g = S.vacante.metodos[m].guia;
+    if(!ks.length) return '<div class="met"><h3>' + esc(meta.n) + '</h3><p class="small muted">No mide ninguna competencia en esta vacante (paso 1): no cuenta en la matriz.</p></div>';
+    const cab = m === 'entrevista' ? Array.from({length: nEv}, (_, e) => '<th>Evaluador ' + (e + 1) + '</th>').join('') + '<th class="centro">Promedio</th>' : '<th>Calificación (1 a 5)</th>';
+    return '<div class="met" data-metodo="' + m + '"><div class="acciones" style="justify-content:space-between"><h3>' + esc(meta.n) + '</h3><span class="pill ' + (p.listo ? 'ok' : '') + ' num">' + (p.listo ? p.valor + ' / 100' : p.completos + ' de ' + p.total) + '</span></div>' +
+      '<p class="small muted">' + esc(meta.d) + '</p>' + (g ? '<div class="perfil" style="max-height:140px">' + esc(g) + '</div>' : '') +
+      '<div class="tabla-c"><table><thead><tr><th style="min-width:200px">Competencia</th>' + cab + '</tr></thead><tbody>' +
+      ks.map(k => { const ayuda = '<div class="evid">1: ' + esc(k.n1) + '<br>3: ' + esc(k.n3) + '<br>5: ' + esc(k.n5) + '</div>';
+        if(m !== 'entrevista') return '<tr><td><strong>' + esc(k.nombre) + '</strong>' + ayuda + '</td><td>' + escala('data-m="' + m + '" data-k="' + k.id + '"', c.ev[m][k.id]) + '</td></tr>';
+        const prom = notas(c, 'entrevista')[k.id];
+        return '<tr><td><strong>' + esc(k.nombre) + '</strong>' + ayuda + '</td>' + Array.from({length: nEv}, (_, e) => '<td>' + escala('data-m="entrevista" data-e="' + e + '" data-k="' + k.id + '"', c.ev.entrevista[e][k.id]) + '</td>').join('') + '<td class="num centro">' + (prom ? fmt(prom) : '—') + '</td></tr>'; }).join('') +
+      '</tbody></table></div>' +
+      '<div class="campo"><label for="nota_' + m + '">Evidencia observada (qué hizo o dijo)</label><textarea id="nota_' + m + '" data-nota="' + m + '" rows="2">' + esc(c.notas[m] || '') + '</textarea></div></div>';
+  };
+  el.innerHTML = '<div class="banda"><div><h2>Métodos 2 a 4 · lista corta</h2><p class="muted small">Cada candidato de la lista corta pasa por la prueba de competencias, la muestra de trabajo y la entrevista estructurada, con las mismas instrucciones y preguntas. Los evaluadores no ven el puntaje del CV mientras califican.' + (nEv > 1 ? ' En la entrevista cada evaluador califica por su cuenta antes de comentar.' : '') + '</p></div>' +
+    '<div class="acciones"><button class="btn mini" type="button" id="evAnt"' + (evIdx ? '' : ' disabled') + '>← Anterior</button><strong class="num">' + esc(c.id) + '</strong><span class="muted small">' + (evIdx + 1) + ' de ' + lc.length + ' en la lista corta</span><button class="btn mini" type="button" id="evSig"' + (evIdx < lc.length - 1 ? '' : ' disabled') + '>Siguiente →</button></div>' +
+    '<details><summary class="small">Ver el perfil sin identidad</summary><div class="perfil" style="margin-top:8px">' + conMarcas(c.perfil) + '</div></details>' +
+    ['prueba','muestra','entrevista'].map(bloque).join('') + '</div>';
+  el.querySelector('#evAnt').onclick = () => { evIdx--; pEvaluacion(); };
+  el.querySelector('#evSig').onclick = () => { evIdx++; pEvaluacion(); };
+  el.querySelectorAll('[data-m]').forEach(b => b.onclick = () => {
+    const m = b.dataset.m, v = Number(b.dataset.v);
+    if(m === 'entrevista') c.ev.entrevista[Number(b.dataset.e)][b.dataset.k] = v; else c.ev[m][b.dataset.k] = v;
+    guardar(); pEvaluacion();
+  });
+  el.querySelectorAll('[data-nota]').forEach(t => t.oninput = () => { c.notas[t.dataset.nota] = t.value; guardar(); });
 }
 
+/* ---------- 5. Matriz de decisión ---------- */
+let detalleId = '';
+function pMatriz(){
+  const el = document.getElementById('v-matriz'), M = matriz(), act = M.act, pw = pesoMetodos() || 1;
+  const gan = M.completas[0], seg = M.completas[1];
+  const empate = gan && seg && gan.total - seg.total < 3;
+  if(!detalleId || !S.candidatos.some(c => c.id === detalleId)) detalleId = gan ? gan.c.id : (listaCorta()[0] || '');
+  const pesoTxt = m => Math.round(S.vacante.metodos[m].peso / pw * 100) + ' %';
+  const filaDec = f => { const d = S.decisiones[f.c.id] || {}, esGan = gan && f.c.id === gan.c.id;
+    return '<select data-dec="' + esc(f.c.id) + '" aria-label="Decisión"><option value="">Pendiente</option>' + ['Contratar','No contratar'].map(o => '<option' + (d.estado === o ? ' selected' : '') + '>' + o + '</option>').join('') + '</select>' +
+      (d.estado ? '<textarea data-just="' + esc(f.c.id) + '" rows="2" placeholder="' + (d.estado === 'Contratar' && !esGan ? 'Obligatorio: por qué se aparta de la matriz' : 'Razón ligada a la evidencia de los métodos') + '" style="margin-top:6px">' + esc(d.razon || '') + '</textarea>' : ''); };
+  // detalle por competencia del candidato elegido
+  const cd = S.candidatos.find(c => c.id === detalleId);
+  const detalle = cd ? '<div class="tabla-c"><table id="tablaDetalle"><thead><tr><th>Competencia</th>' + act.map(m => '<th class="centro">' + esc(METODOS.find(x => x.id === m).corto) + '</th>').join('') + '<th class="centro">Promedio</th><th class="centro">Diferencia entre métodos</th></tr></thead><tbody>' +
+    comps().map(k => { const vs = act.map(m => S.vacante.metodos[m].comps.includes(k.id) ? Number(notas(cd, m)[k.id]) || null : undefined);
+      const nums = vs.filter(v => typeof v === 'number'), prom = nums.length ? nums.reduce((a, b) => a + b, 0) / nums.length : null, dif = nums.length > 1 ? Math.max(...nums) - Math.min(...nums) : null;
+      return '<tr><td>' + esc(k.nombre) + '</td>' + vs.map(v => v === undefined ? '<td class="vacia"></td>' : '<td class="num centro">' + (v ? fmt(v) : '—') + '</td>').join('') + '<td class="num centro"><strong>' + (prom ? fmt(prom) : '—') + '</strong></td><td class="centro">' + (dif === null ? '<span class="muted small">—</span>' : dif >= 2 ? '<span class="pill warn num">' + fmt(dif) + '</span>' : '<span class="num">' + fmt(dif) + '</span>') + '</td></tr>'; }).join('') +
+    '</tbody></table></div>' : '';
+  el.innerHTML = '<div class="banda"><div><h2>Matriz de decisión</h2><p class="muted small">Método 5 del estudio, decisión por rúbrica y suma: cada método da un puntaje sobre 100 (promedio ponderado de las competencias que mide) y la matriz los suma con los pesos que se fijaron en el paso 1, antes de ver candidatos. La matriz recomienda; una persona decide y escribe su razón.</p></div>' +
+    (act.length < 2 ? '<p class="aviso warn">Solo hay ' + act.length + ' método activo. La matriz tiene sentido con dos o más (paso 1).</p>' : '') +
+    (M.pendientes.length ? '<p class="aviso warn">Faltan métodos por calificar en: ' + M.pendientes.map(f => esc(f.c.id) + ' (' + act.filter(m => !f.pm[m].listo).map(m => METODOS.find(x => x.id === m).corto).join(', ') + ')').join('; ') + '. No entran a la matriz hasta completarlos.</p>' : '') +
+    (gan ? '<p class="aviso ok"><strong>La matriz recomienda a ' + esc(gan.c.id) + '</strong> con ' + gan.total + ' de 100.' + (empate ? ' Le sigue ' + esc(seg.c.id) + ' a menos de 3 puntos: es un empate técnico, revisen juntos la evidencia de la muestra de trabajo y la entrevista antes de decidir.' : '') + '</p>' : '') +
+    '<div class="tabla-c"><table id="tablaMatriz"><thead><tr><th>#</th><th>Candidato</th>' + act.map(m => '<th class="centro"><span class="metodo-cab"><b>' + esc(METODOS.find(x => x.id === m).n) + '</b><span>peso ' + pesoTxt(m) + '</span></span></th>').join('') + '<th class="centro">Total</th><th>Acuerdo entre métodos</th><th style="min-width:210px">Decisión</th></tr></thead><tbody>' +
+      M.completas.map((f, i) => '<tr' + (i === 0 ? ' class="gana"' : '') + '><td class="num">' + (i + 1) + '</td><td class="num"><strong>' + esc(f.c.id) + '</strong>' + (i === 0 ? ' <span class="pill acc">Recomendado</span>' : '') + '</td>' +
+        act.map(m => '<td class="num centro">' + f.pm[m].valor + '</td>').join('') +
+        '<td><div class="acciones" style="flex-wrap:nowrap"><strong class="num">' + f.total + '</strong><span class="barra"><i style="width:' + f.total + '%"></i></span></div></td>' +
+        '<td>' + (f.rango > 25 ? '<span class="pill warn">Los métodos no coinciden (' + f.rango + ' pts)</span>' : '<span class="pill ok">Coinciden</span>') + '</td>' +
+        '<td>' + filaDec(f) + '</td></tr>').join('') +
+    '</tbody></table></div>' +
+    '<p class="small muted">Un candidato alto en el CV y bajo en la muestra o la entrevista sabe describir su experiencia mejor de lo que la demuestra; uno bajo en el CV y alto en la muestra es justo el egresado al que un filtro por experiencia habría dejado fuera. Cuando los métodos no coinciden por más de 25 puntos, revisen la evidencia antes de decidir.</p></div>' +
+    (cd ? '<div class="banda"><div class="acciones" style="justify-content:space-between"><h2>Detalle por competencia</h2><select id="selDetalle" aria-label="Candidato">' + listaCorta().map(id => '<option' + (id === detalleId ? ' selected' : '') + '>' + esc(id) + '</option>').join('') + '</select></div><p class="small muted">Cada celda es la calificación de 1 a 5 que ese método dio a esa competencia (en la entrevista, el promedio de los evaluadores). Las celdas grises son competencias que ese método no mide. Una diferencia de 2 o más entre métodos merece una revisión.</p>' + detalle + '</div>' : '');
+  el.querySelectorAll('[data-dec]').forEach(s => s.onchange = () => { S.decisiones[s.dataset.dec] = Object.assign(S.decisiones[s.dataset.dec] || {}, {estado: s.value}); guardar(); pMatriz(); });
+  el.querySelectorAll('[data-just]').forEach(t => t.oninput = () => { S.decisiones[t.dataset.just].razon = t.value; guardar(); });
+  const sel = el.querySelector('#selDetalle'); if(sel) sel.onchange = () => { detalleId = sel.value; pMatriz(); };
+}
+
+/* ---------- 6. Auditoría ---------- */
 function pAuditoria(){
-  const el = document.getElementById('v-auditoria'), lc = listaCorta();
+  const el = document.getElementById('v-auditoria'), lc = listaCorta(), M = matriz(), gan = M.completas[0];
   const etapas = [
-    {id:'lc', t:'Pasan a la lista corta', base: c => puntaje(c).completos === comps().length, pasa: c => lc.includes(c.id)},
+    {id:'lc', t:'Pasan a la lista corta (CV anónimo)', base: c => puntaje(c).listo, pasa: c => lc.includes(c.id)},
     {id:'con', t:'Contratados (de la lista corta)', base: c => lc.includes(c.id) && S.decisiones[c.id] && S.decisiones[c.id].estado, pasa: c => (S.decisiones[c.id] || {}).estado === 'Contratar'}
   ];
   const bloque = (dim, et) => {
@@ -372,22 +576,33 @@ function pAuditoria(){
           '<span class="pill ' + (bajo ? 'bad' : 'ok') + ' num">' + ratio.toFixed(2) + '</span></div>'; }).join('') +
       '<p class="small muted">' + (sinDato ? sinDato + ' sin dato o prefirieron no decir; no entran al cálculo. ' : '') + (chico ? 'Muestras chicas (menos de 30 por grupo): una persona mueve mucho la razón. Úsalo como alerta para revisar, no como conclusión; acumula varias vacantes.' : '') + '</p></div>';
   };
+  // Promedio de cada método por grupo: muestra en qué método se abre la brecha.
+  const porMetodo = dim => {
+    const ops = GRUPOS[dim].ops.filter(o => o !== 'Prefiere no decir');
+    const filas = M.act.map(m => { const celdas = ops.map(o => { const g = S.candidatos.filter(c => c.grupo[dim] === o && puntajeM(c, m).listo); return g.length ? {n: g.length, v: g.reduce((s, c) => s + puntajeM(c, m).valor, 0) / g.length} : null; });
+      return '<tr><td>' + esc(nombreM(m)) + '</td>' + celdas.map(x => '<td class="num centro">' + (x ? fmt(x.v) + ' <span class="muted small">(' + x.n + ')</span>' : '—') + '</td>').join('') + '</tr>'; }).join('');
+    return '<div class="tabla-c"><table><thead><tr><th>' + GRUPOS[dim].t + ': promedio por método</th>' + ops.map(o => '<th class="centro">' + esc(o) + '</th>').join('') + '</tr></thead><tbody>' + filas + '</tbody></table></div>';
+  };
   const dec = Object.values(S.decisiones).filter(d => d.estado);
   const sinRazon = Object.entries(S.decisiones).filter(([, d]) => d.estado && !(d.razon || '').trim()).map(([id]) => id);
+  const fuera = gan ? Object.entries(S.decisiones).filter(([id, d]) => d.estado === 'Contratar' && id !== gan.c.id).map(([id]) => id) : [];
   const ajustes = S.candidatos.reduce((n, c) => n + Object.keys(c.razones || {}).filter(k => (c.razones[k] || '').trim()).length, 0);
   el.innerHTML = '<div class="banda"><div><h2>Auditoría de impacto adverso</h2><p class="muted small">Para cada etapa se compara la tasa de cada grupo contra la del grupo con la tasa más alta. Una razón menor a 0.80 (la raya en cada barra) es señal de impacto adverso según la regla de los 4/5. Los datos de grupo son autodeclarados y nadie los vio al calificar.</p></div>' +
-    '<div class="k"><div class="cifra"><span class="lbl">Candidatos</span><b>' + S.candidatos.length + '</b></div><div class="cifra"><span class="lbl">En lista corta</span><b>' + lc.length + '</b></div><div class="cifra"><span class="lbl">Decisiones tomadas</span><b>' + dec.length + '</b></div><div class="cifra"><span class="lbl">Ajustes a la IA con razón</span><b>' + ajustes + '</b></div></div>' +
-    (sinRazon.length ? '<p class="aviso warn">Decisiones sin razón escrita: ' + sinRazon.map(esc).join(', ') + '.</p>' : '') + '</div>' +
+    '<div class="k"><div class="cifra"><span class="lbl">Candidatos</span><b>' + S.candidatos.length + '</b></div><div class="cifra"><span class="lbl">En lista corta</span><b>' + lc.length + '</b></div><div class="cifra"><span class="lbl">Con los 4 métodos</span><b>' + M.completas.length + '</b></div><div class="cifra"><span class="lbl">Decisiones tomadas</span><b>' + dec.length + '</b></div><div class="cifra"><span class="lbl">Ajustes a la IA con razón</span><b>' + ajustes + '</b></div></div>' +
+    (sinRazon.length ? '<p class="aviso warn">Decisiones sin razón escrita: ' + sinRazon.map(esc).join(', ') + '.</p>' : '') +
+    (fuera.length ? '<p class="aviso warn">Se contrató a alguien distinto del recomendado por la matriz (' + fuera.map(esc).join(', ') + '). Debe quedar escrita la razón.</p>' : '') + '</div>' +
     etapas.map(et => '<div class="banda"><h2>' + et.t + '</h2>' + (S.candidatos.filter(et.base).length ? Object.keys(GRUPOS).map(d => bloque(d, et)).join('') : '<p class="muted small">Todavía no hay datos para esta etapa.</p>') + '</div>').join('') +
-    '<div class="banda"><h3>Si una razón queda abajo de 0.80</h3><ol style="margin:0;padding-left:20px"><li>Ubica la competencia que más separa a los grupos (compara los promedios por competencia).</li><li>Si no está ligada al puesto, quítala o cambia su descriptor.</li><li>Si está ligada al puesto, busca otra forma de medirla con menos impacto (muestra de trabajo en lugar de requisito de experiencia, por ejemplo).</li><li>Documenta el cambio y vuelve a calificar a todos con la misma rúbrica.</li></ol></div>';
+    '<div class="banda"><h2>¿En qué método se abre la brecha?</h2><p class="small muted">Promedio de cada método por grupo, entre quienes lo completaron (entre paréntesis, cuántos). Si un grupo sale bajo en un solo método, el problema está en ese método, no en el grupo.</p>' + Object.keys(GRUPOS).map(porMetodo).join('') + '</div>' +
+    '<div class="banda"><h3>Si una razón queda abajo de 0.80</h3><ol style="margin:0;padding-left:20px"><li>Ubica el método y la competencia que más separan a los grupos (tabla de arriba y detalle por competencia en la matriz).</li><li>Si la competencia no está ligada al puesto, quítala o cambia su descriptor.</li><li>Si está ligada al puesto, pásala a un método con menos impacto (muestra de trabajo en lugar de años de experiencia en el CV, por ejemplo) o baja el peso del método que la causa.</li><li>Documenta el cambio y vuelve a calificar a todos con la misma rúbrica y la misma matriz.</li></ol></div>';
 }
 
 document.getElementById('btnReiniciar').onclick = function(){
-  if(this.dataset.armado){ S = JSON.parse(JSON.stringify(EJEMPLO)); S.candidatos.forEach(c => { c.razones = {}; c.ia = null; }); guardar(); calIdx = 0; this.textContent = 'Volver al ejemplo'; delete this.dataset.armado; pintar(); return; }
+  if(this.dataset.armado){ S = copia(EJEMPLO); normalizar(); guardar(); calIdx = 0; evIdx = 0; detalleId = ''; this.textContent = 'Volver al ejemplo'; delete this.dataset.armado; pintar(); return; }
   this.dataset.armado = '1'; this.textContent = 'Confirmar: borrar mis cambios';
   setTimeout(() => { if(this.dataset.armado){ delete this.dataset.armado; this.textContent = 'Volver al ejemplo'; } }, 4000);
 };
 pintar();
+
 </script>
 </body>
 </html>
