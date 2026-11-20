@@ -98,6 +98,13 @@ tr.gana td{background:var(--accent-soft)}
 .chk{width:18px;height:18px;accent-color:var(--accent)}
 .met{border:1px solid var(--line);border-radius:10px;padding:12px 14px;display:grid;gap:8px}
 @media (max-width:700px){ .grid2{grid-template-columns:1fr} .ratio{grid-template-columns:1fr} }
+/* Ficha del puesto (paso 1) */
+.fila-ficha{display:flex;justify-content:space-between;gap:10px 16px;flex-wrap:wrap;align-items:flex-start}
+.ficha-vista{background:var(--sunk);border-radius:10px;padding:12px 14px;display:grid;gap:10px;min-width:0}
+.ficha-dl{display:grid;grid-template-columns:minmax(150px,max-content) minmax(0,1fr);gap:6px 16px;margin:0}
+.ficha-dl dt{font-weight:600;color:var(--muted);font-size:.85rem}
+.ficha-dl dd{margin:0;min-width:0}
+@media (max-width:640px){ .ficha-dl{grid-template-columns:minmax(0,1fr)} .ficha-dl dd{margin-bottom:6px} }
 </style>
 </head>
 <body>
@@ -131,6 +138,7 @@ tr.gana td{background:var(--accent-soft)}
 </main>
 </div>
 
+<script src="fichas-puestos.js"></script>
 <script>
 /* =====================================================================
    Selección Justa — matriz de cuatro métodos
@@ -366,11 +374,89 @@ function avisosMatriz(){
   if(vacios.length) out.push(['warn', 'Métodos que no miden ninguna competencia y no cuentan en la matriz: ' + vacios.map(nombreM).join(', ') + '.']);
   return out;
 }
+/* ---------- 1a. Ficha del puesto: rellenar la vacante o llenarla a mano ----------
+   Las fichas (fichas-puestos.js → data/fichas_puestos.json) traen la rúbrica,
+   la matriz de métodos y las guías de cada puesto del panel, más lo que
+   el monitoreo semanal ve en sus vacantes. Rellenar cambia la rúbrica: si ya
+   hay calificaciones se pide confirmar y se borran, porque calificar a unos
+   con una rúbrica y a otros con otra abre la puerta al sesgo. */
+const FPZ = window.FICHAS_PUESTOS;
+let FP = null, fpError = '', fpConfirma = '', fpMsg = '';
+let fichaSel = new URLSearchParams(location.search).get('ficha') || '';
+function hayCalificaciones(){
+  return Object.keys(S.decisiones || {}).length > 0 || S.candidatos.some(c => Object.keys(c.cal || {}).length || c.ia ||
+    Object.keys(c.ev.prueba).length || Object.keys(c.ev.muestra).length || c.ev.entrevista.some(e => Object.keys(e).length));
+}
+function aplicarVacante(partes, ficha){
+  const v = S.vacante;
+  v.puesto = partes.puesto; v.competencias = partes.competencias; v.metodos = partes.metodos;
+  v.ficha = ficha ? {id: ficha.id, puesto: ficha.puesto, sector: ficha.sector, corrida: FP.corrida, legal: FPZ.legal(ficha)} : null;
+  v.origen = ficha ? 'ficha' : 'manual';
+  S.candidatos.forEach(c => { c.cal = {}; c.ia = null; c.razones = {}; c.notas = {}; c.ev = {prueba: {}, muestra: {}, entrevista: []}; });
+  S.decisiones = {};
+  normalizar(); guardar();
+}
+function vacanteEnBlanco(){
+  const competencias = [1, 2, 3, 4].map(i => ({id: 'k' + i, nombre: '', peso: 25, n1: '', n3: '', n5: ''}));
+  const ids = competencias.map(k => k.id), P = {cv: 20, prueba: 25, muestra: 30, entrevista: 25}, metodos = {};
+  MID.forEach(m => { metodos[m] = {peso: P[m], comps: ids.slice(), guia: ''}; });
+  return {puesto: '', competencias, metodos};
+}
+function fichaActual(){
+  if(!FP) return null;
+  return FP.fichas.find(f => f.id === fichaSel) || FP.fichas.find(f => S.vacante.ficha && f.id === S.vacante.ficha.id) || FP.fichas[0];
+}
+function cuerpoFicha(){
+  const f = fichaActual(); fichaSel = f.id;
+  const secs = FPZ.sectores(FP), lg = FPZ.legal(f);
+  return '<div class="grid2"><div class="campo"><label for="fp_sector">Sector</label><select id="fp_sector">' + secs.map(([s]) => '<option' + (s === f.sector ? ' selected' : '') + '>' + esc(s) + '</option>').join('') + '</select></div>' +
+    '<div class="campo"><label for="fp_puesto">Puesto</label><select id="fp_puesto">' + secs.find(x => x[0] === f.sector)[1].map(x => '<option value="' + esc(x.id) + '"' + (x.id === f.id ? ' selected' : '') + '>' + esc(x.puesto) + '</option>').join('') + '</select></div></div>' +
+    '<div class="ficha-vista" id="fp_vista"><p style="margin:0"><strong>' + esc(f.puesto) + '.</strong> ' + esc(f.panel.descripcion) + '</p>' +
+    '<dl class="ficha-dl">' + FPZ.resumen(f).map(([a, b, n]) => '<dt>' + esc(a) + '</dt><dd>' + esc(b) + (n ? ' <span class="small muted">' + esc(n) + '</span>' : '') + '</dd>').join('') +
+    '<dt>Suele pedirse</dt><dd>' + esc(f.suele_pedir.escolaridad) + ' ' + esc(f.suele_pedir.experiencia) + '</dd>' +
+    (lg ? '<dt>Requisito legal</dt><dd>' + esc(lg) + '</dd>' : '') + '</dl>' +
+    '<p class="small muted" style="margin:0">Al rellenar quedan ' + f.competencias.length + ' competencias con su rúbrica, qué método mide cada una, el peso de cada método y las guías de prueba, muestra y entrevista. Lo del mercado es referencia para publicar la vacante, no un filtro: aquí se califica lo que la persona sabe hacer.</p></div>';
+}
+function htmlConfirma(){
+  if(!fpConfirma) return '';
+  return '<p class="aviso warn">Ya hay calificaciones con la rúbrica actual. Si cambias la vacante se borran las calificaciones, notas y decisiones de los ' + S.candidatos.length + ' candidatos (sus perfiles se quedan), para calificar a todos con la nueva rúbrica.</p>' +
+    '<div class="acciones"><button class="btn pri" type="button" id="fp_si">Sí, ' + (fpConfirma === 'ficha' ? 'rellenar' : 'vaciar') + ' y borrar las calificaciones</button><button class="btn" type="button" id="fp_no">Cancelar</button></div>';
+}
+function htmlFicha(){
+  const v = S.vacante;
+  const estado = v.ficha ? '<span class="pill acc" id="fp_estado">Con la ficha de ' + esc(v.ficha.puesto) + ' · corrida del ' + esc(FPZ.mes(v.ficha.corrida)) + '</span>'
+    : (v.origen === 'manual' ? '<span class="pill" id="fp_estado">Armada a mano</span>' : '');
+  return '<div class="fila-ficha"><div><h2>¿Cómo armas la vacante?</h2><p class="muted small">Rellénala con la ficha de un puesto (lo que piden sus vacantes en el monitoreo semanal y una rúbrica de partida) o llénala a mano. En los dos casos todo se puede cambiar abajo.</p></div>' + estado + '</div>' +
+    (FP ? cuerpoFicha() : (fpError ? '<p class="aviso warn">No se pudieron cargar las fichas de puesto (' + esc(fpError) + '). Puedes llenar la vacante a mano.</p>' : '<p class="muted small">Cargando las fichas de puesto…</p>')) +
+    '<div class="acciones">' + (FP ? '<button class="btn pri" type="button" id="fp_rellenar">Rellenar la vacante con esta ficha</button><a class="btn" id="fp_ver" target="_blank" rel="noopener" href="fichas-puestos.html#' + esc(fichaSel) + '">Ver la ficha completa</a>' : '') +
+    '<button class="btn" type="button" id="fp_manual">Llenar a mano desde cero</button></div>' +
+    htmlConfirma() + (fpMsg ? '<p class="aviso ok" id="fp_msg">' + esc(fpMsg) + '</p>' : '');
+}
+function hacerFicha(tipo){
+  if(tipo === 'ficha'){ const f = fichaActual(); aplicarVacante(FPZ.aVacante(f), f); fpMsg = 'La vacante quedó con la ficha de ' + f.puesto + '. Revisa las competencias, sus pesos y las guías y ajústalas a tu empresa antes de ver candidatos.'; }
+  else { aplicarVacante(vacanteEnBlanco(), null); fpMsg = 'La vacante quedó en blanco. Escribe el puesto, entre 4 y 6 competencias con su rúbrica y las guías de cada método.'; }
+  fpConfirma = ''; pVacante();
+}
+function conectarFicha(b){
+  const q = s => b.querySelector(s);
+  const pedir = tipo => { fpMsg = ''; if(hayCalificaciones()){ fpConfirma = tipo; repintarFicha(); } else hacerFicha(tipo); };
+  if(q('#fp_sector')) q('#fp_sector').onchange = e => { fichaSel = FPZ.sectores(FP).find(x => x[0] === e.target.value)[1][0].id; fpConfirma = ''; fpMsg = ''; repintarFicha(); };
+  if(q('#fp_puesto')) q('#fp_puesto').onchange = e => { fichaSel = e.target.value; fpConfirma = ''; fpMsg = ''; repintarFicha(); };
+  if(q('#fp_rellenar')) q('#fp_rellenar').onclick = () => pedir('ficha');
+  q('#fp_manual').onclick = () => pedir('manual');
+  if(q('#fp_si')) q('#fp_si').onclick = () => hacerFicha(fpConfirma);
+  if(q('#fp_no')) q('#fp_no').onclick = () => { fpConfirma = ''; repintarFicha(); };
+}
+function repintarFicha(){ const b = document.getElementById('bandaFicha'); if(!b) return; b.innerHTML = htmlFicha(); conectarFicha(b); }
+
 function pVacante(){
   const el = document.getElementById('v-vacante'), pt = pesoTotal(), pm = MID.reduce((s, m) => s + S.vacante.metodos[m].peso, 0);
   const sumaK = s => s === 100 ? 'Los pesos de las competencias suman 100.' : '<span class="pill warn">Los pesos de las competencias suman ' + s + '; se normalizan al calcular.</span>';
   const sumaM = s => s === 100 ? 'Los pesos de los métodos suman 100.' : '<span class="pill warn">Los pesos de los métodos suman ' + s + '; se normalizan al calcular.</span>';
-  el.innerHTML = '<div class="banda"><div><h2>Define el puesto antes de ver candidatos</h2><p class="muted small">Entre 4 y 6 competencias ligadas al trabajo, con su peso y ejemplos de cómo se ve un 1, un 3 y un 5. Se califica lo que la persona sabe hacer, no la escuela ni los años de experiencia.</p></div>' +
+  const lgl = S.vacante.ficha && S.vacante.ficha.legal;
+  el.innerHTML = '<div class="banda" id="bandaFicha">' + htmlFicha() + '</div>' +
+    '<div class="banda"><div><h2>Define el puesto antes de ver candidatos</h2><p class="muted small">Entre 4 y 6 competencias ligadas al trabajo, con su peso y ejemplos de cómo se ve un 1, un 3 y un 5. Se califica lo que la persona sabe hacer, no la escuela ni los años de experiencia.</p></div>' +
+    (lgl ? '<p class="aviso" id="avisoLegal"><strong>Requisito legal del puesto:</strong> ' + esc(lgl) + ' Se verifica aparte con el documento; no se califica ni suma puntos.</p>' : '') +
     '<div class="grid2"><div class="campo"><label for="f_puesto">Puesto</label><input id="f_puesto" value="' + esc(S.vacante.puesto) + '"></div>' +
     '<div class="grid2"><div class="campo"><label for="f_lc">Lugares en la lista corta</label><input id="f_lc" type="number" min="1" max="20" value="' + esc(S.vacante.listaCorta) + '"></div>' +
     '<div class="campo"><label for="f_ev">Evaluadores en la entrevista</label><select id="f_ev">' + [1,2,3].map(n => '<option' + (S.vacante.evaluadores === n ? ' selected' : '') + '>' + n + '</option>').join('') + '</select></div></div></div>' +
@@ -400,6 +486,8 @@ function pVacante(){
   el.querySelectorAll('[data-mk]').forEach(ch => ch.onchange = () => { const l = S.vacante.metodos[ch.dataset.mk].comps, id = ch.dataset.kid; const i = l.indexOf(id); if(ch.checked && i < 0) l.push(id); if(!ch.checked && i >= 0) l.splice(i, 1); guardar(); el.querySelector('#avisosMatriz').innerHTML = avisosMatriz().map(a => '<p class="aviso ' + a[0] + '">' + esc(a[1]) + '</p>').join(''); });
   el.querySelectorAll('[data-pm]').forEach(x => x.oninput = () => { S.vacante.metodos[x.dataset.pm].peso = Math.max(0, Number(x.value) || 0); guardar(); el.querySelector('#sumaMetodos').innerHTML = sumaM(MID.reduce((s, m) => s + S.vacante.metodos[m].peso, 0)); });
   el.querySelectorAll('[data-guia]').forEach(t => t.oninput = () => { S.vacante.metodos[t.dataset.guia].guia = t.value; guardar(); });
+  conectarFicha(el.querySelector('#bandaFicha'));
+  if(!FP && !fpError) FPZ.cargar().then(d => { FP = d; repintarFicha(); }).catch(e => { fpError = e.message || 'sin conexión'; repintarFicha(); });
 }
 
 /* ---------- 2. Candidatos ---------- */
@@ -597,7 +685,7 @@ function pAuditoria(){
 }
 
 document.getElementById('btnReiniciar').onclick = function(){
-  if(this.dataset.armado){ S = copia(EJEMPLO); normalizar(); guardar(); calIdx = 0; evIdx = 0; detalleId = ''; this.textContent = 'Volver al ejemplo'; delete this.dataset.armado; pintar(); return; }
+  if(this.dataset.armado){ S = copia(EJEMPLO); normalizar(); fpMsg = ''; fpConfirma = ''; guardar(); calIdx = 0; evIdx = 0; detalleId = ''; this.textContent = 'Volver al ejemplo'; delete this.dataset.armado; pintar(); return; }
   this.dataset.armado = '1'; this.textContent = 'Confirmar: borrar mis cambios';
   setTimeout(() => { if(this.dataset.armado){ delete this.dataset.armado; this.textContent = 'Volver al ejemplo'; } }, 4000);
 };

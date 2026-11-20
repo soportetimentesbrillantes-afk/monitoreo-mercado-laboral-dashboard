@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Fichas de puesto · Club de Mentes Brillantes</title>
+<meta name="description" content="Qué pide cada puesto según las vacantes del monitoreo semanal, qué dice el panel de expertos y una rúbrica para evaluar candidatos con Selección Justa.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Mismos colores y letras que Selección Justa (seleccion.html).
+   Lista de fichas por sector y, con #id en la dirección, la ficha completa. */
+:root{
+  --bg:#faf8f2; --surface:#ffffff; --sunk:#f3efe5; --line:#e7ddc9;
+  --ink:#1f1f1c; --muted:#6b6459; --accent:#8b7440; --accent-soft:#f1ead9; --accent-ink:#ffffff;
+  --warn:#8a5a00; --warn-bg:#fbefd5;
+  --f-display:"Cormorant Garamond", Georgia, serif;
+  --f-body:"Source Sans 3", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-data:"IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.55;margin:0;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));padding-block:0 56px}
+.wrap{max-width:1080px;margin:0 auto}
+h1,h2,h3{font-family:var(--f-display);font-weight:700;margin:0;text-wrap:balance}
+h1{font-size:2.2rem;line-height:1.1} h2{font-size:1.5rem} h3{font-size:1.2rem}
+p{margin:0}
+a{color:var(--accent)}
+.muted{color:var(--muted)} .small{font-size:.85rem}
+.num{font-family:var(--f-data);font-variant-numeric:tabular-nums}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.logo{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:18px 0 10px}
+.logo img{height:34px;width:auto;display:block}
+.logo a{color:var(--muted);font-size:.85rem;font-weight:700;text-decoration:none}
+header{padding-bottom:18px;border-bottom:1px solid var(--line);display:grid;gap:8px}
+header .sub{color:var(--muted);max-width:72ch}
+main{display:grid;gap:16px;padding-top:18px}
+.banda{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px;display:grid;gap:12px;min-width:0}
+.aviso{border-radius:10px;padding:10px 14px;background:var(--accent-soft);font-size:.92rem}
+.aviso.warn{background:var(--warn-bg);color:var(--warn)}
+.btn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:8px 13px;cursor:pointer;font-weight:600;font-size:.9rem;text-decoration:none;color:var(--ink)}
+.btn:hover{border-color:var(--accent)}
+.btn.pri{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.acciones{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.pill{display:inline-block;border-radius:999px;padding:2px 9px;font-size:.75rem;font-weight:700;white-space:nowrap;background:var(--sunk);color:var(--muted)}
+.pill.acc{background:var(--accent-soft);color:var(--accent)}
+.controles{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:12px}
+.campo{display:grid;gap:4px;min-width:0}
+.campo label{font-size:.8rem;font-weight:600;color:var(--muted)}
+.campo input,.campo select{width:100%;border:1px solid var(--line);background:var(--bg);border-radius:8px;padding:8px 10px}
+.fuentes{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.fuentes div{display:grid;gap:4px;align-content:start}
+.fuentes b{font-size:.8rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.lista{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px}
+.tarjeta{display:grid;gap:6px;border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:var(--surface);text-decoration:none;color:var(--ink)}
+.tarjeta:hover{border-color:var(--accent)}
+.tarjeta strong{font-size:1rem}
+.tarjeta .datos{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:.84rem;color:var(--muted)}
+.dl{display:grid;grid-template-columns:minmax(170px,max-content) minmax(0,1fr);gap:8px 18px;margin:0}
+.dl dt{font-weight:600;color:var(--muted);font-size:.88rem}
+.dl dd{margin:0;min-width:0}
+.tabla-c{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.9rem}
+th{text-align:left;font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);padding:8px;border-bottom:1px solid var(--line);vertical-align:bottom}
+td{padding:9px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+td.c,th.c{text-align:center}
+.guias{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.guia{border:1px solid var(--line);border-radius:10px;padding:12px 14px;display:grid;gap:6px;align-content:start}
+.guia p{white-space:pre-wrap}
+.ficha-cab .pill{justify-self:start}
+td.num{white-space:nowrap}
+.ficha-cab{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 16px;align-items:flex-start}
+@media (max-width:680px){ .controles{grid-template-columns:1fr} .dl{grid-template-columns:minmax(0,1fr)} .dl dd{margin-bottom:6px} h1{font-size:1.9rem} }
+@media print{ .logo,.controles,.acciones,#vLista{display:none!important} body{background:#fff} .banda{border:none;padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="logo"><a href="https://www.clubmentesbrillantes.com.mx/index.html" aria-label="Club de Mentes Brillantes"><img src="logo-cmb.svg" alt="Club de Mentes Brillantes"></a><a href="fichas.html">← Descripciones de puestos por industria</a></div>
+  <header>
+    <h1>Fichas de puesto</h1>
+    <p class="sub">Qué piden las vacantes de cada puesto según el monitoreo semanal, qué dice el panel de expertos y una rúbrica para evaluar candidatos. Cada ficha puede rellenar una vacante en <a href="seleccion.html">Selección Justa</a>.</p>
+  </header>
+  <main>
+    <p class="muted" id="cargando">Cargando las fichas…</p>
+    <section id="vLista" hidden>
+      <div class="banda" style="margin-bottom:16px">
+        <div class="fuentes" id="fuentes"></div>
+        <div class="controles">
+          <div class="campo"><label for="buscar">Buscar puesto</label><input id="buscar" type="search" placeholder="Por ejemplo: contador, almacén, ventas" autocomplete="off"></div>
+          <div class="campo"><label for="sector">Sector</label><select id="sector"><option value="">Todos</option></select></div>
+        </div>
+      </div>
+      <div id="lista" style="display:grid;gap:18px"></div>
+    </section>
+    <section id="vFicha" hidden></section>
+  </main>
+</div>
+<script src="fichas-puestos.js"></script>
+<script>
+(function(){
+  'use strict';
+  const FPZ = window.FICHAS_PUESTOS;
+  const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const sinAcentos = s => String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+  const pesos = n => '$' + Math.round(n).toLocaleString('es-MX');
+  const METODOS = [['cv', 'CV anónimo'], ['prueba', 'Prueba'], ['muestra', 'Muestra de trabajo'], ['entrevista', 'Entrevista']];
+  let D = null;
+
+  function pintarLista(){
+    const q = sinAcentos(document.getElementById('buscar').value.trim()), sec = document.getElementById('sector').value;
+    const grupos = FPZ.sectores(D).filter(([s]) => !sec || s === sec).map(([s, fs]) => [s, fs.filter(f => !q || sinAcentos(f.puesto + ' ' + f.panel.descripcion).includes(q))]).filter(([, fs]) => fs.length);
+    document.getElementById('lista').innerHTML = grupos.length ? grupos.map(([s, fs]) => '<div style="display:grid;gap:10px"><h2>' + esc(s) + ' <span class="muted small">' + fs.length + ' puestos</span></h2><div class="lista">' +
+      fs.map(f => { const m = f.mercado, sal = m.salario && m.salario.mediana;
+        return '<a class="tarjeta" href="#' + esc(f.id) + '"><strong>' + esc(f.puesto) + '</strong><span class="small muted">' + esc(f.panel.descripcion) + '</span>' +
+          '<span class="datos"><span><span class="num">' + m.vacantes.toLocaleString('es-MX') + '</span> ' + (m.vacantes === 1 ? 'vacante' : 'vacantes') + '</span>' + (sal ? '<span>Mediana <span class="num">' + pesos(sal) + '</span></span>' : '') + (FPZ.legal(f) ? '<span>Requisito legal</span>' : '') + '</span></a>'; }).join('') +
+      '</div></div>').join('') : '<p class="muted">Ningún puesto coincide con la búsqueda.</p>';
+  }
+
+  function pintarFicha(f){
+    const lg = FPZ.legal(f), m = f.mercado, P = f.panel;
+    const tot = f.competencias.reduce((s, c) => s + c.peso, 0) || 1;
+    const el = document.getElementById('vFicha');
+    el.innerHTML = '<div class="banda"><div class="ficha-cab"><div style="display:grid;gap:4px"><span class="pill acc">' + esc(f.sector) + '</span><h1>' + esc(f.puesto) + '</h1><p>' + esc(P.descripcion) + '</p></div>' +
+        '<div class="acciones"><a class="btn pri" id="usar" href="seleccion.html?ficha=' + encodeURIComponent(f.id) + '#vacante">Usar en Selección Justa</a><button class="btn" type="button" id="imprimir">Imprimir</button><a class="btn" href="#">Todas las fichas</a></div></div>' +
+        (lg ? '<p class="aviso"><strong>Requisito legal:</strong> ' + esc(lg) + '</p>' : '') + '</div>' +
+
+      '<div class="banda"><div><h2>Lo que piden sus vacantes</h2><p class="small muted">Vacantes de la corrida del ' + esc(FPZ.mes(D.corrida)) + ' cuyo título coincide con este puesto. La descripción de Adzuna se corta en ~500 caracteres, así que escolaridad, experiencia e idiomas son un piso: muchas vacantes no lo dicen.</p></div>' +
+        '<dl class="dl">' + FPZ.resumen(f).map(([a, b, n]) => '<dt>' + esc(a) + '</dt><dd>' + esc(b) + (n ? '<br><span class="small muted">' + esc(n) + '</span>' : '') + '</dd>').join('') + '</dl>' +
+        ((m.titulos_ejemplo || []).length ? '<p class="small muted">Títulos que se contaron: ' + m.titulos_ejemplo.map(t => '«' + esc(t) + '»').join(', ') + '.</p>' : '') + '</div>' +
+
+      '<div class="banda"><div><h2>Lo que dice el panel</h2><p class="small muted">' + esc(P.origen === 'dato de corrida' ? 'Puesto que apareció en las vacantes monitoreadas; el panel lo describió.' : 'Puesto que el panel agregó porque existe en el mercado.') + ' Es opinión de expertos, no una norma oficial.</p></div>' +
+        '<dl class="dl"><dt>Habilidades técnicas</dt><dd>' + esc(P.habilidades_tecnicas) + '</dd><dt>Habilidades blandas</dt><dd>' + esc(P.habilidades_blandas) + '</dd>' +
+        '<dt>Certificación obligatoria</dt><dd>' + esc(P.cert_obligatoria) + '</dd><dt>Certificación recomendada</dt><dd>' + esc(P.cert_recomendada && P.cert_recomendada !== '—' ? P.cert_recomendada : 'Ninguna en particular') + '</dd>' +
+        '<dt>Suele pedirse</dt><dd>' + esc(f.suele_pedir.escolaridad) + ' ' + esc(f.suele_pedir.experiencia) + '</dd></dl></div>' +
+
+      '<div class="banda"><div><h2>Cómo evaluar a quien aspira</h2><p class="small muted">Rúbrica de partida para Selección Justa: se califica lo que la persona sabe hacer, del 1 al 5, con la misma rúbrica para todos. Cada competencia se mide con al menos dos métodos. Ajústala a tu empresa antes de ver candidatos.</p></div>' +
+        '<div class="tabla-c"><table><thead><tr><th style="min-width:170px">Competencia</th><th class="c">Peso</th>' + METODOS.map(([, n]) => '<th class="c">' + esc(n) + '</th>').join('') + '<th style="min-width:150px">Nivel 1</th><th style="min-width:150px">Nivel 3</th><th style="min-width:150px">Nivel 5</th></tr></thead><tbody>' +
+        f.competencias.map(c => '<tr><td><strong>' + esc(c.nombre) + '</strong></td><td class="c num">' + Math.round(c.peso / tot * 100) + ' %</td>' +
+          METODOS.map(([k, n]) => '<td class="c">' + (c.metodos.includes(k) ? '<span aria-label="' + esc(n) + ' la mide">●</span>' : '<span class="muted" aria-label="' + esc(n) + ' no la mide">·</span>') + '</td>').join('') +
+          '<td>' + esc(c.n1) + '</td><td>' + esc(c.n3) + '</td><td>' + esc(c.n5) + '</td></tr>').join('') +
+        '<tr><td><strong>Peso del método en la decisión</strong></td><td></td>' + METODOS.map(([k]) => '<td class="c num">' + f.metodos.pesos[k] + ' %</td>').join('') + '<td colspan="3"></td></tr>' +
+        '</tbody></table></div>' +
+        '<div class="guias">' + [['prueba', 'Prueba de competencias'], ['muestra', 'Muestra de trabajo'], ['entrevista', 'Entrevista estructurada']].map(([k, n]) => '<div class="guia"><h3>' + esc(n) + '</h3><p>' + esc(f.metodos[k]) + '</p></div>').join('') + '</div>' +
+        '<p class="small muted">' + esc(D.fuentes.conocimiento) + '</p></div>';
+    el.querySelector('#imprimir').onclick = () => window.print();
+    document.title = f.puesto + ' · Fichas de puesto · Club de Mentes Brillantes';
+  }
+
+  function ruta(){
+    if(!D) return;
+    const id = decodeURIComponent(location.hash.slice(1)), f = D.fichas.find(x => x.id === id);
+    document.getElementById('vLista').hidden = !!f;
+    document.getElementById('vFicha').hidden = !f;
+    if(f){ pintarFicha(f); window.scrollTo(0, 0); }
+    else { document.title = 'Fichas de puesto · Club de Mentes Brillantes'; pintarLista(); }
+  }
+
+  FPZ.cargar().then(d => {
+    D = d;
+    document.getElementById('cargando').hidden = true;
+    document.getElementById('fuentes').innerHTML = [['Panel de expertos', d.fuentes.panel], ['Rúbrica y guías', d.fuentes.conocimiento], ['Mercado', d.fuentes.mercado]].map(([t, x]) => '<div><b>' + esc(t) + '</b><p class="small">' + esc(x) + '</p></div>').join('');
+    const s = document.getElementById('sector');
+    FPZ.sectores(d).forEach(([n]) => { const o = document.createElement('option'); o.textContent = n; s.appendChild(o); });
+    document.getElementById('buscar').oninput = pintarLista;
+    s.onchange = pintarLista;
+    ruta();
+  }).catch(e => {
+    document.getElementById('cargando').outerHTML = '<p class="aviso warn">No se pudieron cargar las fichas (' + esc(e.message) + '). Intenta de nuevo en un momento.</p>';
+  });
+  window.addEventListener('hashchange', ruta);
+})();
+</script>
+</body>
+</html>

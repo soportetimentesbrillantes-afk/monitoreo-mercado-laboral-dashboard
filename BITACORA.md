@@ -10,6 +10,51 @@ después.
 corrigió un error, describe también cómo se detectó — eso es lo que evita
 repetirlo.
 
+## 2026-11-20 — Fichas de puesto que rellenan la vacante en Selección Justa
+
+Gael pidió fichas de cada puesto del Excel "Fichas Técnicas 7 Sectores" con lo
+que suele pedir cada uno, según la corrida y conocimiento general, para
+rellenar automáticamente la vacante en Selección Justa, o llenarla a mano.
+
+- **herramientas/fichas_puestos.py** (nuevo) junta tres capas y escribe
+  `data/fichas_puestos.json`:
+  - *Panel* (`herramientas/fichas/panel.json`, del Excel): descripción,
+    habilidades y certificaciones.
+  - *Rúbrica y guías* (`herramientas/fichas/conocimiento_*.py`, propuesta de
+    Claude): patrón para reconocer el puesto en los títulos, lo que se suele
+    pedir, 5 competencias con descriptores 1/3/5, qué método mide cada una y
+    guías de prueba, muestra y entrevista. El script valida que los pesos
+    sumen 100 y que cada competencia se mida con el CV y otro método.
+  - *Mercado*: vacantes del acervo del 12 de noviembre (52,058, los 9
+    sectores juntos) cuyo título coincide. Sueldo (mediana y cuartiles con al
+    menos 5 datos), escolaridad, experiencia, idiomas, carreras, temas de las
+    descripciones, estados y títulos de ejemplo.
+  - Gael eligió que esto **no** corra cada lunes; se vuelve a correr cuando
+    se pida.
+- **Cómo se detectaron dos sesgos en los conteos** al revisar las fichas:
+  - A los choferes les salía "licenciatura 31 %": la descripción de Linde
+    dice "líder mundial en gases industriales e ingeniería" y el patrón de la
+    Etapa 4 cuenta "ingeniería" suelta. En las fichas solo cuenta "ingeniería
+    en…", "ingeniero industrial", etc. **El tablero semanal sigue con el
+    patrón viejo**; conviene corregirlo allá también.
+  - "Atención al detalle 85 %" en contadores: las habilidades blandas del
+    diccionario se infieren del título. En las fichas no se usan (las da el
+    panel), y las técnicas se cuentan solo en la descripción.
+  - Además, cada descripción distinta cuenta una vez (una empresa que publica
+    la misma vacante en 30 ciudades pesaba 30 veces), y "mayor de 18 años,
+    experiencia…" ya no se lee como 18 años de experiencia.
+- **seleccion.html**, paso 1: banda "¿Cómo armas la vacante?" con sector y
+  puesto, resumen de la ficha y dos botones: *Rellenar la vacante con esta
+  ficha* y *Llenar a mano desde cero*. Si ya hay calificaciones pide
+  confirmar y las borra (con otra rúbrica no se pueden comparar). El
+  requisito legal (cédula, licencia federal, patente…) se muestra aparte y no
+  se califica. `?ficha=<id>` preselecciona el puesto.
+- **fichas-puestos.html** (nuevo): lista por sector con búsqueda y ficha
+  completa (`#id`) con botón "Usar en Selección Justa". **fichas.html**
+  enlaza cada puesto a su ficha.
+
+Pruebas: `test_fichas_puestos.mjs` (10); `test_seleccion.mjs` (14) sin cambios.
+
 ## 2026-11-20 — Asistente de orientación vocacional con IA (Ágora y DIANA)
 
 Gael pidió un asistente que, con el perfil de cada persona, entregue una
