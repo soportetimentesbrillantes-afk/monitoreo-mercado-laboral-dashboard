@@ -4,7 +4,7 @@
  *
  *   node cuentas/pruebas/test_diana.mjs
  *
- * Lo que importa: que DIANA muestre sus 5 fases y 34 pasos con las mismas
+ * Lo que importa: que DIANA muestre sus 5 fases y 35 pasos con las mismas
  * herramientas que Ágora y sin repetir lo ya hecho; que Crecimiento personal
  * pida aquí valores, intereses y motivaciones; que los pasos con mentor queden
  * "Falta mentor" hasta anotar la revisión, y que esa revisión llegue a la
@@ -107,14 +107,14 @@ async function llenarMapa(p){
 
 console.log('\nProceso DIANA');
 
-await prueba('cinco fases y 34 pasos, todos abiertos; lo hecho en Ágora cuenta', async () => {
+await prueba('cinco fases y 35 pasos, todos abiertos; lo hecho en Ágora cuenta', async () => {
   const { p, ctx } = await abrir('');
   const fases = await p.evaluate(() => [...document.querySelectorAll('#listaFases .fase')].map(f => [f.dataset.fase, f.querySelectorAll('.paso').length]));
-  igual(JSON.stringify(fases), JSON.stringify([['descubrir', 8], ['iniciar', 6], ['alinear', 7], ['nutrir', 6], ['acompanar', 7]]));
-  igual(await p.locator('#listaFases .paso:not([disabled])').count(), 34, 'los 34 pasos tienen herramienta');
+  igual(JSON.stringify(fases), JSON.stringify([['descubrir', 8], ['iniciar', 7], ['alinear', 7], ['nutrir', 6], ['acompanar', 7]]));
+  igual(await p.locator('#listaFases .paso:not([disabled])').count(), 35, 'los 35 pasos tienen herramienta');
   cierto((await estadoDe(p, 'informacion')).includes('Completo') && (await estadoDe(p, 'disc')).includes('Completo'), 'la información y el DISC de Ágora cuentan');
-  igual(await p.textContent('#avanceTxt'), '3 de 34 pasos completos');
-  cierto((await p.textContent('.cabecera-paso')).includes('DIANA · Descubrir · Paso 4 de 34'), 'abre el primer paso sin hacer');
+  igual(await p.textContent('#avanceTxt'), '3 de 35 pasos completos');
+  cierto((await p.textContent('.cabecera-paso')).includes('DIANA · Descubrir · Paso 4 de 35'), 'abre el primer paso sin hacer');
   await ctx.close();
 });
 
@@ -135,7 +135,7 @@ await prueba('Crecimiento personal: en DIANA pide valores, intereses y motivacio
   await completar(p); await listo(p);
   cierto((await estadoDe(p, 'crecimiento')).includes('Completo'));
   const e = ultimo(enviados, 'crecimiento');
-  igual(e.tipo, 'diana'); igual(e.total, 34);
+  igual(e.tipo, 'diana'); igual(e.total, 35);
   igual(e.datos.hoja['Valores'].split(', ').length, 5);
   cierto(e.datos.hoja['Intereses'].startsWith('Investigar, analizar y resolver problemas: 5'));
   cierto(!(await p.$('#cre_correo')), 'en DIANA no se ofrece el correo a la familia');
@@ -353,7 +353,7 @@ await prueba('Resumen de Alinear pide sus seis pasos y los resume', async () => 
   cierto(await p.isDisabled('#btnCompletar'), 'faltan pasos');
   const doc = await p.textContent('#documento');
   cierto(doc.includes('Resumen ejecutivo de la fase Alinear') && doc.includes('Excel avanzado'), 'resume lo hecho');
-  cierto(doc.includes('Pendiente: completa el paso 15, Brechas frente a las vacantes'), 'marca lo pendiente');
+  cierto(doc.includes('Pendiente: completa el paso 16, Brechas frente a las vacantes'), 'marca lo pendiente');
   cierto(doc.includes('Revisiones con el mentor') && doc.includes('Mentoría de ajuste de expectativas'));
   await ctx.close();
 });

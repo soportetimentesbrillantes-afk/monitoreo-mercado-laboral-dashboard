@@ -3,7 +3,7 @@
  *
  *   node cuentas/pruebas/test_proceso_agora.mjs
  *
- * Lo que importa: que la ruta muestre las 12 fases con su
+ * Lo que importa: que la ruta muestre las 13 fases con su
  * estado; que solo se puedan abrir las herramientas listas; que el paso 1 no
  * se dé por completo con huecos y diga qué falta; que un menor necesite a su
  * tutor; que todo sobreviva a recargar; que el DISC y el FODA funcionen dentro
@@ -86,14 +86,14 @@ async function llenarAdulto(p) {
 
 console.log('\nProceso Ágora');
 
-await prueba('la ruta muestra las 12 fases (las 10 de Ágora, el presupuesto y el test vocacional) y todas se pueden abrir', async () => {
+await prueba('la ruta muestra las 13 fases (las 10 de Ágora, el presupuesto, el test vocacional y el asistente de orientación) y todas se pueden abrir', async () => {
   const { p, ctx } = await abrir();
   const t = await p.textContent('#listaFases');
   for (const f of ['Perfil DISC', 'Análisis FODA', 'Crecimiento personal', 'Escenarios de vida', 'Ruta profesional', 'Plan de acción', 'Resumen ejecutivo'])
     cierto(t.includes(f), 'falta la fase ' + f);
   cierto(!t.includes('Descubrir') && !t.includes('Alinear'), 'no deben aparecer fases de DIANA');
-  igual(await p.locator('#listaFases .paso').count(), 12);
-  igual(await p.locator('#listaFases .paso:not([disabled])').count(), 12, 'las doce fases');
+  igual(await p.locator('#listaFases .paso').count(), 13);
+  igual(await p.locator('#listaFases .paso:not([disabled])').count(), 13, 'las trece fases');
 
   cierto(!t.includes('Alinear'), 'Alinear no se trabaja todavía');
   igual(await p.textContent('#avancePct'), '0%');
@@ -130,12 +130,12 @@ await prueba('fase 1: pide la etapa, ofrece Negocios y "No lo sé aún", que no 
   await ctx.close();
 });
 
-await prueba('completo con datos válidos: avanza 1 de 12 y sobrevive a recargar', async () => {
+await prueba('completo con datos válidos: avanza 1 de 13 y sobrevive a recargar', async () => {
   const { p, ctx } = await abrir();
   await llenarAdulto(p);
   await p.click('#btnCompletarInfo');
   await p.waitForFunction(() => document.getElementById('avisoInfo').textContent.includes('Listo'));
-  igual(await p.textContent('#avanceTxt'), '1 de 12 fases completas');
+  igual(await p.textContent('#avanceTxt'), '1 de 13 fases completas');
   cierto((await p.textContent('#listaFases .paso[data-paso="informacion"] .estado')).includes('Completo'));
   await p.reload({ waitUntil: 'domcontentloaded' });
   await marco(p, 'disc-agora.html');   // con la fase 1 lista, abre la siguiente
@@ -187,7 +187,7 @@ await prueba('sin la casilla del expediente no se envía nada; con ella se enví
   const e = enviados[0];
   igual(e.tipo, 'agora'); igual(e.paso, 'informacion'); igual(e.acepta, true);
   igual(e.nombre, 'Ana Pérez'); igual(e.correo, 'ana@ejemplo.com');
-  igual(e.datos.institucion, 'BUAP'); igual(e.total, 12);
+  igual(e.datos.institucion, 'BUAP'); igual(e.total, 13);
   cierto(e.completos.includes('informacion'));
   cierto(/^[0-9a-f]{24}$/.test(e.id));
   await ctx.close();
@@ -267,7 +267,7 @@ const estadoDe = (p, id) => p.textContent(`#listaFases .paso[data-paso="${id}"] 
 await prueba('fase 2: el cuestionario de Ágora se abre dentro del proceso, sin su encabezado ni la versión corta', async () => {
   const { p, ctx } = await abrir();
   const f = await abrirFase(p, 'disc', 'disc-agora.html');
-  cierto((await p.textContent('.cabecera-paso')).includes('Fase 2 de 12'));
+  cierto((await p.textContent('.cabecera-paso')).includes('Fase 2 de 13'));
   cierto(!(await f.isVisible('.topbar')) && !(await f.isVisible('body > header')), 'el encabezado de la página suelta no aparece');
   cierto(await f.isVisible('#intro'), 'se ve el inicio del cuestionario');
   cierto(!(await f.isVisible('#intro a[href="disc.html"]')), 'no ofrece la versión de 24 bloques');
@@ -287,7 +287,7 @@ await prueba('fase 2: al terminar el DISC la fase queda completa, sin tarjeta de
   await p.waitForFunction(() => document.querySelector('#listaFases .paso[data-paso="disc"] .estado').textContent.includes('En curso'));
   await contestarDisc(f, RESPUESTAS);
   await p.waitForFunction(() => document.querySelector('#listaFases .paso[data-paso="disc"] .estado').textContent.includes('Completo'));
-  igual(await p.textContent('#avanceTxt'), '1 de 12 fases completas');
+  igual(await p.textContent('#avanceTxt'), '1 de 13 fases completas');
   cierto((await p.textContent('#avisoFase')).includes('Análisis FODA'), 'dice cuál sigue');
   cierto(await f.isVisible('#resultado'), 'muestra el resultado');
   cierto(!(await f.isVisible('#compartirDisc .compartir')), 'la tarjeta suelta de compartir no aparece: el expediente es de Ágora');
@@ -335,7 +335,7 @@ await prueba('fase 2 y 3 con expediente: esperan a la fase 1 y se envían al com
   igual(enviados.length, 3);
   igual(enviados[2].paso, 'foda'); igual(enviados[2].datos.F, 'Excel intermedio'); igual(enviados[2].datos.paso, 'Ponerle cifras a mi CV');
   igual(enviados[2].datos.estiloDisc, 'C');
-  igual(await p.textContent('#avanceTxt'), '3 de 12 fases completas');
+  igual(await p.textContent('#avanceTxt'), '3 de 13 fases completas');
   await ctx.close();
 });
 

@@ -10,6 +10,43 @@ después.
 corrigió un error, describe también cómo se detectó — eso es lo que evita
 repetirlo.
 
+## 2026-11-20 — Asistente de orientación vocacional con IA (Ágora y DIANA)
+
+Gael pidió un asistente que, con el perfil de cada persona, entregue una
+narrativa personalizada, un mapa de afinidades, un índice de coherencia, micro
+escenarios de futuro y una versión para padres u orientadores. Se acordó que
+los números salen de reglas fijas y que la IA solo escribe.
+
+- **agora/orientacion.js** (nuevo): fase 12 de 13 en Ágora y paso de Iniciar
+  en DIANA (35 pasos), después del Mapa de carrera.
+  - *Mapa de afinidades*: las carreras de la ruta, la carrera de la persona y
+    las cuatro primeras del test vocacional (hasta 8). Intereses, aptitudes y
+    motivos salen de `cmb_vocacional.envio.afin`; el estilo, del DISC
+    (alta 100, media 60, baja 25); el mercado, del monitoreo semanal del
+    sector. Afinidad = 60 % test + 40 % estilo.
+  - *Índice de coherencia* de la opción principal (ruta principal en Ágora;
+    rol objetivo en DIANA): promedio de intereses, aptitudes, motivos, estilo
+    y presupuesto frente a la mediana del sector. Con menos de dos
+    componentes queda pendiente. Alta ≥ 75, media ≥ 55.
+  - *Textos con IA*: solo con la casilla (sin marcar). Se manda el perfil sin
+    nombre, correo, teléfono ni tutor; el nombre dentro de textos libres se
+    cambia por [nombre]. La versión para la familia se imprime sola.
+  - Si la IA no está activa, la fase se completa con el mapa y el índice.
+- **test-vocacional.html**: el envío guarda `pts` y `afin` (afinidad por
+  carrera y sus tres partes); los resultados viejos se rehacen al abrir. No
+  se comparten fuera del expediente.
+- **worker-orientacion.js** (nuevo): ruta `/orientacion-vocacional` del worker
+  `cv-analisis`. Borra la identidad otra vez, pide JSON y limpia la salida
+  (tres escenarios, solo los campos esperados). **Falta engancharla en
+  Cloudflare**, igual que `/calificar-candidato`.
+- **Apps Script**: fase `orientacion` en Ágora (13) y DIANA (35), pestaña
+  "Orientación vocacional" con siete columnas. Publicado como versión 7 de la
+  misma implementación.
+- Resumen ejecutivo de Ágora y reportes de DIANA (Iniciar y final) incluyen la
+  sección.
+
+Pruebas: `test_orientacion.mjs` (9) y las demás suites al día.
+
 ## 2026-11-17 — El test vocacional entra al proceso Ágora
 
 - **agora.html**: fase nueva, **Test vocacional** (la 9 de 12), entre Tu

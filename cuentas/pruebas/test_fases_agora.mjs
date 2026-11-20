@@ -102,7 +102,7 @@ console.log('\nFases 4 a 11 del proceso Ágora');
 
 await prueba('todas las fases están disponibles, y las que dependen del DISC lo piden si falta', async () => {
   const { p, ctx } = await abrir('estilo', { conDisc: false });
-  igual(await p.locator('#listaFases .paso:not([disabled])').count(), 12);
+  igual(await p.locator('#listaFases .paso:not([disabled])').count(), 13);
   cierto((await p.textContent('#cuerpoFase')).includes('Perfil DISC'), 'debe decir que falta el Perfil DISC');
   await p.click('#cuerpoFase [data-abrir="disc"]');
   await p.waitForSelector('#marcoHerramienta');
@@ -239,7 +239,7 @@ await prueba('fase 9: sugiere desde las fases anteriores, se agregan o se escrib
 
 await prueba('presupuesto: pide al menos 3 rubros con vivienda o comida, suma y lo manda', async () => {
   const { p, ctx, enviados } = await abrir('presupuesto');
-  cierto((await p.textContent('.cabecera-paso')).includes('Fase 8 de 12'));
+  cierto((await p.textContent('.cabecera-paso')).includes('Fase 8 de 13'));
   await p.fill('#f_pre_diversion', '800');
   await completar(p);
   const a = await aviso(p);
@@ -303,7 +303,7 @@ await prueba('resumen: con fases pendientes no deja terminar, y el reporte lo di
   await ctx.close();
 });
 
-await prueba('el proceso completo: las doce fases, el reporte y el cierre en el expediente', async () => {
+await prueba('el proceso completo: las trece fases, el reporte y el cierre en el expediente', async () => {
   const { p, ctx, enviados } = await abrir('estilo');
   await marcar(p, 'trabajo', 3); await completar(p);
   await p.click('[data-paso="relacion"]'); await marcar(p, 'funciona', 2);
@@ -325,24 +325,31 @@ await prueba('el proceso completo: las doce fases, el reporte y el cierre en el 
   // El test vocacional se hace en su propia página (test_vocacional.mjs): aquí se deja hecho.
   await p.evaluate(() => localStorage.setItem('cmb_vocacional', JSON.stringify({v: 1, r: {i_ing_1: 4}, fin: '2026-11-17T10:00:00Z', id: 'vvvvvvvvvvvvvvvvvvvvvvvv',
     envio: {id: 'vvvvvvvvvvvvvvvvvvvvvvvv', aplicacion: '17 de noviembre de 2026 · Test vocacional CMB v1', areas: 'Negocios, administración y finanzas (90%)', aptitudes: 'Numérica (88%)', habilidades: 'Cálculo mental', motiva: 'Orden y estabilidad (80%)', carreras: 'Finanzas (85%)', sugerencias: '• Explora primero Finanzas.', lista: ['Finanzas']}})));
+  // Asistente de orientación: sin IA en localhost, se completa con el mapa y el índice.
+  await p.click('[data-paso="orientacion"]');
+  await p.waitForSelector('#ori_mapa');
+  await p.waitForFunction(() => document.getElementById('ori_indice'));
+  await completar(p);
+  await p.waitForFunction(() => document.getElementById('avisoFase').textContent.includes('Fase completa'));
   await p.click('[data-paso="resumen"]');
   await p.waitForSelector('#documento');
-  igual(await p.textContent('#avanceTxt'), '11 de 12 fases completas');
+  igual(await p.textContent('#avanceTxt'), '12 de 13 fases completas');
   const doc = await p.textContent('#documento');
   cierto(!doc.includes('Pendiente:'), 'nada pendiente');
   cierto(doc.includes('Finanzas') && doc.includes('Acción 60') && doc.includes('Orientado a los procesos'));
   cierto(doc.includes('Test vocacional') && doc.includes('Negocios, administración y finanzas (90%)'), 'el reporte trae el test vocacional');
+  cierto(doc.includes('Asistente de orientación vocacional') && doc.includes('Índice de coherencia con Finanzas'), 'el reporte trae el asistente de orientación');
   await p.waitForFunction(() => document.getElementById('documento').textContent.includes('El mercado hoy en Finanzas'));
   await p.waitForFunction(() => document.getElementById('doc_estrategia').textContent.includes('Empleabilidad con crecimiento'));
   cierto(doc.includes('Orientador/Mentor DIANA') && doc.includes('Ágora Educación Internacional'), 'texto final y sección del mentor');
   cierto(!(await p.isDisabled('#btnCompletar')));
   await completar(p);
   await p.waitForFunction(() => document.getElementById('avisoFase').textContent.includes('Fase completa'));
-  igual(await p.textContent('#avanceTxt'), '12 de 12 fases completas');
+  igual(await p.textContent('#avanceTxt'), '13 de 13 fases completas');
   const e = ultimo(enviados, 'resumen');
   cierto(/^\d{4}-\d{2}-\d{2}$/.test(e.datos.hoja['Proceso terminado']));
   igual(e.datos.hoja['Ruta principal'], 'Finanzas');
-  igual(e.completos.length, 12);
+  igual(e.completos.length, 13);
   const href = await p.evaluate(() => { const a = document.getElementById('res_correo'); a.dispatchEvent(new MouseEvent('click', { cancelable: true })); return a.href; });
   cierto(href.startsWith('mailto:maria@ejemplo.com?') && decodeURIComponent(href).includes('Mi ruta profesional: Finanzas'));
   await ctx.close();

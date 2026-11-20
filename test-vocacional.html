@@ -434,15 +434,17 @@ function perfilDe(c){
   const a = AREA_POR_DEFECTO[c.a] || 'neg';
   return {areas:[a], mot: AREAS[a].mot.length > 1 ? AREAS[a].mot : AREAS[a].mot.concat(AREAS[a].mot)};
 }
-function afinidad(c, s){
+/* Las tres partes de la afinidad (interés, aptitudes, motivos) y el total. */
+function afinidadPartes(c, s){
   const p = perfilDe(c);
   const pesos = p.areas.length > 1 ? [0.65, 0.35] : [1];
   const aptArea = a => { const l = AREAS[a].apt; return l.reduce((x, k) => x + s.aptitudes[k], 0) / l.length; };
   const interes = p.areas.reduce((x, a, i) => x + pesos[i] * s.areas[a], 0);
   const apt = p.areas.reduce((x, a, i) => x + pesos[i] * aptArea(a), 0);
   const mot = 0.6 * s.motivos[p.mot[0]] + 0.4 * s.motivos[p.mot[1] || p.mot[0]];
-  return Math.round(0.55 * interes + 0.20 * apt + 0.25 * mot);
+  return {t: Math.round(0.55 * interes + 0.20 * apt + 0.25 * mot), i: Math.round(interes), a: Math.round(apt), m: Math.round(mot)};
 }
+const afinidad = (c, s) => afinidadPartes(c, s).t;
 const orden = (obj) => Object.keys(obj).sort((a, b) => obj[b] - obj[a]);
 const lista = (xs) => xs.length <= 1 ? (xs[0] || '') : xs.slice(0, -1).join(', ') + ' y ' + xs[xs.length - 1];
 
@@ -506,6 +508,14 @@ function armarEnvio(){
     aplicacion: x.aplicacion, habilidades: x.habilidades, aptitudes: x.aptitudes, areas: x.areas,
     carreras: x.carreras, sugerencias: x.sugerencias, motiva: x.motiva,
     lista: r.carreras.map(c => c.c.n),
+    // Para el asistente de orientación de Ágora y DIANA: puntajes por área,
+    // aptitud y motivo, y la afinidad de cada carrera [total, interés, aptitudes, motivos].
+    pts: {
+      areas: Object.fromEntries(r.areasOrd.map(a => [AREAS[a].n, s.areas[a]])),
+      aptitudes: Object.fromEntries(r.aptOrd.map(a => [APTITUDES[a].n, s.aptitudes[a]])),
+      motivos: Object.fromEntries(r.motOrd.map(m => [MOTIVOS[m].n, s.motivos[m]]))
+    },
+    afin: Object.fromEntries((window.CARRERAS_AGORA || []).map(c => { const x = afinidadPartes(c, s); return [c.n, [x.t, x.i, x.a, x.m]]; })),
     puntajes: 'Intereses: ' + r.areasOrd.map(a => AREAS[a].n + ' ' + s.areas[a]).join(' · ') +
       '\nAptitudes: ' + r.aptOrd.map(a => APTITUDES[a].n + ' ' + s.aptitudes[a]).join(' · ') +
       '\nMotivos: ' + r.motOrd.map(m => MOTIVOS[m].n + ' ' + s.motivos[m]).join(' · '),
@@ -632,7 +642,7 @@ function pintarResultados(){
   COMPARTIR.pintar($('compartirVocacional'), {
     tipo: 'vocacional',
     id: () => estado.id,
-    datos: () => { const d = armarEnvio(); delete d.id; delete d.lista; return d; }
+    datos: () => { const d = armarEnvio(); delete d.id; delete d.lista; delete d.pts; delete d.afin; return d; }
   });
 }
 
@@ -654,6 +664,8 @@ window.VOCACIONAL = {calcular, PREGUNTAS, PAGINAS, AREAS, VERSION};
 if(estado.fin && completo()){
   // Resultados de antes de que el test entrara al proceso Ágora: se les arma su envío una vez.
   if(!estado.envio){ estado.envio = armarEnvio(); estado.envioEn = estado.fin; guardar(); AGORA.avisar('resultado', {herramienta: 'vocacional', envio: estado.envio}); }
+  // Envíos de antes del asistente de orientación: se les agregan los puntajes, sin volver a avisar.
+  else if(!estado.envio.afin){ estado.envio = armarEnvio(); guardar(); }
   pintarResultados();
 }
 else pintarInicio();

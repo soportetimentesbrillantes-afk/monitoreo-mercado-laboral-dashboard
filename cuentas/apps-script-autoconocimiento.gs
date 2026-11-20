@@ -84,14 +84,14 @@ var FASES_AGORA = {
   informacion: 'Información inicial', disc: 'Perfil DISC', foda: 'Análisis FODA',
   estilo: 'Estilo de trabajo', relacion: 'Forma de relacionamiento', crecimiento: 'Crecimiento personal',
   escenarios: 'Escenarios de vida', presupuesto: 'Tu presupuesto', vocacional: 'Test vocacional', ruta: 'Ruta profesional', plan: 'Plan de acción',
-  resumen: 'Resumen ejecutivo'
+  orientacion: 'Asistente de orientación vocacional', resumen: 'Resumen ejecutivo'
 };
 
 /* Nombres legibles de los pasos de DIANA (diana.html). */
 var FASES_DIANA = {
   informacion: 'Información inicial', disc: 'Perfil DISC', foda: 'Análisis FODA', estilo: 'Estilo de trabajo',
   relacion: 'Forma de relacionamiento', crecimiento: 'Crecimiento personal', escenarios: 'Escenarios de vida',
-  reporte_descubrir: 'Reporte de Descubrir', mapa: 'Mapa de carrera', tendencias: 'Tendencias de la industria',
+  reporte_descubrir: 'Reporte de Descubrir', mapa: 'Mapa de carrera', orientacion: 'Asistente de orientación vocacional', tendencias: 'Tendencias de la industria',
   formacion: 'Plan de formación', marca: 'Marca personal y profesional', plan: 'Plan de acción 30-60-90',
   resumen_iniciar: 'Resumen de Iniciar', brechas_ofertas: 'Brechas frente a las vacantes', brechas_competencias: 'Brechas de competencias',
   cv: 'Crea tu CV', entrevista: 'Guía de entrevista', presentacion: 'Presentación efectiva', expectativas: 'Mentoría de ajuste de expectativas',
@@ -102,8 +102,8 @@ var FASES_DIANA = {
   mentoria_final: 'Mentoría final', reporte_final: 'Reporte final'
 };
 var PROCESOS = {
-  agora: { fases: FASES_AGORA, expediente: 'expediente', total: 12 },
-  diana: { fases: FASES_DIANA, expediente: 'expedienteDiana', total: 34 }
+  agora: { fases: FASES_AGORA, expediente: 'expediente', total: 13 },
+  diana: { fases: FASES_DIANA, expediente: 'expedienteDiana', total: 35 }
 };
 
 /* Una pestaña por herramienta. La página manda en `datos.hoja` un texto
@@ -118,6 +118,8 @@ var PESTANAS_FASE = {
   presupuesto: { pestana: 'Presupuesto', columnas: ['Total mensual', 'Detalle', 'Para cuándo', 'Dónde piensa vivir'] },
   ruta:        { pestana: 'Ruta profesional', columnas: ['Carreras consideradas', 'Compatibilidad', 'Carreras afines sugeridas', 'Ruta principal', 'Segunda ruta', 'Por qué', 'Costo de vida vs salario', 'Estrategia de vida'] },
   plan:        { pestana: 'Plan de acción', columnas: ['30 días', '60 días', '90 días'] },
+  // Asistente de orientación vocacional con IA (Ágora y DIANA).
+  orientacion: { pestana: 'Orientación vocacional', columnas: ['Índice de coherencia', 'Detalle del índice', 'Mapa de afinidades', 'Narrativa', 'Micro escenarios', 'Versión para padres', 'Versión para orientador'] },
   resumen:     { pestana: 'Resumen Ágora', viejo: 'Ágora · Resumen', columnas: ['Proceso terminado', 'Estilo dominante', 'Ruta principal', 'Segunda ruta', 'Primera prioridad de crecimiento'] },
   // DIANA
   reporte_descubrir: { pestana: 'DIANA · Reporte Descubrir', columnas: ['Terminado', 'Estilo dominante', 'Primera prioridad de crecimiento', 'Pendientes de mentor'] },

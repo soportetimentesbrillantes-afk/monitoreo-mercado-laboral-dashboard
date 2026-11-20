@@ -28,7 +28,7 @@
   <nav class="ruta" aria-label="Pasos del proceso">
     <div class="avance">
       <div class="cifra" id="avancePct">0%</div>
-      <div class="txt" id="avanceTxt">0 de 34 pasos completos</div>
+      <div class="txt" id="avanceTxt">0 de 35 pasos completos</div>
       <div class="barra"><div class="relleno" id="avanceBarra"></div></div>
     </div>
     <details id="plegable" open>
@@ -51,6 +51,7 @@
 <script src="agora/fase6-crecimiento.js"></script>
 <script src="agora/fase7-escenarios.js"></script>
 <script src="agora/fase9-plan.js"></script>
+<script src="agora/orientacion.js"></script>
 <script src="agora/fase10-resumen.js"></script>
 <script src="agora/diana-mapa.js"></script>
 <script src="agora/diana-tendencias.js"></script>
@@ -105,6 +106,9 @@ window.PROCESO = {
     {id:'mapa', fase:'iniciar', nombre:'Mapa de carrera',
      objetivo:'Cruzar tu preparación académica y lo que descubriste de ti con los roles posibles de tu industria objetivo.',
      entrega:'Tu mapa de carrera personalizado: tu rol objetivo y lo que te falta para llegar.'},
+    {id:'orientacion', fase:'iniciar', nombre:'Asistente de orientación vocacional',
+     objetivo:'Juntar lo que descubriste de ti y tu rol objetivo en una lectura de conjunto: carreras y caminos que se te acercan, qué tan coherente es tu elección con tu perfil y cómo podría verse tu futuro.',
+     entrega:'Tu mapa de afinidades, tu índice de coherencia y, con la IA del Club, tu narrativa, tres micro escenarios de futuro y una versión para tu orientador o mentor y tu familia.'},
     {id:'tendencias', fase:'iniciar', nombre:'Tendencias de la industria',
      objetivo:'Identificar las tendencias de tu industria objetivo con los datos del monitoreo semanal del Club.',
      entrega:'Las tendencias que te importan y qué vas a hacer con ellas.'},
@@ -119,8 +123,8 @@ window.PROCESO = {
      entrega:'Tu plan de acción personalizado.'},
     {id:'resumen_iniciar', fase:'iniciar', nombre:'Resumen de Iniciar', herramienta:'resumen',
      cfg:{titulo:'Resumen ejecutivo de la fase Iniciar', subtitulo:'Proceso DIANA · Iniciar: tu rol, tu industria, tu formación y tu marca', fase:'Iniciar',
-          secciones:['resumen', 'mapa', 'tendencias', 'formacion', 'marca', 'plan', 'mentor'],
-          requiere:['mapa', 'tendencias', 'formacion', 'marca', 'plan'], cierre:'Terminar la fase Iniciar'},
+          secciones:['resumen', 'mapa', 'orientacion', 'tendencias', 'formacion', 'marca', 'plan', 'mentor'],
+          requiere:['mapa', 'orientacion', 'tendencias', 'formacion', 'marca', 'plan'], cierre:'Terminar la fase Iniciar'},
      objetivo:'Resumir la fase Iniciar en un reporte ejecutivo.', entrega:'Tu resumen de Iniciar, para imprimir o guardar como PDF.'},
     // ---------------- Alinear ----------------
     {id:'brechas_ofertas', fase:'alinear', nombre:'Brechas frente a las vacantes', mentor:true,
@@ -171,7 +175,7 @@ window.PROCESO = {
      objetivo:'Cerrar el proceso con tu mentor y capturar su retroalimentación final.', entrega:'El reporte final de tu mentor.'},
     {id:'reporte_final', fase:'acompanar', nombre:'Reporte final', mentor:true, herramienta:'resumen',
      cfg:{titulo:'Reporte final del proceso DIANA', subtitulo:'Descubrir, Iniciar, Alinear, Nutrir y Acompañar', fase:'',
-          secciones:['resumen', 'disc', 'foda', 'crecimiento', 'mapa', 'marca', 'brechas_competencias', 'cv', 'presentacion', 'seleccion_cursos', 'aprender', 'plan_entrenamiento',
+          secciones:['resumen', 'disc', 'foda', 'crecimiento', 'mapa', 'orientacion', 'marca', 'brechas_competencias', 'cv', 'presentacion', 'seleccion_cursos', 'aprender', 'plan_entrenamiento',
                      'contacto_industria', 'investiga_industria', 'inscripcion_comunidades', 'resiliencia', 'plan_nuevo_trabajo', 'mentoria_final', 'mentor'],
           requiere:['reporte_descubrir', 'resumen_iniciar', 'resumen_alinear', 'reporte_nutrir', 'contacto_industria', 'investiga_industria', 'inscripcion_comunidades', 'resiliencia', 'plan_nuevo_trabajo', 'mentoria_final'],
           mentorTodos:true, cierre:'Terminar el proceso DIANA'},

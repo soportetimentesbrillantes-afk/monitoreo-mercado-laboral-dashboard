@@ -33,7 +33,7 @@ function lecturaColor(v, escala){
   return r >= 0.70 ? 'Muy alto' : r >= 0.55 ? 'Alto' : r >= 0.30 ? 'Medio' : 'Bajo';
 }
 
-const SECCIONES_AGORA = ['resumen', 'disc', 'foda', 'estilo', 'relacion', 'crecimiento', 'escenarios', 'presupuesto', 'vocacional', 'ruta', 'estrategia', 'plan'];
+const SECCIONES_AGORA = ['resumen', 'disc', 'foda', 'estilo', 'relacion', 'crecimiento', 'escenarios', 'presupuesto', 'vocacional', 'ruta', 'estrategia', 'plan', 'orientacion'];
 const TITULOS = {
   resumen: 'Resumen ejecutivo', disc: 'Perfil DISC', foda: 'Análisis FODA', estilo: 'Estilo de trabajo',
   relacion: 'Forma de relacionamiento', crecimiento: 'Crecimiento personal', escenarios: 'Escenarios de vida',

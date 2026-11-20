@@ -20,7 +20,7 @@
   <div class="hero-inner">
     <p class="eyebrow">Autoconocimiento para la construcción de tu plan de vida</p>
     <h1>Tu proceso Ágora</h1>
-    <p>Doce fases, una herramienta en cada una. Empiezas por conocerte: cómo trabajas, cómo te relacionas y dónde puedes crecer. Terminas con escenarios de vida, tu presupuesto, un test vocacional, una ruta profesional y un plan de acción. Avanza una fase a la vez; tu avance se guarda solo.</p>
+    <p>Trece fases, una herramienta en cada una. Empiezas por conocerte: cómo trabajas, cómo te relacionas y dónde puedes crecer. Terminas con escenarios de vida, tu presupuesto, un test vocacional, una ruta profesional, un plan de acción y un asistente de orientación con IA. Avanza una fase a la vez; tu avance se guarda solo.</p>
   </div>
 </header>
 
@@ -28,7 +28,7 @@
   <nav class="ruta" aria-label="Fases del proceso">
     <div class="avance">
       <div class="cifra" id="avancePct">0%</div>
-      <div class="txt" id="avanceTxt">0 de 12 fases completas</div>
+      <div class="txt" id="avanceTxt">0 de 13 fases completas</div>
       <div class="barra"><div class="relleno" id="avanceBarra"></div></div>
     </div>
     <details id="plegable" open>
@@ -52,12 +52,14 @@
 <script src="agora/fase7b-presupuesto.js"></script>
 <script src="agora/fase8-ruta.js"></script>
 <script src="agora/fase9-plan.js"></script>
+<script src="agora/orientacion.js"></script>
 <script src="agora/fase10-resumen.js"></script>
 <script>
 /* Proceso Ágora (modelo de bachillerato): las 10 fases del documento de Ágora,
    en su orden, más el presupuesto (pedido por el Club el 2026-10-28) y el test
-   vocacional del Club (2026-11-17), los dos antes de Ruta profesional. El
-   motor está en proceso.js. */
+   vocacional del Club (2026-11-17), los dos antes de Ruta profesional, y el
+   asistente de orientación vocacional con IA (2026-11-20) antes del Resumen.
+   El motor está en proceso.js. */
 window.PROCESO = {
   id: 'agora', nombre: 'Ágora', tipo: 'agora', unidad: 'fase', papas: true,
   otro: {nombre: 'DIANA', href: 'diana.html', etapas: ['Universidad', 'Ya egresé']},
@@ -95,6 +97,9 @@ window.PROCESO = {
     {id:'plan', nombre:'Plan de acción',
      objetivo:'Armar un plan a 30, 60 y 90 días con acciones de educación, experiencia y conexión: sugeridas por lo que hiciste y escritas por ti.',
      entrega:'Tu plan de acción personalizado.'},
+    {id:'orientacion', nombre:'Asistente de orientación vocacional',
+     objetivo:'Juntar todo lo que hiciste en una lectura de conjunto: qué carreras se te acercan y por qué, qué tan coherente es tu elección con tu perfil y cómo podría verse tu futuro en tres caminos.',
+     entrega:'Tu mapa de afinidades, tu índice de coherencia y, con la IA del Club, tu narrativa personalizada, tres micro escenarios de futuro y una versión para tu familia y tu orientador.'},
     {id:'resumen', nombre:'Resumen ejecutivo',
      objetivo:'Reunir todas las fases en un documento ejecutivo para ti, tu familia y tu orientador.',
      entrega:'Tu reporte final, para imprimir, guardar como PDF y compartir con tu madre, padre o tutor.'}
