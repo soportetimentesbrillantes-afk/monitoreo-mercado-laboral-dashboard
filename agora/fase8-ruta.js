@@ -74,14 +74,19 @@ F.ruta = {
     if(!guardado){
       d.consideradas = carreras().filter(c => mencionada(c, ctx.textoInteres)).slice(0, 3).map(c => c.n);
       if(!d.consideradas.length && (info.carrera || '').trim()) d.consideradas = [info.carrera.trim()];
+      // Si no mencionó ninguna, las que más se acercan según su test vocacional.
+      const voc = AG.vocacional ? AG.vocacional() : null;
+      if(!d.consideradas.length && voc && Array.isArray(voc.lista)) d.consideradas = voc.lista.filter(n => carreras().some(c => c.n === n)).slice(0, 3);
     }
 
+    const vocR = AG.vocacional ? AG.vocacional() : null;
     cont.innerHTML =
       '<div class="card">' +
         '<h3>Las carreras que estás considerando</h3>' +
         '<p class="note" style="margin-top:0;">Escribe hasta ' + MAX_CONSIDERADAS + '. Si una no está en la lista, escríbela igual: tu orientador la revisa contigo.</p>' +
         '<datalist id="listaCarreras">' + carreras().map(c => '<option value="' + AG.esc(c.n) + '">').join('') + '</datalist>' +
         '<div class="grid" id="rut_consideradas"></div>' +
+        (vocR && Array.isArray(vocR.lista) && vocR.lista.length ? '<p class="note">Las que más se acercan a ti según tu test vocacional: ' + AG.esc(vocR.lista.slice(0, 6).join(', ')) + '.</p>' : '') +
       '</div>' +
 
       '<div class="card">' +

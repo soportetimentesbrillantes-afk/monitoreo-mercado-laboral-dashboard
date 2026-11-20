@@ -83,7 +83,7 @@ var ENCABEZADOS = {
 var FASES_AGORA = {
   informacion: 'Información inicial', disc: 'Perfil DISC', foda: 'Análisis FODA',
   estilo: 'Estilo de trabajo', relacion: 'Forma de relacionamiento', crecimiento: 'Crecimiento personal',
-  escenarios: 'Escenarios de vida', presupuesto: 'Tu presupuesto', ruta: 'Ruta profesional', plan: 'Plan de acción',
+  escenarios: 'Escenarios de vida', presupuesto: 'Tu presupuesto', vocacional: 'Test vocacional', ruta: 'Ruta profesional', plan: 'Plan de acción',
   resumen: 'Resumen ejecutivo'
 };
 
@@ -102,7 +102,7 @@ var FASES_DIANA = {
   mentoria_final: 'Mentoría final', reporte_final: 'Reporte final'
 };
 var PROCESOS = {
-  agora: { fases: FASES_AGORA, expediente: 'expediente', total: 11 },
+  agora: { fases: FASES_AGORA, expediente: 'expediente', total: 12 },
   diana: { fases: FASES_DIANA, expediente: 'expedienteDiana', total: 34 }
 };
 
@@ -365,13 +365,16 @@ function guardarProceso(d, id, nombre, correo, tipo) {
   // que haya mandado desde cualquiera de los dos procesos.
   if (paso !== 'informacion' && !existeFila(PESTANAS.informacion, id)) return { ok: false, error: 'falta información inicial' };
 
-  // Perfil DISC y FODA se escriben en sus pestañas de siempre, con el mismo
-  // ID del expediente: rehacerlos actualiza la fila en vez de duplicarla.
-  if (paso === 'disc' || paso === 'foda') {
+  // Perfil DISC, FODA y test vocacional se escriben en sus pestañas de
+  // siempre, con el mismo ID del expediente: rehacerlos actualiza la fila en
+  // vez de duplicarla.
+  if (paso === 'disc' || paso === 'foda' || paso === 'vocacional') {
     var cuerpo = {};
     Object.keys(datos).forEach(function (k) { cuerpo[k] = datos[k]; });
     cuerpo.dispositivo = d.dispositivo;
-    var r = paso === 'disc' ? guardarDisc(cuerpo, id, nombre, correo) : guardarFoda(cuerpo, id, nombre, correo);
+    var r = paso === 'disc' ? guardarDisc(cuerpo, id, nombre, correo)
+      : paso === 'foda' ? guardarFoda(cuerpo, id, nombre, correo)
+      : guardarVocacional(cuerpo, id, nombre, correo);
     if (!r.ok) return r;
   }
 

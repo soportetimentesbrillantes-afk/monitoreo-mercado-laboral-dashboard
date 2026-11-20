@@ -100,6 +100,12 @@ const ESTADO_HERRAMIENTA = {
     const s = E.pasos.foda;
     if(s && s.completo && llenos === 4) return 'completo';
     return f && (llenos || lineas(f.paso).length) ? 'en-curso' : 'pendiente';
+  },
+  // test-vocacional.html guarda en cmb_vocacional; terminado = tiene fecha de fin y su resultado.
+  vocacional(){
+    const v = leerLS('cmb_vocacional');
+    if(v && v.fin && v.envio) return 'completo';
+    return v && v.r && Object.keys(v.r).length ? 'en-curso' : 'pendiente';
   }
 };
 function estadoPaso(p){
@@ -585,7 +591,10 @@ window.addEventListener('message', ev => {
   else if(m.cmbAgora === 'completo' && d.herramienta === 'foda' && pasoActual === 'foda'){
     alTerminarFase('foda', d.foda || {});
   }
-  else if(m.cmbAgora === 'borrado' && (d.herramienta === 'disc' || d.herramienta === 'foda')){
+  else if(m.cmbAgora === 'resultado' && d.herramienta === 'vocacional' && pasoActual === 'vocacional'){
+    alTerminarFase('vocacional', d.envio || {});
+  }
+  else if(m.cmbAgora === 'borrado' && ['disc', 'foda', 'vocacional'].includes(d.herramienta)){
     if(E.pasos[d.herramienta]){ E.pasos[d.herramienta].completo = false; guardar(); }
     const av = document.getElementById('avisoFase'); if(av) av.innerHTML = '';
     pintarRuta();
@@ -627,6 +636,8 @@ const AG = {
     return Object.assign({r, p: r.puntajes, escala}, a);
   },
   foda(){ const f = leerLS('cmb_foda'); return f && ['F','D','O','A'].some(k => lineas(f[k]).length) ? f : null; },
+  /* El resultado del test vocacional (lo que se manda al expediente), si está terminado. */
+  vocacional(){ const v = leerLS('cmb_vocacional'); return v && v.fin && v.envio ? v.envio : null; },
   estado: id => estadoPaso(AG.paso(id)),
   completa: id => estadoPaso(AG.paso(id)) === 'completo',
   datos(id){ const s = E.pasos[id]; return s && s.datos ? JSON.parse(JSON.stringify(s.datos)) : null; },
@@ -747,7 +758,7 @@ PASOS.forEach(p => { if(!HERRAMIENTAS[p.id] && p.marco) HERRAMIENTAS[p.id] = () 
 PASOS.forEach(p => { if(!HERRAMIENTAS[p.id] && FASES_EXT[herramientaDe(p)]) HERRAMIENTAS[p.id] = () => pintarFaseExt(p.id); });
 PASOS.forEach(p => { if(!HERRAMIENTAS[p.id]) HERRAMIENTAS[p.id] = () => pintarProximamente(p.id); });
 
-/* ---- Perfil DISC y FODA hechos sueltos ----
+/* ---- Perfil DISC, FODA y test vocacional hechos sueltos ----
    disc-agora.html y foda.html también se usan solas, como herramientas del
    sitio. Guardan en las mismas llaves (cmb_disc, cmb_foda), así que el
    resultado ya está aquí; lo que falta es darlo por hecho en el proceso y
@@ -775,6 +786,15 @@ function adoptarSueltos(){
       const g = r && r.puntajes ? ['D','I','S','C'].filter(k => r.puntajes[k] && typeof r.puntajes[k].neto === 'number').sort((a, b) => r.puntajes[b].neto - r.puntajes[a].neto)[0] : '';
       E.pasos.foda = Object.assign(s || {}, {completo: true, completadoEn: marca, pendienteEnvio: true,
         envio: {F: f.F, D: f.D, O: f.O, A: f.A, paso: f.paso, estiloDisc: g || '', suelto: true}});
+      cambio = true;
+    }
+  }
+  // Test vocacional: test-vocacional.html deja su resultado en cmb_vocacional.envio.
+  const v = leerLS('cmb_vocacional');
+  if(v && v.fin && v.envio && PASOS.some(p => p.id === 'vocacional')){
+    const s = E.pasos.vocacional;
+    if(!s || !s.completo || !s.envio || s.envio.id !== v.envio.id || String(s.completadoEn || '') < String(v.envioEn || v.fin)){
+      E.pasos.vocacional = Object.assign(s || {}, {completo: true, completadoEn: v.envioEn || v.fin, pendienteEnvio: true, envio: Object.assign({}, v.envio, {suelto: true})});
       cambio = true;
     }
   }

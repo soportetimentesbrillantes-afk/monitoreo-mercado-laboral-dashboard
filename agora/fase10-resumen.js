@@ -33,11 +33,11 @@ function lecturaColor(v, escala){
   return r >= 0.70 ? 'Muy alto' : r >= 0.55 ? 'Alto' : r >= 0.30 ? 'Medio' : 'Bajo';
 }
 
-const SECCIONES_AGORA = ['resumen', 'disc', 'foda', 'estilo', 'relacion', 'crecimiento', 'escenarios', 'presupuesto', 'ruta', 'estrategia', 'plan'];
+const SECCIONES_AGORA = ['resumen', 'disc', 'foda', 'estilo', 'relacion', 'crecimiento', 'escenarios', 'presupuesto', 'vocacional', 'ruta', 'estrategia', 'plan'];
 const TITULOS = {
   resumen: 'Resumen ejecutivo', disc: 'Perfil DISC', foda: 'Análisis FODA', estilo: 'Estilo de trabajo',
   relacion: 'Forma de relacionamiento', crecimiento: 'Crecimiento personal', escenarios: 'Escenarios de vida',
-  presupuesto: 'Presupuesto', ruta: 'Ruta profesional', estrategia: 'Estrategia de vida', plan: 'Plan de acción a 30, 60 y 90 días',
+  presupuesto: 'Presupuesto', vocacional: 'Test vocacional', ruta: 'Ruta profesional', estrategia: 'Estrategia de vida', plan: 'Plan de acción a 30, 60 y 90 días',
   mentor: 'Revisiones con el mentor'
 };
 
@@ -127,6 +127,14 @@ function documento(AG, cfg){
         '<tr><td><strong>Total</strong></td><td><strong>' + P.pesos(P.total(presu)) + '</strong></td></tr></table>' +
         (presu.cuando || presu.lugar ? '<p class="note" style="margin:0;">' + e([presu.cuando, presu.lugar].filter(x => (x || '').trim()).join(' · ')) + '</p>' : '')
       : pend('presupuesto');
+  };
+  S.vocacional = () => {
+    const v = AG.completa('vocacional') && AG.vocacional ? AG.vocacional() : null;
+    if(!v) return pend('vocacional');
+    const fila = (t, x) => '<tr><td style="width:24%"><strong>' + t + '</strong></td><td style="white-space:pre-line">' + e(x || '—') + '</td></tr>';
+    return '<table class="tabla">' + fila('Aplicación', v.aplicacion) + fila('Áreas de preferencia', v.areas) + fila('Aptitudes', v.aptitudes) +
+      fila('Habilidades', v.habilidades) + fila('Lo que lo motiva', v.motiva) + fila('Carreras derivadas', v.carreras) + fila('Sugerencias', v.sugerencias) + '</table>' +
+      '<h3>Observaciones del orientador</h3>' + lineas(84);
   };
   S.ruta = () => {
     if(!ruta) return pend('ruta');

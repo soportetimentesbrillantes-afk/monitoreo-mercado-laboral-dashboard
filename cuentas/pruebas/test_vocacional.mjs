@@ -184,6 +184,52 @@ await prueba('compartir: sin casilla no se manda; con casilla llegan los campos 
   await ctx.close();
 });
 
+console.log('\nTest vocacional dentro del proceso Ágora');
+const TODAS = () => { const r = {}; VOCACIONAL.PREGUNTAS.forEach(q => { const [pa, g] = q.id.split('_'); r[q.id] = pa === 'i' ? ({ neg: 5, tec: 4 }[g] || 2) : pa === 'a' ? ({ numerica: 5, organizacion: 5 }[g] || 3) : ({ C: 5, E: 4 }[g] || 2); }); return r; };
+
+await prueba('es una fase de Ágora: dentro del marco no muestra su encabezado ni la tarjeta de compartir, y al terminar completa la fase', async () => {
+  const ctx = await navegador.newContext();
+  await ctx.route(/^https?:\/\/(cdnjs|cdn\.jsdelivr|fonts\.google|fonts\.gstatic)/, (r) => r.abort());
+  const p = await ctx.newPage();
+  p.on('pageerror', (er) => { errores.push(er.message); console.log('         [error de página] ' + er.message); });
+  await p.goto(BASE + '/agora.html#vocacional', { waitUntil: 'domcontentloaded' });
+  cierto((await p.textContent('.cabecera-paso')).includes('Test vocacional'), 'abre la fase');
+  const marco = await (await p.waitForSelector('#marcoHerramienta')).contentFrame();
+  await marco.waitForSelector('#btnEmpezar');
+  igual(await marco.evaluate(() => getComputedStyle(document.querySelector('.topbar')).display), 'none');
+  // Todas las respuestas, y a la última página.
+  await marco.evaluate((f) => { const r = (new Function('return ' + f))()(); localStorage.setItem('cmb_vocacional', JSON.stringify({ v: 1, r, pagina: 7, inicio: null, fin: null, id: null })); }, TODAS.toString());
+  await marco.evaluate(() => location.reload());
+  await marco.waitForSelector('#btnEmpezar');
+  await marco.click('#btnEmpezar');
+  await marco.click('#btnSiguiente');
+  await p.waitForFunction(() => (document.getElementById('avisoFase') || {}).textContent && document.getElementById('avisoFase').textContent.includes('Fase completa'));
+  cierto((await p.textContent('#avisoFase')).includes('Ruta profesional'), 'ofrece seguir con la Ruta profesional');
+  igual(await p.textContent('[data-paso="vocacional"] .estado'), 'Completo');
+  igual(await marco.evaluate(() => getComputedStyle(document.getElementById('compartirVocacional')).display), 'none', 'compartir lo hace el expediente, no la tarjeta');
+  const g = await p.evaluate(() => JSON.parse(localStorage.getItem('cmb_agora')).pasos.vocacional);
+  cierto(g.completo && g.envio.areas.startsWith('Negocios, administración y finanzas') && g.envio.lista.length === 6, JSON.stringify(g).slice(0, 200));
+  await ctx.close();
+});
+
+await prueba('hecho suelto: al abrir Ágora la fase ya aparece completa y lista para el expediente', async () => {
+  const ctx = await navegador.newContext();
+  await ctx.route(/^https?:\/\/(cdnjs|cdn\.jsdelivr|fonts\.google|fonts\.gstatic)/, (r) => r.abort());
+  const p = await ctx.newPage();
+  p.on('pageerror', (er) => { errores.push(er.message); console.log('         [error de página] ' + er.message); });
+  await p.goto(BASE + '/test-vocacional.html', { waitUntil: 'domcontentloaded' });
+  await p.evaluate((f) => { const r = (new Function('return ' + f))()(); localStorage.setItem('cmb_vocacional', JSON.stringify({ v: 1, r, pagina: 7, fin: '2026-11-17T10:00:00Z', id: 'abcdef0123456789abcdef01' })); }, TODAS.toString());
+  await p.reload({ waitUntil: 'domcontentloaded' });   // resultado de antes: se le arma su envío
+  await p.waitForSelector('#vResultados:not([hidden])');
+  cierto(await p.evaluate(() => !!JSON.parse(localStorage.getItem('cmb_vocacional')).envio), 'guardó su envío');
+  await p.goto(BASE + '/agora.html', { waitUntil: 'domcontentloaded' });
+  await p.waitForSelector('[data-paso="vocacional"]');
+  igual(await p.textContent('[data-paso="vocacional"] .estado'), 'Completo');
+  const voc = await p.evaluate(() => JSON.parse(localStorage.getItem('cmb_agora')).pasos.vocacional);
+  cierto(voc.completo && voc.envio.suelto && voc.pendienteEnvio, 'queda listo para el expediente');
+  await ctx.close();
+});
+
 await navegador.close();
 servidor.close();
 
@@ -254,6 +300,20 @@ await prueba('revisarPestanas sigue siendo la primera función y crea la pestañ
   igual(primera, 'revisarPestanas');
   ctx.revisarPestanas();
   cierto(pestanas['Test vocacional'] && pestanas['Test vocacional'].filas[0].includes('Observaciones'));
+});
+
+await prueba('como fase de Ágora escribe en la pestaña Test vocacional con el ID del expediente y mueve el avance', async () => {
+  const { post, pestanas } = cargar();
+  const BASE_A = { clave: 'cmb-autoconocimiento-2026', acepta: true, tipo: 'agora', id: 'eeeeeeeeeeeeeeeeeeeeeeee', nombre: 'Ana Pérez', correo: 'ana@ejemplo.com', total: 12, dispositivo: 'disp12345678' };
+  igual(post(Object.assign({}, BASE_A, { paso: 'informacion', completos: ['informacion'], datos: { edad: '20', nivel: 'Licenciatura o ingeniería' } })).ok, true);
+  const r = post(Object.assign({}, BASE_A, { paso: 'vocacional', completos: ['informacion', 'vocacional'],
+    datos: { aplicacion: V.aplicacion, areas: V.areas, carreras: V.carreras, sugerencias: V.sugerencias, version: V.version, lista: ['Diseño gráfico y digital'] } }));
+  igual(r.ok, true, JSON.stringify(r));
+  const h = pestanas['Test vocacional'];
+  igual(h.filas[1][col(h, 'ID de envío')], 'eeeeeeeeeeeeeeeeeeeeeeee');
+  const ex = pestanas['Expediente Ágora'];
+  igual(ex.filas[1][col(ex, 'Avance')], '2 de 12');
+  cierto(String(ex.filas[1][col(ex, 'Fases completas')]).includes('Test vocacional'));
 });
 
 if (errores.length) fallaron += errores.length;

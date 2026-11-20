@@ -27,6 +27,8 @@ catch {
 }
 
 const RAIZ = new URL('../../', import.meta.url).pathname;
+// Vacantes de Finanzas en la corrida publicada: cambia cada semana, así que se lee del archivo.
+const VAC_FINANZAS = JSON.parse(await readFile(join(RAIZ, 'data/sector_finanzas.json'), 'utf8')).vacantes_verificadas.toLocaleString('es-MX');
 const TIPOS = { '.html':'text/html', '.css':'text/css', '.json':'application/json', '.svg':'image/svg+xml', '.js':'text/javascript' };
 const servidor = createServer(async (req, res) => {
   try {
@@ -100,7 +102,7 @@ console.log('\nFases 4 a 11 del proceso Ágora');
 
 await prueba('todas las fases están disponibles, y las que dependen del DISC lo piden si falta', async () => {
   const { p, ctx } = await abrir('estilo', { conDisc: false });
-  igual(await p.locator('#listaFases .paso:not([disabled])').count(), 11);
+  igual(await p.locator('#listaFases .paso:not([disabled])').count(), 12);
   cierto((await p.textContent('#cuerpoFase')).includes('Perfil DISC'), 'debe decir que falta el Perfil DISC');
   await p.click('#cuerpoFase [data-abrir="disc"]');
   await p.waitForSelector('#marcoHerramienta');
@@ -198,7 +200,7 @@ await prueba('fase 8: propone lo que mencionó, mide afinidad y mercado, y pide 
   cierto(mapa.includes('no cubre este sector'), 'Arquitectura no tiene dato de mercado y lo dice');
   cierto((await p.textContent('#rut_afines')).includes('Alta'), 'sugiere afines de afinidad alta');
   await p.selectOption('#f_rut_principal', 'Finanzas');
-  await p.waitForFunction(() => document.querySelector('#rut_mercado').textContent.includes('583'));
+  await p.waitForFunction((n) => document.querySelector('#rut_mercado').textContent.includes(n), VAC_FINANZAS);
   await completar(p);
   cierto((await aviso(p)).includes('por qué'));
   await p.fill('#f_rut_porque', 'Me gustan los números y planear');
@@ -237,7 +239,7 @@ await prueba('fase 9: sugiere desde las fases anteriores, se agregan o se escrib
 
 await prueba('presupuesto: pide al menos 3 rubros con vivienda o comida, suma y lo manda', async () => {
   const { p, ctx, enviados } = await abrir('presupuesto');
-  cierto((await p.textContent('.cabecera-paso')).includes('Fase 8 de 11'));
+  cierto((await p.textContent('.cabecera-paso')).includes('Fase 8 de 12'));
   await p.fill('#f_pre_diversion', '800');
   await completar(p);
   const a = await aviso(p);
@@ -301,7 +303,7 @@ await prueba('resumen: con fases pendientes no deja terminar, y el reporte lo di
   await ctx.close();
 });
 
-await prueba('el proceso completo: las once fases, el reporte y el cierre en el expediente', async () => {
+await prueba('el proceso completo: las doce fases, el reporte y el cierre en el expediente', async () => {
   const { p, ctx, enviados } = await abrir('estilo');
   await marcar(p, 'trabajo', 3); await completar(p);
   await p.click('[data-paso="relacion"]'); await marcar(p, 'funciona', 2);
@@ -320,23 +322,27 @@ await prueba('el proceso completo: las once fases, el reporte y el cierre en el 
   await p.click('[data-paso="plan"]');
   for (const pl of [30, 60, 90]) { await p.fill('#f_pln_txt_' + pl, 'Acción ' + pl); await p.click(`[data-propia="${pl}"]`); }
   await completar(p);
+  // El test vocacional se hace en su propia página (test_vocacional.mjs): aquí se deja hecho.
+  await p.evaluate(() => localStorage.setItem('cmb_vocacional', JSON.stringify({v: 1, r: {i_ing_1: 4}, fin: '2026-11-17T10:00:00Z', id: 'vvvvvvvvvvvvvvvvvvvvvvvv',
+    envio: {id: 'vvvvvvvvvvvvvvvvvvvvvvvv', aplicacion: '17 de noviembre de 2026 · Test vocacional CMB v1', areas: 'Negocios, administración y finanzas (90%)', aptitudes: 'Numérica (88%)', habilidades: 'Cálculo mental', motiva: 'Orden y estabilidad (80%)', carreras: 'Finanzas (85%)', sugerencias: '• Explora primero Finanzas.', lista: ['Finanzas']}})));
   await p.click('[data-paso="resumen"]');
   await p.waitForSelector('#documento');
-  igual(await p.textContent('#avanceTxt'), '10 de 11 fases completas');
+  igual(await p.textContent('#avanceTxt'), '11 de 12 fases completas');
   const doc = await p.textContent('#documento');
   cierto(!doc.includes('Pendiente:'), 'nada pendiente');
   cierto(doc.includes('Finanzas') && doc.includes('Acción 60') && doc.includes('Orientado a los procesos'));
+  cierto(doc.includes('Test vocacional') && doc.includes('Negocios, administración y finanzas (90%)'), 'el reporte trae el test vocacional');
   await p.waitForFunction(() => document.getElementById('documento').textContent.includes('El mercado hoy en Finanzas'));
   await p.waitForFunction(() => document.getElementById('doc_estrategia').textContent.includes('Empleabilidad con crecimiento'));
   cierto(doc.includes('Orientador/Mentor DIANA') && doc.includes('Ágora Educación Internacional'), 'texto final y sección del mentor');
   cierto(!(await p.isDisabled('#btnCompletar')));
   await completar(p);
   await p.waitForFunction(() => document.getElementById('avisoFase').textContent.includes('Fase completa'));
-  igual(await p.textContent('#avanceTxt'), '11 de 11 fases completas');
+  igual(await p.textContent('#avanceTxt'), '12 de 12 fases completas');
   const e = ultimo(enviados, 'resumen');
   cierto(/^\d{4}-\d{2}-\d{2}$/.test(e.datos.hoja['Proceso terminado']));
   igual(e.datos.hoja['Ruta principal'], 'Finanzas');
-  igual(e.completos.length, 11);
+  igual(e.completos.length, 12);
   const href = await p.evaluate(() => { const a = document.getElementById('res_correo'); a.dispatchEvent(new MouseEvent('click', { cancelable: true })); return a.href; });
   cierto(href.startsWith('mailto:maria@ejemplo.com?') && decodeURIComponent(href).includes('Mi ruta profesional: Finanzas'));
   await ctx.close();

@@ -20,7 +20,7 @@
   <div class="hero-inner">
     <p class="eyebrow">Autoconocimiento para la construcción de tu plan de vida</p>
     <h1>Tu proceso Ágora</h1>
-    <p>Once fases, una herramienta en cada una. Empiezas por conocerte: cómo trabajas, cómo te relacionas y dónde puedes crecer. Terminas con escenarios de vida, tu presupuesto, una ruta profesional y un plan de acción. Avanza una fase a la vez; tu avance se guarda solo.</p>
+    <p>Doce fases, una herramienta en cada una. Empiezas por conocerte: cómo trabajas, cómo te relacionas y dónde puedes crecer. Terminas con escenarios de vida, tu presupuesto, un test vocacional, una ruta profesional y un plan de acción. Avanza una fase a la vez; tu avance se guarda solo.</p>
   </div>
 </header>
 
@@ -28,7 +28,7 @@
   <nav class="ruta" aria-label="Fases del proceso">
     <div class="avance">
       <div class="cifra" id="avancePct">0%</div>
-      <div class="txt" id="avanceTxt">0 de 11 fases completas</div>
+      <div class="txt" id="avanceTxt">0 de 12 fases completas</div>
       <div class="barra"><div class="relleno" id="avanceBarra"></div></div>
     </div>
     <details id="plegable" open>
@@ -55,8 +55,9 @@
 <script src="agora/fase10-resumen.js"></script>
 <script>
 /* Proceso Ágora (modelo de bachillerato): las 10 fases del documento de Ágora,
-   en su orden, más el presupuesto (pedido por el Club el 2026-10-28) entre
-   Escenarios de vida y Ruta profesional. El motor está en proceso.js. */
+   en su orden, más el presupuesto (pedido por el Club el 2026-10-28) y el test
+   vocacional del Club (2026-11-17), los dos antes de Ruta profesional. El
+   motor está en proceso.js. */
 window.PROCESO = {
   id: 'agora', nombre: 'Ágora', tipo: 'agora', unidad: 'fase', papas: true,
   otro: {nombre: 'DIANA', href: 'diana.html', etapas: ['Universidad', 'Ya egresé']},
@@ -85,6 +86,9 @@ window.PROCESO = {
     {id:'presupuesto', nombre:'Tu presupuesto',
      objetivo:'Calcular cuánto cuesta al mes la vida que imaginas cuando vivas por tu cuenta, para compararlo después con lo que paga la profesión que elijas.',
      entrega:'Tu costo de vida mensual: el ingreso que necesitas para sostener la vida que imaginas.'},
+    {id:'vocacional', nombre:'Test vocacional', listo:true, marco:'test-vocacional.html',
+     objetivo:'Descubrir qué áreas te interesan, qué aptitudes ves en ti y qué te motiva, para llegar a la Ruta profesional con carreras que se acercan a ti.',
+     entrega:'Tu resultado vocacional: áreas de preferencia, aptitudes, habilidades, carreras derivadas y sugerencias; tu orientador agrega sus observaciones.'},
     {id:'ruta', nombre:'Ruta profesional',
      objetivo:'Armar tu mapa profesional: qué tan compatibles son contigo las carreras que estás considerando y otras afines, qué pide hoy el mercado y si lo que paga alcanza para tu presupuesto.',
      entrega:'Tu ruta profesional personalizada: tu ruta principal y por qué.'},
@@ -92,7 +96,7 @@ window.PROCESO = {
      objetivo:'Armar un plan a 30, 60 y 90 días con acciones de educación, experiencia y conexión: sugeridas por lo que hiciste y escritas por ti.',
      entrega:'Tu plan de acción personalizado.'},
     {id:'resumen', nombre:'Resumen ejecutivo',
-     objetivo:'Reunir las diez fases en un documento ejecutivo para ti, tu familia y tu orientador.',
+     objetivo:'Reunir todas las fases en un documento ejecutivo para ti, tu familia y tu orientador.',
      entrega:'Tu reporte final, para imprimir, guardar como PDF y compartir con tu madre, padre o tutor.'}
   ]
 };

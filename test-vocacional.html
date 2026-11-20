@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="agora-embebido.js"></script>
 <title>Test vocacional — Club de Mentes Brillantes</title>
 <meta name="description" content="Test vocacional del Club de Mentes Brillantes: intereses, aptitudes y lo que te motiva, con las carreras que más se acercan a ti.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -495,6 +496,24 @@ function calcular(r, fecha){
   };
 }
 
+/* Lo que se manda al Club, igual desde la tarjeta de compartir que desde el
+   expediente del proceso Ágora. lista = las carreras derivadas, para que la
+   Ruta profesional de Ágora las proponga. */
+function armarEnvio(){
+  const r = calcular(estado.r, estado.fin), x = r.ficha, s = r.puntajes;
+  return {
+    id: estado.id, version: VERSION,
+    aplicacion: x.aplicacion, habilidades: x.habilidades, aptitudes: x.aptitudes, areas: x.areas,
+    carreras: x.carreras, sugerencias: x.sugerencias, motiva: x.motiva,
+    lista: r.carreras.map(c => c.c.n),
+    puntajes: 'Intereses: ' + r.areasOrd.map(a => AREAS[a].n + ' ' + s.areas[a]).join(' · ') +
+      '\nAptitudes: ' + r.aptOrd.map(a => APTITUDES[a].n + ' ' + s.aptitudes[a]).join(' · ') +
+      '\nMotivos: ' + r.motOrd.map(m => MOTIVOS[m].n + ' ' + s.motivos[m]).join(' · '),
+    respuestas: PREGUNTAS.map(q => q.id + '=' + (estado.r[q.id] || '')).join(',')
+  };
+}
+const AGORA = window.CMB_AGORA || {avisar(){}};
+
 /* ---- Pantallas ---- */
 const $ = (id) => document.getElementById(id);
 function esc(v){ return String(v == null ? '' : v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
@@ -556,6 +575,7 @@ $('pagItems').addEventListener('change', (e) => {
   estado.r[t.name] = Number(t.value);
   if(!estado.inicio) estado.inicio = new Date().toISOString();
   guardar();
+  AGORA.avisar('progreso');
   const item = t.closest('.item'); if(item) item.classList.remove('falta');
   refrescarFaltan();
 });
@@ -573,7 +593,10 @@ $('btnSiguiente').onclick = () => {
   // Cada aplicación completa lleva su id; si la vuelve a enviar, actualiza la misma fila.
   if(!estado.fin) estado.fin = new Date().toISOString();
   if(!estado.id) estado.id = COMPARTIR.nuevoId();
+  // El resultado queda guardado: el proceso Ágora lo lee de aquí (cmb_vocacional).
+  estado.envio = armarEnvio(); estado.envioEn = new Date().toISOString();
   guardar(); pintarResultados(); window.scrollTo(0, 0);
+  AGORA.avisar('resultado', {herramienta: 'vocacional', envio: estado.envio});
 };
 
 function barras(cont, obj, nombre, marcar){
@@ -609,18 +632,7 @@ function pintarResultados(){
   COMPARTIR.pintar($('compartirVocacional'), {
     tipo: 'vocacional',
     id: () => estado.id,
-    datos: () => {
-      const r = calcular(estado.r, estado.fin), x = r.ficha, s = r.puntajes;
-      return {
-        version: VERSION,
-        aplicacion: x.aplicacion, habilidades: x.habilidades, aptitudes: x.aptitudes, areas: x.areas,
-        carreras: x.carreras, sugerencias: x.sugerencias, motiva: x.motiva,
-        puntajes: 'Intereses: ' + r.areasOrd.map(a => AREAS[a].n + ' ' + s.areas[a]).join(' · ') +
-          '\nAptitudes: ' + r.aptOrd.map(a => APTITUDES[a].n + ' ' + s.aptitudes[a]).join(' · ') +
-          '\nMotivos: ' + r.motOrd.map(m => MOTIVOS[m].n + ' ' + s.motivos[m]).join(' · '),
-        respuestas: PREGUNTAS.map(q => q.id + '=' + (estado.r[q.id] || '')).join(',')
-      };
-    }
+    datos: () => { const d = armarEnvio(); delete d.id; delete d.lista; return d; }
   });
 }
 
@@ -630,6 +642,7 @@ $('btnBorrar').onclick = () => { $('btnBorrarSi').hidden = false; $('btnBorrar')
 $('btnBorrarSi').onclick = () => {
   estado = {v:1, r:{}, pagina:0, inicio:null, fin:null, id:null};
   guardar();
+  AGORA.avisar('borrado', {herramienta: 'vocacional'});
   $('btnBorrarSi').hidden = true; $('btnBorrar').hidden = false;
   $('btnEmpezar').textContent = 'Empezar'; $('notaRetomar').hidden = true;
   pintarInicio(); window.scrollTo(0, 0);
@@ -638,7 +651,11 @@ $('btnBorrarSi').onclick = () => {
 // Para las pruebas automáticas.
 window.VOCACIONAL = {calcular, PREGUNTAS, PAGINAS, AREAS, VERSION};
 
-if(estado.fin && completo()) pintarResultados();
+if(estado.fin && completo()){
+  // Resultados de antes de que el test entrara al proceso Ágora: se les arma su envío una vez.
+  if(!estado.envio){ estado.envio = armarEnvio(); estado.envioEn = estado.fin; guardar(); AGORA.avisar('resultado', {herramienta: 'vocacional', envio: estado.envio}); }
+  pintarResultados();
+}
 else pintarInicio();
 </script>
 </body>

@@ -10,6 +10,29 @@ después.
 corrigió un error, describe también cómo se detectó — eso es lo que evita
 repetirlo.
 
+## 2026-11-17 — El test vocacional entra al proceso Ágora
+
+- **agora.html**: fase nueva, **Test vocacional** (la 9 de 12), entre Tu
+  presupuesto y Ruta profesional. Abre `test-vocacional.html` en marco, como
+  el DISC y el FODA (`?en=agora`): sin su encabezado ni su tarjeta de
+  compartir, porque lo manda el expediente.
+- **test-vocacional.html** guarda su resultado en `cmb_vocacional.envio` y
+  avisa a Ágora (`agora-embebido.js`) al terminar, al contestar y al borrar.
+  Un test hecho suelto cuenta en el proceso (`adoptarSueltos`), y uno
+  terminado antes de este cambio arma su envío la próxima vez que se abre.
+- **Ruta profesional**: si la persona no mencionó carreras, propone las del
+  test vocacional, y siempre las muestra como referencia.
+- **Resumen ejecutivo**: sección "Test vocacional" con la ficha y renglones
+  para las observaciones del orientador.
+- **Apps Script**: `vocacional` es fase de Ágora (12 en total). Llega a la
+  pestaña Test vocacional con el ID del expediente y mueve el avance.
+  Publicado como versión nueva de la misma implementación.
+- Se corrigió `test_fases_agora`: esperaba 583 vacantes de Finanzas, el dato
+  de una corrida vieja; ahora lo lee de `data/sector_finanzas.json`.
+
+Pruebas: `test_vocacional.mjs` (13), `test_proceso_agora.mjs` (22),
+`test_fases_agora.mjs` (20).
+
 ## 2026-11-17 — Selección Justa: matriz de cuatro métodos
 
 Gael pidió que la selección no dependiera de un solo método sino de los que

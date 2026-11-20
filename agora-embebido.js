@@ -42,7 +42,7 @@
   document.documentElement.classList.add('embebido');
   css.textContent +=
     ' html.embebido .topbar, html.embebido body > header, html.embebido .solo-suelto,' +
-    ' html.embebido #compartirDisc, html.embebido #compartirFoda{display:none !important;}' +
+    ' html.embebido #compartirDisc, html.embebido #compartirFoda, html.embebido #compartirVocacional{display:none !important;}' +
     ' html.embebido, html.embebido body{background:transparent !important;}' +
     ' html.embebido main{max-width:none !important;margin:0 !important;padding:0 0 8px !important;}' +
     ' html.embebido .solo-agora{display:block;}';
@@ -76,7 +76,7 @@
   /* Enlaces entre herramientas: en vez de salir del proceso, se abre la fase
      correspondiente. Cualquier otro enlace del sitio se abre en la ventana
      completa, no dentro del marco. */
-  var FASE_DE = {'disc.html':'disc', 'disc-agora.html':'disc', 'foda.html':'foda', 'informe.html':'resumen'};
+  var FASE_DE = {'disc.html':'disc', 'disc-agora.html':'disc', 'foda.html':'foda', 'test-vocacional.html':'vocacional', 'informe.html':'resumen'};
   document.addEventListener('click', function(ev){
     var a = ev.target && ev.target.closest ? ev.target.closest('a[href]') : null;
     if(!a || a.target === '_blank') return;
