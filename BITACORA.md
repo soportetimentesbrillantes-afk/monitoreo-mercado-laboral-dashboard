@@ -10,6 +10,51 @@ después.
 corrigió un error, describe también cómo se detectó — eso es lo que evita
 repetirlo.
 
+## 2026-11-24 — Comparación de CVs: filtro ATS y duelos por pares con IA
+
+Gael pidió un sistema que primero filtre CVs con un ATS y luego compare a los
+que pasan, uno contra otro, con IA, usando un prompt con las necesidades y
+pesos de la vacante (como el ejemplo de rúbrica con categorías de 20 puntos y
+niveles Outstanding … Insufficient), y que termine en un reporte. Eligió:
+página nueva ligada a Selección Justa, CVs en PDF/Word o pegados, solo duelos
+por pares y el prompt desde una ficha de puesto.
+
+- **comparar-cvs.html / comparar-cvs.js** (nuevos), cinco pasos:
+  1. *Vacante y prompt*: contexto, 3 a 8 categorías que suman 100, seis
+     niveles por categoría (Sobresaliente, Excelente, Sólido, Competente, En
+     desarrollo, Insuficiente) con rangos que se calculan solos (20 pts:
+     19–20, 17–18, 14–16, 11–13, 6–10, 0–5, igual que el ejemplo) e
+     instrucciones. Se rellena con una ficha de puesto o en blanco. El prompt
+     final se ve y se copia.
+  2. *CVs*: PDF (pdf.js), Word (mammoth) o texto. Antes de guardarlos se
+     ocultan correo, teléfono, enlaces, edad, domicilio, CURP, RFC, estado
+     civil, género y el nombre (primera línea si parece nombre, el que se
+     escriba, y dos palabras seguidas del nombre del archivo si también van
+     seguidas en el CV). Se guardan como CV-01, CV-02…, sin nombre de archivo.
+  3. *Filtro ATS*, sin IA: indispensables y deseables por renglón («a|b»,
+     «raíz*»), porcentaje mínimo y número de finalistas (máx. 10). Quien no
+     pasa puede pasar a mano con razón escrita.
+  4. *Comparación*: cada par de finalistas va a la IA con el prompt; cada
+     duelo se repite con el orden invertido y, si las dos vueltas dan
+     ganadores distintos, es empate (marcado con ⚠). Gana quien suma 2 o más
+     puntos de rúbrica que el otro. Solo con la casilla de consentimiento.
+  5. *Reporte*: ranking por duelos ganados (empate = medio), promedio por
+     categoría, tabla cara a cara, detalle con citas de cada CV, reporte
+     escrito por la IA (no cambia el orden) e impresión. Los finalistas
+     pasan a Selección Justa con la vacante convertida en rúbrica.
+- **worker-comparar.js** (nuevo): ruta `/comparar-cvs`, tipos `duelo` y
+  `reporte`. El CV va entre etiquetas y no puede cerrarlas; la IA lo trata
+  como dato. Los puntos se recortan al máximo de cada categoría. **Falta
+  engancharla en Cloudflare**, como las otras dos rutas.
+- **Cómo se detectó un error al ocultar datos**: en las pruebas el correo
+  `fer.castillo@mail.com` quedaba como `fer.⟦nombre⟧@mail.com` porque se
+  ocultaba el nombre antes que el correo. Ahora van primero correos,
+  enlaces y teléfonos. También, «cv_contador_final.pdf» borraba la palabra
+  «contador» del CV; por eso ahora se piden dos palabras seguidas.
+
+Pruebas: `test_comparar_cvs.mjs` (11), con una IA simulada que favorece al
+primero en un par para comprobar que la doble vuelta lo vuelve empate.
+
 ## 2026-11-20 — Fichas de puesto que rellenan la vacante en Selección Justa
 
 Gael pidió fichas de cada puesto del Excel "Fichas Técnicas 7 Sectores" con lo

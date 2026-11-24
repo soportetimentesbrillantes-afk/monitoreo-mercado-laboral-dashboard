@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Comparación de CVs · Club de Mentes Brillantes</title>
+<meta name="description" content="Filtro ATS y comparación por pares con IA de CVs anónimos contra el prompt de una vacante, con reporte final. Club de Mentes Brillantes.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mammoth@1.6.0/mammoth.browser.min.js"></script>
+<style>
+/* Mismos colores y letras que Selección Justa (seleccion.html).
+   Cinco pasos: vacante y prompt → CVs → filtro ATS → comparación por pares → reporte. */
+:root{
+  --bg:#faf8f2; --surface:#ffffff; --sunk:#f3efe5; --line:#e7ddc9;
+  --ink:#1f1f1c; --muted:#6b6459; --accent:#8b7440; --accent-soft:#f1ead9; --accent-ink:#ffffff; --ochre:#c2703d;
+  --ok:#3f7a4a; --ok-bg:#e6f1e7; --warn:#8a5a00; --warn-bg:#fbefd5; --bad:#a1321f; --bad-bg:#f8e1dc;
+  --f-display:"Cormorant Garamond", Georgia, serif;
+  --f-body:"Source Sans 3", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-data:"IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:14.5px;line-height:1.5;margin:0;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));padding-block:0 56px}
+.wrap{max-width:1180px;margin:0 auto}
+h1,h2,h3{font-family:var(--f-display);font-weight:700;margin:0;text-wrap:balance}
+h1{font-size:2.1rem;line-height:1.1} h2{font-size:1.45rem} h3{font-size:1.15rem}
+p{margin:0}
+a{color:var(--accent)}
+.muted{color:var(--muted)} .small{font-size:.84rem}
+.num{font-family:var(--f-data);font-variant-numeric:tabular-nums}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.logo{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding-bottom:10px}
+.logo img{height:34px;width:auto;display:block}
+.logo a{color:var(--muted);font-size:.82rem;font-weight:700;text-decoration:none}
+header.top{padding-top:18px;border-bottom:1px solid var(--line)}
+.top .sub{color:var(--muted);font-size:.9rem;margin-top:4px;max-width:78ch}
+nav.pasos{display:flex;gap:2px;overflow-x:auto;margin-top:12px}
+nav.pasos a{display:flex;gap:8px;align-items:center;padding:9px 14px;text-decoration:none;color:var(--muted);font-weight:600;border-bottom:2px solid transparent;white-space:nowrap}
+nav.pasos a .n{font-family:var(--f-data);font-size:.75rem;border:1px solid var(--line);border-radius:999px;width:22px;height:22px;display:grid;place-items:center}
+nav.pasos a[aria-current="page"]{color:var(--ink);border-bottom-color:var(--accent)}
+nav.pasos a[aria-current="page"] .n{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+main{display:grid;grid-template-columns:minmax(0,1fr);gap:16px;padding-top:18px}
+.vista{display:grid;gap:16px;min-width:0}
+.banda{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px;display:grid;gap:12px;min-width:0}
+.aviso{border-radius:10px;padding:10px 14px;background:var(--accent-soft);font-size:.9rem}
+.aviso.warn{background:var(--warn-bg);color:var(--warn)} .aviso.bad{background:var(--bad-bg);color:var(--bad)} .aviso.ok{background:var(--ok-bg);color:var(--ok)}
+.btn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:7px 12px;cursor:pointer;font-weight:600;font-size:.88rem;text-decoration:none;color:var(--ink)}
+.btn:hover{border-color:var(--accent)} .btn:disabled{opacity:.5;cursor:default}
+.btn.pri{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn.mini{padding:4px 9px;font-size:.8rem}
+.acciones{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.pill{display:inline-block;border-radius:999px;padding:2px 9px;font-size:.74rem;font-weight:700;white-space:nowrap;background:var(--sunk);color:var(--muted)}
+.pill.ok{background:var(--ok-bg);color:var(--ok)} .pill.warn{background:var(--warn-bg);color:var(--warn)} .pill.bad{background:var(--bad-bg);color:var(--bad)} .pill.acc{background:var(--accent-soft);color:var(--accent)}
+.tabla-c{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.88rem}
+th{text-align:left;font-size:.7rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);padding:8px;border-bottom:1px solid var(--line);vertical-align:bottom}
+td{padding:9px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+td.c,th.c{text-align:center}
+.campo{display:grid;gap:4px;min-width:0}
+.campo label,.lbl{font-size:.8rem;font-weight:600;color:var(--muted)}
+.campo input,.campo textarea,.campo select{width:100%;border:1px solid var(--line);background:var(--bg);border-radius:8px;padding:7px 9px}
+.grid2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.cat{border:1px solid var(--line);border-radius:10px;padding:12px 14px;display:grid;gap:10px;background:var(--surface)}
+.cat-cab{display:grid;grid-template-columns:auto minmax(0,1fr) 110px auto;gap:10px;align-items:end}
+.cat-cab .n{font-family:var(--f-data);font-size:.85rem;color:var(--muted);padding-bottom:9px}
+.niveles{display:grid;grid-template-columns:minmax(150px,max-content) minmax(0,1fr);gap:6px 12px;align-items:start}
+.niveles label{font-size:.84rem;font-weight:600;padding-top:7px}
+.niveles label .num{color:var(--muted);font-weight:500}
+.niveles input{width:100%;border:1px solid var(--line);background:var(--bg);border-radius:8px;padding:6px 9px}
+.prompt{white-space:pre-wrap;font-family:var(--f-data);font-size:.8rem;background:var(--sunk);border-radius:10px;padding:12px 14px;max-height:460px;overflow:auto;margin:0}
+.cv{border:1px solid var(--line);border-radius:10px;padding:12px 14px;display:grid;gap:8px;background:var(--surface);min-width:0}
+.cv .cab{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;align-items:center}
+.cv textarea{width:100%;border:1px solid var(--line);background:var(--bg);border-radius:8px;padding:8px 10px;font-size:.84rem;min-height:120px}
+.oculto{background:var(--ochre);color:var(--surface);border-radius:4px;padding:0 4px;font-size:.78rem;font-weight:700}
+.kw{display:inline-block;border-radius:6px;padding:1px 7px;margin:2px 3px 2px 0;font-size:.78rem;background:var(--sunk);color:var(--muted)}
+.kw.si{background:var(--ok-bg);color:var(--ok)} .kw.no{background:var(--bad-bg);color:var(--bad)}
+.barra{height:10px;border-radius:999px;background:var(--sunk);overflow:hidden;min-width:120px}
+.barra i{display:block;height:100%;background:var(--accent)}
+.matriz td,.matriz th{text-align:center;white-space:nowrap;vertical-align:middle}
+.matriz td.yo{background:var(--sunk)}
+.g{color:var(--ok);font-weight:700} .p{color:var(--bad);font-weight:700} .e{color:var(--muted);font-weight:700}
+details.duelo{border:1px solid var(--line);border-radius:10px;padding:10px 14px;background:var(--surface)}
+details.duelo summary{cursor:pointer;font-weight:600}
+.k{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.k .cifra{border:1px solid var(--line);border-radius:10px;padding:10px 12px;display:grid;gap:2px}
+.k .cifra b{font-family:var(--f-data);font-weight:500;font-size:1.4rem}
+.fin{border:1px solid var(--line);border-radius:10px;padding:12px 14px;display:grid;gap:6px}
+.fin ul{margin:0;padding-left:18px}
+.texto p+p{margin-top:8px}
+@media (max-width:760px){
+  .grid2,.grid3{grid-template-columns:minmax(0,1fr)}
+  .cat-cab{grid-template-columns:auto minmax(0,1fr)}
+  .cat-cab .pts,.cat-cab .quitar{grid-column:2}
+  .niveles{grid-template-columns:minmax(0,1fr)} .niveles label{padding-top:2px}
+}
+@media print{ header.top nav,.no-imprimir,.logo{display:none!important} body{background:#fff} .banda{border:none;padding:0} .vista:not(#v-reporte){display:none!important} #v-reporte{display:grid!important} }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <div class="logo"><a href="https://www.clubmentesbrillantes.com.mx/index.html" aria-label="Club de Mentes Brillantes"><img src="logo-cmb.svg" alt="Club de Mentes Brillantes"></a><a href="seleccion.html">Selección Justa →</a></div>
+  <h1>Comparación de CVs</h1>
+  <p class="sub">Primero un filtro ATS deja pasar los CVs que tienen lo indispensable. Después la IA compara a los que pasan, de dos en dos, con el prompt de la vacante: categorías con puntos y niveles. Al final, un reporte dice qué CVs se adecuan mejor y qué validar en la entrevista. Los finalistas pueden pasar a <a href="seleccion.html">Selección Justa</a> para la prueba, la muestra de trabajo y la entrevista.</p>
+  <nav class="pasos" aria-label="Pasos">
+    <a href="#vacante" data-v="vacante"><span class="n">1</span>Vacante y prompt</a>
+    <a href="#cvs" data-v="cvs"><span class="n">2</span>CVs</a>
+    <a href="#ats" data-v="ats"><span class="n">3</span>Filtro ATS</a>
+    <a href="#comparacion" data-v="comparacion"><span class="n">4</span>Comparación</a>
+    <a href="#reporte" data-v="reporte"><span class="n">5</span>Reporte</a>
+  </nav>
+</header>
+<main>
+  <p class="aviso no-imprimir">Todo se guarda solo en este navegador. A la IA del Club solo le llega el texto de los CVs ya sin nombre ni datos de contacto, y nada más cuando marcas la casilla del paso 4. El servidor no guarda nada.</p>
+  <section class="vista" id="v-vacante"></section>
+  <section class="vista" id="v-cvs" hidden></section>
+  <section class="vista" id="v-ats" hidden></section>
+  <section class="vista" id="v-comparacion" hidden></section>
+  <section class="vista" id="v-reporte" hidden></section>
+</main>
+</div>
+<script src="fichas-puestos.js"></script>
+<script src="comparar-cvs.js"></script>
+</body>
+</html>

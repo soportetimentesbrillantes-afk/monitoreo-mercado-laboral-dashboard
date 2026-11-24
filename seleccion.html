@@ -493,7 +493,7 @@ function pVacante(){
 /* ---------- 2. Candidatos ---------- */
 function pCandidatos(){
   const el = document.getElementById('v-candidatos');
-  el.innerHTML = '<div class="banda"><div><h2>Agrega un candidato</h2><p class="muted small">Pega el texto del CV o del perfil de CMB. Antes de guardarlo se ocultan nombre, correo, teléfono, edad, fecha de nacimiento, domicilio, estado civil, género, CURP y RFC. Revisa lo que quede: el filtro automático puede dejar pasar algo.</p></div>' +
+  el.innerHTML = '<div class="banda"><div><h2>Agrega un candidato</h2><p class="muted small">Pega el texto del CV o del perfil de CMB. Antes de guardarlo se ocultan nombre, correo, teléfono, edad, fecha de nacimiento, domicilio, estado civil, género, CURP y RFC. Revisa lo que quede: el filtro automático puede dejar pasar algo. ¿Muchos CVs? Fíltralos y compáralos primero en <a href="comparar-cvs.html">Comparación de CVs</a>; desde su reporte, los finalistas llegan aquí.</p></div>' +
       '<div class="grid2"><div class="campo"><label for="f_nombre">Nombre completo (solo para ocultarlo; no se guarda)</label><input id="f_nombre" autocomplete="off"></div>' +
       '<div class="grid2"><div class="campo"><label for="f_gen">Género (autodeclarado, opcional)</label><select id="f_gen"><option value="">Sin dato</option>' + GRUPOS.genero.ops.map(o => '<option>' + o + '</option>').join('') + '</select></div>' +
       '<div class="campo"><label for="f_edad">Edad (opcional)</label><select id="f_edad"><option value="">Sin dato</option>' + GRUPOS.edad.ops.map(o => '<option>' + o + '</option>').join('') + '</select></div></div></div>' +
