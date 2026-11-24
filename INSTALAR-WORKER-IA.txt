@@ -1,0 +1,57 @@
+INSTALAR EL WORKER DE IA ("cmb-ia")
+Club de Mentes Brillantes
+
+Es un Worker NUEVO y aparte. No se toca el que ya existe (cv-analisis), así
+que nada de lo que ya funciona puede romperse.
+
+Un solo archivo trae las tres funciones de IA:
+  /calificar-candidato      Selección Justa (sugerencia de calificación del CV)
+  /orientacion-vocacional   Asistente de orientación de Ágora y DIANA
+  /comparar-cvs             Comparación de CVs (duelos y reporte)
+
+
+PASO 1. Crear el Worker
+  1. Entra a https://dash.cloudflare.com con la cuenta del Club.
+  2. Menú de la izquierda: "Compute (Workers)" o "Workers y Pages".
+  3. Botón "Crear" → "Crear Worker" (o "Comenzar con Hello World").
+  4. En NOMBRE escribe exactamente:   cmb-ia
+     (las páginas del sitio buscan ese nombre; si usas otro, no lo van a encontrar)
+  5. Botón "Implementar". Se crea con un código de ejemplo; está bien.
+
+PASO 2. Pegar el código
+  1. En el Worker cmb-ia, botón "Editar código".
+  2. A la izquierda verás un archivo (worker.js o index.js). Ábrelo.
+  3. Selecciona TODO lo que tiene (Cmd+A) y bórralo.
+  4. Abre worker-ia.js (viene en este zip), copia TODO y pégalo ahí.
+  5. Botón "Implementar" (arriba a la derecha).
+
+PASO 3. Poner la llave de Anthropic (la misma que usa cv-analisis)
+  1. Regresa al Worker cmb-ia → pestaña "Configuración" → "Variables y secretos".
+  2. "Agregar" → Tipo: Secreto.
+     Nombre:  ANTHROPIC_API_KEY
+     Valor:   la llave de Anthropic (empieza con sk-ant-). Cópiala de donde la
+              tengas guardada; Cloudflare no deja ver la de cv-analisis.
+  3. "Implementar".
+  Esta llave no se escribe en ningún otro lado ni se manda por el chat.
+
+PASO 4. Comprobar
+  Abre en el navegador:  https://cmb-ia.soportetimentesbrillantes.workers.dev
+  Debe decir: "Worker de IA del Club de Mentes Brillantes. Rutas: …"
+  Luego avísale a Claude y él prueba las tres funciones desde el sitio.
+
+
+SI ALGO SALE MAL
+  - "Error 1101" o la página en blanco: falta el secreto del paso 3 o se pegó
+    incompleto el código. Repite el paso 2 copiando todo el archivo.
+  - Las páginas dicen "La IA todavía no está activa": el nombre del Worker no
+    es exactamente cmb-ia.
+  - Para deshacer: borra el Worker cmb-ia. Nada más depende de él.
+
+COSTO
+  Cada uso es una llamada a Claude con la llave del Club. La Comparación de
+  CVs hace muchas: con 6 finalistas, 30 llamadas; con 10, 90.
+
+Para quien mantenga el sitio: worker-ia.js se arma con
+  node herramientas/armar_worker_ia.mjs
+a partir de worker-calificar.js, worker-orientacion.js y worker-comparar.js.
+No se edita a mano.

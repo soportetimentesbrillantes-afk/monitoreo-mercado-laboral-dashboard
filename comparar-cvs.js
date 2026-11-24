@@ -25,7 +25,7 @@ const LLAVE = 'cmb_comparar_cvs_v1';
 const NIVELES = ['Sobresaliente', 'Excelente', 'Sólido', 'Competente', 'En desarrollo', 'Insuficiente'];
 const CORTES = [.30, .55, .70, .85, .95];      // límites inferiores de En desarrollo … Sobresaliente
 const MAX_FINALISTAS = 10, MIN_PTS = 6, EMPATE = 2;
-const URL_COMPARAR = 'https://cv-analisis.soportetimentesbrillantes.workers.dev/comparar-cvs';
+const URL_COMPARAR = 'https://cmb-ia.soportetimentesbrillantes.workers.dev/comparar-cvs';
 const LOCAL = /^(localhost|127\.0\.0\.1)$/.test(location.hostname);
 const IA_URL = window.__CMB_COMPARAR_PRUEBA || (LOCAL ? '' : URL_COMPARAR);
 const FPZ = window.FICHAS_PUESTOS;

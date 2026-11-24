@@ -324,12 +324,12 @@ function ocultar(texto, nombre){
 }
 const conMarcas = t => esc(t).replace(/⟦([^⟧]+)⟧/g, '<span class="oculto">$1 oculto</span>');
 
-/* ======================= IA (worker cv-analisis) =======================
+/* ======================= IA (worker cmb-ia, ver worker-ia.js) =======================
    Solo para la revisión anónima del CV. La sugerencia la da Claude a través
    del worker del Club (ruta /calificar-candidato, ver worker-calificar.js).
    Se envían la rúbrica y el perfil ya sin identidad; nada se guarda en el
    servidor. En una copia local (localhost) no se llama al servidor real. */
-const URL_CALIFICAR = 'https://cv-analisis.soportetimentesbrillantes.workers.dev/calificar-candidato';
+const URL_CALIFICAR = 'https://cmb-ia.soportetimentesbrillantes.workers.dev/calificar-candidato';
 const LOCAL = /^(localhost|127\.0\.0\.1)$/.test(location.hostname);
 const IA_URL = window.__CMB_IA_PRUEBA || (LOCAL ? '' : URL_CALIFICAR);
 async function pedirCalificacion(perfilTexto){

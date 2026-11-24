@@ -10,6 +10,22 @@ después.
 corrigió un error, describe también cómo se detectó — eso es lo que evita
 repetirlo.
 
+## 2026-11-24 — Las rutas de IA nuevas van en un Worker aparte ("cmb-ia")
+
+Gael no tenía claro dónde poner las líneas de las rutas nuevas dentro del
+Worker `cv-analisis`, cuyo código no está en este repo. En lugar de editar
+ese archivo, las tres rutas (`/calificar-candidato`, `/orientacion-vocacional`
+y `/comparar-cvs`) van en un Worker nuevo, `cmb-ia`, con un solo archivo que
+se pega completo: `worker-ia.js`.
+
+- `herramientas/armar_worker_ia.mjs` arma `worker-ia.js` con los tres
+  archivos de ruta, cada uno en su bloque para que sus nombres no choquen.
+- `seleccion.html`, `agora/orientacion.js` y `comparar-cvs.js` ahora llaman a
+  `https://cmb-ia.soportetimentesbrillantes.workers.dev/...`.
+- `cv-analisis` no se toca: lo que ya funciona sigue igual.
+- `INSTALAR-WORKER-IA.txt`: crear el Worker, pegar el archivo y agregar el
+  secreto `ANTHROPIC_API_KEY`.
+
 ## 2026-11-24 — Comparación de CVs: filtro ATS y duelos por pares con IA
 
 Gael pidió un sistema que primero filtre CVs con un ATS y luego compare a los

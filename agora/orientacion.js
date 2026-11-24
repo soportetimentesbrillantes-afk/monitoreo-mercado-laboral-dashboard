@@ -32,7 +32,7 @@
 (function(){
 const F = window.FASES_AGORA = window.FASES_AGORA || {};
 
-const URL_IA = 'https://cv-analisis.soportetimentesbrillantes.workers.dev/orientacion-vocacional';
+const URL_IA = 'https://cmb-ia.soportetimentesbrillantes.workers.dev/orientacion-vocacional';
 const LOCAL = typeof location !== 'undefined' && /^(localhost|127\.0\.0\.1)$/.test(location.hostname);
 const IA = () => window.__CMB_ORIENTACION_PRUEBA || (LOCAL ? '' : URL_IA);
 

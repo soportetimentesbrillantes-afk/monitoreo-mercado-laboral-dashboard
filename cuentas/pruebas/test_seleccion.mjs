@@ -39,7 +39,7 @@ const servidor = createServer(async (req, res) => {
 });
 await new Promise((r) => servidor.listen(0, r));
 const BASE = 'http://127.0.0.1:' + servidor.address().port;
-const IA = 'https://cv-analisis.soportetimentesbrillantes.workers.dev/calificar-candidato';
+const IA = 'https://cmb-ia.soportetimentesbrillantes.workers.dev/calificar-candidato';
 
 let pasaron = 0, fallaron = 0;
 async function prueba(nombre, fn) {
