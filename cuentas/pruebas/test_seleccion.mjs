@@ -236,7 +236,7 @@ await prueba('limpia la respuesta de la IA: solo competencias conocidas, puntaje
   const d = await r.json();
   igual(d.ok, true);
   igual(JSON.stringify(d.calificaciones.map(x => [x.id, x.puntaje])), '[["k1",5],["k2",1]]');
-  igual(enviado.temperature, 0);
+  igual(enviado.temperature, undefined, 'claude-sonnet-5-5 ya no acepta temperature');
   cierto(enviado.system.includes('no adivines ni uses género'), 'instrucciones contra sesgo');
 });
 

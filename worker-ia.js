@@ -148,7 +148,6 @@ async function manejarCalificar(request, env) {
       body: JSON.stringify({
         model: env.MODELO_CALIFICAR || MODELO_POR_DEFECTO,
         max_tokens: 1500,
-        temperature: 0,
         system: instrucciones(),
         messages: [{ role: 'user', content: mensaje(datos) }],
       }),
@@ -332,7 +331,6 @@ async function manejarOrientacion(request, env) {
       body: JSON.stringify({
         model: env.MODELO_ORIENTACION || MODELO_POR_DEFECTO,
         max_tokens: 4000,
-        temperature: 0.4,
         system: instrucciones(proceso),
         messages: [{ role: 'user', content: mensaje(perfil) }],
       }),
@@ -471,14 +469,13 @@ function mensajeReporte(d) {
     'Formato: {"resumen":"<2 o 3 párrafos>","finalistas":[{"id":"<id del CV>","fortalezas":["…"],"riesgos":["…"],"validar":["<qué preguntar o probar en la entrevista>"]}],"comparacion":"<1 o 2 párrafos: en qué se distinguen los primeros>","advertencias":["<límites del análisis>"]}';
 }
 
-async function llamar(env, sistema, contenido, maxTokens, temperatura) {
+async function llamar(env, sistema, contenido, maxTokens) {
   const r = await fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
     headers: { 'content-type': 'application/json', 'x-api-key': LLAVE(env), 'anthropic-version': '2023-06-01' },
     body: JSON.stringify({
       model: env.MODELO_COMPARAR || MODELO_POR_DEFECTO,
       max_tokens: maxTokens,
-      temperature: temperatura,
       system: sistema,
       messages: [{ role: 'user', content: contenido }],
     }),
@@ -539,7 +536,7 @@ async function manejarComparar(request, env) {
     const resumen = largo(d.resumen, 30000);
     if (resumen.length < 50) return responder({ ok: false, error: 'Falta el resumen de resultados.' }, request, env, 400);
     let r;
-    try { r = await llamar(env, 'Eres consultor de selección de personal del Club de Mentes Brillantes. ' + REGLAS, mensajeReporte({ rubrica, resumen }), 3000, 0.3); }
+    try { r = await llamar(env, 'Eres consultor de selección de personal del Club de Mentes Brillantes. ' + REGLAS, mensajeReporte({ rubrica, resumen }), 3000); }
     catch (e) { return responder({ ok: false, error: 'No hubo conexión con la IA.' }, request, env, 502); }
     if (r.error) return responder({ ok: false, error: 'La IA respondió con error ' + r.error + '.' }, request, env, 502);
     if (!r.j || !r.j.resumen) return responder({ ok: false, error: 'La IA no devolvió el formato esperado.' }, request, env, 502);
@@ -549,7 +546,7 @@ async function manejarComparar(request, env) {
   const a = largo(d.a, 10000), b = largo(d.b, 10000);
   if (a.length < 40 || b.length < 40) return responder({ ok: false, error: 'Faltan los dos CVs.' }, request, env, 400);
   let r;
-  try { r = await llamar(env, 'Eres evaluador de selección de personal del Club de Mentes Brillantes. Comparas dos CVs anónimos para una vacante. ' + REGLAS, mensajeDuelo({ rubrica, categorias, a, b }), 2500, 0); }
+  try { r = await llamar(env, 'Eres evaluador de selección de personal del Club de Mentes Brillantes. Comparas dos CVs anónimos para una vacante. ' + REGLAS, mensajeDuelo({ rubrica, categorias, a, b }), 2500); }
   catch (e) { return responder({ ok: false, error: 'No hubo conexión con la IA.' }, request, env, 502); }
   if (r.error) return responder({ ok: false, error: 'La IA respondió con error ' + r.error + '.' }, request, env, 502);
   if (!r.j || !Array.isArray(r.j.categorias)) return responder({ ok: false, error: 'La IA no devolvió el formato esperado.' }, request, env, 502);

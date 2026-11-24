@@ -45,6 +45,9 @@ una llamada de prueba desde el sitio publicado. Cambios:
   (por ejemplo `not_found_error: model: …`, o el de la llave o el saldo), sin
   datos del CV. Antes solo decía "error 404".
 - `worker-ia.js` se volvió a armar; hay que pegarlo de nuevo en `cmb-ia`.
+- Ya pegado, Anthropic respondió 400 (`temperature` is deprecated for this
+  model): `claude-sonnet-5-5` no acepta `temperature`. Se quitó de las tres
+  rutas y se volvió a armar `worker-ia.js`.
 
 ## 2026-11-24 — Las rutas de IA nuevas van en un Worker aparte ("cmb-ia")
 

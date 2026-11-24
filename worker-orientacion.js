@@ -152,7 +152,6 @@ export async function manejarOrientacion(request, env) {
       body: JSON.stringify({
         model: env.MODELO_ORIENTACION || MODELO_POR_DEFECTO,
         max_tokens: 4000,
-        temperature: 0.4,
         system: instrucciones(proceso),
         messages: [{ role: 'user', content: mensaje(perfil) }],
       }),

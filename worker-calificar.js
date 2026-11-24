@@ -130,7 +130,6 @@ export async function manejarCalificar(request, env) {
       body: JSON.stringify({
         model: env.MODELO_CALIFICAR || MODELO_POR_DEFECTO,
         max_tokens: 1500,
-        temperature: 0,
         system: instrucciones(),
         messages: [{ role: 'user', content: mensaje(datos) }],
       }),
