@@ -204,7 +204,7 @@ await prueba('es una fase de Ágora: dentro del marco no muestra su encabezado n
   await marco.click('#btnEmpezar');
   await marco.click('#btnSiguiente');
   await p.waitForFunction(() => (document.getElementById('avisoFase') || {}).textContent && document.getElementById('avisoFase').textContent.includes('Fase completa'));
-  cierto((await p.textContent('#avisoFase')).includes('Ruta profesional'), 'ofrece seguir con la Ruta profesional');
+  cierto((await p.textContent('#avisoFase')).includes('Crecimiento personal'), 'ofrece seguir con Crecimiento personal (la fase que sigue)');
   igual(await p.textContent('[data-paso="vocacional"] .estado'), 'Completo');
   igual(await marco.evaluate(() => getComputedStyle(document.getElementById('compartirVocacional')).display), 'none', 'compartir lo hace el expediente, no la tarjeta');
   const g = await p.evaluate(() => JSON.parse(localStorage.getItem('cmb_agora')).pasos.vocacional);

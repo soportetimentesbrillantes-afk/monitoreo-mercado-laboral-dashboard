@@ -30,7 +30,9 @@ function fichas(){
       const nombre = sum ? [...sum.childNodes].filter(n => n.nodeType === 3).map(n => n.textContent).join('').trim() : '';
       out[nombre] = [...det.querySelectorAll('tbody tr')].map(tr => {
         const td = tr.querySelector('.puesto'), marca = td && td.querySelector('.marca');
-        return {puesto: td ? [...td.childNodes].filter(n => n.nodeType === 3).map(n => n.textContent).join('').trim() : '',
+        // Desde el 2026-11-20 el nombre va dentro de un enlace a su ficha completa.
+        const enlace = td && td.querySelector('a.a-ficha');
+        return {puesto: enlace ? enlace.textContent.trim() : (td ? [...td.childNodes].filter(n => n.nodeType === 3).map(n => n.textContent).join('').trim() : ''),
           descripcion: (tr.querySelector('.descripcion') || {}).textContent || '', corrida: !!(marca && marca.classList.contains('corrida'))};
       }).filter(x => x.puesto);
     });

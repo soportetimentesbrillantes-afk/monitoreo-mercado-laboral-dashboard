@@ -1,5 +1,5 @@
 /* =====================================================================
-   Asistente de orientación vocacional con IA (Ágora y DIANA)
+   Síntesis de resultados con IA (Ágora y DIANA; antes "Asistente de orientación vocacional")
    =====================================================================
 
    Lee lo que la persona ya hizo en su proceso (DISC, FODA, test vocacional,
@@ -223,7 +223,7 @@ function htmlOrientador(AG, o){
 
 /* ---------------------------- La fase ---------------------------- */
 F.orientacion = {
-  titulo: 'Asistente de orientación vocacional',
+  titulo: 'Síntesis de resultados',
   contexto, carrerasDelMapa, filaMapa, coherencia, opcionesEscenario, perfilIA, afinidadEstilo,
   pintar(cont, AG, paso){
     estilos();
@@ -260,7 +260,7 @@ F.orientacion = {
         '<p class="note">Es una lectura para conversar, no un veredicto. Revisa con tu orientador lo que no te suene a ti.</p>';
       cont.querySelector('#ori_imprimir').onclick = () => {
         const imp = document.getElementById('ori_impresion');
-        imp.innerHTML = '<h1 style="font-family:var(--font-serif)">Orientación vocacional</h1><p class="note">' + AG.esc(AG.nombre()) + ' · ' + AG.esc(AG.fechaLegible()) + '</p>' +
+        imp.innerHTML = '<h1 style="font-family:var(--font-serif)">Síntesis de resultados</h1><p class="note">' + AG.esc(AG.nombre()) + ' · ' + AG.esc(AG.fechaLegible()) + '</p>' +
           parrafos(AG, ia.padres) + '<h2 style="font-family:var(--font-serif)">Tres caminos que está considerando</h2>' + htmlEscenarios(AG, ia.escenarios) +
           (coh.indice !== null ? '<p><strong>Coherencia entre su perfil y ' + AG.esc(coh.de) + ':</strong> ' + coh.indice + ' de 100 (' + coh.nivel.toLowerCase() + ').</p>' : '');
         document.body.appendChild(imp);

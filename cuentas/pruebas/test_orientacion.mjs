@@ -1,5 +1,6 @@
 /**
- * Asistente de orientación vocacional con IA (agora/orientacion.js) en Ágora
+ * Síntesis de resultados con IA (agora/orientacion.js; antes "Asistente de
+ * orientación vocacional") en Ágora
  * y DIANA, la ruta del worker (worker-orientacion.js) y su pestaña en el
  * Apps Script.
  *
@@ -152,7 +153,7 @@ await prueba('al completar va al expediente con las siete columnas, y entra al R
   await p.goto(BASE + '/agora.html#resumen'); await p.reload(); await p.waitForSelector('#cuerpoFase');
   await p.waitForTimeout(400);
   const doc = await p.textContent('#cuerpoFase');
-  cierto(doc.includes('Asistente de orientación vocacional') && doc.includes('Índice de coherencia') && doc.includes('Su hija') && doc.includes('Camino 1'), doc.slice(0, 600));
+  cierto(doc.includes('Síntesis de resultados') && doc.includes('Índice de coherencia') && doc.includes('Su hija') && doc.includes('Camino 1'), doc.slice(0, 600));
   await ctx.close();
 });
 
@@ -213,11 +214,11 @@ await prueba('rechaza peticiones sin perfil', async () => {
 });
 
 /* ------------------------------ Apps Script ------------------------------ */
-console.log('\nApps Script · pestaña Orientación vocacional');
+console.log('\nApps Script · pestaña Síntesis de resultados');
 const codigo = await readFile(join(RAIZ, 'cuentas/apps-script-autoconocimiento.gs'), 'utf8');
 function cargar() {
   const pestanas = {};
-  const crear = (nombre) => { const filas = []; const h = { filas,
+  const crear = (nombre) => { if (pestanas[nombre]) return pestanas[nombre]; const filas = []; const h = { filas, setName: (n) => { delete pestanas[nombre]; pestanas[n] = h; nombre = n; },
     getLastRow: () => filas.length, getLastColumn: () => Math.max(0, ...filas.map(f => f.length)),
     appendRow: (f) => filas.push(f.slice()),
     getRange: (r, c, nr = 1, nc = 1) => ({
@@ -230,17 +231,19 @@ function cargar() {
     ContentService: { MimeType: { JSON: 'json' }, createTextOutput: (t) => ({ setMimeType: () => JSON.parse(t) }) },
     JSON, Date, String, Object, Math, Array, isFinite, parseInt, isNaN };
   vm.createContext(ctx); vm.runInContext(codigo, ctx);
-  return { post: (d) => ctx.doPost({ postData: { contents: JSON.stringify(d) } }), pestanas };
+  return { post: (d) => ctx.doPost({ postData: { contents: JSON.stringify(d) } }), pestanas, crear };
 }
-await prueba('Ágora y DIANA escriben en la pestaña Orientación vocacional', async () => {
-  const { post, pestanas } = cargar();
+await prueba('Ágora y DIANA escriben en la pestaña Síntesis de resultados; la vieja «Orientación vocacional» se renombra', async () => {
+  const { post, pestanas, crear } = cargar();
+  crear('Orientación vocacional').appendRow(['ID', 'Índice de coherencia']); crear('Orientación vocacional').filas; pestanas['Orientación vocacional'].appendRow(['viejo', '60 (Media)']);
   for (const [tipo, total] of [['agora', 13], ['diana', 35]]) {
     const B = { clave: 'cmb-autoconocimiento-2026', acepta: true, tipo, id: (tipo === 'agora' ? 'a' : 'd').repeat(24), nombre: 'Ana Pérez', correo: 'ana@ejemplo.com', total, dispositivo: 'disp12345678' };
     igual(post(Object.assign({}, B, { paso: 'informacion', completos: ['informacion'], datos: { edad: '20' } })).ok, true);
     igual(post(Object.assign({}, B, { paso: 'orientacion', completos: ['informacion', 'orientacion'], datos: { hoja: { 'Índice de coherencia': '72 (Media) · Finanzas', 'Narrativa': 'Texto' } } })).ok, true);
   }
-  const h = pestanas['Orientación vocacional'];
-  igual(h.filas.length, 3);
+  cierto(!pestanas['Orientación vocacional'], 'la pestaña vieja se renombró');
+  const h = pestanas['Síntesis de resultados'];
+  igual(h.filas.length, 4, 'la fila vieja se conserva y se agregan las dos nuevas');
   cierto(h.filas[0].includes('Versión para orientador'));
   igual(pestanas['Expediente DIANA'].filas[1][pestanas['Expediente DIANA'].filas[0].indexOf('Avance')], '2 de 35');
 });

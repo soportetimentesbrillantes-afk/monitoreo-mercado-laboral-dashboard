@@ -82,16 +82,16 @@ var ENCABEZADOS = {
    "Fases completas" del expediente. Deben coincidir con los id de agora.html. */
 var FASES_AGORA = {
   informacion: 'Información inicial', disc: 'Perfil DISC', foda: 'Análisis FODA',
-  estilo: 'Estilo de trabajo', relacion: 'Forma de relacionamiento', crecimiento: 'Crecimiento personal',
-  escenarios: 'Escenarios de vida', presupuesto: 'Tu presupuesto', vocacional: 'Test vocacional', ruta: 'Ruta profesional', plan: 'Plan de acción',
-  orientacion: 'Asistente de orientación vocacional', resumen: 'Resumen ejecutivo'
+  estilo: 'Estilo de trabajo', relacion: 'Forma de relacionamiento', vocacional: 'Test vocacional', crecimiento: 'Crecimiento personal',
+  escenarios: 'Escenarios de vida', presupuesto: 'Tu presupuesto', ruta: 'Ruta profesional', plan: 'Plan de acción',
+  orientacion: 'Síntesis de resultados', resumen: 'Resumen ejecutivo'
 };
 
 /* Nombres legibles de los pasos de DIANA (diana.html). */
 var FASES_DIANA = {
   informacion: 'Información inicial', disc: 'Perfil DISC', foda: 'Análisis FODA', estilo: 'Estilo de trabajo',
   relacion: 'Forma de relacionamiento', crecimiento: 'Crecimiento personal', escenarios: 'Escenarios de vida',
-  reporte_descubrir: 'Reporte de Descubrir', mapa: 'Mapa de carrera', orientacion: 'Asistente de orientación vocacional', tendencias: 'Tendencias de la industria',
+  reporte_descubrir: 'Reporte de Descubrir', mapa: 'Mapa de carrera', orientacion: 'Síntesis de resultados', tendencias: 'Tendencias de la industria',
   formacion: 'Plan de formación', marca: 'Marca personal y profesional', plan: 'Plan de acción 30-60-90',
   resumen_iniciar: 'Resumen de Iniciar', brechas_ofertas: 'Brechas frente a las vacantes', brechas_competencias: 'Brechas de competencias',
   cv: 'Crea tu CV', entrevista: 'Guía de entrevista', presentacion: 'Presentación efectiva', expectativas: 'Mentoría de ajuste de expectativas',
@@ -118,8 +118,9 @@ var PESTANAS_FASE = {
   presupuesto: { pestana: 'Presupuesto', columnas: ['Total mensual', 'Detalle', 'Para cuándo', 'Dónde piensa vivir'] },
   ruta:        { pestana: 'Ruta profesional', columnas: ['Carreras consideradas', 'Compatibilidad', 'Carreras afines sugeridas', 'Ruta principal', 'Segunda ruta', 'Por qué', 'Costo de vida vs salario', 'Estrategia de vida'] },
   plan:        { pestana: 'Plan de acción', columnas: ['30 días', '60 días', '90 días'] },
-  // Asistente de orientación vocacional con IA (Ágora y DIANA).
-  orientacion: { pestana: 'Orientación vocacional', columnas: ['Índice de coherencia', 'Detalle del índice', 'Mapa de afinidades', 'Narrativa', 'Micro escenarios', 'Versión para padres', 'Versión para orientador'] },
+  // Síntesis de resultados con IA (Ágora y DIANA). Antes se llamaba
+  // "Asistente de orientación vocacional": su pestaña vieja se renombra sola.
+  orientacion: { pestana: 'Síntesis de resultados', viejo: 'Orientación vocacional', columnas: ['Índice de coherencia', 'Detalle del índice', 'Mapa de afinidades', 'Narrativa', 'Micro escenarios', 'Versión para padres', 'Versión para orientador'] },
   resumen:     { pestana: 'Resumen Ágora', viejo: 'Ágora · Resumen', columnas: ['Proceso terminado', 'Estilo dominante', 'Ruta principal', 'Segunda ruta', 'Primera prioridad de crecimiento'] },
   // DIANA
   reporte_descubrir: { pestana: 'DIANA · Reporte Descubrir', columnas: ['Terminado', 'Estilo dominante', 'Primera prioridad de crecimiento', 'Pendientes de mentor'] },
@@ -506,10 +507,19 @@ function existeFila(nombrePestana, id) {
   return false;
 }
 
+/** Si la pestaña cambió de nombre (campo `viejo`) y la vieja existe, la renombra
+    en vez de crear otra vacía, para que no se partan los datos en dos. */
+function pestanaRenombrada(ss, nombre) {
+  var f = Object.keys(PESTANAS_FASE).filter(function (k) { return PESTANAS_FASE[k].pestana === nombre && PESTANAS_FASE[k].viejo; })[0];
+  var vieja = f ? ss.getSheetByName(PESTANAS_FASE[f].viejo) : null;
+  if (vieja) vieja.setName(nombre);
+  return vieja;
+}
+
 /** La pestaña, creándola con sus encabezados si no existe o está vacía. */
 function pestana(nombre, encabezados) {
   var ss = SpreadsheetApp.getActiveSpreadsheet();
-  var h = ss.getSheetByName(nombre) || ss.insertSheet(nombre);
+  var h = ss.getSheetByName(nombre) || pestanaRenombrada(ss, nombre) || ss.insertSheet(nombre);
   if (h.getLastRow() === 0) {
     h.appendRow(encabezados);
     h.getRange(1, 1, 1, encabezados.length).setFontWeight('bold');

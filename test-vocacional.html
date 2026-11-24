@@ -508,7 +508,7 @@ function armarEnvio(){
     aplicacion: x.aplicacion, habilidades: x.habilidades, aptitudes: x.aptitudes, areas: x.areas,
     carreras: x.carreras, sugerencias: x.sugerencias, motiva: x.motiva,
     lista: r.carreras.map(c => c.c.n),
-    // Para el asistente de orientación de Ágora y DIANA: puntajes por área,
+    // Para la Síntesis de resultados de Ágora y DIANA: puntajes por área,
     // aptitud y motivo, y la afinidad de cada carrera [total, interés, aptitudes, motivos].
     pts: {
       areas: Object.fromEntries(r.areasOrd.map(a => [AREAS[a].n, s.areas[a]])),
@@ -664,7 +664,7 @@ window.VOCACIONAL = {calcular, PREGUNTAS, PAGINAS, AREAS, VERSION};
 if(estado.fin && completo()){
   // Resultados de antes de que el test entrara al proceso Ágora: se les arma su envío una vez.
   if(!estado.envio){ estado.envio = armarEnvio(); estado.envioEn = estado.fin; guardar(); AGORA.avisar('resultado', {herramienta: 'vocacional', envio: estado.envio}); }
-  // Envíos de antes del asistente de orientación: se les agregan los puntajes, sin volver a avisar.
+  // Envíos de antes de la Síntesis de resultados: se les agregan los puntajes, sin volver a avisar.
   else if(!estado.envio.afin){ estado.envio = armarEnvio(); guardar(); }
   pintarResultados();
 }

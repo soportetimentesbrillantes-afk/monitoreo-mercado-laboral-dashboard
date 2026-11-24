@@ -10,6 +10,42 @@ después.
 corrigió un error, describe también cómo se detectó — eso es lo que evita
 repetirlo.
 
+## 2026-11-24 — "Síntesis de resultados" y el test vocacional más temprano en Ágora
+
+Gael pidió dos cambios:
+
+- **El asistente de orientación vocacional ahora se llama "Síntesis de
+  resultados"** en Ágora (fase 12) y DIANA (Iniciar), en su título, en el
+  reporte y en la versión para la familia que se imprime. El id interno sigue
+  siendo `orientacion`, así que el avance guardado de quien ya lo hizo no se
+  pierde.
+- **El test vocacional pasa a la fase 6 de Ágora**, entre Forma de
+  relacionamiento y Crecimiento personal (antes iba en la 9, antes de Ruta
+  profesional). También cambia de lugar en el Resumen ejecutivo.
+- **Apps Script, versión 8**: el nombre nuevo de la fase en los dos procesos y
+  la pestaña "Síntesis de resultados". Si ya existía "Orientación vocacional",
+  se renombra la primera vez que llega una síntesis (`pestanaRenombrada`), en
+  vez de crear otra vacía.
+- **Cómo se detectó un error que ya estaba publicado**: al correr las pruebas
+  de DIANA fallaba el Mapa de carrera. Desde el 2026-11-20, `fichas.html`
+  pone el nombre de cada puesto dentro de un enlace a su ficha, y
+  `agora/diana-mapa.js` leía solo el texto suelto de la celda: el mapa se
+  quedaba sin los roles del panel. Ahora lee el texto del enlace.
+
+## 2026-11-24 — Worker cmb-ia: modelo vigente y error detallado
+
+Al instalar `cmb-ia`, la llave funcionó pero Anthropic respondió 404 a
+`claude-sonnet-4-5` (el modelo por omisión de las tres rutas). Se detectó con
+una llamada de prueba desde el sitio publicado. Cambios:
+
+- Modelo por omisión: `claude-sonnet-5-5` en las tres rutas. Se puede
+  cambiar sin tocar código con las variables `MODELO_CALIFICAR`,
+  `MODELO_ORIENTACION` y `MODELO_COMPARAR` del Worker.
+- Si Anthropic responde con error, el mensaje ahora trae su tipo y detalle
+  (por ejemplo `not_found_error: model: …`, o el de la llave o el saldo), sin
+  datos del CV. Antes solo decía "error 404".
+- `worker-ia.js` se volvió a armar; hay que pegarlo de nuevo en `cmb-ia`.
+
 ## 2026-11-24 — Las rutas de IA nuevas van en un Worker aparte ("cmb-ia")
 
 Gael no tenía claro dónde poner las líneas de las rutas nuevas dentro del

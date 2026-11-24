@@ -20,7 +20,7 @@
   <div class="hero-inner">
     <p class="eyebrow">Autoconocimiento para la construcción de tu plan de vida</p>
     <h1>Tu proceso Ágora</h1>
-    <p>Trece fases, una herramienta en cada una. Empiezas por conocerte: cómo trabajas, cómo te relacionas y dónde puedes crecer. Terminas con escenarios de vida, tu presupuesto, un test vocacional, una ruta profesional, un plan de acción y un asistente de orientación con IA. Avanza una fase a la vez; tu avance se guarda solo.</p>
+    <p>Trece fases, una herramienta en cada una. Empiezas por conocerte: cómo trabajas, cómo te relacionas, qué te interesa (test vocacional) y dónde puedes crecer. Terminas con escenarios de vida, tu presupuesto, una ruta profesional, un plan de acción y la síntesis de tus resultados. Avanza una fase a la vez; tu avance se guarda solo.</p>
   </div>
 </header>
 
@@ -56,9 +56,11 @@
 <script src="agora/fase10-resumen.js"></script>
 <script>
 /* Proceso Ágora (modelo de bachillerato): las 10 fases del documento de Ágora,
-   en su orden, más el presupuesto (pedido por el Club el 2026-10-28) y el test
-   vocacional del Club (2026-11-17), los dos antes de Ruta profesional, y el
-   asistente de orientación vocacional con IA (2026-11-20) antes del Resumen.
+   en su orden, más el presupuesto (pedido por el Club el 2026-10-28) antes de
+   Ruta profesional, el test vocacional del Club (2026-11-17; desde el
+   2026-11-24 entre Forma de relacionamiento y Crecimiento personal) y la
+   Síntesis de resultados con IA (2026-11-20; antes "Asistente de orientación
+   vocacional") antes del Resumen.
    El motor está en proceso.js. */
 window.PROCESO = {
   id: 'agora', nombre: 'Ágora', tipo: 'agora', unidad: 'fase', papas: true,
@@ -79,6 +81,9 @@ window.PROCESO = {
     {id:'relacion', nombre:'Forma de relacionamiento',
      objetivo:'Identificar cómo te relacionas con los demás: cómo te gusta que te traten, tu papel en un equipo y cómo trabajar con estilos distintos al tuyo.',
      entrega:'Tus formas de relacionamiento personalizadas.'},
+    {id:'vocacional', nombre:'Test vocacional', listo:true, marco:'test-vocacional.html',
+     objetivo:'Descubrir qué áreas te interesan, qué aptitudes ves en ti y qué te motiva, para llegar a la Ruta profesional con carreras que se acercan a ti.',
+     entrega:'Tu resultado vocacional: áreas de preferencia, aptitudes, habilidades, carreras derivadas y sugerencias; tu orientador agrega sus observaciones.'},
     {id:'crecimiento', nombre:'Crecimiento personal',
      objetivo:'Poner frente a frente lo que esperas desarrollar y lo que tu perfil sugiere trabajar, y elegir tu primera prioridad.',
      entrega:'Tus áreas de crecimiento personalizadas, para compartir con tu madre, padre o tutor.'},
@@ -88,16 +93,13 @@ window.PROCESO = {
     {id:'presupuesto', nombre:'Tu presupuesto',
      objetivo:'Calcular cuánto cuesta al mes la vida que imaginas cuando vivas por tu cuenta, para compararlo después con lo que paga la profesión que elijas.',
      entrega:'Tu costo de vida mensual: el ingreso que necesitas para sostener la vida que imaginas.'},
-    {id:'vocacional', nombre:'Test vocacional', listo:true, marco:'test-vocacional.html',
-     objetivo:'Descubrir qué áreas te interesan, qué aptitudes ves en ti y qué te motiva, para llegar a la Ruta profesional con carreras que se acercan a ti.',
-     entrega:'Tu resultado vocacional: áreas de preferencia, aptitudes, habilidades, carreras derivadas y sugerencias; tu orientador agrega sus observaciones.'},
     {id:'ruta', nombre:'Ruta profesional',
      objetivo:'Armar tu mapa profesional: qué tan compatibles son contigo las carreras que estás considerando y otras afines, qué pide hoy el mercado y si lo que paga alcanza para tu presupuesto.',
      entrega:'Tu ruta profesional personalizada: tu ruta principal y por qué.'},
     {id:'plan', nombre:'Plan de acción',
      objetivo:'Armar un plan a 30, 60 y 90 días con acciones de educación, experiencia y conexión: sugeridas por lo que hiciste y escritas por ti.',
      entrega:'Tu plan de acción personalizado.'},
-    {id:'orientacion', nombre:'Asistente de orientación vocacional',
+    {id:'orientacion', nombre:'Síntesis de resultados',
      objetivo:'Juntar todo lo que hiciste en una lectura de conjunto: qué carreras se te acercan y por qué, qué tan coherente es tu elección con tu perfil y cómo podría verse tu futuro en tres caminos.',
      entrega:'Tu mapa de afinidades, tu índice de coherencia y, con la IA del Club, tu narrativa personalizada, tres micro escenarios de futuro y una versión para tu familia y tu orientador.'},
     {id:'resumen', nombre:'Resumen ejecutivo',

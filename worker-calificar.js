@@ -38,7 +38,7 @@
  */
 
 const RUTA = '/calificar-candidato';
-const MODELO_POR_DEFECTO = 'claude-sonnet-4-5';
+const MODELO_POR_DEFECTO = 'claude-sonnet-5-5';
 const ORIGENES_POR_DEFECTO = ['https://soportetimentesbrillantes-afk.github.io'];
 const LLAVE = (env) => env.ANTHROPIC_API_KEY;
 const POR_MINUTO = 30;
@@ -94,6 +94,10 @@ function mensaje(d) {
     'con una entrada por cada competencia de la rúbrica.';
 }
 
+async function detalleError(r) {
+  try { const e = (await r.json()).error || {}; return ' (' + String(e.type || '').slice(0, 40) + ': ' + String(e.message || '').slice(0, 160) + ')'; } catch (x) { return ''; }
+}
+
 function extraerJSON(texto) {
   const i = texto.indexOf('{'), j = texto.lastIndexOf('}');
   if (i < 0 || j < i) return null;
@@ -134,7 +138,7 @@ export async function manejarCalificar(request, env) {
   } catch (e) {
     return responder({ ok: false, error: 'No hubo conexión con la IA.' }, request, env, 502);
   }
-  if (!r.ok) return responder({ ok: false, error: 'La IA respondió con error ' + r.status + '.' }, request, env, 502);
+  if (!r.ok) return responder({ ok: false, error: 'La IA respondió con error ' + r.status + (await detalleError(r)) + '.' }, request, env, 502);
   const respuesta = await r.json();
   const texto = ((respuesta.content || []).find((b) => b.type === 'text') || {}).text || '';
   const j = extraerJSON(texto);

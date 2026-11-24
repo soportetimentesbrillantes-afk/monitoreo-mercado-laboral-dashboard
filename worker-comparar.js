@@ -38,7 +38,7 @@
  */
 
 const RUTA = '/comparar-cvs';
-const MODELO_POR_DEFECTO = 'claude-sonnet-4-5';
+const MODELO_POR_DEFECTO = 'claude-sonnet-5-5';
 const ORIGENES_POR_DEFECTO = ['https://soportetimentesbrillantes-afk.github.io'];
 const LLAVE = (env) => env.ANTHROPIC_API_KEY;
 const POR_MINUTO = 40;
@@ -79,6 +79,10 @@ const largo = (v, n) => String(v == null ? '' : v).replace(/\r/g, '').trim().sli
 const lista = (v, n, m) => (Array.isArray(v) ? v : []).map((x) => corto(x, m)).filter(Boolean).slice(0, n);
 // Que un CV no pueda cerrar la etiqueta y escribir fuera de ella.
 const sinEtiquetas = (t) => String(t).replace(/<\/?\s*(cv_a|cv_b|resumen)\s*>/gi, '[etiqueta quitada]');
+
+async function detalleError(r) {
+  try { const e = (await r.json()).error || {}; return ' (' + String(e.type || '').slice(0, 40) + ': ' + String(e.message || '').slice(0, 160) + ')'; } catch (x) { return ''; }
+}
 
 function extraerJSON(texto) {
   const i = texto.indexOf('{'), j = texto.lastIndexOf('}');
@@ -123,7 +127,7 @@ async function llamar(env, sistema, contenido, maxTokens, temperatura) {
       messages: [{ role: 'user', content: contenido }],
     }),
   });
-  if (!r.ok) return { error: r.status };
+  if (!r.ok) return { error: r.status + (await detalleError(r)) };
   const respuesta = await r.json();
   const texto = ((respuesta.content || []).find((b) => b.type === 'text') || {}).text || '';
   return { j: extraerJSON(texto) };

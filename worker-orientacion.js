@@ -31,7 +31,7 @@
  */
 
 const RUTA = '/orientacion-vocacional';
-const MODELO_POR_DEFECTO = 'claude-sonnet-4-5';
+const MODELO_POR_DEFECTO = 'claude-sonnet-5-5';
 const ORIGENES_POR_DEFECTO = ['https://soportetimentesbrillantes-afk.github.io'];
 const LLAVE = (env) => env.ANTHROPIC_API_KEY;
 const POR_MINUTO = 10;
@@ -91,6 +91,10 @@ function mensaje(perfil) {
     '3. "padres": 2 o 3 párrafos para su madre, padre o tutor, en usted, sin jerga: qué descubrió, qué opciones considera y cómo pueden acompañarle sin decidir por él o ella.\n' +
     '4. "orientador": objeto con "resumen" (2 o 3 frases), "fortalezas" (lista de 3 a 5), "tensiones" (lista de 2 a 4 incoherencias o dudas que se ven en los datos) y "preguntas" (lista de 3 a 5 preguntas para la próxima sesión).\n' +
     'Formato: {"narrativa":"…","escenarios":[{"titulo":"…","ruta":"…","a1":"…","a3":"…","a5":"…","que_necesita":"…","senal":"…"}],"padres":"…","orientador":{"resumen":"…","fortalezas":["…"],"tensiones":["…"],"preguntas":["…"]}}';
+}
+
+async function detalleError(r) {
+  try { const e = (await r.json()).error || {}; return ' (' + String(e.type || '').slice(0, 40) + ': ' + String(e.message || '').slice(0, 160) + ')'; } catch (x) { return ''; }
 }
 
 function extraerJSON(texto) {
@@ -156,7 +160,7 @@ export async function manejarOrientacion(request, env) {
   } catch (e) {
     return responder({ ok: false, error: 'No hubo conexión con la IA.' }, request, env, 502);
   }
-  if (!r.ok) return responder({ ok: false, error: 'La IA respondió con error ' + r.status + '.' }, request, env, 502);
+  if (!r.ok) return responder({ ok: false, error: 'La IA respondió con error ' + r.status + (await detalleError(r)) + '.' }, request, env, 502);
   const respuesta = await r.json();
   const texto = ((respuesta.content || []).find((b) => b.type === 'text') || {}).text || '';
   const j = extraerJSON(texto);
