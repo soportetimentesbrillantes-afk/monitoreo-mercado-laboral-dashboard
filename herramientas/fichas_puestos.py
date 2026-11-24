@@ -155,7 +155,10 @@ def mercado(g, habs):
     # contarlo inflaría la habilidad que le da nombre. Las blandas del
     # diccionario se infieren del título, así que aquí no se usan: las da el panel.
     if habs and nd:
-        out['habilidades_tecnicas'] = [dict(x, pct=pct(x['menciones'], nd)) for x in contar_menciones(gd['_desc'], habs['tecnicas'])[:6]]
+        # "claves": las palabras con que el diccionario reconoce la habilidad, para
+        # que el filtro ATS de comparar-cvs.html busque lo mismo que la corrida.
+        out['habilidades_tecnicas'] = [dict(x, pct=pct(x['menciones'], nd), claves=[k for k in habs['tecnicas'][x['skill']] if k.strip()][:8])
+                                       for x in contar_menciones(gd['_desc'], habs['tecnicas'])[:6]]
     est = g['ubicacion'].map(detectar_estado).dropna().value_counts()
     out['estados'] = [{'estado': e, 'vacantes': int(v)} for e, v in est.head(5).items()]
     tit = g['titulo_puesto'].fillna('').str.strip()

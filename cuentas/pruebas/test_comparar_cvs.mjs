@@ -155,6 +155,35 @@ await prueba('pasa quien tiene lo indispensable y el mínimo de deseables; a man
   await ctx.close();
 });
 
+await prueba('con la ficha, el filtro ya trae las palabras de la corrida y pasan los CVs de contadores', async () => {
+  const { p, ctx } = await abrir();
+  await p.waitForSelector('#fp_sector');
+  await p.selectOption('#fp_sector', 'Finanzas'); await p.selectOption('#fp_puesto', 'contador');
+  await p.click('#fp_usar');
+  await p.goto(BASE + '/comparar-cvs.html#cvs'); await p.click('#btnEjemplo');
+  await p.goto(BASE + '/comparar-cvs.html#ats');
+  cierto((await p.inputValue('#a_obl')).includes('contab*') && (await p.inputValue('#a_des')).includes('fiscal*'), 'palabras de la ficha');
+  const filas = await p.$$eval('table tbody tr', (xs) => xs.map((r) => r.cells[0].textContent + ':' + r.cells[4].textContent.slice(0, 8)));
+  igual(filas.filter((f) => f.includes(':Pasa')).length, 5, filas.join(' | '));
+  cierto(filas.some((f) => f.startsWith('CV-04:No pasa')), 'el ingeniero de producción no pasa');
+  await ctx.close();
+});
+
+await prueba('vacantes rellenadas con la versión anterior se corrigen solas; si no pasa nadie, dice por qué', async () => {
+  const { p, ctx } = await abrir();
+  await p.waitForSelector('#fp_sector');
+  await p.selectOption('#fp_sector', 'Finanzas'); await p.selectOption('#fp_puesto', 'contador'); await p.click('#fp_usar');
+  await p.goto(BASE + '/comparar-cvs.html#cvs'); await p.click('#btnEjemplo');
+  await p.evaluate(() => { const S = JSON.parse(localStorage.getItem('cmb_comparar_cvs_v1')); S.ats = { obligatorias: '', deseables: 'contabilidad fiscal\nfinanciera\nnormativa contable', umbral: 40, finalistas: 6 }; localStorage.setItem('cmb_comparar_cvs_v1', JSON.stringify(S)); });
+  await p.goto(BASE + '/comparar-cvs.html#ats'); await p.reload();
+  await p.waitForFunction(() => (document.getElementById('a_obl') || {}).value?.includes('contab*'));
+  igual(await p.inputValue('#a_umbral'), '25');
+  await p.fill('#a_obl', 'cocina*'); await p.dispatchEvent('#a_obl', 'change');
+  const t = await p.textContent('#avisoPocos');
+  cierto(t.includes('Ningún CV pasa') && t.includes('«cocina*» no está en 6 de 6'), t);
+  await ctx.close();
+});
+
 console.log('\nComparación y reporte');
 await prueba('sin la casilla no se compara; con ella, cada par en los dos órdenes y solo CVs anónimos', async () => {
   const { p, ctx, pedidos } = await abrir();

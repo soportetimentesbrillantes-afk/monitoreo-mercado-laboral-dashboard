@@ -62,7 +62,7 @@ function catVacia(i){ return {id: 'c' + i, nombre: '', puntos: 20, porque: '', n
 function estadoNuevo(){
   return {version: 1, siguiente: 1,
     vacante: {puesto: '', contexto: '', fichaId: '', categorias: [1, 2, 3, 4, 5].map(catVacia), instrucciones: INSTRUCCIONES},
-    ats: {obligatorias: '', deseables: '', umbral: 40, finalistas: 6},
+    ats: {obligatorias: '', deseables: '', umbral: 25, finalistas: 6},
     cvs: [], duelos: {}, config: {dobleVuelta: true, acepto: false}, reporte: null};
 }
 let S;
@@ -102,6 +102,40 @@ function problemasVacante(){
   return out;
 }
 
+/* Palabras del filtro ATS a partir de la ficha. Primero, las habilidades que
+   la corrida contó en las descripciones de sus vacantes, con las mismas
+   palabras con que las reconoce el diccionario ("contab*|contador*|…"). Si la
+   ficha no trae, la raíz de las palabras importantes de las habilidades del
+   panel. Una frase exacta ("contabilidad fiscal") casi nunca aparece así en
+   un CV, y con eso no pasaba nadie. Indispensable solo se sugiere lo que pide
+   la gran mayoría de las vacantes (60 % o más). */
+const VACIAS = new Set('de del la las los el en con para por una uno unos unas que como sus ante sin sobre entre tipo segun mas menos muy otro otra otros otras alta bajo nivel conocimiento conocimientos manejo uso gestion sistema sistemas proceso procesos basico basica avanzado avanzada habilidad habilidades tecnica tecnicas mencionada menciones sector vacantes general generales herramientas'.split(' '));
+const raiz = w => w.length <= 4 ? w : w.slice(0, 6) + '*';
+function claveATS(k){
+  const t = norm(k).trim();
+  if(!t) return '';
+  return /\s$/.test(norm(k)) || t.length <= 3 ? t : t + '*';
+}
+function atsDeFicha(f){
+  // Solo habilidades que aparecen en al menos 10 % de sus vacantes: el
+  // diccionario es del sector y, con menos, se cuelan temas de otros puestos.
+  const hab = ((f.mercado || {}).habilidades_tecnicas || []).filter(h => (h.claves || []).length && h.pct >= 10);
+  const usadas = new Set();
+  const linea = h => { const c = [...new Set((h.claves || []).map(claveATS).filter(Boolean))].filter(x => !usadas.has(x)); c.forEach(x => usadas.add(x)); return c.join('|'); };
+  if(hab.length >= 2){
+    const obl = hab.filter(h => h.pct >= 60).slice(0, 1);
+    const o = obl.map(linea).join('\n');
+    return {obligatorias: o, deseables: hab.filter(h => !obl.includes(h)).slice(0, 6).map(linea).filter(Boolean).join('\n')};
+  }
+  const vistos = new Set();
+  const des = String(f.panel.habilidades_tecnicas || '').replace(/\([^)]*\)/g, ' ').split(/[,;.]|\sy\s|\s\/\s/).map(frase => {
+    const nuevas = [...new Set(norm(frase).split(/[^a-z0-9]+/).filter(w => w.length >= 4 && !VACIAS.has(w) && !/^\d+$/.test(w)).map(raiz))].filter(r => !vistos.has(r));
+    nuevas.forEach(r => vistos.add(r));
+    return nuevas.join('|');
+  }).filter(Boolean).slice(0, 8).join('\n');
+  return {obligatorias: '', deseables: des};
+}
+
 /* Desde una ficha de puesto: las competencias son las categorías. Los seis
    niveles se arman con los descriptores 1, 3 y 5 de la ficha. */
 function vacanteDeFicha(f){
@@ -118,7 +152,7 @@ function vacanteDeFicha(f){
     puesto: f.puesto, fichaId: f.id, categorias: cats, instrucciones: INSTRUCCIONES,
     contexto: f.panel.descripcion + '\nSector: ' + f.sector + '.\nLo que suele pedirse: ' + f.suele_pedir.escolaridad + ' ' + f.suele_pedir.experiencia +
       (lg ? '\nRequisito legal (se verifica aparte, no da puntos): ' + lg : '') + '\nLo que piden sus vacantes en el monitoreo del Club (referencia, no filtro):\n' + r,
-    atsDeseables: f.panel.habilidades_tecnicas.replace(/\([^)]*\)/g, '').split(/[,;.]| y /).map(x => x.trim().toLowerCase()).filter(x => x.length > 2 && x.length < 50).slice(0, 8).join('\n')
+    ats: atsDeFicha(f)
   };
 }
 
@@ -383,20 +417,20 @@ function htmlCat(c, i){
 }
 function fichaActual(){ return FP ? (FP.fichas.find(f => f.id === fichaSel) || FP.fichas[0]) : null; }
 function htmlFicha(){
-  const head = '<div><h2>¿De dónde partes?</h2><p class="muted small">Rellena la vacante con la ficha de un puesto (sus competencias se vuelven las categorías y sus habilidades las palabras del filtro ATS) o empieza en blanco. Todo queda editable.</p></div>';
+  const head = '<div><h2>¿De dónde partes?</h2><p class="muted small">Rellena la vacante con la ficha de un puesto (sus competencias se vuelven las categorías, y lo que piden sus vacantes, las palabras del filtro ATS) o empieza en blanco. Todo queda editable.</p></div>';
   if(!FP) return head + (fpError ? '<p class="aviso warn">No se pudieron cargar las fichas de puesto (' + esc(fpError) + '). Puedes llenar la vacante a mano.</p>' : '<p class="muted small">Cargando las fichas de puesto…</p>') + '<div class="acciones"><button class="btn" type="button" id="fp_blanco">Empezar en blanco</button></div>';
   const f = fichaActual(), secs = FPZ.sectores(FP); fichaSel = f.id;
   return head + '<div class="grid2"><div class="campo"><label for="fp_sector">Sector</label><select id="fp_sector">' + secs.map(([s]) => '<option' + (s === f.sector ? ' selected' : '') + '>' + esc(s) + '</option>').join('') + '</select></div>' +
     '<div class="campo"><label for="fp_puesto">Puesto</label><select id="fp_puesto">' + secs.find(x => x[0] === f.sector)[1].map(x => '<option value="' + esc(x.id) + '"' + (x.id === f.id ? ' selected' : '') + '>' + esc(x.puesto) + '</option>').join('') + '</select></div></div>' +
     '<p class="small"><strong>' + esc(f.puesto) + '.</strong> ' + esc(f.panel.descripcion) + ' <a href="fichas-puestos.html#' + esc(f.id) + '" target="_blank" rel="noopener">Ver la ficha</a></p>' +
-    (confirmaFicha ? '<p class="aviso warn">Esto reemplaza el puesto, el contexto, las categorías y las palabras deseables del filtro ATS. Las comparaciones hechas con el prompt anterior ya no contarán.</p><div class="acciones"><button class="btn pri" type="button" id="fp_si">Sí, reemplazar</button><button class="btn" type="button" id="fp_no">Cancelar</button></div>'
+    (confirmaFicha ? '<p class="aviso warn">Esto reemplaza el puesto, el contexto, las categorías y las palabras del filtro ATS. Las comparaciones hechas con el prompt anterior ya no contarán.</p><div class="acciones"><button class="btn pri" type="button" id="fp_si">Sí, reemplazar</button><button class="btn" type="button" id="fp_no">Cancelar</button></div>'
       : '<div class="acciones"><button class="btn pri" type="button" id="fp_usar">Rellenar con esta ficha</button><button class="btn" type="button" id="fp_blanco">Empezar en blanco</button></div>');
 }
 function vacanteVacia(){ const v = S.vacante; return !v.puesto.trim() && !v.contexto.trim() && v.categorias.every(c => !c.nombre.trim()); }
 function usarFicha(){
   const f = fichaActual(), d = vacanteDeFicha(f);
   Object.assign(S.vacante, {puesto: d.puesto, contexto: d.contexto, fichaId: d.fichaId, categorias: d.categorias, instrucciones: d.instrucciones});
-  S.ats.deseables = d.atsDeseables; S.reporte = null; confirmaFicha = false; guardar(); pVacante();
+  S.ats.obligatorias = d.ats.obligatorias; S.ats.deseables = d.ats.deseables; S.ats.deFicha = 2; S.cvs.forEach(c => { c.incluir = null; }); S.reporte = null; confirmaFicha = false; guardar(); pVacante();
 }
 function conectarFicha(){
   const b = $('#bandaFicha'), q = s => b.querySelector(s);
@@ -447,6 +481,17 @@ function pCVs(){
 }
 
 /* ---------- 3. Filtro ATS ---------- */
+function htmlPocos(res, pasan){
+  if(!S.cvs.length || pasan >= 2) return '';
+  const falta = {}, n = res.length;
+  res.forEach(({a}) => a.obl.filter(x => !x.si).forEach(x => { falta['i:' + x.k] = (falta['i:' + x.k] || 0) + 1; }));
+  const des = res.filter(({a}) => a.obl.every(x => x.si) && a.pct < (Number(S.ats.umbral) || 0)).length;
+  const top = Object.entries(falta).sort((x, y) => y[1] - x[1]).slice(0, 3).map(([k, v]) => '«' + k.slice(2) + '» no está en ' + v + ' de ' + n);
+  return '<p class="aviso warn" id="avisoPocos"><strong>' + (pasan ? 'Solo pasa 1 CV' : 'Ningún CV pasa') + '.</strong> ' +
+    (top.length ? 'Indispensables que faltan: ' + top.map(esc).join('; ') + '. Revisa si los CVs lo dicen con otras palabras y agrégalas con «|» o con * al final. ' : '') +
+    (des ? des + ' CV' + (des > 1 ? 's tienen' : ' tiene') + ' lo indispensable pero no llega' + (des > 1 ? 'n' : '') + ' al ' + S.ats.umbral + ' % de deseables: baja el porcentaje o quita deseables muy específicas. ' : '') +
+    'Para comparar se necesitan al menos 2.</p>';
+}
 function pATS(){
   const el = $('#v-ats'), res = S.cvs.map(c => ({c, a: ats(c)})), F = new Set(finalistas().map(c => c.id)), pasan = res.filter(x => x.a.entra).length;
   el.innerHTML = '<div class="banda"><div><h2>Filtro ATS</h2><p class="muted small">Sin IA: busca palabras en el texto del CV. Una por renglón; «a|b» acepta cualquiera de las dos y un * al final acepta variantes («contab*» cubre contable y contabilidad). Un ATS deja fuera a gente buena que escribe distinto: pide solo lo indispensable y revisa a los que no pasan.</p></div>' +
@@ -455,6 +500,7 @@ function pATS(){
       '<div class="grid2"><div class="campo"><label for="a_umbral">Porcentaje mínimo de deseables</label><input id="a_umbral" type="number" min="0" max="100" value="' + esc(S.ats.umbral) + '"></div>' +
       '<div class="campo"><label for="a_fin">Finalistas que pasan a la comparación (2 a ' + MAX_FINALISTAS + ')</label><input id="a_fin" type="number" min="2" max="' + MAX_FINALISTAS + '" value="' + esc(S.ats.finalistas) + '"></div></div>' +
       '<p class="small muted">Con ' + F.size + ' finalistas hay ' + (F.size * (F.size - 1) / 2) + ' pares' + (S.config.dobleVuelta ? ' y ' + F.size * (F.size - 1) + ' llamadas a la IA (cada par en los dos órdenes)' : '') + '.</p></div>' +
+    htmlPocos(res, pasan) +
     '<div class="banda"><div class="acciones" style="justify-content:space-between"><h2>' + pasan + ' de ' + S.cvs.length + ' pasan · ' + F.size + ' a la comparación</h2>' + (F.size >= 2 ? '<a class="btn pri" href="#comparacion">Siguiente: comparación →</a>' : '') + '</div>' +
       (S.cvs.length ? '<div class="tabla-c"><table><thead><tr><th>CV</th><th>Indispensables</th><th>Deseables</th><th style="min-width:140px">Coincidencia</th><th>Resultado</th><th class="c">Compara</th></tr></thead><tbody>' +
         res.map(({c, a}, i) => '<tr><td><strong>' + esc(c.id) + '</strong></td><td>' + (a.obl.length ? a.obl.map(x => '<span class="kw ' + (x.si ? 'si' : 'no') + '">' + esc(x.k) + '</span>').join('') : '<span class="muted small">—</span>') + '</td>' +
@@ -608,6 +654,18 @@ const EJEMPLOS = [
   ['Ricardo Gómez Salas', 'Ricardo Gómez Salas\nricardo.gs@correo.com · 55 9876 5432\nContador público (IPN, 2016), cédula.\nContador sr. en empresa de logística (2018–2026): contabilidad de 3 razones sociales, impuestos federales y locales, atención a revisiones del SAT (2 revisiones electrónicas cerradas sin crédito fiscal). Elaboro flujo de efectivo semanal para tesorería.\nAuxiliar contable (2016–2018).\nSAP, CONTPAQi, Excel avanzado.']
 ];
 
+/* Vacantes rellenadas antes del 2026-11-25 traen deseables con frases exactas
+   del panel ("contabilidad fiscal"), con las que casi no pasaba nadie. Si el
+   filtro sigue como lo dejó la ficha (sin indispensables ni * ni |), se
+   vuelve a llenar con las palabras de la corrida. */
+if(S.vacante.fichaId && S.ats.deFicha !== 2 && !S.ats.obligatorias.trim() && !/[*|]/.test(S.ats.deseables) && FPZ){
+  FPZ.cargar().then(d => {
+    const f = d.fichas.find(x => x.id === S.vacante.fichaId); if(!f) return;
+    const a = atsDeFicha(f); S.ats.obligatorias = a.obligatorias; S.ats.deseables = a.deseables; S.ats.deFicha = 2;
+    if(Number(S.ats.umbral) === 40) S.ats.umbral = 25;
+    guardar(); pintar();
+  }).catch(() => {});
+}
 pintar();
 window.__CMB_COMPARAR = {rangos, ocultar, nombresProbables, busca, resultados: () => resultados(), promptTexto};
 })();

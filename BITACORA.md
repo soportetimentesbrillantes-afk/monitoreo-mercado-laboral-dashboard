@@ -10,6 +10,26 @@ después.
 corrigió un error, describe también cómo se detectó — eso es lo que evita
 repetirlo.
 
+## 2026-11-25 — Comparación de CVs: con la ficha no pasaba ningún CV
+
+Gael reportó que en el filtro ATS no pasaba ningún CV. Causa: al rellenar con
+una ficha, las palabras deseables eran frases exactas del panel
+("contabilidad fiscal", "normativa contable"), que casi nunca aparecen así en
+un CV, y con 3 frases y un mínimo de 40 % bastaba fallar dos.
+
+- Ahora las palabras salen de lo que la corrida contó en las descripciones
+  de las vacantes del puesto (habilidades con 10 % o más), con las mismas
+  claves del diccionario: "fiscal*|impuest*|sat|iva|isr|tax". Lo que pide el
+  60 % o más se sugiere como indispensable. Sin datos de corrida, se usa la
+  raíz de las palabras del panel ("contab*|fiscal*").
+- `data/fichas_puestos.json` trae las `claves` de cada habilidad
+  (`herramientas/fichas_puestos.py`).
+- Porcentaje mínimo de deseables por omisión: 25 % (antes 40 %).
+- Si pasan menos de 2, un aviso dice qué indispensable falta en cuántos CVs y
+  cuántos se quedan por el porcentaje.
+- Lo guardado con la versión anterior se corrige solo al abrir la página, si
+  el filtro seguía como lo dejó la ficha.
+
 ## 2026-11-24 — "Síntesis de resultados" y el test vocacional más temprano en Ágora
 
 Gael pidió dos cambios:
