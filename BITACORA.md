@@ -10,6 +10,12 @@ después.
 corrigió un error, describe también cómo se detectó — eso es lo que evita
 repetirlo.
 
+## 2026-11-26 — Prueba de commits desde una sesión de Claude en la nube
+
+Se verificó que una sesión de Claude Code en la nube puede hacer commit y push
+en este repo. El commit va a la rama `claude/gracious-galileo-nor7o2`, no a
+`main`; no cambia nada del sitio, solo agrega esta entrada.
+
 ## 2026-11-25 — Comparación de CVs: con la ficha no pasaba ningún CV
 
 Gael reportó que en el filtro ATS no pasaba ningún CV. Causa: al rellenar con
