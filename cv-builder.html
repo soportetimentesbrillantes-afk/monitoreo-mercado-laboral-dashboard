@@ -98,6 +98,11 @@ button:disabled{opacity:.45;cursor:not-allowed;filter:grayscale(.3);}
 .chip input{margin:0;cursor:pointer;}
 .chip.on{background:#f7f1e2;border-color:var(--azul);font-weight:600;color:var(--azul-osc);}
 .chip .m{font-size:.72rem;color:var(--texto-suave);}
+/* enfoque del CV: industria / perfil / posición */
+.enfoque{border:0;padding:0;margin:18px 0 0;}
+.enfoque legend{font-weight:600;font-size:.92rem;margin-bottom:2px;padding:0;}
+.enfoque .chips{margin-top:8px;}
+.enfoque-campo{margin-top:12px;}
 .chip.on .m{color:var(--azul-osc);}
 
 /* ---------- checklist ---------- */
@@ -171,27 +176,41 @@ button:disabled{opacity:.45;cursor:not-allowed;filter:grayscale(.3);}
 
 <section class="step">
   <div class="step-badge">Paso 1</div>
-  <h2>¿A qué sector va dirigido tu CV?</h2>
-  <p class="note">Un mismo CV no sirve igual para todos los sectores. Al elegir uno, te mostramos las habilidades
-  que más piden las vacantes reales de ese sector, para que sepas cuáles conviene resaltar — si de verdad las tienes.</p>
+  <h2>¿A qué industria va dirigido tu CV?</h2>
+  <p class="note">Un mismo CV no sirve igual para todas las industrias. Al elegir una, te mostramos las habilidades
+  que más piden las vacantes reales de ese sector, para que sepas cuáles conviene resaltar — si de verdad las tienes.
+  El puesto es opcional: puedes dejar tu CV abierto a toda la industria.</p>
 
   <div class="card">
-    <div class="grid2">
-      <div>
-        <label for="sector">Sector</label>
-        <select id="sector"><option value="">Cargando sectores…</option></select>
+    <label for="sector">Industria</label>
+    <select id="sector"><option value="">Cargando sectores…</option></select>
+    <div class="note" id="catSugeridas"></div>
+
+    <fieldset class="enfoque">
+      <legend>¿Para qué puesto? <span class="opt">(opcional)</span></legend>
+      <div class="chips" role="radiogroup">
+        <label class="chip on"><input type="radio" name="enfoque" value="sector" checked> Toda la industria</label>
+        <label class="chip"><input type="radio" name="enfoque" value="perfil"> Un perfil de puesto</label>
+        <label class="chip"><input type="radio" name="enfoque" value="posicion"> Una posición concreta</label>
       </div>
-      <div>
-        <label for="puestoObjetivo">Puesto al que aspiras <span class="opt">(escribe el título tal como aparece en las vacantes)</span></label>
+      <div class="enfoque-campo note" id="campoSector">Tu CV queda abierto a varias vacantes de la industria, sin
+        un título de puesto arriba. Sirve para mandarlo a varias empresas o a bolsas de trabajo.</div>
+      <div class="enfoque-campo" id="campoPerfil" hidden>
+        <label for="fichaPuesto">Perfil de puesto <span class="opt">(los perfiles que estudiamos en esta industria)</span></label>
+        <select id="fichaPuesto"><option value="">Elige primero una industria</option></select>
+        <div class="note" id="fichaDetalle"></div>
+      </div>
+      <div class="enfoque-campo" id="campoPosicion" hidden>
+        <label for="puestoObjetivo">Posición a la que aspiras <span class="opt">(escribe el título tal como aparece en la vacante)</span></label>
         <input type="text" id="puestoObjetivo" placeholder="Ej. Ejecutivo de ventas junior">
-        <div class="note" id="catSugeridas"></div>
       </div>
-    </div>
+    </fieldset>
     <div class="hint">
       <strong>Por qué importa:</strong> el filtro automático compara tu CV palabra por palabra contra el
       anuncio de la vacante. Si la empresa busca "Ejecutivo de ventas" y tú pusiste "Asesor comercial
-      senior", el programa no los reconoce como lo mismo. Escribe el puesto tal como aparece publicado:
-      es de los cambios más sencillos que más te acercan.
+      senior", el programa no los reconoce como lo mismo. Si aplicas a una vacante concreta, elige
+      «Una posición concreta» y escribe el puesto tal como aparece publicado: es de los cambios más
+      sencillos que más te acercan.
     </div>
   </div>
 </section>
@@ -493,6 +512,9 @@ const LS_KEY = 'cmb_cv_builder_v1';
 
 let SECTORES = [];
 let SECTOR_DATA = null;
+let FICHAS = null;            // data/fichas_puestos.json (perfiles de puesto)
+let fichaPendiente = '';      // id de ficha guardado, a elegir en cuanto carguen las fichas
+let arrancado = false;        // true ya restaurado el borrador: antes no se guarda nada
 
 /* ---------------- verbos de acción (para la revisión local) ------------- */
 const VERBOS = ['logr','alcanc','super','coordin','lider','dirig','gestion','administr','implement','desarroll',
@@ -543,6 +565,67 @@ async function cargarDatosSector(key){
   }catch(e){ SECTOR_DATA = null; }
   pintarChips();
   pintarCategorias();
+  pintarFichas();
+}
+
+/* ---------------- enfoque: toda la industria, un perfil o una posición ---------------- */
+async function cargarFichas(){
+  if(FICHAS) return FICHAS;
+  try{
+    const r = await fetch('data/fichas_puestos.json', {cache:'no-store'});
+    FICHAS = ((await r.json()).fichas) || [];
+  }catch(e){ FICHAS = []; }
+  return FICHAS;
+}
+function enfoqueActual(){
+  const r = document.querySelector('input[name="enfoque"]:checked');
+  return r ? r.value : 'sector';
+}
+function fichaElegida(){
+  const id = $('fichaPuesto').value;
+  return id && FICHAS ? FICHAS.find(f => f.id === id) || null : null;
+}
+function ponerEnfoque(v){
+  const r = document.querySelector('input[name="enfoque"][value="'+v+'"]');
+  if(r) r.checked = true;
+  pintarEnfoque();
+}
+function pintarEnfoque(){
+  const v = enfoqueActual();
+  document.querySelectorAll('input[name="enfoque"]').forEach(r => r.closest('.chip').classList.toggle('on', r.checked));
+  $('campoSector').hidden = v !== 'sector';
+  $('campoPerfil').hidden = v !== 'perfil';
+  $('campoPosicion').hidden = v !== 'posicion';
+  if(v === 'perfil') cargarFichas().then(pintarFichas);
+}
+function pintarFichas(){
+  const sel = $('fichaPuesto');
+  if(!FICHAS){ return; }
+  const sector = $('sector').value;
+  const previo = fichaPendiente || sel.value;
+  const xs = FICHAS.filter(f => f.sector_clave === sector);
+  if(!sector) sel.innerHTML = '<option value="">Elige primero una industria</option>';
+  else if(!xs.length) sel.innerHTML = '<option value="">Aún no tenemos perfiles de esta industria</option>';
+  else sel.innerHTML = '<option value="">— Elige un perfil —</option>' +
+    xs.map(f => '<option value="'+esc(f.id)+'">'+esc(f.puesto)+'</option>').join('');
+  if(previo && xs.some(f => f.id === previo)){ sel.value = previo; fichaPendiente = ''; }
+  pintarDetalleFicha();
+  if(arrancado) actualizar();   // el título del CV depende del perfil
+}
+function pintarDetalleFicha(){
+  const f = fichaElegida(), box = $('fichaDetalle');
+  if(!f){ box.innerHTML = ''; return; }
+  const pn = f.panel || {}, sp = f.suele_pedir || {};
+  box.innerHTML = (pn.descripcion ? '<p style="margin:8px 0 4px;">'+esc(pn.descripcion)+'</p>' : '')
+    + (pn.habilidades_tecnicas ? '<div><strong>Habilidades técnicas:</strong> '+esc(pn.habilidades_tecnicas)+'</div>' : '')
+    + (sp.escolaridad ? '<div><strong>Suele pedir:</strong> '+esc(sp.escolaridad)+(sp.experiencia ? ' · '+esc(sp.experiencia) : '')+'</div>' : '');
+}
+/* El título que sale arriba del CV: el del perfil, el que escribió, o ninguno. */
+function puestoDelEnfoque(){
+  const v = enfoqueActual();
+  if(v === 'perfil'){ const f = fichaElegida(); return f ? f.puesto : ''; }
+  if(v === 'posicion') return $('puestoObjetivo').value.trim();
+  return '';
 }
 
 function pintarCategorias(){
@@ -680,7 +763,10 @@ function addCert(data){
 function recolectar(){
   const st = {
     sector: $('sector').value,
-    puestoObjetivo: $('puestoObjetivo').value.trim(),
+    enfoque: enfoqueActual(),
+    fichaId: $('fichaPuesto').value || fichaPendiente,
+    puestoTexto: $('puestoObjetivo').value.trim(),
+    puestoObjetivo: puestoDelEnfoque(),
     nombre: $('nombre').value.trim(),
     tel: $('tel').value.trim(),
     email: $('email').value.trim(),
@@ -754,8 +840,13 @@ function limpiarTodo(){
 function restaurar(){
   const st = leer();
   if(!st) { addExp(); addEdu(); addIdioma(); return; }
-  ['puestoObjetivo','nombre','tel','email','ciudad','linkedin','portafolio','perfil','habExtra']
+  ['nombre','tel','email','ciudad','linkedin','portafolio','perfil','habExtra']
     .forEach(k=>{ if($(k) && st[k]) $(k).value = st[k]; });
+  // Borradores de antes de 2026-11-26 no traen enfoque: si tenían puesto, era una posición.
+  const texto = st.enfoque ? (st.puestoTexto || '') : (st.puestoObjetivo || '');
+  if(texto) $('puestoObjetivo').value = texto;
+  fichaPendiente = st.fichaId || '';
+  ponerEnfoque(st.enfoque || (texto ? 'posicion' : 'sector'));
   (st.exp && st.exp.length ? st.exp : [{}]).forEach(addExp);
   (st.edu && st.edu.length ? st.edu : [{}]).forEach(addEdu);
   (st.idiomas && st.idiomas.length ? st.idiomas : [{}]).forEach(addIdioma);
@@ -779,9 +870,14 @@ function revisionLocal(st){
     ? 'Tu CV está dirigido a un sector en concreto.'
     : 'No has elegido sector. Sin eso tu CV sale genérico y le atina a menos vacantes.');
 
-  add(st.puestoObjetivo?'pass':'fail', st.puestoObjetivo
-    ? 'Ya dijiste a qué puesto le tiras.'
-    : 'Falta el puesto al que le quieres entrar. Escríbelo igual a como aparece publicado.');
+  // puesto: opcional. Abierto a toda la industria también cuenta como decisión.
+  if(st.enfoque === 'perfil') add(st.puestoObjetivo?'pass':'fail', st.puestoObjetivo
+    ? 'Tu CV apunta al perfil de '+st.puestoObjetivo+'.'
+    : 'Elegiste apuntar a un perfil de puesto, pero falta escogerlo en el Paso 1 (o deja tu CV abierto a toda la industria).');
+  else if(st.enfoque === 'posicion') add(st.puestoObjetivo?'pass':'fail', st.puestoObjetivo
+    ? 'Ya dijiste a qué posición le tiras.'
+    : 'Elegiste una posición concreta, pero falta escribirla. Ponla igual a como aparece en la vacante (o deja tu CV abierto a toda la industria).');
+  else if(st.sector) add('pass','Tu CV va abierto a toda la industria. Cuando apliques a una vacante concreta, puedes poner su título en el Paso 1.');
 
   // perfil
   const lp = st.perfil.length;
@@ -1136,6 +1232,8 @@ function aplicarExtraccion(d){
   set('nombre', d.nombre); set('tel', d.tel); set('email', d.email);
   set('ciudad', d.ciudad); set('linkedin', d.linkedin); set('portafolio', d.portafolio);
   set('puestoObjetivo', d.puestoObjetivo); set('perfil', d.perfil);
+  // Si su CV ya traía un título de puesto y no había elegido perfil, lo dejamos como posición.
+  if(puestos.includes('puestoObjetivo') && enfoqueActual() === 'sector') ponerEnfoque('posicion');
 
   const reemplazar = (contenedor, lista, agregar) => {
     if(!Array.isArray(lista) || !lista.length) return 0;
@@ -1263,7 +1361,7 @@ function registroDesdeFormulario(){
     telefono: v('tel') || contacto.telefono,
     ciudad: v('ciudad'),
     sector: sector,
-    puestoObjetivo: v('puestoObjetivo'),
+    puestoObjetivo: puestoDelEnfoque(),
     origenAnalisis: 'autollenado',
     caracteres: texto.length
   };
@@ -1389,6 +1487,8 @@ async function revisarConIA(){
 
 /* ---------------- arranque ---------------- */
 $('sector').addEventListener('change', e => { cargarDatosSector(e.target.value); actualizar(); });
+document.querySelectorAll('input[name="enfoque"]').forEach(r => r.addEventListener('change', () => { pintarEnfoque(); actualizar(); }));
+$('fichaPuesto').addEventListener('change', () => { fichaPendiente = ''; pintarDetalleFicha(); actualizar(); });
 ['puestoObjetivo','nombre','tel','email','ciudad','linkedin','portafolio','perfil','habExtra']
   .forEach(k => $(k).addEventListener('input', actualizar));
 
@@ -1432,7 +1532,9 @@ function recibirDeDiana(){
   if(!d) return;
   const sel = $('sector');
   if(d.sector && sel && !sel.value && [...sel.options].some(o => o.value === d.sector)){ sel.value = d.sector; cargarDatosSector(d.sector); }
-  if(d.puestoObjetivo && !$('puestoObjetivo').value.trim()) $('puestoObjetivo').value = d.puestoObjetivo;
+  if(d.puestoObjetivo && !$('puestoObjetivo').value.trim() && enfoqueActual() === 'sector'){
+    $('puestoObjetivo').value = d.puestoObjetivo; ponerEnfoque('posicion');
+  }
   if(d.perfil && !$('perfil').value.trim()) $('perfil').value = d.perfil;
 }
 /* Para que el paso "Crea tu CV" de DIANA sepa que ya se abrió la descarga. */
@@ -1448,6 +1550,7 @@ cargarSectores()
     try{ restaurar(); }catch(e){ console.warn('No se pudo restaurar el borrador:', e); }
     try{ recibirCVDeLaOtraPagina(); }catch(e){ console.warn('No se pudo recibir el CV previo:', e); }
     try{ recibirDeDiana(); }catch(e){ console.warn('No se pudo recibir lo de DIANA:', e); }
+    arrancado = true;
     try{ actualizar(); }catch(e){ console.warn('No se pudo actualizar la vista:', e); }
   });
 </script>

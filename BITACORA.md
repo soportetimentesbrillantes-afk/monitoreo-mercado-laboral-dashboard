@@ -10,6 +10,63 @@ después.
 corrigió un error, describe también cómo se detectó — eso es lo que evita
 repetirlo.
 
+## 2026-11-26 — Rastreo de convocatorias automático (Apps Script versión 2)
+
+Gael pidió automatizar el proceso del documento "Sistema de rastreo de
+convocatorias de fondeo". El tablero (`convocatorias.html`) ya seguía el
+flujo, pero todo dependía de que alguien entrara a buscar, registrar y
+revisar plazos. Ahora:
+
+- **Detección (pasos 1 y 3.2)**: cada mañana a las 7:00, `rastrearAutomatico`
+  lee los feeds RSS/Atom de la pestaña nueva **Alertas** (Google Alerts con
+  "Enviar a: Feed RSS", agregadores) y el correo del Club con la etiqueta de
+  Gmail **Convocatorias** (boletines). Lo que parezca convocatoria y no esté
+  ya (mismo enlace o mismo nombre) entra como "Detectada", con marca *Auto*.
+  Propone área temática, fecha de cierre y monto si vienen en el texto; el
+  equipo los confirma. Solo toma fechas ligadas a "cierre / fecha límite /
+  hasta el…" y montos con "$" o "pesos" (para no leer "5 mil jóvenes" como
+  dinero); en dólares no adivina.
+- **Filtro de plazo (4.1)**: lo que cierra en menos de 15 días desde la
+  detección se registra ya descartado, con motivo. Las que siguen en
+  Detectada o En evaluación y ya cerraron se descartan solas.
+- **Paso 2 en la página**: al marcar los filtros, la ficha pasa sola a "En
+  evaluación" (pasa los cuatro) o a "Descartada" con el motivo escrito (falla
+  uno). Si se corrige el filtro antes de guardar, se deshace sin dejar rastro
+  en el historial. Al pasar a Aplicando se llena la fecha límite interna
+  (5 días hábiles antes del cierre).
+- **Avisos (sección 5)**: en días hábiles a las 8:00, `avisoDiario` manda a
+  `CORREOS_AVISO` un resumen: nuevas, plazos vencidos, decisiones por tomar,
+  canales por revisar y fuentes con error. Si no hay nada, no manda correo.
+- **Página**: botón "Buscar ahora" (tablero y Canales), tabla de fuentes
+  automáticas con su estado, y aviso "Entró sola" en la ficha.
+
+**Para activarlo (lo hace la cuenta del Club):** pegar el `.gs` nuevo,
+correr `instalarAutomatizacion()` y autorizar; agregar la propiedad
+`CORREOS_AVISO`; pegar las URL de los feeds en la pestaña Alertas; y publicar
+una versión nueva de la implementación (la URL no cambia). Hasta entonces la
+página funciona igual que antes y "Buscar ahora" avisa que falta publicar.
+
+`convocatoriasmexico.com/feed/` queda precargado pero apagado: desde aquí no
+se pudo comprobar que exista. Hay que probarlo antes de activarlo.
+
+Pruebas: `cuentas/pruebas/test_convocatorias.mjs` (14, antes 8).
+
+## 2026-11-26 — Arma tu CV: el puesto es opcional, basta la industria
+
+Gael pidió que el CV se pueda dirigir solo a una industria. En el Paso 1
+se elige la industria y luego, de forma opcional:
+
+- **Toda la industria** (por omisión): sin título de puesto en el CV. La
+  revisión ya no lo marca como falla.
+- **Un perfil de puesto**: lista los perfiles de esa industria de
+  `data/fichas_puestos.json`, muestra qué piden y pone su nombre como título.
+- **Una posición concreta**: el texto libre de antes.
+
+Los borradores guardados antes de este cambio abren como "posición" si
+tenían puesto. Lo que llega de DIANA o del CV que se sube también entra como
+posición, salvo que ya se hubiera elegido un perfil. Pruebas:
+`cuentas/pruebas/test_cv_enfoque.mjs` (13).
+
 ## 2026-11-26 — Prueba de commits desde una sesión de Claude en la nube
 
 Se verificó que una sesión de Claude Code en la nube puede hacer commit y push

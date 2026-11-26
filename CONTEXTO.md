@@ -26,7 +26,7 @@ El sitio se sirve con GitHub Pages desde este repositorio:
 | Archivo | Qué es |
 |---|---|
 | `index.html` | Tu CV frente al mercado laboral. Diagnostica un CV, recomienda vacantes y cursos. |
-| `cv-builder.html` | Arma tu CV. Constructor guiado paso a paso. |
+| `cv-builder.html` | Arma tu CV. Constructor guiado paso a paso; se dirige a una industria y, opcional, a un perfil o a una posición. |
 | `comparativo.html` | Dashboard que cruza indicadores entre los nueve sectores, con idiomas, carreras y nivel educativo que piden las vacantes (de la descripción de Adzuna). |
 | `boletines.html` | Índice de boletines publicados, con buscador por fecha y por texto. |
 | `disc.html` | Tu estilo de trabajo, versión corta: cuestionario DISC propio de 24 bloques. |
@@ -43,7 +43,7 @@ El sitio se sirve con GitHub Pages desde este repositorio:
 | `fichas-puestos.html`, `fichas-puestos.js` | Fichas de los 60 puestos del panel: lo que piden sus vacantes en la corrida, lo que dijo el panel y una rúbrica con matriz de métodos y guías. Lee `data/fichas_puestos.json` (lo arma `herramientas/fichas_puestos.py`). `fichas.html` enlaza cada puesto a su ficha. |
 | `comparar-cvs.html`, `comparar-cvs.js` | Comparación de CVs: prompt de la vacante (categorías con puntos y seis niveles, desde una ficha o en blanco), CVs sin identidad (PDF, Word o texto), filtro ATS por palabras clave, duelos por pares con IA (cada par en los dos órdenes), ranking por duelos ganados y reporte. Los finalistas pasan a Selección Justa. |
 | `worker-calificar.js`, `worker-orientacion.js`, `worker-comparar.js`, `worker-ia.js` | Rutas `/calificar-candidato`, `/orientacion-vocacional` y `/comparar-cvs`. Van juntas en el Worker aparte `cmb-ia` (`https://cmb-ia.soportetimentesbrillantes.workers.dev`), no en `cv-analisis`: `worker-ia.js` es el archivo único que se pega, armado con `node herramientas/armar_worker_ia.mjs`. Instrucciones en `INSTALAR-WORKER-IA.txt`. Se enganchan en su `fetch()`; usan la misma `ANTHROPIC_API_KEY`. Reciben datos sin nombre ni contacto y no guardan nada. |
-| `convocatorias.html` | Rastreo de convocatorias de fondeo del equipo; guarda en una hoja por `cuentas/apps-script-convocatorias.gs`. |
+| `convocatorias.html` | Rastreo de convocatorias de fondeo del equipo; guarda en una hoja por `cuentas/apps-script-convocatorias.gs`, que además busca convocatorias solas cada mañana y manda el resumen diario. |
 | `informe.html` | Documento ejecutivo integral: DISC + FODA + plan de acción; lo del orientador se escribe, no se calcula. |
 | `disc-interpretacion.js` | La interpretación DISC de Ágora, compartida por las tres páginas anteriores. Excepción a "páginas autocontenidas". |
 | `compartir-club.js` | La opción de compartir DISC, FODA y test vocacional con el Club (casilla sin marcar) y el envío del expediente Ágora. Apunta a la aplicación web del Apps Script (`URL_CLUB`, publicada el 2026-10-28 desde la cuenta del Club); en localhost no manda nada. |
