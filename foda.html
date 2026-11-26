@@ -243,6 +243,7 @@
     <p class="note solo-suelto">Tu FODA entra tal cual en <a href="informe.html">tu informe</a>, junto con tu perfil DISC y tu plan de acción. Si lo llevas a <a href="index.html">Tu CV frente al mercado</a>, usa las fortalezas con ejemplo concreto para los logros del CV, y las debilidades que sean habilidades para buscar un curso del catálogo del Club.</p>
   </div>
 
+  <div id="cuentaFoda" class="no-imprimir"></div>
   <div id="compartirFoda" class="no-imprimir"></div>
 
   <div id="impresion" aria-hidden="true">
@@ -255,12 +256,13 @@
       <div class="q" id="impA"><h2>Amenazas</h2><div class="cuerpo"></div></div>
     </div>
     <div class="paso" id="impPaso"></div>
-    <p class="pie">Hecho con la herramienta de FODA del Club de Mentes Brillantes. Lo escrito es del autor; el Club no lo recibe ni lo guarda.</p>
+    <p class="pie">Hecho con la herramienta de FODA del Club de Mentes Brillantes. Lo escrito es del autor; el Club solo lo guarda si su autor lo guarda en su cuenta o lo comparte.</p>
   </div>
 
 </main>
 
 <script src="compartir-club.js"></script>
+<script src="cuenta-registros.js"></script>
 <script>
 /* =============================== EL FODA ===============================
 
@@ -562,6 +564,23 @@ function idFoda(){
   return id;
 }
 function pintarCompartir(){
+  // Guardar en mi cuenta: el FODA tal como está ahora; el mismo id lo actualiza.
+  if(typeof REGISTROS !== 'undefined') REGISTROS.pintar(document.getElementById('cuentaFoda'), {
+    tipo: 'foda',
+    registro: () => {
+      const d = leer();
+      if(!hayAlgo(d)) return null;
+      const n = k => renglones(d[k]).length;
+      return {
+        id: idFoda(),
+        titulo: 'Análisis FODA',
+        resumen: [['F','fortaleza','fortalezas'], ['O','oportunidad','oportunidades'], ['D','debilidad','debilidades'], ['A','amenaza','amenazas']]
+          .map(([k, uno, varios]) => n(k) + ' ' + (n(k) === 1 ? uno : varios)).join(', ') +
+          (renglones(d.paso).length ? '. Siguiente paso: ' + renglones(d.paso)[0].slice(0, 120) : ''),
+        datos: {F: d.F, D: d.D, O: d.O, A: d.A, paso: d.paso, estiloDisc: estiloDominante() || ''}
+      };
+    }
+  });
   if(typeof COMPARTIR === 'undefined') return;
   COMPARTIR.pintar(document.getElementById('compartirFoda'), {
     tipo: 'foda',

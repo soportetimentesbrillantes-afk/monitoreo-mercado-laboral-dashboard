@@ -10,6 +10,50 @@ después.
 corrigió un error, describe también cómo se detectó — eso es lo que evita
 repetirlo.
 
+## 2026-11-26 — DISC y FODA en la cuenta, y centro de control
+
+Gael pidió que el DISC y el FODA hechos sueltos se guarden en la cuenta de
+cada persona, con un centro de control para ver los registros pasados. Hasta
+hoy vivían solo en el navegador donde se hicieron.
+
+- **cuenta-registros.js** (nuevo): al final del DISC (las dos versiones, y
+  también dentro de Ágora) y del FODA aparece *Guardar en mi cuenta*. Usa la
+  misma sesión de `index.html` (`cmb_sesion`). Nada se guarda solo: hay que
+  tocar el botón. Sin sesión, la tarjeta invita a entrar
+  (`index.html?entrar=1`) y no manda nada.
+  - Cada DISC contestado trae id nuevo, así que queda como otro registro y se
+    puede comparar. El FODA usa su id por dispositivo: guardarlo otra vez lo
+    actualiza en vez de duplicarlo; "Borrar todo" suelta el id.
+  - Se guarda el resultado completo: puntajes, respuestas crudas, versión de
+    la clave y la lectura (dominante, empate o parejo) del DISC; los cuatro
+    cuadros y el siguiente paso del FODA.
+- **mi-centro.html** (nuevo), *Tu centro de control*: cifras, perfiles DISC
+  (detalle con tablero de Ágora y tabla "Cómo ha cambiado tu perfil" cuando
+  hay dos o más del cuestionario de Ágora), FODA, análisis de CV y vacantes
+  guardadas. Cada registro se puede ver y borrar (dos toques).
+- **index.html**: el panel *Mi cuenta* enlaza al centro de control y cuenta
+  los DISC y FODA guardados. `?entrar=1` abre el acceso (o el panel si ya hay
+  sesión) y, al entrar, muestra el panel.
+- **Worker de cuentas**: `POST /cuenta/registro` y
+  `POST /cuenta/registro/borrar`. Solo tipos `disc` y `foda`, id de letras y
+  números (máx. 40) y datos de hasta 40,000 caracteres (una celda de Sheets
+  aguanta 50,000). `GET /cuenta` trae ahora `registros`.
+- **Apps Script de cuentas**: pestaña `autoconocimiento_usuario` (uid, id,
+  tipo, fecha, actualizado, título, resumen, datos). Busca por uid **y** id,
+  así que nadie pisa ni borra el registro de otra persona aunque adivine el id.
+- **Aviso de privacidad**: párrafo "Guardar en su cuenta"; actualizado a
+  noviembre de 2026. Conviene que lo revise quien lleve lo legal del Club.
+
+**Para activarlo:** subir `cuentas/worker-cuentas.js` al Worker `cv-analisis`
+y pegar `cuentas/apps-script-cuentas.gs` en el script de la hoja de cuentas,
+con una versión nueva de la misma implementación. Las copias de la raíz
+(`worker-cuentas.js`, `apps-script-cuentas.gs`) son iguales. Mientras no se
+suban, el botón responde "No se pudo guardar ahora" y nada se pierde: el
+resultado sigue en el dispositivo.
+
+Pruebas: `cuentas/pruebas/test_centro.mjs` (10): la página habla con el Worker
+real y este con el Apps Script real sobre una hoja falsa.
+
 ## 2026-11-26 — Rastreo de convocatorias automático (Apps Script versión 2)
 
 Gael pidió automatizar el proceso del documento "Sistema de rastreo de

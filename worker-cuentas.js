@@ -288,6 +288,25 @@ async function conSesion(request, env, fn) {
   }
 }
 
+// ─────────────────────────── registros de autoconocimiento ───────────────────────────
+
+/* DISC y FODA guardados en la cuenta, para verlos después en el centro de
+   control (mi-centro.html). Cada registro trae su id: el mismo id actualiza el
+   mismo registro (un FODA corregido), uno nuevo agrega otro (un DISC contestado
+   otra vez). La hoja busca por uid Y id, así que nadie toca registros ajenos
+   aunque adivine un id. */
+const TIPOS_REGISTRO = ['disc', 'foda'];
+const MAX_DATOS_REGISTRO = 40000;   // una celda de Sheets aguanta 50,000 caracteres
+
+function validarRegistro(r) {
+  if (!r || typeof r !== 'object') return 'Falta el registro.';
+  if (!TIPOS_REGISTRO.includes(r.tipo)) return 'Tipo de registro desconocido.';
+  if (!/^[A-Za-z0-9_-]{1,40}$/.test(String(r.id || ''))) return 'El registro no trae un id válido.';
+  const datos = JSON.stringify(r.datos || {});
+  if (datos.length > MAX_DATOS_REGISTRO) return 'El registro es demasiado grande para guardarlo.';
+  return '';
+}
+
 // ─────────────────────────────── enrutador ───────────────────────────────
 
 export async function manejarCuentas(request, env) {
@@ -355,6 +374,29 @@ export async function manejarCuentas(request, env) {
           idCurso: String(cuerpo.idCurso || ''),
           estado: String(cuerpo.estado || ''),
         });
+        return responder({ ok: true }, request, env);
+      });
+
+    case 'POST /cuenta/registro':
+      return conSesion(request, env, async (s) => {
+        const r = cuerpo.registro;
+        const mal = validarRegistro(r);
+        if (mal) return error(mal, request, env);
+        const d = await hoja(env, 'guardar-registro', {
+          uid: s.uid,
+          registro: {
+            id: String(r.id), tipo: r.tipo,
+            titulo: String(r.titulo || '').slice(0, 120),
+            resumen: String(r.resumen || '').slice(0, 300),
+            datos: JSON.stringify(r.datos || {}),
+          },
+        });
+        return responder({ ok: true, actualizado: d.actualizado === true }, request, env);
+      });
+
+    case 'POST /cuenta/registro/borrar':
+      return conSesion(request, env, async (s) => {
+        await hoja(env, 'borrar-registro', { uid: s.uid, id: String(cuerpo.id || '') });
         return responder({ ok: true }, request, env);
       });
 

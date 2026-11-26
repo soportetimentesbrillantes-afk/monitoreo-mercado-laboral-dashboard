@@ -82,7 +82,7 @@ registradas.
    códigos vencidos para que no se acumulen hashes viejos.
 
 Las pestañas (`usuarios`, `codigos`, `cv_historial`, `vacantes_guardadas`,
-`cursos_usuario`) se crean solas la primera vez que se usan.
+`cursos_usuario`, `autoconocimiento_usuario`) se crean solas la primera vez que se usan.
 
 ### 2. Worker
 
@@ -127,6 +127,8 @@ medias.
 | `POST /cuenta/vacante` | Guarda o quita una vacante |
 | `POST /cuenta/curso` | Estado de un curso del catálogo |
 | `POST /cuenta/preferencias` | Activa o desactiva los avisos |
+| `POST /cuenta/registro` | `{registro:{id, tipo:'disc'\|'foda', titulo, resumen, datos}}` guarda o actualiza un DISC o un FODA |
+| `POST /cuenta/registro/borrar` | `{id}` borra uno de los registros de la persona |
 
 Todo lo que cuelga de `/cuenta` pide `Authorization: Bearer <token>`.
 

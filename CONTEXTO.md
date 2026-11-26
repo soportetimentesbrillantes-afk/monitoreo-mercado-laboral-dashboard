@@ -26,6 +26,7 @@ El sitio se sirve con GitHub Pages desde este repositorio:
 | Archivo | Qué es |
 |---|---|
 | `index.html` | Tu CV frente al mercado laboral. Diagnostica un CV, recomienda vacantes y cursos. |
+| `mi-centro.html`, `cuenta-registros.js` | Centro de control de la cuenta: DISC, FODA, análisis de CV y vacantes guardados. `cuenta-registros.js` pone «Guardar en mi cuenta» al final del DISC y del FODA. |
 | `cv-builder.html` | Arma tu CV. Constructor guiado paso a paso; se dirige a una industria y, opcional, a un perfil o a una posición. |
 | `comparativo.html` | Dashboard que cruza indicadores entre los nueve sectores, con idiomas, carreras y nivel educativo que piden las vacantes (de la descripción de Adzuna). |
 | `boletines.html` | Índice de boletines publicados, con buscador por fecha y por texto. |
