@@ -81,6 +81,16 @@ function altaEmpresa() {
     'Empresa: ' + r.nombre + '\n\nClave: ' + r.clave + '\n\nCópiala y entrégasela a la empresa por un canal privado. ' +
     'No se vuelve a mostrar: en la hoja solo queda su hash.\n\nLa empresa entra en ' + URL_SITIO + 'empleador.html', ui.ButtonSet.OK);
 }
+/* Sin menú (script que no está ligado a la hoja): escribe aquí el nombre y
+   el correo, elige altaEmpresaDesdeEditor arriba y dale a Ejecutar. La clave
+   sale en el Registro de ejecución, una sola vez. */
+var EMPRESA_NUEVA = { nombre: '', correo: '' };
+function altaEmpresaDesdeEditor() {
+  if (!EMPRESA_NUEVA.nombre.trim()) throw new Error('Escribe el nombre en EMPRESA_NUEVA (arriba de esta función) y guarda.');
+  var r = crearEmpresa_(EMPRESA_NUEVA.nombre.trim(), EMPRESA_NUEVA.correo.trim());
+  Logger.log('Empresa: ' + r.nombre + '\nClave: ' + r.clave + '\nCópiala ahora: no se vuelve a mostrar. La empresa entra en ' + URL_SITIO + 'empleador.html');
+}
+
 function nuevaClave() {
   var ui = SpreadsheetApp.getUi(), h = SpreadsheetApp.getActiveSheet();
   if (h.getName() !== 'Empresas' || h.getActiveRange().getRow() < 2) { ui.alert('Selecciona la fila de la empresa en la pestaña Empresas.'); return; }
@@ -320,7 +330,9 @@ function reenviarDisc_(ss, emp, d) {
 }
 
 /* ------------------------------ utilidades ------------------------------ */
-var HOJA_ID = '';   // vacío = la hoja a la que está ligado el script
+// Vacío = la hoja a la que está ligado el script. Si el script se creó aparte
+// (en script.google.com), pon aquí el ID de la hoja: lo que va entre /d/ y /edit en su dirección.
+var HOJA_ID = '';
 function libro_() { return HOJA_ID ? SpreadsheetApp.openById(HOJA_ID) : SpreadsheetApp.getActiveSpreadsheet(); }
 function hoja_(ss, nombre) {
   var h = ss.getSheetByName(nombre);
