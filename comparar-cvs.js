@@ -17,11 +17,24 @@
    5. Reporte: ranking por duelos ganados, tabla cara a cara, promedio por
       categoría y, con la IA, un reporte escrito. Los finalistas pueden pasar
       a Selección Justa.
+
+   MODO EMPLEADOR (empleador.html). Si la página define window.CMB_COMPARAR_MODO
+   antes de cargar este archivo, la vacante es de una empresa: el estado se
+   guarda con su propia llave, los CVs llegan de las postulaciones (no se
+   suben a mano) y cada uno puede traer el Perfil DISC del postulante. El DISC
+   es SOLO INFORMATIVO: no entra a los duelos ni al filtro, no mueve el
+   ranking; se muestra junto a cada CV y la IA lo comenta en el reporte.
+   Ganchos del modo (todos opcionales):
+     arranque()            true = no pintar todavía (la página decide cuándo)
+     trasVacante(el)       agrega lo suyo al final del paso 1
+     cvs(el)               reemplaza la carga manual del paso 2
+     trasReporte(el, R)    agrega lo suyo al final del paso 5
    ===================================================================== */
 (function(){
 'use strict';
 
-const LLAVE = 'cmb_comparar_cvs_v1';
+const MODO = window.CMB_COMPARAR_MODO || null;
+let LLAVE = 'cmb_comparar_cvs_v1';
 const NIVELES = ['Sobresaliente', 'Excelente', 'Sólido', 'Competente', 'En desarrollo', 'Insuficiente'];
 const CORTES = [.30, .55, .70, .85, .95];      // límites inferiores de En desarrollo … Sobresaliente
 const MAX_FINALISTAS = 10, MIN_PTS = 6, EMPATE = 2;
@@ -67,6 +80,17 @@ function estadoNuevo(){
 }
 let S;
 function cargar(){ try{ const g = JSON.parse(localStorage.getItem(LLAVE) || 'null'); if(g && g.vacante) return g; }catch(e){} return estadoNuevo(); }
+/* Modo empleador: cambia de vacante. `base` (vacante y filtro guardados en la
+   hoja) solo se usa si este navegador no tiene ya el estado de esa vacante. */
+function usar(llave, base){
+  LLAVE = llave; S = cargar();
+  if(!S.vacanteId && base){
+    if(base.vacante) S.vacante = Object.assign(S.vacante, copia(base.vacante));
+    if(base.ats) S.ats = Object.assign(S.ats, copia(base.ats));
+  }
+  S.vacanteId = S.vacanteId || (base && base.id) || '';
+  guardar(); pintar();
+}
 function guardar(){ try{ localStorage.setItem(LLAVE, JSON.stringify(S)); }catch(e){ avisoGuardado = true; } }
 let avisoGuardado = false;
 S = cargar();
@@ -232,14 +256,28 @@ async function textoDeArchivo(file){
   if(n.endsWith('.txt') || n.endsWith('.md')) return await leer(file, false);
   throw new Error('formato no soportado (usa PDF, Word .docx o texto)');
 }
-function agregarCV(texto, nombre, archivo){
+function agregarCV(texto, nombre, archivo, extra){
   const t = String(texto || '').trim();
   if(t.length < 80) return {error: 'tiene muy poco texto (¿es un PDF escaneado?)'};
   const o = ocultar(t, nombresProbables(t, nombre, archivo));
   const id = 'CV-' + String(S.siguiente++).padStart(2, '0');
-  S.cvs.push({id, texto: o.texto.slice(0, 10000), ocultos: o.ocultos, recortado: o.texto.length > 10000, incluir: null, forzado: null});
+  S.cvs.push(Object.assign({id, texto: o.texto.slice(0, 10000), ocultos: o.ocultos, recortado: o.texto.length > 10000, incluir: null, forzado: null}, extra || {}));
   return {id};
 }
+
+/* ======================= Perfil DISC (solo informativo) ======================= */
+/* cv.disc = {dominante, segundo, lectura, puntajes, fecha} cuando el
+   postulante contestó su DISC; {} cuando aún no. */
+const NOMBRE_DISC = {D: 'Dominancia', I: 'Influencia', S: 'Estabilidad', C: 'Cumplimiento'};
+function textoDisc(c){
+  const d = c && c.disc;
+  if(!d) return '';
+  if(!d.dominante) return 'DISC pendiente';
+  if(d.lectura === 'parejo') return 'DISC: factores parejos';
+  return 'DISC: ' + NOMBRE_DISC[d.dominante] + (d.segundo ? (d.lectura === 'empate' ? ' ≈ ' : ' / ') + NOMBRE_DISC[d.segundo] : '');
+}
+const pillDisc = c => { const t = textoDisc(c); return t ? '<span class="pill' + (c.disc.dominante ? ' disc' : '') + '" title="Estilo de trabajo autoinformado. Solo informativo: no cambia el ranking.">' + esc(t) + '</span>' : ''; };
+const hayDisc = () => S.cvs.some(c => c.disc);
 
 /* ======================= Filtro ATS ======================= */
 /* Una línea por palabra clave. "a|b" = cualquiera de las dos. Termina en *
@@ -361,6 +399,7 @@ function resultados(){
 const VISTAS = ['vacante', 'cvs', 'ats', 'comparacion', 'reporte'];
 const vista = () => { const h = location.hash.slice(1); return VISTAS.includes(h) ? h : 'vacante'; };
 function pintar(){
+  if(MODO && MODO.listo && !MODO.listo()) return;   // modo empleador sin vacante abierta
   const v = vista();
   VISTAS.forEach(x => { document.getElementById('v-' + x).hidden = x !== v; });
   document.querySelectorAll('nav.pasos a').forEach(a => a.setAttribute('aria-current', a.dataset.v === v ? 'page' : 'false'));
@@ -402,6 +441,7 @@ function pVacante(){
   $('#btnAgregarCat').onclick = () => { const n = Math.max(0, ...v.categorias.map(c => Number(c.id.slice(1)) || 0)) + 1; v.categorias.push(catVacia(n)); guardar(); pVacante(); };
   $('#btnCopiar').onclick = async () => { try{ await navigator.clipboard.writeText(promptTexto()); $('#btnCopiar').textContent = 'Copiado'; }catch(e){ $('#btnCopiar').textContent = 'Selecciona el texto y cópialo'; } };
   conectarFicha();
+  if(MODO && MODO.trasVacante) MODO.trasVacante(el);
   if(!FP && !fpError && FPZ) FPZ.cargar().then(d => { FP = d; repintarFicha(); }).catch(e => { fpError = e.message || 'sin conexión'; repintarFicha(); });
 }
 const htmlSuma = t => t === 100 ? 'Los puntos suman 100.' : '<span class="pill warn">Los puntos suman ' + t + '; deben sumar 100.</span>';
@@ -447,18 +487,15 @@ function repintarFicha(){ const b = $('#bandaFicha'); if(!b) return; b.innerHTML
 let msgCarga = '';
 function pCVs(){
   const el = $('#v-cvs');
+  if(MODO && MODO.cvs){ pCVsLista(el); MODO.cvs(el); return; }
   el.innerHTML = '<div class="banda"><div><h2>Agrega los CVs</h2><p class="muted small">PDF (con texto, no escaneado), Word .docx o texto. Se leen en tu navegador. Antes de guardarlos se ocultan nombre, correo, teléfono, enlaces, edad, fecha de nacimiento, domicilio, CURP, RFC, estado civil y género. Revisa cada uno: el filtro automático puede dejar pasar algo.</p></div>' +
       '<div class="grid2"><div class="campo"><label for="f_archivos">Archivos</label><input id="f_archivos" type="file" multiple accept=".pdf,.docx,.txt,.md"></div>' +
       '<div class="campo"><label for="f_nombre">Nombre de la persona del CV pegado (solo para ocultarlo; no se guarda)</label><input id="f_nombre" autocomplete="off"></div></div>' +
       '<div class="campo"><label for="f_pegar">O pega el texto de un CV</label><textarea id="f_pegar" rows="5"></textarea></div>' +
       '<div class="acciones"><button class="btn pri" type="button" id="btnPegar">Agregar CV pegado</button><button class="btn" type="button" id="btnEjemplo">Cargar 6 CVs de ejemplo (ficticios)</button>' + (S.cvs.length ? '<button class="btn" type="button" id="btnBorrarCVs">Quitar todos</button>' : '') + '</div>' +
       '<div id="msgCarga">' + msgCarga + '</div></div>' +
-    '<div class="banda"><div class="acciones" style="justify-content:space-between"><h2>' + S.cvs.length + ' CVs</h2>' + (S.cvs.length ? '<a class="btn pri" href="#ats">Siguiente: filtro ATS →</a>' : '') + '</div>' +
-      (S.cvs.length ? S.cvs.map((c, i) => '<div class="cv"><div class="cab"><strong>' + esc(c.id) + '</strong><span class="acciones"><span class="pill' + (c.ocultos ? ' acc' : '') + '">' + c.ocultos + ' datos ocultos</span>' + (c.recortado ? '<span class="pill warn">Recortado a 10,000 caracteres</span>' : '') +
-        '<button class="btn mini" type="button" data-ver="' + i + '">Ver y corregir</button><button class="btn mini" type="button" data-borrar="' + i + '">Quitar</button></span></div>' +
-        '<div class="small muted">' + conMarcas(c.texto.slice(0, 220)) + (c.texto.length > 220 ? '…' : '') + '</div>' +
-        '<div id="ed_' + i + '" hidden><textarea data-edita="' + i + '" rows="10" aria-label="Texto del ' + esc(c.id) + '">' + esc(c.texto) + '</textarea><p class="small muted">Borra a mano lo que todavía identifique a la persona. Los cambios se guardan solos.</p></div></div>').join('')
-      : '<p class="muted">Todavía no hay CVs.</p>') + '</div>';
+    htmlLista();
+  conectarLista(el);
   $('#f_archivos').onchange = async e => {
     const fs = [...e.target.files]; if(!fs.length) return;
     const out = [];
@@ -475,10 +512,22 @@ function pCVs(){
   };
   $('#btnEjemplo').onclick = () => { EJEMPLOS.forEach(([n, t]) => agregarCV(t, n, '')); msgCarga = '<p class="aviso">Se agregaron 6 CVs ficticios para una vacante de contador. Para probarlos, en el paso 1 elige la ficha Finanzas → Contador.</p>'; guardar(); pCVs(); };
   if($('#btnBorrarCVs')) $('#btnBorrarCVs').onclick = function(){ if(this.dataset.ok){ S.cvs = []; S.duelos = {}; S.reporte = null; guardar(); msgCarga = ''; pCVs(); } else { this.dataset.ok = '1'; this.textContent = 'Confirmar: quitar todos'; } };
+}
+function htmlLista(){
+  return '<div class="banda"><div class="acciones" style="justify-content:space-between"><h2>' + S.cvs.length + ' CVs</h2>' + (S.cvs.length ? '<a class="btn pri" href="#ats">Siguiente: filtro ATS →</a>' : '') + '</div>' +
+      (S.cvs.length ? S.cvs.map((c, i) => '<div class="cv"><div class="cab"><strong>' + esc(c.id) + '</strong><span class="acciones">' + pillDisc(c) + '<span class="pill' + (c.ocultos ? ' acc' : '') + '">' + c.ocultos + ' datos ocultos</span>' + (c.recortado ? '<span class="pill warn">Recortado a 10,000 caracteres</span>' : '') +
+        '<button class="btn mini" type="button" data-ver="' + i + '">Ver y corregir</button>' + (c.postId ? '' : '<button class="btn mini" type="button" data-borrar="' + i + '">Quitar</button>') + '</span></div>' +
+        '<div class="small muted">' + conMarcas(c.texto.slice(0, 220)) + (c.texto.length > 220 ? '…' : '') + '</div>' +
+        '<div id="ed_' + i + '" hidden><textarea data-edita="' + i + '" rows="10" aria-label="Texto del ' + esc(c.id) + '">' + esc(c.texto) + '</textarea><p class="small muted">Borra a mano lo que todavía identifique a la persona. Los cambios se guardan solos.</p></div></div>').join('')
+      : '<p class="muted">Todavía no hay CVs.</p>') + '</div>';
+}
+function conectarLista(el){
   el.querySelectorAll('[data-ver]').forEach(b => b.onclick = () => { const d = $('#ed_' + b.dataset.ver); d.hidden = !d.hidden; });
   el.querySelectorAll('[data-borrar]').forEach(b => b.onclick = () => { S.cvs.splice(Number(b.dataset.borrar), 1); guardar(); pCVs(); });
   el.querySelectorAll('[data-edita]').forEach(t => t.oninput = () => { S.cvs[Number(t.dataset.edita)].texto = t.value; guardar(); });
 }
+/* Modo empleador: solo la lista; la banda de arriba (postulaciones) la pone la página en #cvsModo. */
+function pCVsLista(el){ el.innerHTML = '<div id="cvsModo"></div>' + htmlLista(); conectarLista(el); }
 
 /* ---------- 3. Filtro ATS ---------- */
 function htmlPocos(res, pasan){
@@ -502,13 +551,13 @@ function pATS(){
       '<p class="small muted">Con ' + F.size + ' finalistas hay ' + (F.size * (F.size - 1) / 2) + ' pares' + (S.config.dobleVuelta ? ' y ' + F.size * (F.size - 1) + ' llamadas a la IA (cada par en los dos órdenes)' : '') + '.</p></div>' +
     htmlPocos(res, pasan) +
     '<div class="banda"><div class="acciones" style="justify-content:space-between"><h2>' + pasan + ' de ' + S.cvs.length + ' pasan · ' + F.size + ' a la comparación</h2>' + (F.size >= 2 ? '<a class="btn pri" href="#comparacion">Siguiente: comparación →</a>' : '') + '</div>' +
-      (S.cvs.length ? '<div class="tabla-c"><table><thead><tr><th>CV</th><th>Indispensables</th><th>Deseables</th><th style="min-width:140px">Coincidencia</th><th>Resultado</th><th class="c">Compara</th></tr></thead><tbody>' +
+      (S.cvs.length ? '<div class="tabla-c"><table><thead><tr><th>CV</th><th>Indispensables</th><th>Deseables</th><th style="min-width:140px">Coincidencia</th><th>Resultado</th><th class="c">Compara</th>' + (hayDisc() ? '<th>Estilo (informativo)</th>' : '') + '</tr></thead><tbody>' +
         res.map(({c, a}, i) => '<tr><td><strong>' + esc(c.id) + '</strong></td><td>' + (a.obl.length ? a.obl.map(x => '<span class="kw ' + (x.si ? 'si' : 'no') + '">' + esc(x.k) + '</span>').join('') : '<span class="muted small">—</span>') + '</td>' +
           '<td>' + (a.des.length ? a.des.map(x => '<span class="kw ' + (x.si ? 'si' : '') + '">' + esc(x.k) + '</span>').join('') : '<span class="muted small">—</span>') + '</td>' +
           '<td><div class="barra"><i style="width:' + a.pct + '%"></i></div><span class="num small">' + a.pct + ' %</span></td>' +
           '<td>' + (a.pasa ? '<span class="pill ok">Pasa</span>' : (a.entra ? '<span class="pill acc">Pasa a mano</span>' : '<span class="pill bad">No pasa</span>')) +
             (!a.pasa ? '<div class="campo" style="margin-top:6px"><label for="fz_' + i + '">Pasar a mano: razón</label><input id="fz_' + i + '" data-forzar="' + i + '" value="' + esc(c.forzado ? c.forzado.razon : '') + '" placeholder="Ej. dice «registros contables» en vez de contabilidad"></div>' : '') + '</td>' +
-          '<td class="c">' + (a.entra ? '<input type="checkbox" data-incluir="' + i + '"' + (F.has(c.id) ? ' checked' : '') + ' aria-label="Comparar ' + esc(c.id) + '">' : '') + '</td></tr>').join('') + '</tbody></table></div>'
+          '<td class="c">' + (a.entra ? '<input type="checkbox" data-incluir="' + i + '"' + (F.has(c.id) ? ' checked' : '') + ' aria-label="Comparar ' + esc(c.id) + '">' : '') + '</td>' + (hayDisc() ? '<td>' + (pillDisc(c) || '<span class="muted small">—</span>') + '</td>' : '') + '</tr>').join('') + '</tbody></table></div>'
         : '<p class="muted">Agrega CVs en el paso 2.</p>') +
       (F.size > MAX_FINALISTAS ? '<p class="aviso warn">Máximo ' + MAX_FINALISTAS + ' finalistas.</p>' : '') + '</div>';
   const cambio = () => { guardar(); pATS(); };
@@ -575,6 +624,13 @@ function resumenParaIA(R){
     out.push('- ' + p.x + ' vs ' + p.y + ': ' + (p.ganador === 'empate' ? 'empate' : 'gana ' + p.ganador) + ' (' + Math.round(p.tx) + '–' + Math.round(p.ty) + ')' + (p.inconsistente ? ', las dos vueltas no coincidieron' : '') + '. ' + (p.vueltas[0].razon || ''));
     p.vueltas[0].cats.forEach(c => { const n = (cats.find(k => k.id === c.id) || {}).nombre || c.id; if(c.ex || c.ey) out.push('  · ' + n + ': ' + p.x + ' «' + c.ex + '»; ' + p.y + ' «' + c.ey + '»'); });
   });
+  // DISC: solo informativo. Va al final para que la IA comente el ajuste de
+  // estilo con el puesto sin tocar el ranking (ver worker-comparar.js).
+  const porId = Object.fromEntries(S.cvs.map(c => [c.id, c]));
+  if(R.ranking.some(s => porId[s.id] && porId[s.id].disc)){
+    out.push('', 'ESTILO DE TRABAJO (Perfil DISC autoinformado por cada postulante; SOLO INFORMATIVO: no cambia el ranking, no es evidencia de capacidad y no sirve para descartar a nadie):');
+    R.ranking.forEach(s => { const c = porId[s.id]; out.push('- ' + s.id + ': ' + (c && c.disc && c.disc.dominante ? textoDisc(c).replace(/^DISC: /, 'estilo ') + (c.disc.lectura ? ' (' + c.disc.lectura + ')' : '') : 'no ha contestado el DISC')); });
+  }
   return out.join('\n').slice(0, 29000);
 }
 async function generarReporte(){
@@ -611,8 +667,8 @@ function pReporte(){
       '<div class="acciones no-imprimir"><button class="btn" type="button" id="btnImprimir">Imprimir</button></div></div>' +
       (!R.completos ? '<p class="aviso warn">Faltan duelos por comparar; el ranking puede cambiar.</p>' : '') +
       '<div class="k"><div class="cifra"><span class="lbl">CVs recibidos</span><b>' + S.cvs.length + '</b></div><div class="cifra"><span class="lbl">Pasaron el ATS</span><b>' + S.cvs.filter(c => ats(c).entra).length + '</b></div><div class="cifra"><span class="lbl">Finalistas</span><b>' + R.F.length + '</b></div><div class="cifra"><span class="lbl">Primer lugar</span><b>' + esc(top.id) + '</b></div></div></div>' +
-    '<div class="banda"><div><h2>Ranking</h2><p class="muted small">Por duelos ganados (empate = medio punto); si empatan, por el promedio de puntos de la rúbrica en sus duelos.</p></div><div class="tabla-c"><table id="tablaRanking"><thead><tr><th>#</th><th>CV</th><th class="c">Ganados</th><th class="c">Empates</th><th class="c">Perdidos</th><th class="c">Promedio /100</th>' + cats.map(c => '<th class="c">' + esc(c.nombre) + ' /' + c.puntos + '</th>').join('') + '</tr></thead><tbody>' +
-      R.ranking.map((s, i) => '<tr><td class="num">' + (i + 1) + '</td><td style="white-space:nowrap"><strong>' + esc(s.id) + '</strong></td><td class="c num">' + s.g + '</td><td class="c num">' + s.e + '</td><td class="c num">' + s.p + '</td><td class="c num">' + r1(s.promedio) + '</td>' + cats.map(c => '<td class="c num">' + r1(s.catProm[c.id]) + '</td>').join('') + '</tr>').join('') + '</tbody></table></div></div>' +
+    '<div class="banda"><div><h2>Ranking</h2><p class="muted small">Por duelos ganados (empate = medio punto); si empatan, por el promedio de puntos de la rúbrica en sus duelos.' + (hayDisc() ? ' El estilo DISC se muestra como información: no entra a los duelos ni cambia este orden.' : '') + '</p></div><div class="tabla-c"><table id="tablaRanking"><thead><tr><th>#</th><th>CV</th><th class="c">Ganados</th><th class="c">Empates</th><th class="c">Perdidos</th><th class="c">Promedio /100</th>' + cats.map(c => '<th class="c">' + esc(c.nombre) + ' /' + c.puntos + '</th>').join('') + (hayDisc() ? '<th>Estilo DISC (informativo)</th>' : '') + '</tr></thead><tbody>' +
+      R.ranking.map((s, i) => '<tr><td class="num">' + (i + 1) + '</td><td style="white-space:nowrap"><strong>' + esc(s.id) + '</strong></td><td class="c num">' + s.g + '</td><td class="c num">' + s.e + '</td><td class="c num">' + s.p + '</td><td class="c num">' + r1(s.promedio) + '</td>' + cats.map(c => '<td class="c num">' + r1(s.catProm[c.id]) + '</td>').join('') + (hayDisc() ? '<td>' + (pillDisc(S.cvs.find(x => x.id === s.id)) || '—') + '</td>' : '') + '</tr>').join('') + '</tbody></table></div></div>' +
     htmlMatriz(R) +
     '<div class="banda"><div><h2>Reporte escrito por la IA</h2><p class="muted small">La IA explica el ranking con la evidencia de los duelos; no lo cambia. Es una lectura para decidir a quién entrevistar, no una decisión de contratación.</p></div>' +
       (rep ? htmlReporteIA(rep) + (viejo ? '<p class="aviso warn">Los resultados cambiaron después de este reporte; vuelve a generarlo.</p>' : '') : '') +
@@ -634,12 +690,14 @@ function pReporte(){
   if($('#btnSJ')) $('#btnSJ').onclick = () => { let hay = false; try{ hay = !!localStorage.getItem('cmb_seleccion_justa_v2'); }catch(e){} if(hay){ confirmaSJ = true; pReporte(); } else llevar(); };
   if($('#sj_si')) $('#sj_si').onclick = llevar;
   if($('#sj_no')) $('#sj_no').onclick = () => { confirmaSJ = false; pReporte(); };
+  if(MODO && MODO.trasReporte) MODO.trasReporte(el, R);
 }
 function htmlReporteIA(r){
   const par = t => String(t || '').split(/\n+/).map(x => x.trim()).filter(Boolean).map(x => '<p>' + esc(x) + '</p>').join('');
   const ul = (t, a) => a && a.length ? '<div><span class="lbl">' + t + '</span><ul>' + a.map(x => '<li>' + esc(x) + '</li>').join('') + '</ul></div>' : '';
   return '<div class="texto" id="repTexto">' + par(r.resumen) + '</div>' +
-    (r.finalistas || []).map(f => '<div class="fin"><h3>' + esc(f.id) + '</h3>' + ul('Fortalezas', f.fortalezas) + ul('Riesgos', f.riesgos) + ul('Qué validar en la entrevista', f.validar) + '</div>').join('') +
+    (r.finalistas || []).map(f => '<div class="fin"><h3>' + esc(f.id) + '</h3>' + ul('Fortalezas', f.fortalezas) + ul('Riesgos', f.riesgos) + ul('Qué validar en la entrevista', f.validar) + (f.estilo ? '<div><span class="lbl">Estilo de trabajo (informativo)</span><p class="small" style="margin:4px 0 0">' + esc(f.estilo) + '</p></div>' : '') + '</div>').join('') +
+    (r.nota_estilo ? '<div class="aviso"><strong>Sobre el estilo DISC:</strong> ' + esc(r.nota_estilo) + '</div>' : '') +
     (r.comparacion ? '<div class="texto"><h3>En qué se distinguen</h3>' + par(r.comparacion) + '</div>' : '') +
     ((r.advertencias || []).length ? '<div class="aviso"><strong>Límites del análisis:</strong> ' + r.advertencias.map(esc).join(' ') + '</div>' : '');
 }
@@ -666,6 +724,8 @@ if(S.vacante.fichaId && S.ats.deFicha !== 2 && !S.ats.obligatorias.trim() && !/[
     guardar(); pintar();
   }).catch(() => {});
 }
-pintar();
+if(!(MODO && MODO.arranque && MODO.arranque())) pintar();
 window.__CMB_COMPARAR = {rangos, ocultar, nombresProbables, busca, resultados: () => resultados(), promptTexto};
+/* Para el modo empleador. */
+window.CMB_COMPARAR = {usar, pintar: () => pintar(), estado: () => S, guardar: () => guardar(), agregarCV, problemasVacante: () => problemasVacante(), promptTexto, textoDisc};
 })();

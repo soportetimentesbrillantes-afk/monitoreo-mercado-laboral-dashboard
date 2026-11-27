@@ -531,6 +531,8 @@ function pintarResultado(contenedor, p, opciones){
       '<div id="cursosSugeridos"><p class="note">Buscando en el catálogo del Club…</p></div>' +
     '</div>' +
 
+    '<div id="postulacionDisc" class="no-imprimir"></div>' +
+    '<div id="cuentaDisc" class="no-imprimir"></div>' +
     '<div id="compartirDisc"></div>' +
 
     (window.AGORA_EMBEBIDO
@@ -561,6 +563,30 @@ function pintarResultado(contenedor, p, opciones){
       id: o.compartir.id,
       datos: () => Object.assign({lectura}, o.compartir.datos())
     });
+  }
+  // Guardar en mi cuenta (cuenta-registros.js): el resultado completo, con su
+  // lectura, para verlo después en el centro de control.
+  if(typeof REGISTROS !== 'undefined' && o.compartir){
+    const lectura = plano ? 'parejo' : (empate ? 'empate' : 'dominante claro');
+    const resumen = plano ? 'Cuatro factores parejos'
+      : 'Dominante: ' + FACTORES[dom].nombre + (empate ? ', muy cerca de ' : '; segundo: ') + FACTORES[seg].nombre;
+    REGISTROS.pintar(contenedor.querySelector('#cuentaDisc'), {
+      tipo: 'disc',
+      registro: () => {
+        const d = o.compartir.datos();
+        return {
+          id: o.compartir.id(),
+          titulo: 'Perfil DISC' + (d.instrumento === 'bloques' ? ' (versión corta)' : ' (Ágora)'),
+          resumen,
+          datos: Object.assign({lectura, dominante: dom, segundo: seg}, d)
+        };
+      }
+    });
+  }
+  // Llegó desde una postulación de la bolsa de trabajo (postulacion-disc.js).
+  if(typeof POSTULACION_DISC !== 'undefined' && POSTULACION_DISC && o.compartir){
+    const lectura = plano ? 'parejo' : (empate ? 'empate' : 'dominante claro');
+    POSTULACION_DISC.pintar(contenedor.querySelector('#postulacionDisc'), () => Object.assign({lectura, dominante: dom, segundo: seg}, o.compartir.datos()));
   }
   if(o.alRepetir) contenedor.querySelector('#btnRepetir').onclick = o.alRepetir;
   if(o.alBorrar)  contenedor.querySelector('#btnBorrarDisc').onclick = o.alBorrar;

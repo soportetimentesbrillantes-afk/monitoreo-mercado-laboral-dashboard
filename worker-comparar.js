@@ -112,7 +112,10 @@ function mensajeReporte(d) {
     'RESULTADOS YA CALCULADOS (no los cambies):\n<resumen>\n' + sinEtiquetas(d.resumen) + '\n</resumen>\n\n' +
     'Escribe el reporte para quien contrata, en español de México, claro y sin jerga. El orden del ranking ya está decidido por los duelos: explícalo, no lo cambies. ' +
     'Cita la evidencia que viene en el resumen. No inventes datos de los candidatos. No recomiendes contratar a nadie sin la entrevista y las pruebas: recomienda a quiénes pasar a esa etapa y qué validar.\n' +
-    'Formato: {"resumen":"<2 o 3 párrafos>","finalistas":[{"id":"<id del CV>","fortalezas":["…"],"riesgos":["…"],"validar":["<qué preguntar o probar en la entrevista>"]}],"comparacion":"<1 o 2 párrafos: en qué se distinguen los primeros>","advertencias":["<límites del análisis>"]}';
+    (/ESTILO DE TRABAJO/.test(d.resumen)
+      ? 'El resumen trae el estilo DISC de los postulantes. Es autoinformado y SOLO INFORMATIVO: no cambia el ranking, no es evidencia de capacidad y no sirve para descartar a nadie. Para cada finalista con DISC escribe en "estilo" una o dos frases: qué aspectos del puesto encajan con ese estilo y qué apoyo o acuerdos le ayudarían, sin juzgar si "sirve" o no. Si no contestó el DISC, deja "estilo" vacío. En "nota_estilo" recuerda en una frase que el estilo no predice el desempeño y se usa para la integración.\n'
+      : '') +
+    'Formato: {"resumen":"<2 o 3 párrafos>","finalistas":[{"id":"<id del CV>","fortalezas":["…"],"riesgos":["…"],"validar":["<qué preguntar o probar en la entrevista>"],"estilo":"<solo si trae DISC>"}],"comparacion":"<1 o 2 párrafos: en qué se distinguen los primeros>","nota_estilo":"<solo si hay DISC>","advertencias":["<límites del análisis>"]}';
 }
 
 async function llamar(env, sistema, contenido, maxTokens) {
@@ -154,10 +157,12 @@ function limpiarDuelo(j, categorias) {
 function limpiarReporte(j) {
   return {
     resumen: largo(j.resumen, 4000),
-    finalistas: (Array.isArray(j.finalistas) ? j.finalistas : []).slice(0, 10).map((f) => ({
+    // "estilo" solo si la IA lo escribió (cuando el resumen trae el DISC de los postulantes).
+    finalistas: (Array.isArray(j.finalistas) ? j.finalistas : []).slice(0, 10).map((f) => Object.assign({
       id: corto(f && f.id, 20), fortalezas: lista(f && f.fortalezas, 5, 300), riesgos: lista(f && f.riesgos, 5, 300), validar: lista(f && f.validar, 5, 300),
-    })).filter((f) => f.id),
+    }, f && f.estilo ? { estilo: corto(f.estilo, 500) } : {})).filter((f) => f.id),
     comparacion: largo(j.comparacion, 3000),
+    ...(j.nota_estilo ? { nota_estilo: corto(j.nota_estilo, 400) } : {}),
     advertencias: lista(j.advertencias, 5, 300),
   };
 }

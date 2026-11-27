@@ -40,7 +40,8 @@ var PESTANAS = {
   codigos: 'codigos',
   historial: 'cv_historial',
   vacantes: 'vacantes_guardadas',
-  cursos: 'cursos_usuario'
+  cursos: 'cursos_usuario',
+  registros: 'autoconocimiento_usuario'
 };
 
 var ENCABEZADOS = {
@@ -49,7 +50,10 @@ var ENCABEZADOS = {
   historial: ['uid', 'fecha', 'sector', 'cobertura', 'diagnostico', 'habilidades', 'faltantes', 'origen'],
   vacantes:  ['uid', 'fecha', 'id_vacante', 'titulo', 'empresa', 'ubicacion',
               'salario_min', 'salario_max', 'fuente', 'url', 'sector', 'vigente'],
-  cursos:    ['uid', 'id_curso', 'estado', 'fecha']
+  cursos:    ['uid', 'id_curso', 'estado', 'fecha'],
+  // DISC y FODA guardados en la cuenta. "datos" es el resultado completo en
+  // JSON (puntajes y respuestas del DISC, los cuatro cuadros del FODA).
+  registros: ['uid', 'id', 'tipo', 'fecha', 'actualizado', 'titulo', 'resumen', 'datos']
 };
 
 // ───────────────────────────── infraestructura ─────────────────────────────
@@ -154,6 +158,8 @@ function doPost(e) {
       case 'guardar-vacante':      return respuesta(conCandado(function () { return guardarVacante(datos); }));
       case 'guardar-curso':        return respuesta(conCandado(function () { return guardarCurso(datos); }));
       case 'guardar-preferencias': return respuesta(conCandado(function () { return guardarPreferencias(datos); }));
+      case 'guardar-registro':     return respuesta(conCandado(function () { return guardarRegistro(datos); }));
+      case 'borrar-registro':      return respuesta(conCandado(function () { return borrarRegistro(datos); }));
       default:                     return respuesta({ ok: false, error: 'acción desconocida' });
     }
   } catch (err) {
@@ -387,8 +393,45 @@ function leerCuenta(d) {
     }),
     cursos: mias(PESTANAS.cursos, d.uid).map(function (f) {
       return { idCurso: f.id_curso, estado: f.estado, fecha: f.fecha };
-    })
+    }),
+    registros: mias(PESTANAS.registros, d.uid).map(function (f) {
+      var datos = {};
+      try { datos = JSON.parse(String(f.datos || '{}')); } catch (e) { datos = {}; }
+      return { id: String(f.id), tipo: String(f.tipo), fecha: f.fecha, actualizado: f.actualizado,
+        titulo: String(f.titulo || ''), resumen: String(f.resumen || ''), datos: datos };
+    }).reverse()
   };
+}
+
+/**
+ * Guarda un DISC o un FODA en la cuenta. Mismo uid y mismo id = se actualiza
+ * (conserva la fecha de alta); si no, es un registro nuevo. Se busca por los
+ * dos campos para que nadie pueda pisar el registro de otra persona.
+ */
+function guardarRegistro(d) {
+  var r = d.registro || {};
+  var existente = null;
+  mias(PESTANAS.registros, d.uid).forEach(function (f) {
+    if (String(f.id) === String(r.id)) existente = f;
+  });
+  var ahora = new Date();
+  var valores = [d.uid, String(r.id), String(r.tipo), existente ? existente.fecha : ahora, ahora,
+    textoSeguro(r.titulo), textoSeguro(r.resumen), String(r.datos || '{}')];
+  if (existente) {
+    pestana(PESTANAS.registros).getRange(existente._fila, 1, 1, valores.length).setValues([valores]);
+    return { ok: true, actualizado: true };
+  }
+  pestana(PESTANAS.registros).appendRow(valores);
+  return { ok: true, actualizado: false };
+}
+
+function borrarRegistro(d) {
+  var existente = null;
+  mias(PESTANAS.registros, d.uid).forEach(function (f) {
+    if (String(f.id) === String(d.id)) existente = f;
+  });
+  if (existente) pestana(PESTANAS.registros).deleteRow(existente._fila);
+  return { ok: true };
 }
 
 function guardarCV(d) {

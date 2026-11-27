@@ -10,6 +10,183 @@ después.
 corrigió un error, describe también cómo se detectó — eso es lo que evita
 repetirlo.
 
+## 2026-11-27 — Bolsa de trabajo conectada
+
+Gael publicó el Apps Script de la bolsa como aplicación web y pasó su URL; ya
+está en `bolsa.js` (`URL_BOLSA`). No se pudo probar desde la sesión de Claude
+(su red no llega a script.google.com). Falta dar de alta las empresas desde
+el menú «Bolsa del Club» de la hoja y volver a pegar `worker-ia.js` en
+`cmb-ia`. Las pruebas siguen usando su servidor falso: en localhost la URL
+real no se usa.
+
+## 2026-11-27 — Bolsa de trabajo: página del empleador y del postulante
+
+Gael pidió dos páginas: una para el empleador, como Comparación de CVs, donde
+los CVs lleguen solos conforme la gente se postula y cada uno traiga su
+Perfil DISC para ayudar a la IA a ver si el estilo de trabajo va con el
+puesto; y otra para el postulante, con las vacantes, para postularse con su
+CV y recibir por correo el DISC.
+
+**Decisiones de Gael** (se le preguntó antes de construir): el DISC es **solo
+informativo** —la IA lo comenta en el reporte, pero no entra a los duelos ni
+cambia el ranking— porque el documento de método y los creadores del DiSC
+desaconsejan usarlo para elegir; y cada empresa entra con una **clave** que
+da de alta el Club.
+
+- **vacantes.html** (nuevo): vacantes abiertas con búsqueda, ciudad y
+  modalidad; detalle y formulario (nombre, correo, teléfono, ciudad, CV en
+  PDF/Word/texto leído en el navegador, casilla de consentimiento que nombra
+  a la empresa). Al enviar, el Apps Script manda el correo con el enlace al
+  DISC y la página ofrece hacerlo ahí mismo. Quien ya tiene sesión en su
+  cuenta llega con nombre y correo puestos.
+- **empleador.html + empleador.js** (nuevos): la empresa entra con su clave,
+  ve sus vacantes (postulaciones y cuántas con DISC) y abre una. Sigue el
+  mismo flujo de Comparación de CVs, con tres cambios: en el paso 1, lo que
+  ve el postulante, el estado y «Publicar» (avisa si los requisitos piden
+  edad, sexo, estado civil o «buena presentación», LFT art. 133); en el
+  paso 2, las postulaciones llegan solas cada minuto, con el nombre oculto, y
+  se puede reenviar el correo del DISC; en el paso 5, «Contactar a los
+  finalistas» pide el contacto aparte y queda registrado.
+- **comparar-cvs.js**: modo empleador por ganchos (`CMB_COMPARAR_MODO`) para
+  no tener dos copias del flujo. Los CVs pueden traer `disc`: se ve como
+  etiqueta en la lista, una columna «Estilo (informativo)» en el filtro y
+  otra en el ranking. El resumen que va a la IA para el reporte termina con
+  «ESTILO DE TRABAJO … SOLO INFORMATIVO». Los duelos siguen recibiendo solo
+  el texto del CV. La página suelta funciona igual que antes.
+- **worker-comparar.js**: si el resumen trae estilos, el reporte agrega
+  `estilo` por finalista (qué del puesto encaja y qué apoyo le ayudaría, sin
+  juzgar si «sirve») y `nota_estilo`. Se volvió a armar `worker-ia.js`: hay
+  que pegarlo de nuevo en `cmb-ia`.
+- **postulacion-disc.js** (nuevo) en `disc-agora.html?postulacion=<token>`:
+  dice para qué vacante es y, al terminar, «Enviar a la empresa» manda el
+  resultado (puntajes, dominante, lectura y respuestas). Nada sale sin tocar
+  el botón.
+- **cuentas/apps-script-bolsa.gs** (nuevo), hoja propia con Empresas,
+  Vacantes y Postulaciones. Claves solo como hash con pimienta; menú «Bolsa
+  del Club» para dar de alta empresas y cambiar claves. La empresa nunca
+  recibe correo ni teléfono con las postulaciones; cada empresa ve solo lo
+  suyo; volver a postularse a la misma vacante actualiza el CV.
+- **Aviso de privacidad**: párrafo «Bolsa de trabajo».
+
+**Para activarlo:** instalar el Apps Script y poner su URL en `bolsa.js`
+(pasos en `cuentas/LEEME-bolsa.md`), dar de alta las empresas y volver a pegar
+`worker-ia.js`. Mientras `URL_BOLSA` esté vacía, las dos páginas dicen que la
+bolsa todavía no está conectada.
+
+Pruebas: `cuentas/pruebas/test_bolsa.mjs` (8) y una más en
+`test_comparar_cvs.mjs` (14): el reporte con DISC pide comentar el estilo sin
+cambiar el ranking. **Error de ayer detectado al correr las suites:**
+`test_compartir.mjs` revisaba que el aviso de privacidad dijera «Octubre de
+2026»; al actualizarlo a noviembre (entrada del 2026-11-26) dejó de pasar y no
+se corrió después del cambio. Ya revisa la fecha nueva.
+
+## 2026-11-26 — DISC y FODA en la cuenta, y centro de control
+
+Gael pidió que el DISC y el FODA hechos sueltos se guarden en la cuenta de
+cada persona, con un centro de control para ver los registros pasados. Hasta
+hoy vivían solo en el navegador donde se hicieron.
+
+- **cuenta-registros.js** (nuevo): al final del DISC (las dos versiones, y
+  también dentro de Ágora) y del FODA aparece *Guardar en mi cuenta*. Usa la
+  misma sesión de `index.html` (`cmb_sesion`). Nada se guarda solo: hay que
+  tocar el botón. Sin sesión, la tarjeta invita a entrar
+  (`index.html?entrar=1`) y no manda nada.
+  - Cada DISC contestado trae id nuevo, así que queda como otro registro y se
+    puede comparar. El FODA usa su id por dispositivo: guardarlo otra vez lo
+    actualiza en vez de duplicarlo; "Borrar todo" suelta el id.
+  - Se guarda el resultado completo: puntajes, respuestas crudas, versión de
+    la clave y la lectura (dominante, empate o parejo) del DISC; los cuatro
+    cuadros y el siguiente paso del FODA.
+- **mi-centro.html** (nuevo), *Tu centro de control*: cifras, perfiles DISC
+  (detalle con tablero de Ágora y tabla "Cómo ha cambiado tu perfil" cuando
+  hay dos o más del cuestionario de Ágora), FODA, análisis de CV y vacantes
+  guardadas. Cada registro se puede ver y borrar (dos toques).
+- **index.html**: el panel *Mi cuenta* enlaza al centro de control y cuenta
+  los DISC y FODA guardados. `?entrar=1` abre el acceso (o el panel si ya hay
+  sesión) y, al entrar, muestra el panel.
+- **Worker de cuentas**: `POST /cuenta/registro` y
+  `POST /cuenta/registro/borrar`. Solo tipos `disc` y `foda`, id de letras y
+  números (máx. 40) y datos de hasta 40,000 caracteres (una celda de Sheets
+  aguanta 50,000). `GET /cuenta` trae ahora `registros`.
+- **Apps Script de cuentas**: pestaña `autoconocimiento_usuario` (uid, id,
+  tipo, fecha, actualizado, título, resumen, datos). Busca por uid **y** id,
+  así que nadie pisa ni borra el registro de otra persona aunque adivine el id.
+- **Aviso de privacidad**: párrafo "Guardar en su cuenta"; actualizado a
+  noviembre de 2026. Conviene que lo revise quien lleve lo legal del Club.
+
+**Para activarlo:** subir `cuentas/worker-cuentas.js` al Worker `cv-analisis`
+y pegar `cuentas/apps-script-cuentas.gs` en el script de la hoja de cuentas,
+con una versión nueva de la misma implementación. Las copias de la raíz
+(`worker-cuentas.js`, `apps-script-cuentas.gs`) son iguales. Mientras no se
+suban, el botón responde "No se pudo guardar ahora" y nada se pierde: el
+resultado sigue en el dispositivo.
+
+Pruebas: `cuentas/pruebas/test_centro.mjs` (10): la página habla con el Worker
+real y este con el Apps Script real sobre una hoja falsa.
+
+## 2026-11-26 — Rastreo de convocatorias automático (Apps Script versión 2)
+
+Gael pidió automatizar el proceso del documento "Sistema de rastreo de
+convocatorias de fondeo". El tablero (`convocatorias.html`) ya seguía el
+flujo, pero todo dependía de que alguien entrara a buscar, registrar y
+revisar plazos. Ahora:
+
+- **Detección (pasos 1 y 3.2)**: cada mañana a las 7:00, `rastrearAutomatico`
+  lee los feeds RSS/Atom de la pestaña nueva **Alertas** (Google Alerts con
+  "Enviar a: Feed RSS", agregadores) y el correo del Club con la etiqueta de
+  Gmail **Convocatorias** (boletines). Lo que parezca convocatoria y no esté
+  ya (mismo enlace o mismo nombre) entra como "Detectada", con marca *Auto*.
+  Propone área temática, fecha de cierre y monto si vienen en el texto; el
+  equipo los confirma. Solo toma fechas ligadas a "cierre / fecha límite /
+  hasta el…" y montos con "$" o "pesos" (para no leer "5 mil jóvenes" como
+  dinero); en dólares no adivina.
+- **Filtro de plazo (4.1)**: lo que cierra en menos de 15 días desde la
+  detección se registra ya descartado, con motivo. Las que siguen en
+  Detectada o En evaluación y ya cerraron se descartan solas.
+- **Paso 2 en la página**: al marcar los filtros, la ficha pasa sola a "En
+  evaluación" (pasa los cuatro) o a "Descartada" con el motivo escrito (falla
+  uno). Si se corrige el filtro antes de guardar, se deshace sin dejar rastro
+  en el historial. Al pasar a Aplicando se llena la fecha límite interna
+  (5 días hábiles antes del cierre).
+- **Avisos (sección 5)**: en días hábiles a las 8:00, `avisoDiario` manda a
+  `CORREOS_AVISO` un resumen: nuevas, plazos vencidos, decisiones por tomar,
+  canales por revisar y fuentes con error. Si no hay nada, no manda correo.
+- **Página**: botón "Buscar ahora" (tablero y Canales), tabla de fuentes
+  automáticas con su estado, y aviso "Entró sola" en la ficha.
+
+**Para activarlo (lo hace la cuenta del Club):** pegar el `.gs` nuevo,
+correr `instalarAutomatizacion()` y autorizar; agregar la propiedad
+`CORREOS_AVISO`; pegar las URL de los feeds en la pestaña Alertas; y publicar
+una versión nueva de la implementación (la URL no cambia). Hasta entonces la
+página funciona igual que antes y "Buscar ahora" avisa que falta publicar.
+
+`convocatoriasmexico.com/feed/` queda precargado pero apagado: desde aquí no
+se pudo comprobar que exista. Hay que probarlo antes de activarlo.
+
+Pruebas: `cuentas/pruebas/test_convocatorias.mjs` (14, antes 8).
+
+## 2026-11-26 — Arma tu CV: el puesto es opcional, basta la industria
+
+Gael pidió que el CV se pueda dirigir solo a una industria. En el Paso 1
+se elige la industria y luego, de forma opcional:
+
+- **Toda la industria** (por omisión): sin título de puesto en el CV. La
+  revisión ya no lo marca como falla.
+- **Un perfil de puesto**: lista los perfiles de esa industria de
+  `data/fichas_puestos.json`, muestra qué piden y pone su nombre como título.
+- **Una posición concreta**: el texto libre de antes.
+
+Los borradores guardados antes de este cambio abren como "posición" si
+tenían puesto. Lo que llega de DIANA o del CV que se sube también entra como
+posición, salvo que ya se hubiera elegido un perfil. Pruebas:
+`cuentas/pruebas/test_cv_enfoque.mjs` (13).
+
+## 2026-11-26 — Prueba de commits desde una sesión de Claude en la nube
+
+Se verificó que una sesión de Claude Code en la nube puede hacer commit y push
+en este repo. El commit va a la rama `claude/gracious-galileo-nor7o2`, no a
+`main`; no cambia nada del sitio, solo agrega esta entrada.
+
 ## 2026-11-25 — Comparación de CVs: con la ficha no pasaba ningún CV
 
 Gael reportó que en el filtro ATS no pasaba ningún CV. Causa: al rellenar con

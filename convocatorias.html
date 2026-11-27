@@ -301,7 +301,7 @@ const LS_CLAVE = 'cmb_conv_clave', LS_AUTOR = 'cmb_conv_autor';
 const leerAlm = k => { try{ return sessionStorage.getItem(k) || localStorage.getItem(k) || ''; }catch(e){ return ''; } };
 let clave = leerAlm(LS_CLAVE), autor = leerAlm(LS_AUTOR);
 let puedeEscribir = true, dentro = false;
-let CONV = [], FUENTES = [], CANALES = [];
+let CONV = [], FUENTES = [], CANALES = [], ALERTAS = [], AUTO = {};
 let cargado = {c:false, f:false, k:false};
 const vistaFiltro = {estatus:'activas', area:'', cat:'', q:''};
 
@@ -361,16 +361,35 @@ function pTablero(){
         (a.canal ? '<button class="btn mini" type="button" data-revisado="' + esc(a.canal.id) + '">Marcar revisado hoy</button>' : '<button class="btn mini" type="button" data-abrir="' + esc(a.conv.id) + '">Abrir</button>') + '</div>').join('') + '</div>' +
         (avisos.length > 14 ? '<p class="muted" style="margin:8px 0 0">Y ' + (avisos.length - 14) + ' pendientes más.</p>' : '')
       : '<p class="muted" style="margin:0">' + (CONV.length ? 'Todo al día.' : 'Aquí aparecerán los plazos vencidos y las decisiones pendientes en cuanto registren la primera convocatoria.') + '</p>') + '</div>' +
+    lineaAuto() +
     '<div class="banda"><h2 style="margin-bottom:10px">Flujo</h2>' +
       (CONV.length ? '<div class="flujo">' + cols + '</div>' :
         '<div class="vacio" style="font-size:.95rem">Todavía no hay convocatorias registradas. Cuando alguien del equipo encuentre una, la registra con <strong>+ Registrar convocatoria</strong> (máximo 24 horas después de detectarla). Empieza por los <a href="#canales">canales de revisión</a> que tocan esta semana.</div>') +
     '</div>';
 }
+/* ===================== Rastreo automático (Apps Script, versión 2) ===================== */
+function lineaAuto(){
+  const activas = ALERTAS.filter(a => a.activa).length;
+  const txt = AUTO.ultima
+    ? 'Última búsqueda automática: ' + fCorta(AUTO.ultima) + ' · ' + esc(AUTO.resumen || '')
+    : (activas ? 'El rastreo automático aún no ha corrido.' : 'El rastreo automático no tiene fuentes activas.');
+  return '<div class="banda acciones" style="justify-content:space-between"><span class="muted" style="font-size:.88rem">' + txt + ' · <a href="#canales">Fuentes automáticas</a></span>' +
+    '<button class="btn mini" type="button" data-rastrear="1"' + (puedeEscribir ? '' : ' disabled') + '>Buscar ahora</button></div>';
+}
+function bandaAuto(){
+  return '<div class="banda grupo" id="bandaAuto"><div class="acciones" style="justify-content:space-between"><h2>Detección automática</h2><button class="btn mini" type="button" data-rastrear="1"' + (puedeEscribir ? '' : ' disabled') + '>Buscar ahora</button></div>' +
+    '<p class="muted" style="margin:0;font-size:.88rem">Cada mañana a las 7:00 se leen estas fuentes y el correo del Club con la etiqueta <strong>Convocatorias</strong>. Lo que parezca convocatoria y no esté registrado entra como <strong>Detectada</strong> (marca <span class="pill">Auto</span>), con área, cierre y monto propuestos si vienen en el texto. Las que cierran en menos de 15 días se descartan solas, igual que las que cierran sin pasar a Aplicando. En días hábiles a las 8:00 llega el resumen por correo.</p>' +
+    (ALERTAS.length ? '<div class="tabla-c"><table><thead><tr><th>Fuente</th><th>Estado</th><th>Última lectura</th><th>Nuevas</th></tr></thead><tbody>' +
+      ALERTAS.map(a => '<tr><td>' + esc(a.nombre) + '</td><td>' + (a.activa ? (a.error ? '<span class="pill bad">Error</span> <span class="muted" style="font-size:.8rem">' + esc(a.error) + '</span>' : '<span class="pill ok">Activa</span>') : a.conFeed ? '<span class="pill">Apagada</span>' : '<span class="pill warn">Falta la URL del feed</span>') + '</td><td>' + (a.ultima ? fCorta(a.ultima) : '—') + '</td><td class="num">' + (a.ultima ? a.nuevas : '—') + '</td></tr>').join('') +
+      '</tbody></table></div>' : '<p class="muted" style="margin:8px 0 0">Las fuentes automáticas aparecen aquí cuando se instala la versión 2 del Apps Script (pestaña Alertas de la hoja).</p>') +
+    '<p class="msg" id="msgRastreo"></p>' +
+    '<p class="muted" style="margin:6px 0 0;font-size:.82rem">Para agregar una Google Alert: créala en google.com/alerts, en «Mostrar opciones» elige <em>Enviar a: Feed RSS</em>, copia la URL del feed y pégala en la pestaña Alertas de la hoja con Activa = sí.</p></div>';
+}
 function cifra(t, n, d, cls){ return '<div class="cifra ' + (cls || '') + '"><span class="lbl">' + esc(t) + '</span><b>' + n + '</b><span class="muted" style="font-size:.8rem">' + esc(d) + '</span></div>'; }
 function tarjeta(c){
   return '<button class="tarjeta" type="button" data-abrir="' + esc(c.id) + '"><span class="n">' + esc(c.nombre || 'Sin nombre') + '</span>' +
     '<span class="meta"><span>' + esc(nombreFuente(c)) + '</span>' + (c.monto ? '<span class="num">' + pesos(c.monto) + '</span>' : '') + '</span>' +
-    '<span class="meta">' + pillCierre(c) + pillPuntaje(c) + '</span></button>';
+    '<span class="meta">' + (c.origen === 'automatico' ? '<span class="pill" title="Entró sola por el rastreo automático">Auto</span>' : '') + pillCierre(c) + pillPuntaje(c) + '</span></button>';
 }
 
 function pLista(){
@@ -425,7 +444,7 @@ function canalVencido(k){
 }
 function pCanales(){
   const el = document.getElementById('v-canales');
-  el.innerHTML = '<div class="banda grupo"><h2>Canales de revisión</h2>' +
+  el.innerHTML = bandaAuto() + '<div class="banda grupo"><h2>Canales de revisión</h2>' +
     (CANALES.length ? '<div class="tabla-c"><table><thead><tr><th>Canal</th><th>Frecuencia</th><th>Responsable</th><th>Qué buscar</th><th>Última revisión</th><th></th></tr></thead><tbody>' +
       CANALES.slice().sort((a, b) => (a.orden || 0) - (b.orden || 0)).map(k => { const v = canalVencido(k);
         return '<tr><td><strong>' + esc(k.nombre) + '</strong>' + (k.enlace ? '<br><a href="https://' + esc(k.enlace) + '" target="_blank" rel="noopener noreferrer" style="font-size:.82rem">' + esc(k.enlace) + '</a>' : '') + '</td><td>' + esc(k.frecuencia) + '</td><td>' + esc(k.responsable) + '</td><td>' + esc(k.queBuscar) + '</td>' +
@@ -460,7 +479,7 @@ function abrirFicha(id, fuenteId){
   const c = id ? CONV.find(x => x.id === id) : null;
   ficha = JSON.parse(JSON.stringify(c || nueva(fuenteId)));
   ficha.filtros = ficha.filtros || {}; ficha.puntaje = ficha.puntaje || {}; ficha.historia = ficha.historia || [];
-  fichaOriginal = JSON.stringify(ficha); confirmarBorrar = false;
+  fichaOriginal = JSON.stringify(ficha); confirmarBorrar = false; cambioAuto = null;
   pFicha();
 }
 function cerrarFicha(){ ficha = null; document.getElementById('capaPanel').innerHTML = ''; document.body.style.overflow = ''; }
@@ -474,6 +493,8 @@ function pFicha(){
   const fuentesOps = Object.entries(CATEGORIAS).map(([k, t]) => '<optgroup label="' + esc(t) + '">' + FUENTES.filter(f => f.categoria === k).map(f => '<option value="' + esc(f.id) + '"' + (c.fuenteId === f.id ? ' selected' : '') + '>' + esc(f.institucion) + ' · ' + esc(f.programa).slice(0, 40) + '</option>').join('') + '</optgroup>').join('');
   capa.innerHTML = '<div class="velo" id="velo"></div><aside class="panel" role="dialog" aria-modal="true" aria-labelledby="fichaTit">' +
     '<div class="cab"><div><span class="lbl">' + (c.id ? 'Convocatoria' : 'Nueva convocatoria') + '</span><h2 id="fichaTit">' + esc(c.nombre || 'Sin nombre') + '</h2></div><button class="btn" type="button" id="btnCerrar" aria-label="Cerrar">Cerrar</button></div>' +
+    (c.origen === 'automatico' ? '<div class="banda" style="margin:0 0 12px;font-size:.88rem"><strong>Entró sola</strong> el ' + fCorta(c.deteccion) + ' desde ' + esc(c.origenNombre || 'el rastreo automático') + '. Confirma el área, la fecha de cierre y el monto: se propusieron leyendo el texto.' +
+      (c.extracto ? '<p class="muted" style="margin:6px 0 0">' + esc(c.extracto) + '</p>' : '') + (c.link ? '<p style="margin:6px 0 0"><a href="' + esc(c.link) + '" target="_blank" rel="noopener noreferrer">Abrir la convocatoria</a></p>' : '') + '</div>' : '') +
     '<div class="campos">' +
       campo('c_nombre', 'Nombre de la convocatoria', inp('nombre', '', 'Ej. Jóvenes Innovadores 2026'), true) +
       campo('c_fuenteId', 'Fuente', '<select id="c_fuenteId" data-k="fuenteId"><option value="">Otra (escríbela abajo)</option>' + fuentesOps + '</select>') +
@@ -509,7 +530,7 @@ function pFicha(){
       campo('c_notas', 'Notas y retroalimentación', '<textarea id="c_notas" data-k="notas">' + esc(c.notas) + '</textarea>', true) +
     '</div></div>' +
     '<div class="seccion"><h3>Estatus</h3><div class="chips">' + ESTATUS.map(s => '<button type="button" class="chip" data-estatus="' + s + '" aria-pressed="' + (c.estatus === s) + '"' + (c.estatus === s ? ' style="background:var(--accent);color:var(--accent-ink);border-color:var(--accent)"' : '') + '>' + s + '</button>').join('') + '</div>' +
-      (c.historia.length ? '<div class="historia">' + c.historia.slice().reverse().map(h => '<span>' + fCorta(h.fecha) + ' · ' + esc(h.estatus) + (h.por ? ' · ' + esc(h.por) : '') + '</span>').join('') + '</div>' : '') +
+      (c.historia.length ? '<div class="historia">' + c.historia.slice().reverse().map(h => '<span>' + fCorta(h.fecha) + ' · ' + esc(h.estatus) + (h.por ? ' · ' + esc(h.por) : '') + (h.auto ? ' · por los filtros' : '') + '</span>').join('') + '</div>' : '') +
     '</div>' +
     '<div class="acciones" style="border-top:1px solid var(--line);padding-top:14px"><button class="btn pri" type="button" id="btnGuardar"' + (puedeEscribir ? '' : ' disabled') + '>' + (c.id ? 'Guardar cambios' : 'Registrar') + '</button>' +
       (c.id ? '<button class="btn peligro" type="button" id="btnBorrar">' + (confirmarBorrar ? 'Confirmar: borrar para siempre' : 'Borrar') + '</button>' : '') +
@@ -519,7 +540,7 @@ function pFicha(){
   capa.querySelector('#velo').onclick = intentarCerrar;
   capa.querySelector('#btnCerrar').onclick = intentarCerrar;
   capa.querySelectorAll('[data-k]').forEach(e => { e.addEventListener('input', alEditar); e.addEventListener('change', alEditar); });
-  capa.querySelectorAll('[data-filtro]').forEach(b => b.onclick = () => { const v = b.dataset.v === 'true'; ficha.filtros[b.dataset.filtro] = ficha.filtros[b.dataset.filtro] === v ? null : v; repintarFicha(); });
+  capa.querySelectorAll('[data-filtro]').forEach(b => b.onclick = () => { const v = b.dataset.v === 'true'; ficha.filtros[b.dataset.filtro] = ficha.filtros[b.dataset.filtro] === v ? null : v; estatusPorFiltros(); repintarFicha(); });
   capa.querySelectorAll('[data-crit]').forEach(b => b.onclick = () => { ficha.puntaje[b.dataset.crit] = b.dataset.v ? Number(b.dataset.v) : null; repintarFicha(); });
   capa.querySelectorAll('[data-estatus]').forEach(b => b.onclick = () => { cambiarEstatus(b.dataset.estatus); repintarFicha(); });
   capa.querySelector('#btnGuardar').onclick = guardarFicha;
@@ -530,7 +551,7 @@ let tRep = null;
 function alEditar(e){
   const k = e.target.dataset.k; ficha[k] = e.target.value;
   if(k === 'nombre') document.getElementById('fichaTit').textContent = ficha.nombre || 'Sin nombre';
-  if(['cierre','deteccion','monto','area','fuenteId'].includes(k) && e.type === 'change') repintarFicha();
+  if(['cierre','deteccion','monto','area','fuenteId'].includes(k) && e.type === 'change'){ if(k === 'cierre' || k === 'deteccion') estatusPorFiltros(); repintarFicha(); }
   else if(k === 'monto'){ clearTimeout(tRep); tRep = setTimeout(repintarFicha, 600); }
 }
 function cambiarEstatus(s){
@@ -538,6 +559,29 @@ function cambiarEstatus(s){
   ficha.estatus = s; ficha.desde = hoyISO();
   ficha.historia.push({estatus: s, fecha: new Date().toISOString(), por: autor || ''});
   if(s === 'Aplicada' && !ficha.envio) ficha.envio = hoyISO();
+  // Paso 5: fecha límite interna, 5 días hábiles antes del cierre oficial.
+  if(s === 'Aplicando' && !ficha.fechaInterna && ficha.cierre) ficha.fechaInterna = restarHabiles(ficha.cierre, 5);
+}
+/* Paso 2 del flujo, solo: si pasa los cuatro filtros pasa a "En evaluación";
+   si falla uno, a "Descartada" con el motivo. Si se corrige el filtro antes de
+   guardar, el cambio automático se deshace. */
+let cambioAuto = null;
+function estatusPorFiltros(){
+  const fe = filtrosEstado(ficha);
+  if(cambioAuto){
+    if((cambioAuto.a === 'En evaluación' && fe === 'si') || (cambioAuto.a === 'Descartada' && fe === 'no')) return;
+    if(ficha.estatus === cambioAuto.a){ ficha.estatus = cambioAuto.de; ficha.desde = cambioAuto.desde; ficha.historia.pop(); if(cambioAuto.motivo !== null) ficha.motivo = cambioAuto.motivo; }
+    cambioAuto = null;
+  }
+  if(ficha.estatus !== 'Detectada' || fe === 'pend') return;
+  const a = fe === 'si' ? 'En evaluación' : 'Descartada';
+  cambioAuto = {de: ficha.estatus, a, desde: ficha.desde, motivo: null};
+  cambiarEstatus(a);
+  ficha.historia[ficha.historia.length - 1].auto = true;
+  if(a === 'Descartada' && !String(ficha.motivo || '').trim()){
+    cambioAuto.motivo = ficha.motivo || '';
+    ficha.motivo = 'No pasa el filtro de elegibilidad: ' + FILTROS.filter(f => filtroValor(ficha, f.k) === false).map(f => f.t.toLowerCase()).join('; ') + '.';
+  }
 }
 function intentarCerrar(){
   if(JSON.stringify(ficha) !== fichaOriginal && puedeEscribir){
@@ -585,10 +629,21 @@ function mensajeError(c){
 
 /* ===================== Clics globales ===================== */
 document.addEventListener('click', async e => {
-  const t = e.target.closest('[data-abrir],[data-nueva-fuente],[data-revisado],[data-copiar]');
+  const t = e.target.closest('[data-abrir],[data-nueva-fuente],[data-revisado],[data-copiar],[data-rastrear]');
   if(!t) return;
   if(t.dataset.abrir) abrirFicha(t.dataset.abrir);
   else if(t.dataset.nuevaFuente) abrirFicha(null, t.dataset.nuevaFuente);
+  else if(t.dataset.rastrear){
+    document.querySelectorAll('[data-rastrear]').forEach(b => { b.disabled = true; b.textContent = 'Buscando…'; });
+    let r; try{ r = await api('rastrear'); }catch(err){ r = {ok:false, error:'red'}; }
+    const msg = document.getElementById('msgRastreo');
+    const txt = r.ok ? 'Listo: ' + r.resumen + '.' + (r.errores && r.errores.length ? ' Con error: ' + r.errores.join(' · ') : '')
+      : r.error === 'accion' ? 'Falta publicar la versión 2 del Apps Script para buscar desde aquí.' : 'No se pudo buscar (' + r.error + ').';
+    await recargar();
+    const m2 = document.getElementById('msgRastreo');
+    if(m2){ m2.className = 'msg ' + (r.ok ? 'bien' : 'mal'); m2.textContent = txt; } else if(msg){ msg.textContent = txt; }
+    if(!m2) setEstadoRed(txt, !r.ok);
+  }
   else if(t.dataset.revisado){
     t.disabled = true;
     try{ const r = await api('revisado', {canal: t.dataset.revisado, fecha: hoyISO()}); if(!r.ok) throw 0; recargar(); }
@@ -635,7 +690,7 @@ function pintarAcceso(msg){
     entrar(r);
   };
 }
-function aplicar(r){ CONV = r.convocatorias || []; FUENTES = r.fuentes || []; CANALES = r.canales || []; cargado = {c:true, f:true, k:true}; }
+function aplicar(r){ CONV = r.convocatorias || []; FUENTES = r.fuentes || []; CANALES = r.canales || []; ALERTAS = r.alertas || []; AUTO = r.auto || {}; cargado = {c:true, f:true, k:true}; }
 function entrar(r){
   dentro = true;
   document.getElementById('v-acceso').hidden = true;

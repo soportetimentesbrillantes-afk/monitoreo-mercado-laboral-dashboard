@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Bolsa de trabajo · Club de Mentes Brillantes</title>
+<meta name="description" content="Vacantes de las empresas aliadas del Club de Mentes Brillantes. Postúlate con tu CV y haz tu Perfil DISC.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Source+Sans+3:wght@400;600;700&display=swap">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mammoth@1.6.0/mammoth.browser.min.js"></script>
+<style>
+:root{
+  --bg:#faf8f2; --surface:#ffffff; --sunk:#f3efe5; --line:#e7ddc9;
+  --ink:#1f1f1c; --muted:#6b6459; --accent:#8b7440; --accent-soft:#f1ead9; --accent-ink:#ffffff;
+  --ok:#3f7a4a; --ok-bg:#e6f1e7; --warn:#8a5a00; --warn-bg:#fbefd5; --bad:#a1321f; --bad-bg:#f8e1dc;
+  --f-display:"Cormorant Garamond", Georgia, serif;
+  --f-body:"Source Sans 3", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.5;margin:0}
+.wrap{max-width:980px;margin:0 auto;padding:0 20px 60px}
+h1,h2,h3{font-family:var(--f-display);font-weight:700;margin:0}
+h1{font-size:2.3rem} h2{font-size:1.45rem} h3{font-size:1.2rem}
+a{color:var(--accent)}
+.muted{color:var(--muted)} .small{font-size:.86rem}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.logo{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding-top:16px}
+.logo img{height:32px;display:block}
+.logo a{color:var(--muted);font-size:.84rem;font-weight:700;text-decoration:none}
+header.top{padding:22px 0 18px;border-bottom:1px solid var(--line);margin-bottom:20px}
+header .sub{color:var(--muted);max-width:70ch;margin:6px 0 0}
+.banda{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 20px;display:grid;gap:12px;margin-bottom:16px;min-width:0}
+.filtros{display:grid;grid-template-columns:2fr 1fr 1fr;gap:10px}
+.campo{display:grid;gap:4px}
+.campo label{font-size:.82rem;font-weight:600;color:var(--muted)}
+.campo input,.campo select,.campo textarea{width:100%;border:1px solid var(--line);background:var(--bg);border-radius:8px;padding:8px 10px;font:inherit}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.vacante{display:grid;gap:4px;text-decoration:none;color:inherit;border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:var(--surface)}
+.vacante:hover{border-color:var(--accent)}
+.vacante .meta{display:flex;gap:6px;flex-wrap:wrap}
+.pill{display:inline-block;border-radius:999px;padding:2px 10px;font-size:.76rem;font-weight:700;background:var(--sunk);color:var(--muted)}
+.pill.acc{background:var(--accent-soft);color:var(--accent)}
+.btn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:8px 14px;cursor:pointer;font-weight:600;font-size:.92rem;text-decoration:none;color:var(--ink);font-family:inherit}
+.btn.pri{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn:disabled{opacity:.5;cursor:default}
+.acciones{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.aviso{border-radius:10px;padding:10px 14px;background:var(--accent-soft);font-size:.92rem}
+.aviso.warn{background:var(--warn-bg);color:var(--warn)} .aviso.bad{background:var(--bad-bg);color:var(--bad)} .aviso.ok{background:var(--ok-bg);color:var(--ok)}
+.texto{white-space:pre-line}
+.acepto{display:flex;gap:10px;align-items:flex-start;font-size:.9rem}
+.acepto input{width:20px;height:20px;flex:none;margin-top:2px;accent-color:var(--accent)}
+.lista{display:grid;gap:10px}
+@media (max-width:700px){ .filtros,.grid2{grid-template-columns:1fr} h1{font-size:1.9rem} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="logo"><a href="https://www.clubmentesbrillantes.com.mx/index.html" aria-label="Club de Mentes Brillantes"><img src="logo-cmb.svg" alt="Club de Mentes Brillantes"></a>
+    <span class="acciones"><a href="cv-builder.html">Arma tu CV →</a><a href="index.html">Tu CV frente al mercado →</a><a href="empleador.html">¿Eres empresa?</a></span></div>
+  <header class="top">
+    <h1>Bolsa de trabajo</h1>
+    <p class="sub">Vacantes de las empresas aliadas del Club de Mentes Brillantes. Te postulas con tu CV y después haces tu Perfil DISC, un cuestionario de estilo de trabajo que te llega por correo. La empresa revisa tu CV sin tu nombre ni tus datos de contacto hasta que decide invitarte.</p>
+  </header>
+  <main id="contenido"><div class="banda"><p class="muted">Cargando vacantes…</p></div></main>
+</div>
+<script src="bolsa.js"></script>
+<script>
+/* =====================================================================
+   Bolsa de trabajo — lado del postulante
+   Lee las vacantes abiertas del Apps Script de la bolsa (bolsa.js) y manda
+   la postulación: datos, texto del CV (se lee en el navegador) y la casilla
+   de consentimiento. El Apps Script le manda por correo el enlace a su
+   Perfil DISC (disc-agora.html?postulacion=…).
+   ===================================================================== */
+const esc = BOLSA.esc, $ = s => document.querySelector(s);
+let VACS = null, error = '', filtro = {q: '', ciudad: '', modalidad: ''}, cvTexto = '', cvOrigen = '', enviado = null;
+const sesion = (() => { try{ const s = JSON.parse(localStorage.getItem('cmb_sesion') || 'null'); return s && s.usuario ? s.usuario : null; }catch(e){ return null; } })();
+const norm = s => String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+const fechaLeg = s => { const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(s || ''); return m ? new Date(+m[1], +m[2] - 1, +m[3]).toLocaleDateString('es-MX', {day: 'numeric', month: 'long'}) : ''; };
+
+async function cargar(){
+  if(!BOLSA.activo()){ error = BOLSA.mensaje('sin servicio'); pintar(); return; }
+  let r; try{ r = await BOLSA.api('vacantes'); }catch(e){ r = {ok: false, error: 'red'}; }
+  if(r.ok) VACS = r.vacantes || []; else error = BOLSA.mensaje(r.error);
+  pintar();
+}
+function pintar(){
+  const id = location.hash.slice(1);
+  if(error){ $('#contenido').innerHTML = '<div class="banda"><p class="aviso warn">' + esc(error) + '</p></div>'; return; }
+  if(!VACS) return;
+  const v = id && VACS.find(x => x.id === id);
+  if(id && !v){ $('#contenido').innerHTML = '<div class="banda"><h2>Esta vacante ya no está disponible</h2><p class="muted">Puede que la empresa ya la haya cerrado.</p><a class="btn" href="#">Ver todas las vacantes</a></div>'; return; }
+  v ? pintarVacante(v) : pintarLista();
+  window.scrollTo(0, 0);
+}
+function pintarLista(){
+  const ciudades = [...new Set(VACS.map(v => v.ciudad).filter(Boolean))].sort();
+  const xs = VACS.filter(v => (!filtro.ciudad || v.ciudad === filtro.ciudad) && (!filtro.modalidad || v.modalidad === filtro.modalidad) &&
+    (!filtro.q || norm([v.puesto, v.empresa, v.descripcion, v.requisitos].join(' ')).includes(norm(filtro.q))));
+  $('#contenido').innerHTML = '<div class="banda"><div class="filtros">' +
+      '<div class="campo"><label for="f_q">Buscar</label><input id="f_q" value="' + esc(filtro.q) + '" placeholder="Puesto, empresa o palabra"></div>' +
+      '<div class="campo"><label for="f_ciudad">Ciudad</label><select id="f_ciudad"><option value="">Todas</option>' + ciudades.map(c => '<option' + (filtro.ciudad === c ? ' selected' : '') + '>' + esc(c) + '</option>').join('') + '</select></div>' +
+      '<div class="campo"><label for="f_mod">Modalidad</label><select id="f_mod"><option value="">Todas</option>' + ['Presencial', 'Híbrido', 'Remoto'].map(m => '<option' + (filtro.modalidad === m ? ' selected' : '') + '>' + m + '</option>').join('') + '</select></div></div></div>' +
+    '<h2 style="margin:6px 0 12px">' + xs.length + (xs.length === 1 ? ' vacante' : ' vacantes') + '</h2>' +
+    (xs.length ? '<div class="lista">' + xs.map(v => '<a class="vacante" href="#' + esc(v.id) + '"><h3>' + esc(v.puesto) + '</h3><span class="muted">' + esc(v.empresa) + '</span>' +
+      '<span class="meta">' + [v.ciudad, v.modalidad, v.sueldo].filter(Boolean).map(x => '<span class="pill">' + esc(x) + '</span>').join('') + (v.cierre ? '<span class="pill acc">Hasta el ' + esc(fechaLeg(v.cierre)) + '</span>' : '') + '</span></a>').join('') + '</div>'
+      : '<div class="banda"><p class="muted">' + (VACS.length ? 'Ninguna vacante coincide con tu búsqueda.' : 'Por ahora no hay vacantes abiertas. Vuelve pronto.') + '</p></div>');
+  $('#f_q').oninput = e => { filtro.q = e.target.value; const p = e.target.selectionStart; pintarLista(); const q = $('#f_q'); q.focus(); q.setSelectionRange(p, p); };
+  $('#f_ciudad').onchange = e => { filtro.ciudad = e.target.value; pintarLista(); };
+  $('#f_mod').onchange = e => { filtro.modalidad = e.target.value; pintarLista(); };
+}
+
+function pintarVacante(v){
+  const hecho = enviado && enviado.vacanteId === v.id;
+  $('#contenido').innerHTML = '<p><a href="#">← Todas las vacantes</a></p>' +
+    '<div class="banda"><div><h2>' + esc(v.puesto) + '</h2><p class="muted" style="margin:2px 0 0">' + esc(v.empresa) + '</p></div>' +
+      '<div class="acciones">' + [v.ciudad, v.modalidad, v.sueldo].filter(Boolean).map(x => '<span class="pill">' + esc(x) + '</span>').join('') + (v.cierre ? '<span class="pill acc">Recibe postulaciones hasta el ' + esc(fechaLeg(v.cierre)) + '</span>' : '') + '</div>' +
+      (v.descripcion ? '<div><h3>El puesto</h3><p class="texto">' + esc(v.descripcion) + '</p></div>' : '') +
+      (v.requisitos ? '<div><h3>Requisitos</h3><p class="texto">' + esc(v.requisitos) + '</p></div>' : '') + '</div>' +
+    (hecho ? pasoDisc(enviado) : formulario(v));
+  if(!hecho) conectarForm(v);
+}
+function pasoDisc(r){
+  const enlace = 'disc-agora.html?postulacion=' + encodeURIComponent(r.token);
+  const correo = {enviado: 'Te enviamos a <strong>' + esc(r.correo) + '</strong> el enlace a tu Perfil DISC.', ya: 'Ya habías contestado tu Perfil DISC para esta vacante; la empresa ya lo tiene.',
+    cuota: 'Hoy ya no pudimos mandar más correos, así que usa el botón de abajo.', error: 'No pudimos mandarte el correo, así que usa el botón de abajo.'}[r.correoDisc] || '';
+  return '<div class="banda" id="listo"><h2>' + (r.actualizada ? 'Actualizamos tu postulación' : '¡Listo, te postulaste!') + '</h2>' +
+    '<p>' + correo + '</p>' +
+    (r.correoDisc === 'ya' ? '' : '<p><strong>Siguiente paso: tu Perfil DISC.</strong> Son unos 20 minutos sobre cómo te gusta trabajar. No hay respuestas buenas ni malas y no se usa para descartarte: le ayuda a la empresa a conocerte.</p>' +
+      '<div class="acciones"><a class="btn pri" href="' + esc(enlace) + '">Hacer mi Perfil DISC ahora</a><a class="btn" href="#">Ver más vacantes</a></div>') +
+    '<p class="small muted">La empresa revisa tu CV sin tu nombre ni tus datos de contacto. Si te elige para la siguiente etapa, te escribe al correo que pusiste.</p></div>';
+}
+function formulario(v){
+  const u = sesion || {};
+  return '<form class="banda" id="formPost" novalidate><h2>Postúlate</h2>' +
+    '<div class="grid2"><div class="campo"><label for="p_nombre">Nombre completo</label><input id="p_nombre" autocomplete="name" value="' + esc(u.nombre || '') + '" required></div>' +
+    '<div class="campo"><label for="p_correo">Correo</label><input id="p_correo" type="email" autocomplete="email" value="' + esc(u.correo || '') + '" required></div></div>' +
+    '<div class="grid2"><div class="campo"><label for="p_tel">Teléfono (opcional)</label><input id="p_tel" type="tel" autocomplete="tel"></div>' +
+    '<div class="campo"><label for="p_ciudad">Ciudad donde vives</label><input id="p_ciudad" autocomplete="address-level2"></div></div>' +
+    '<div class="campo"><label for="p_archivo">Tu CV (PDF con texto, Word .docx o .txt)</label><input id="p_archivo" type="file" accept=".pdf,.docx,.txt,.md"></div>' +
+    '<div class="campo"><label for="p_pegar">O pega el texto de tu CV</label><textarea id="p_pegar" rows="6">' + esc(cvOrigen === 'pegado' ? cvTexto : '') + '</textarea></div>' +
+    '<p class="small" id="p_cvmsg">' + (cvOrigen && cvOrigen !== 'pegado' ? 'Leímos ' + esc(cvOrigen) + ' (' + cvTexto.length.toLocaleString('es-MX') + ' caracteres).' : '') + ' ¿No tienes CV? <a href="cv-builder.html" target="_blank" rel="noopener">Ármalo aquí</a>.</p>' +
+    '<label class="acepto"><input type="checkbox" id="p_acepto"><span>Acepto que el Club de Mentes Brillantes guarde mis datos y mi CV para esta postulación y los comparta con <strong>' + esc(v.empresa) + '</strong>. ' +
+      'La empresa ve mi CV sin nombre ni contacto hasta que decida contactarme. Recibiré por correo mi Perfil DISC; si lo contesto, su resultado llega a la empresa como información sobre mi estilo de trabajo, no para descartarme. ' +
+      'Más detalle en el <a href="aviso-privacidad.html" target="_blank" rel="noopener">Aviso de Privacidad</a>.</span></label>' +
+    '<div class="acciones"><button class="btn pri" type="submit" id="p_enviar">Enviar mi postulación</button></div><p class="small" id="p_msg" aria-live="polite"></p></form>';
+}
+function conectarForm(v){
+  $('#p_archivo').onchange = async e => {
+    const f = e.target.files[0]; if(!f) return;
+    const m = $('#p_cvmsg'); m.textContent = 'Leyendo tu CV…';
+    try{ cvTexto = (await BOLSA.textoDeArchivo(f)).trim(); cvOrigen = f.name;
+      m.textContent = cvTexto.length < 80 ? 'Casi no encontramos texto en ' + f.name + '. Si es un PDF escaneado, pega el texto abajo.' : 'Leímos ' + f.name + ' (' + cvTexto.length.toLocaleString('es-MX') + ' caracteres).';
+    }catch(er){ cvTexto = ''; cvOrigen = ''; m.textContent = 'No pudimos leer el archivo: ' + (er.message || 'error') + '.'; }
+  };
+  $('#p_pegar').oninput = e => { if(e.target.value.trim()){ cvTexto = e.target.value.trim(); cvOrigen = 'pegado'; } };
+  $('#formPost').onsubmit = async ev => {
+    ev.preventDefault();
+    const m = $('#p_msg'), nombre = $('#p_nombre').value.trim(), correo = $('#p_correo').value.trim();
+    if(nombre.length < 3) return void (m.textContent = 'Escribe tu nombre completo.');
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(correo)) return void (m.textContent = 'Revisa tu correo: ahí te llega el Perfil DISC.');
+    if(cvTexto.length < 80) return void (m.textContent = 'Sube tu CV o pega su texto.');
+    if(!$('#p_acepto').checked) return void (m.textContent = 'Para postularte necesitas aceptar el aviso.');
+    const b = $('#p_enviar'); b.disabled = true; m.textContent = 'Enviando…';
+    let r; try{ r = await BOLSA.api('postular', {vacanteId: v.id, nombre, correo, telefono: $('#p_tel').value.trim(), ciudad: $('#p_ciudad').value.trim(), cv: cvTexto.slice(0, 30000), acepta: true}); }catch(e){ r = {ok: false, error: 'red'}; }
+    b.disabled = false;
+    if(!r.ok){ m.textContent = BOLSA.mensaje(r.error); return; }
+    enviado = Object.assign({vacanteId: v.id, correo}, r); cvTexto = ''; cvOrigen = '';
+    pintarVacante(v);
+    document.getElementById('listo').scrollIntoView({behavior: 'smooth', block: 'start'});
+  };
+}
+window.addEventListener('hashchange', pintar);
+cargar();
+</script>
+</body>
+</html>
