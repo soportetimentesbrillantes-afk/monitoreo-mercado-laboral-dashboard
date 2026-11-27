@@ -259,7 +259,7 @@ await prueba('el aviso de privacidad cubre las herramientas de autoconocimiento'
   const s = await readFile(join(RAIZ, 'aviso-privacidad.html'), 'utf8');
   cierto(s.includes('Herramientas de autoconocimiento'), 'falta la sección');
   cierto(s.includes('Enviar al Club'), 'debe nombrar el botón');
-  cierto(s.includes('Octubre de 2026'), 'fecha de actualización');
+  cierto(s.includes('Noviembre de 2026'), 'fecha de actualización');
 });
 
 await navegador.close();

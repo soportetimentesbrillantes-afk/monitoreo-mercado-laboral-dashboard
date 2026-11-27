@@ -295,6 +295,16 @@ await prueba('reporte: limpia la salida y pide no cambiar el ranking', async () 
   const d = await (await manejarComparar(pedir({ tipo: 'reporte', rubrica: RUB, categorias: CATS, resumen: 'RANKING: 1. CV-01 con 3 ganados y promedio de 80 puntos sobre 100.' }), env)).json();
   igual(d.ok, true); igual(Object.keys(d.finalistas[0]).sort().join(), 'fortalezas,id,riesgos,validar');
   cierto(enviado.messages[0].content.includes('no los cambies'));
+  cierto(!enviado.messages[0].content.includes('SOLO INFORMATIVO'), 'sin DISC no se habla de estilo');
+});
+
+await prueba('reporte con DISC: pide comentar el estilo sin cambiar el ranking y devuelve "estilo"', async () => {
+  let enviado = null;
+  globalThis.fetch = async (u, op) => { enviado = JSON.parse(op.body); return new Response(JSON.stringify({ content: [{ type: 'text', text: '{"resumen":"Texto","finalistas":[{"id":"CV-01","fortalezas":["a"],"riesgos":[],"validar":[],"estilo":"Encaja con cierres."}],"comparacion":"c","nota_estilo":"No predice.","advertencias":[]}' }] }), { status: 200 }); };
+  const d = await (await manejarComparar(pedir({ tipo: 'reporte', rubrica: RUB, categorias: CATS, resumen: 'RANKING: 1. CV-01 con 3 ganados.\n\nESTILO DE TRABAJO (DISC; SOLO INFORMATIVO):\n- CV-01: estilo Dominancia' }), env)).json();
+  igual(d.finalistas[0].estilo, 'Encaja con cierres.'); igual(d.nota_estilo, 'No predice.');
+  const m = enviado.messages[0].content;
+  cierto(m.includes('SOLO INFORMATIVO') && m.includes('no cambia el ranking') && m.includes('no sirve para descartar'));
 });
 
 if (errores.length) fallaron += errores.length;

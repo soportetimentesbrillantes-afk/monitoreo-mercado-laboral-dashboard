@@ -10,6 +10,67 @@ después.
 corrigió un error, describe también cómo se detectó — eso es lo que evita
 repetirlo.
 
+## 2026-11-27 — Bolsa de trabajo: página del empleador y del postulante
+
+Gael pidió dos páginas: una para el empleador, como Comparación de CVs, donde
+los CVs lleguen solos conforme la gente se postula y cada uno traiga su
+Perfil DISC para ayudar a la IA a ver si el estilo de trabajo va con el
+puesto; y otra para el postulante, con las vacantes, para postularse con su
+CV y recibir por correo el DISC.
+
+**Decisiones de Gael** (se le preguntó antes de construir): el DISC es **solo
+informativo** —la IA lo comenta en el reporte, pero no entra a los duelos ni
+cambia el ranking— porque el documento de método y los creadores del DiSC
+desaconsejan usarlo para elegir; y cada empresa entra con una **clave** que
+da de alta el Club.
+
+- **vacantes.html** (nuevo): vacantes abiertas con búsqueda, ciudad y
+  modalidad; detalle y formulario (nombre, correo, teléfono, ciudad, CV en
+  PDF/Word/texto leído en el navegador, casilla de consentimiento que nombra
+  a la empresa). Al enviar, el Apps Script manda el correo con el enlace al
+  DISC y la página ofrece hacerlo ahí mismo. Quien ya tiene sesión en su
+  cuenta llega con nombre y correo puestos.
+- **empleador.html + empleador.js** (nuevos): la empresa entra con su clave,
+  ve sus vacantes (postulaciones y cuántas con DISC) y abre una. Sigue el
+  mismo flujo de Comparación de CVs, con tres cambios: en el paso 1, lo que
+  ve el postulante, el estado y «Publicar» (avisa si los requisitos piden
+  edad, sexo, estado civil o «buena presentación», LFT art. 133); en el
+  paso 2, las postulaciones llegan solas cada minuto, con el nombre oculto, y
+  se puede reenviar el correo del DISC; en el paso 5, «Contactar a los
+  finalistas» pide el contacto aparte y queda registrado.
+- **comparar-cvs.js**: modo empleador por ganchos (`CMB_COMPARAR_MODO`) para
+  no tener dos copias del flujo. Los CVs pueden traer `disc`: se ve como
+  etiqueta en la lista, una columna «Estilo (informativo)» en el filtro y
+  otra en el ranking. El resumen que va a la IA para el reporte termina con
+  «ESTILO DE TRABAJO … SOLO INFORMATIVO». Los duelos siguen recibiendo solo
+  el texto del CV. La página suelta funciona igual que antes.
+- **worker-comparar.js**: si el resumen trae estilos, el reporte agrega
+  `estilo` por finalista (qué del puesto encaja y qué apoyo le ayudaría, sin
+  juzgar si «sirve») y `nota_estilo`. Se volvió a armar `worker-ia.js`: hay
+  que pegarlo de nuevo en `cmb-ia`.
+- **postulacion-disc.js** (nuevo) en `disc-agora.html?postulacion=<token>`:
+  dice para qué vacante es y, al terminar, «Enviar a la empresa» manda el
+  resultado (puntajes, dominante, lectura y respuestas). Nada sale sin tocar
+  el botón.
+- **cuentas/apps-script-bolsa.gs** (nuevo), hoja propia con Empresas,
+  Vacantes y Postulaciones. Claves solo como hash con pimienta; menú «Bolsa
+  del Club» para dar de alta empresas y cambiar claves. La empresa nunca
+  recibe correo ni teléfono con las postulaciones; cada empresa ve solo lo
+  suyo; volver a postularse a la misma vacante actualiza el CV.
+- **Aviso de privacidad**: párrafo «Bolsa de trabajo».
+
+**Para activarlo:** instalar el Apps Script y poner su URL en `bolsa.js`
+(pasos en `cuentas/LEEME-bolsa.md`), dar de alta las empresas y volver a pegar
+`worker-ia.js`. Mientras `URL_BOLSA` esté vacía, las dos páginas dicen que la
+bolsa todavía no está conectada.
+
+Pruebas: `cuentas/pruebas/test_bolsa.mjs` (8) y una más en
+`test_comparar_cvs.mjs` (14): el reporte con DISC pide comentar el estilo sin
+cambiar el ranking. **Error de ayer detectado al correr las suites:**
+`test_compartir.mjs` revisaba que el aviso de privacidad dijera «Octubre de
+2026»; al actualizarlo a noviembre (entrada del 2026-11-26) dejó de pasar y no
+se corrió después del cambio. Ya revisa la fecha nueva.
+
 ## 2026-11-26 — DISC y FODA en la cuenta, y centro de control
 
 Gael pidió que el DISC y el FODA hechos sueltos se guarden en la cuenta de

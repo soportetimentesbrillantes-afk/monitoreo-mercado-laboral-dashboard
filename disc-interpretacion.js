@@ -531,6 +531,7 @@ function pintarResultado(contenedor, p, opciones){
       '<div id="cursosSugeridos"><p class="note">Buscando en el catálogo del Club…</p></div>' +
     '</div>' +
 
+    '<div id="postulacionDisc" class="no-imprimir"></div>' +
     '<div id="cuentaDisc" class="no-imprimir"></div>' +
     '<div id="compartirDisc"></div>' +
 
@@ -581,6 +582,11 @@ function pintarResultado(contenedor, p, opciones){
         };
       }
     });
+  }
+  // Llegó desde una postulación de la bolsa de trabajo (postulacion-disc.js).
+  if(typeof POSTULACION_DISC !== 'undefined' && POSTULACION_DISC && o.compartir){
+    const lectura = plano ? 'parejo' : (empate ? 'empate' : 'dominante claro');
+    POSTULACION_DISC.pintar(contenedor.querySelector('#postulacionDisc'), () => Object.assign({lectura, dominante: dom, segundo: seg}, o.compartir.datos()));
   }
   if(o.alRepetir) contenedor.querySelector('#btnRepetir').onclick = o.alRepetir;
   if(o.alBorrar)  contenedor.querySelector('#btnBorrarDisc').onclick = o.alBorrar;
