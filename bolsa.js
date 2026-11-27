@@ -8,7 +8,8 @@
    (localhost) no se usa la URL real, salvo en pruebas.
    ===================================================================== */
 const BOLSA = (function(){
-const URL_BOLSA = '';
+// Aplicación web "Bolsa de trabajo del Club", publicada por la cuenta del Club (2026-11-27).
+const URL_BOLSA = 'https://script.google.com/macros/s/AKfycbyQVoD87w5ZzJUYKxsKy0lbYZKFCBrtqML9-Rbp0yp26sa3qVro6uK-ob1vhYo8cqQ0Fg/exec';
 const LOCAL = typeof location !== 'undefined' && /^(localhost|127\.0\.0\.1)$/.test(location.hostname);
 const ENDPOINT = (typeof window !== 'undefined' && window.__CMB_BOLSA_PRUEBA) || (LOCAL ? '' : URL_BOLSA);
 

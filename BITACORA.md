@@ -10,6 +10,15 @@ después.
 corrigió un error, describe también cómo se detectó — eso es lo que evita
 repetirlo.
 
+## 2026-11-27 — Bolsa de trabajo conectada
+
+Gael publicó el Apps Script de la bolsa como aplicación web y pasó su URL; ya
+está en `bolsa.js` (`URL_BOLSA`). No se pudo probar desde la sesión de Claude
+(su red no llega a script.google.com). Falta dar de alta las empresas desde
+el menú «Bolsa del Club» de la hoja y volver a pegar `worker-ia.js` en
+`cmb-ia`. Las pruebas siguen usando su servidor falso: en localhost la URL
+real no se usa.
+
 ## 2026-11-27 — Bolsa de trabajo: página del empleador y del postulante
 
 Gael pidió dos páginas: una para el empleador, como Comparación de CVs, donde
